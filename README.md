@@ -47,4 +47,4 @@ https://www.bilibili.com/video/BV1wE421A7KE
 
 ## 2-5.精致睡眠
 
-发送＃精致睡眠或者#jjsm，如果bot是管理，会自动将你禁言8小时
+发送＃精致睡眠或者#jjsm，如果bot是管理，会自动将你禁言8h
