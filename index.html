@@ -14,6 +14,25 @@
             padding: 20px;
             background-color: #f8f9fa;
         }
+        #lyrics {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3b0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #refresh-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #refresh-btn:hover {
+            background-color: #5a4fcf;
+        }
         h1 { color: #2d3436; }
         h2 { color: #6c5ce7; border-left: 5px solid #a8a4e6; padding-left: 10px; }
         code { background-color: #ffeaa7; padding: 2px 5px; border-radius: 3px; }
@@ -22,58 +41,7 @@
     </style>
 </head>
 <body>
-    <h1>🎵 随机歌词抽取</h1>
-    <div id="lyrics">加载中，请稍候...</div>
-    <button id="refresh-btn">换一句歌词</button>
 
-    <script>
-        // GitHub仓库信息
-        const owner = "Sczr0"; // 仓库所有者
-        const repo = "ylyrics"; // 仓库名称
-        const path = ""; // 歌词文件路径（根目录为空）
-
-        // 获取歌词文件的函数
-        async function fetchRandomLyric() {
-            try {
-                // 1. 获取仓库文件列表
-                const filesResponse = await fetch(
-                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}`
-                );
-                const files = await filesResponse.json();
-
-                // 2. 过滤出.txt文件
-                const txtFiles = files.filter(file => file.name.endsWith('.txt'));
-
-                if (txtFiles.length === 0) {
-                    throw new Error("没有找到歌词文件！");
-                }
-
-                // 3. 随机选择一个文件
-                const randomFile = txtFiles[Math.floor(Math.random() * txtFiles.length)];
-                const fileResponse = await fetch(randomFile.download_url);
-                const fileContent = await fileResponse.text();
-
-                // 4. 随机抽取一行歌词
-                const lines = fileContent.split('\n').filter(line => line.trim() !== "");
-                if (lines.length === 0) {
-                    throw new Error("文件内容为空！");
-                }
-                const randomLine = lines[Math.floor(Math.random() * lines.length)];
-
-                // 5. 显示歌词
-                document.getElementById("lyrics").innerText = randomLine;
-            } catch (error) {
-                console.error("出错啦：", error);
-                document.getElementById("lyrics").innerText = "加载失败，请稍后再试～";
-            }
-        }
-
-        // 页面加载时获取歌词
-        window.onload = fetchRandomLyric;
-
-        // 点击按钮刷新歌词
-        document.getElementById("refresh-btn").addEventListener("click", fetchRandomLyric);
-    </script>
     <h1>🎮 欢迎来到「塔弦」空间站</h1>
     <p>主人QQ：<code>1932161680</code> | <a href="output.html" target="_blank">📊 Phigros FC AP率全铺面统计</a></p>
 
@@ -110,5 +78,74 @@
         <h3>🎭 喜报/悲报生成器</h3>
         <p>用<code>喜报</code>或<code>悲报</code>开头发送内容，自动生成图片</p>
     </section>
+    <div id="lyrics">加载中，请稍候...</div>
+    <button id="refresh-btn">换一句歌词</button>
+
+    <script>
+        // GitHub仓库配置
+        const config = {
+            owner: "Sczr0",
+            repo: "yllyrics",
+            branch: "main",
+            path: ""
+        }
+
+        // 自动获取文件列表
+        async function getLyricFiles() {
+            try {
+                // 1. 获取仓库目录结构
+                const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
+                const response = await fetch(apiUrl);
+                const files = await response.json();
+
+                // 2. 过滤出.txt文件
+                return files
+                    .filter(file => file.name.endsWith('.txt'))
+                    .map(file => file.path);
+
+            } catch (error) {
+                console.error("获取文件列表失败：", error);
+                return [];
+            }
+        }
+
+        // 随机歌词获取函数
+        async function fetchRandomLyric() {
+            try {
+                // 1. 获取文件列表
+                const lyricFiles = await getLyricFiles();
+                if (lyricFiles.length === 0) {
+                    throw new Error("仓库中没有歌词文件");
+                }
+
+                // 2. 随机选择文件
+                const randomFile = lyricFiles[Math.floor(Math.random() * lyricFiles.length)];
+                
+                // 3. 获取文件内容
+                const rawUrl = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${randomFile}`;
+                const fileResponse = await fetch(rawUrl);
+                const fileContent = await fileResponse.text();
+
+                // 4. 随机选择一行
+                const lines = fileContent.split('\n').filter(line => line.trim() !== "");
+                const randomLine = lines[Math.floor(Math.random() * lines.length)];
+
+                // 5. 显示结果
+                document.getElementById("lyrics").innerHTML = `
+                    ${randomLine}
+                    <div style="margin-top: 10px; font-size: 0.8em; color: #666;">
+                        来源：${randomFile.split('/').pop()}
+                    </div>
+                `;
+            } catch (error) {
+                console.error("出错啦：", error);
+                document.getElementById("lyrics").innerText = "🎵 歌词加载失败，请刷新试试～";
+            }
+        }
+
+        // 初始化
+        window.onload = fetchRandomLyric;
+        document.getElementById("refresh-btn").addEventListener("click", fetchRandomLyric);
+    </script>
 </body>
 </html>
