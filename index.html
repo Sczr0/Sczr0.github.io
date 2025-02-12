@@ -84,68 +84,117 @@
     <script>
         // GitHub仓库配置
         const config = {
-            owner: "Sczr0",
-            repo: "yllyrics",
-            branch: "main",
-            path: ""
-        }
+  proxyBase: "https://ctower.xtower.site", // 自定义代理域名
+  repoInfo: {
+    owner: "Sczr0",
+    repo: "bingolyrics",
+    branch: "main"
+  }
+}
 
-        // 自动获取文件列表
-        async function getLyricFiles() {
-            try {
-                // 1. 获取仓库目录结构
-                const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
-                const response = await fetch(apiUrl);
-                const files = await response.json();
+// 自动获取文件列表（通过代理）
+async function getLyricFiles() {
+  try {
+    // 通过代理获取目录结构
+    const response = await fetch(`${config.proxyBase}/contents/`);
+    if (!response.ok) {
+      throw new Error(`代理服务错误: ${response.status}`);
+    }
+    const files = await response.json();
+    
+    // 过滤.txt文件并提取路径
+    return files
+      .filter(file => file.type === "file" && file.name.endsWith('.txt'))
+      .map(file => file.path);
+  } catch (error) {
+    console.error("获取文件列表失败：", error);
+    showError("曲库连接异常，请稍后重试 🎵");
+    return [];
+  }
+}
 
-                // 2. 过滤出.txt文件
-                return files
-                    .filter(file => file.name.endsWith('.txt'))
-                    .map(file => file.path);
+// 完整版随机歌词获取
+async function fetchRandomLyric() {
+  try {
+    showLoading();
 
-            } catch (error) {
-                console.error("获取文件列表失败：", error);
-                return [];
-            }
-        }
+    const lyricFiles = await getLyricFiles();
+    if (lyricFiles.length === 0) {
+      throw new Error("没有找到歌词文件");
+    }
 
-        // 随机歌词获取函数
-        async function fetchRandomLyric() {
-            try {
-                // 1. 获取文件列表
-                const lyricFiles = await getLyricFiles();
-                if (lyricFiles.length === 0) {
-                    throw new Error("仓库中没有歌词文件");
-                }
+    const randomIndex = Math.floor(Math.random() * lyricFiles.length);
+    const selectedFile = lyricFiles[randomIndex];
 
-                // 2. 随机选择文件
-                const randomFile = lyricFiles[Math.floor(Math.random() * lyricFiles.length)];
-                
-                // 3. 获取文件内容
-                const rawUrl = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${randomFile}`;
-                const fileResponse = await fetch(rawUrl);
-                const fileContent = await fileResponse.text();
+    const fileResponse = await fetch(`${config.proxyBase}/file/${selectedFile}`);
+    if (!fileResponse.ok) {
+      throw new Error(`文件获取失败: ${fileResponse.status}`);
+    }
+    const fileContent = await fileResponse.text();
 
-                // 4. 随机选择一行
-                const lines = fileContent.split('\n').filter(line => line.trim() !== "");
-                const randomLine = lines[Math.floor(Math.random() * lines.length)];
+    const lines = fileContent
+      .split('\n')
+      .filter(line => line.trim().length > 0);
 
-                // 5. 显示结果
-                document.getElementById("lyrics").innerHTML = `
-                    ${randomLine}
-                    <div style="margin-top: 10px; font-size: 0.8em; color: #666;">
-                        来源：${randomFile.split('/').pop()}
-                    </div>
-                `;
-            } catch (error) {
-                console.error("出错啦：", error);
-                document.getElementById("lyrics").innerText = "🎵 歌词加载失败，请刷新试试～";
-            }
-        }
+    if (lines.length === 0) {
+      throw new Error("空歌词文件");
+    }
 
-        // 初始化
-        window.onload = fetchRandomLyric;
-        document.getElementById("refresh-btn").addEventListener("click", fetchRandomLyric);
+    const randomLine = lines[Math.floor(Math.random() * lines.length)];
+    
+    // 新的显示方式
+    document.getElementById("lyrics").innerHTML = `
+      ${randomLine}
+      <div style="margin-top: 10px; font-size: 0.8em; color: #666;">
+        来源：${selectedFile.split('/').pop()}
+      </div>
+    `;
+
+  } catch (error) {
+    console.error("歌词加载失败：", error);
+    document.getElementById("lyrics").innerText = "🎵 歌词加载失败，请刷新试试～";
+  } finally {
+    hideLoading();
+  }
+}
+
+function showLyric(text, filename) {
+  document.getElementById("lyrics").innerHTML = `
+    <div class="lyric-container">
+      <div class="lyric-content">${text}</div>
+      <div class="lyric-source">源自：${filename.split('/').pop()}</div>
+    </div>
+  `;
+}
+
+// 辅助函数
+function showLoading() {
+  document.getElementById("lyrics").innerHTML = `
+    <div class="loader"></div>
+    <p style="text-align: center;">Towering...</p>
+  `;
+}
+
+function hideLoading() {
+  // 可添加加载完成动画
+}
+
+function showError(msg) {
+  document.getElementById("lyrics").innerHTML = `
+    <div class="error-box">
+      <i class="fas fa-exclamation-triangle"></i>
+      ${msg}
+    </div>
+  `;
+}
+
+// 初始化
+window.addEventListener('load', () => {
+  fetchRandomLyric();
+  document.getElementById("refresh-btn").addEventListener('click', () => {
+    fetchRandomLyric();
+  });
+});
     </script>
 </body>
 </html>
