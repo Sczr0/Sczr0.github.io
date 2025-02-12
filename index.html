@@ -92,23 +92,38 @@
   }
 }
 
-// 自动获取文件列表（通过代理）
+// 获取文件列表（带缓存）
 async function getLyricFiles() {
-  try {
-    // 通过代理获取目录结构
-    const response = await fetch(`${config.proxyBase}/contents/`);
-    if (!response.ok) {
-      throw new Error(`代理服务错误: ${response.status}`);
+  const CACHE_KEY = 'lyric_files_cache';
+  const CACHE_TTL = 3600 * 1000; // 1小时
+
+  // 尝试从缓存读取
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const { timestamp, data } = JSON.parse(cached);
+    if (Date.now() - timestamp < CACHE_TTL) {
+      return data;
     }
+  }
+
+  // 缓存失效，重新请求
+  try {
+    const response = await fetch(`${config.proxyBase}/contents/`);
     const files = await response.json();
     
-    // 过滤.txt文件并提取路径
-    return files
-      .filter(file => file.type === "file" && file.name.endsWith('.txt'))
-      .map(file => file.path);
+    // 过滤并存储到缓存
+    const validFiles = files.filter(file => 
+      file.type === "file" && file.name.endsWith('.txt')
+    ).map(file => file.path);
+
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      timestamp: Date.now(),
+      data: validFiles
+    }));
+
+    return validFiles;
   } catch (error) {
     console.error("获取文件列表失败：", error);
-    showError("曲库连接异常，请稍后重试 🎵");
     return [];
   }
 }
