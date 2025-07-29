@@ -57,8 +57,8 @@
              border-radius: 0.25rem;
              padding: 0.375rem 0.75rem;
         }
-        .positive-diff { color: #dc3545; font-weight: bold; } /* 红色表示虚低 (拟合 > 官方) */
-        .negative-diff { color: #28a745; font-weight: bold; } /* 绿色表示虚高 (拟合 < 官方) */
+        .positive-diff { color: #dc3545; font-weight: bold; } /* 红色表示虚低 (调整后 > 官方) */
+        .negative-diff { color: #28a745; font-weight: bold; } /* 绿色表示虚高 (调整后 < 官方) */
 
         /* 表格容器增加滚动条 */
         .table-container {
@@ -85,9 +85,9 @@
 </head>
 <body>
 
-    <h1>谱面定数拟合报告 v2025.5.4</h1>
-    <p>基于玩家实际表现数据拟合的谱面拟合定数与官方定数的对比。</p>
-    <p>请注意，拟合定数仅供参考，实际的体感定数还是要取决于个人情况awa</p>
+    <h1>谱面定数拟合报告 v2025.7.29 </h1>
+    <p>基于玩家实际表现数据，结合官方定数和样本量进行调整后的谱面拟合定数。</p>
+    <p>调整公式倾向于在样本量低时使结果靠近官方定数，样本量高时靠近模型预测。</p>
 
     <div class="table-container">
         <table border="1" class="dataframe display compact hover" id="reportTable">
@@ -96,7 +96,7 @@
       <th>歌曲 ID</th>
       <th>难度等级</th>
       <th>官方定数</th>
-      <th>拟合定数</th>
+      <th>拟合定数 (调整后)</th>
       <th>拟合定数与官方定数的差值</th>
       <th>成绩样本数</th>
     </tr>
@@ -106,1433 +106,1457 @@
       <td>996.李化禹</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.18</td>
-      <td>0.18</td>
-      <td>892.0</td>
+      <td>4.01</td>
+      <td>0.01</td>
+      <td>859.0</td>
     </tr>
     <tr>
       <td>996.李化禹</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.30</td>
-      <td>-0.10</td>
-      <td>1825.0</td>
+      <td>9.36</td>
+      <td>-0.04</td>
+      <td>1750.0</td>
     </tr>
     <tr>
       <td>996.李化禹</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>15.34</td>
-      <td>0.64</td>
-      <td>4395.0</td>
+      <td>14.91</td>
+      <td>0.21</td>
+      <td>4249.0</td>
     </tr>
     <tr>
       <td>ATHAZA.LeaF</td>
       <td>EZ</td>
       <td>8.1</td>
-      <td>7.98</td>
-      <td>-0.12</td>
-      <td>456.0</td>
+      <td>8.08</td>
+      <td>-0.02</td>
+      <td>446.0</td>
     </tr>
     <tr>
       <td>ATHAZA.LeaF</td>
       <td>HD</td>
       <td>12.9</td>
-      <td>10.13</td>
-      <td>-2.77</td>
-      <td>1052.0</td>
+      <td>12.56</td>
+      <td>-0.34</td>
+      <td>1050.0</td>
     </tr>
     <tr>
       <td>ATHAZA.LeaF</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.48</td>
-      <td>-0.22</td>
-      <td>4550.0</td>
+      <td>15.62</td>
+      <td>-0.08</td>
+      <td>4402.0</td>
     </tr>
     <tr>
       <td>ATHAZA.LeaF</td>
       <td>AT</td>
       <td>16.6</td>
-      <td>16.68</td>
-      <td>0.08</td>
-      <td>3730.0</td>
+      <td>16.66</td>
+      <td>0.06</td>
+      <td>3661.0</td>
     </tr>
     <tr>
       <td>AbsoluTedisoRdeR.AcuteDisarray</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.59</td>
-      <td>0.09</td>
-      <td>139.0</td>
+      <td>6.53</td>
+      <td>0.03</td>
+      <td>186.0</td>
     </tr>
     <tr>
       <td>AbsoluTedisoRdeR.AcuteDisarray</td>
       <td>HD</td>
       <td>12.3</td>
-      <td>12.17</td>
-      <td>-0.13</td>
-      <td>719.0</td>
+      <td>12.29</td>
+      <td>-0.01</td>
+      <td>850.0</td>
     </tr>
     <tr>
       <td>AbsoluTedisoRdeR.AcuteDisarray</td>
       <td>IN</td>
       <td>16.2</td>
-      <td>16.00</td>
-      <td>-0.20</td>
-      <td>3646.0</td>
+      <td>16.07</td>
+      <td>-0.13</td>
+      <td>3813.0</td>
     </tr>
     <tr>
       <td>AbsoluTedisoRdeR.AcuteDisarray</td>
       <td>AT</td>
       <td>17.2</td>
-      <td>16.05</td>
-      <td>-1.15</td>
-      <td>2594.0</td>
+      <td>17.20</td>
+      <td>-0.00</td>
+      <td>2832.0</td>
     </tr>
     <tr>
       <td>Adastraperaspera.RabbitHouse</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.24</td>
-      <td>-0.26</td>
-      <td>583.0</td>
+      <td>6.46</td>
+      <td>-0.04</td>
+      <td>571.0</td>
     </tr>
     <tr>
       <td>Adastraperaspera.RabbitHouse</td>
       <td>HD</td>
       <td>12.1</td>
-      <td>12.13</td>
-      <td>0.03</td>
-      <td>2444.0</td>
+      <td>12.11</td>
+      <td>0.01</td>
+      <td>2362.0</td>
     </tr>
     <tr>
       <td>Adastraperaspera.RabbitHouse</td>
       <td>IN</td>
       <td>16.3</td>
-      <td>16.12</td>
-      <td>-0.18</td>
-      <td>4471.0</td>
+      <td>16.22</td>
+      <td>-0.08</td>
+      <td>4357.0</td>
     </tr>
     <tr>
       <td>AfterDawn.S9ryne</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.31</td>
-      <td>0.31</td>
-      <td>781.0</td>
+      <td>3.04</td>
+      <td>0.04</td>
+      <td>764.0</td>
     </tr>
     <tr>
       <td>AfterDawn.S9ryne</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.22</td>
-      <td>-0.18</td>
-      <td>2376.0</td>
+      <td>10.38</td>
+      <td>-0.02</td>
+      <td>2282.0</td>
     </tr>
     <tr>
       <td>AfterDawn.S9ryne</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.45</td>
-      <td>0.15</td>
-      <td>4701.0</td>
+      <td>15.44</td>
+      <td>0.14</td>
+      <td>4542.0</td>
     </tr>
     <tr>
       <td>Ajourneytothemoonlight.Yesod</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.60</td>
-      <td>0.10</td>
-      <td>450.0</td>
+      <td>4.51</td>
+      <td>0.01</td>
+      <td>443.0</td>
     </tr>
     <tr>
       <td>Ajourneytothemoonlight.Yesod</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.62</td>
-      <td>-0.08</td>
-      <td>2023.0</td>
+      <td>10.67</td>
+      <td>-0.03</td>
+      <td>1946.0</td>
     </tr>
     <tr>
       <td>Ajourneytothemoonlight.Yesod</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.70</td>
-      <td>0.20</td>
-      <td>3783.0</td>
+      <td>14.50</td>
+      <td>0.00</td>
+      <td>3682.0</td>
     </tr>
     <tr>
       <td>Aleph0.LeaF</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.95</td>
-      <td>0.45</td>
-      <td>653.0</td>
+      <td>3.54</td>
+      <td>0.04</td>
+      <td>643.0</td>
     </tr>
     <tr>
       <td>Aleph0.LeaF</td>
       <td>HD</td>
       <td>12.2</td>
-      <td>11.97</td>
-      <td>-0.23</td>
-      <td>1731.0</td>
+      <td>12.17</td>
+      <td>-0.03</td>
+      <td>1683.0</td>
     </tr>
     <tr>
       <td>Aleph0.LeaF</td>
       <td>IN</td>
       <td>16.0</td>
-      <td>15.95</td>
-      <td>-0.05</td>
-      <td>4582.0</td>
+      <td>16.03</td>
+      <td>0.03</td>
+      <td>4449.0</td>
+    </tr>
+    <tr>
+      <td>Aliceinaxxxxxxxx.Nagiha</td>
+      <td>EZ</td>
+      <td>5.0</td>
+      <td>5.01</td>
+      <td>0.01</td>
+      <td>126.0</td>
+    </tr>
+    <tr>
+      <td>Aliceinaxxxxxxxx.Nagiha</td>
+      <td>HD</td>
+      <td>9.7</td>
+      <td>9.68</td>
+      <td>-0.02</td>
+      <td>174.0</td>
+    </tr>
+    <tr>
+      <td>Aliceinaxxxxxxxx.Nagiha</td>
+      <td>IN</td>
+      <td>15.7</td>
+      <td>15.64</td>
+      <td>-0.06</td>
+      <td>2657.0</td>
     </tr>
     <tr>
       <td>AnotherMe.DAAN</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.91</td>
-      <td>-0.09</td>
-      <td>763.0</td>
+      <td>5.02</td>
+      <td>0.02</td>
+      <td>756.0</td>
     </tr>
     <tr>
       <td>AnotherMe.DAAN</td>
       <td>HD</td>
       <td>9.8</td>
-      <td>9.87</td>
-      <td>0.07</td>
-      <td>2528.0</td>
+      <td>9.81</td>
+      <td>0.01</td>
+      <td>2423.0</td>
     </tr>
     <tr>
       <td>AnotherMe.DAAN</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.75</td>
-      <td>0.15</td>
-      <td>4721.0</td>
+      <td>15.69</td>
+      <td>0.09</td>
+      <td>4563.0</td>
     </tr>
     <tr>
       <td>AnotherMe.NeutralMoon</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.35</td>
-      <td>-0.15</td>
-      <td>1241.0</td>
+      <td>5.45</td>
+      <td>-0.05</td>
+      <td>1204.0</td>
     </tr>
     <tr>
       <td>AnotherMe.NeutralMoon</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>9.23</td>
-      <td>-0.07</td>
-      <td>2235.0</td>
+      <td>9.33</td>
+      <td>0.03</td>
+      <td>2144.0</td>
     </tr>
     <tr>
       <td>AnotherMe.NeutralMoon</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>13.58</td>
-      <td>-0.02</td>
-      <td>4756.0</td>
+      <td>13.81</td>
+      <td>0.21</td>
+      <td>4574.0</td>
     </tr>
     <tr>
       <td>AnotherRound.JustinDai</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.81</td>
-      <td>0.31</td>
-      <td>459.0</td>
+      <td>2.49</td>
+      <td>-0.01</td>
+      <td>443.0</td>
     </tr>
     <tr>
       <td>AnotherRound.JustinDai</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>10.25</td>
-      <td>0.65</td>
-      <td>335.0</td>
+      <td>9.57</td>
+      <td>-0.03</td>
+      <td>329.0</td>
     </tr>
     <tr>
       <td>AnotherRound.JustinDai</td>
       <td>IN</td>
       <td>13.3</td>
-      <td>13.21</td>
-      <td>-0.09</td>
-      <td>1913.0</td>
+      <td>13.32</td>
+      <td>0.02</td>
+      <td>1885.0</td>
     </tr>
     <tr>
       <td>Antithese.Blacklolita</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>3.68</td>
-      <td>-0.82</td>
-      <td>324.0</td>
+      <td>4.47</td>
+      <td>-0.02</td>
+      <td>322.0</td>
     </tr>
     <tr>
       <td>Antithese.Blacklolita</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>10.81</td>
-      <td>0.01</td>
-      <td>696.0</td>
+      <td>10.80</td>
+      <td>0.00</td>
+      <td>683.0</td>
     </tr>
     <tr>
       <td>Antithese.Blacklolita</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.64</td>
-      <td>0.24</td>
-      <td>4548.0</td>
+      <td>15.55</td>
+      <td>0.15</td>
+      <td>4398.0</td>
     </tr>
     <tr>
       <td>Antithese.Blacklolita</td>
       <td>AT</td>
       <td>16.4</td>
-      <td>16.33</td>
-      <td>-0.07</td>
-      <td>3620.0</td>
+      <td>16.37</td>
+      <td>-0.03</td>
+      <td>3577.0</td>
     </tr>
     <tr>
       <td>Aphasia.闫东炜</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.01</td>
-      <td>0.01</td>
-      <td>596.0</td>
+      <td>3.84</td>
+      <td>-0.16</td>
+      <td>569.0</td>
     </tr>
     <tr>
       <td>Aphasia.闫东炜</td>
       <td>HD</td>
       <td>8.8</td>
-      <td>8.67</td>
-      <td>-0.13</td>
-      <td>905.0</td>
+      <td>8.80</td>
+      <td>-0.00</td>
+      <td>870.0</td>
     </tr>
     <tr>
       <td>Aphasia.闫东炜</td>
       <td>IN</td>
       <td>13.3</td>
-      <td>13.19</td>
-      <td>-0.11</td>
-      <td>3146.0</td>
+      <td>13.27</td>
+      <td>-0.03</td>
+      <td>3037.0</td>
     </tr>
     <tr>
       <td>AphroditesChildshortver.RUQOA</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.20</td>
-      <td>0.70</td>
-      <td>94.0</td>
+      <td>3.51</td>
+      <td>0.01</td>
+      <td>149.0</td>
     </tr>
     <tr>
       <td>AphroditesChildshortver.RUQOA</td>
       <td>HD</td>
       <td>8.1</td>
-      <td>8.40</td>
-      <td>0.30</td>
-      <td>97.0</td>
+      <td>8.12</td>
+      <td>0.02</td>
+      <td>149.0</td>
     </tr>
     <tr>
       <td>AphroditesChildshortver.RUQOA</td>
       <td>IN</td>
       <td>13.3</td>
-      <td>13.27</td>
-      <td>-0.03</td>
-      <td>3104.0</td>
+      <td>13.36</td>
+      <td>0.06</td>
+      <td>3707.0</td>
     </tr>
     <tr>
       <td>Apocalypse.アリスシャッハと魔法の楽団</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.05</td>
-      <td>0.05</td>
-      <td>849.0</td>
+      <td>3.97</td>
+      <td>-0.03</td>
+      <td>826.0</td>
     </tr>
     <tr>
       <td>Apocalypse.アリスシャッハと魔法の楽団</td>
       <td>HD</td>
       <td>8.6</td>
-      <td>8.89</td>
-      <td>0.29</td>
-      <td>2155.0</td>
+      <td>8.64</td>
+      <td>0.04</td>
+      <td>2069.0</td>
     </tr>
     <tr>
       <td>Apocalypse.アリスシャッハと魔法の楽団</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.48</td>
-      <td>-0.02</td>
-      <td>4886.0</td>
+      <td>13.58</td>
+      <td>0.08</td>
+      <td>4700.0</td>
     </tr>
     <tr>
       <td>Apocalyptic.ZClaxxSumaiLight</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.25</td>
-      <td>0.25</td>
-      <td>469.0</td>
+      <td>3.03</td>
+      <td>0.03</td>
+      <td>454.0</td>
     </tr>
     <tr>
       <td>Apocalyptic.ZClaxxSumaiLight</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>9.57</td>
-      <td>-0.03</td>
-      <td>402.0</td>
+      <td>9.40</td>
+      <td>-0.20</td>
+      <td>394.0</td>
     </tr>
     <tr>
       <td>Apocalyptic.ZClaxxSumaiLight</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>13.93</td>
-      <td>0.13</td>
-      <td>2419.0</td>
+      <td>13.82</td>
+      <td>0.02</td>
+      <td>2381.0</td>
     </tr>
     <tr>
       <td>Ark.kanoryo</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.71</td>
-      <td>1.21</td>
-      <td>752.0</td>
+      <td>3.55</td>
+      <td>0.05</td>
+      <td>732.0</td>
     </tr>
     <tr>
       <td>Ark.kanoryo</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>9.60</td>
-      <td>0.10</td>
-      <td>2372.0</td>
+      <td>9.52</td>
+      <td>0.02</td>
+      <td>2270.0</td>
     </tr>
     <tr>
       <td>Ark.kanoryo</td>
       <td>IN</td>
       <td>15.0</td>
-      <td>14.93</td>
-      <td>-0.07</td>
-      <td>4911.0</td>
+      <td>15.03</td>
+      <td>0.03</td>
+      <td>4727.0</td>
     </tr>
     <tr>
       <td>Ark.kanoryo</td>
       <td>AT</td>
       <td>16.5</td>
-      <td>16.18</td>
-      <td>-0.32</td>
-      <td>3564.0</td>
+      <td>16.37</td>
+      <td>-0.13</td>
+      <td>3532.0</td>
     </tr>
     <tr>
       <td>Arkhei.SeraAmagi</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.33</td>
-      <td>-0.17</td>
-      <td>259.0</td>
+      <td>7.47</td>
+      <td>-0.03</td>
+      <td>262.0</td>
     </tr>
     <tr>
       <td>Arkhei.SeraAmagi</td>
       <td>HD</td>
       <td>8.8</td>
-      <td>8.90</td>
-      <td>0.10</td>
-      <td>332.0</td>
+      <td>8.80</td>
+      <td>0.00</td>
+      <td>327.0</td>
     </tr>
     <tr>
       <td>Arkhei.SeraAmagi</td>
       <td>IN</td>
       <td>12.6</td>
-      <td>12.51</td>
-      <td>-0.09</td>
-      <td>2162.0</td>
+      <td>12.59</td>
+      <td>-0.01</td>
+      <td>2130.0</td>
     </tr>
     <tr>
       <td>ArtificialExistence.JunKuroda</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.64</td>
-      <td>0.14</td>
-      <td>463.0</td>
+      <td>3.52</td>
+      <td>0.02</td>
+      <td>451.0</td>
     </tr>
     <tr>
       <td>ArtificialExistence.JunKuroda</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>9.41</td>
-      <td>0.11</td>
-      <td>1155.0</td>
+      <td>9.33</td>
+      <td>0.03</td>
+      <td>1115.0</td>
     </tr>
     <tr>
       <td>ArtificialExistence.JunKuroda</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.80</td>
-      <td>0.10</td>
-      <td>4675.0</td>
+      <td>14.62</td>
+      <td>-0.08</td>
+      <td>4529.0</td>
     </tr>
     <tr>
       <td>Aventyr.GrandThawRigelTheatre</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.66</td>
-      <td>0.16</td>
-      <td>459.0</td>
+      <td>3.55</td>
+      <td>0.05</td>
+      <td>442.0</td>
     </tr>
     <tr>
       <td>Aventyr.GrandThawRigelTheatre</td>
       <td>HD</td>
       <td>9.7</td>
-      <td>9.64</td>
-      <td>-0.06</td>
-      <td>455.0</td>
+      <td>9.65</td>
+      <td>-0.05</td>
+      <td>444.0</td>
     </tr>
     <tr>
       <td>Aventyr.GrandThawRigelTheatre</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.81</td>
-      <td>0.11</td>
-      <td>2294.0</td>
+      <td>13.75</td>
+      <td>0.05</td>
+      <td>2255.0</td>
     </tr>
     <tr>
       <td>BRAINHACKER.SOMON</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.45</td>
-      <td>-0.05</td>
-      <td>295.0</td>
+      <td>4.51</td>
+      <td>0.01</td>
+      <td>289.0</td>
     </tr>
     <tr>
       <td>BRAINHACKER.SOMON</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>9.33</td>
-      <td>0.03</td>
-      <td>377.0</td>
+      <td>9.31</td>
+      <td>0.01</td>
+      <td>370.0</td>
     </tr>
     <tr>
       <td>BRAINHACKER.SOMON</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.44</td>
-      <td>-0.36</td>
-      <td>2836.0</td>
+      <td>14.72</td>
+      <td>-0.08</td>
+      <td>2778.0</td>
     </tr>
     <tr>
       <td>BelieveLightfeat果丸哒呦.ScalerMestie果丸哒呦</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.25</td>
-      <td>-0.25</td>
-      <td>684.0</td>
+      <td>2.53</td>
+      <td>0.03</td>
+      <td>653.0</td>
     </tr>
     <tr>
       <td>BelieveLightfeat果丸哒呦.ScalerMestie果丸哒呦</td>
       <td>HD</td>
       <td>8.9</td>
-      <td>8.89</td>
-      <td>-0.01</td>
-      <td>663.0</td>
+      <td>8.86</td>
+      <td>-0.04</td>
+      <td>633.0</td>
     </tr>
     <tr>
       <td>BelieveLightfeat果丸哒呦.ScalerMestie果丸哒呦</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>15.34</td>
-      <td>0.84</td>
-      <td>3421.0</td>
+      <td>14.60</td>
+      <td>0.10</td>
+      <td>3336.0</td>
     </tr>
     <tr>
       <td>BetterGraphicAnimation.ルゼ</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>4.50</td>
-      <td>-1.50</td>
-      <td>547.0</td>
+      <td>6.01</td>
+      <td>0.01</td>
+      <td>546.0</td>
     </tr>
     <tr>
       <td>BetterGraphicAnimation.ルゼ</td>
       <td>HD</td>
       <td>11.1</td>
-      <td>11.36</td>
-      <td>0.26</td>
-      <td>1161.0</td>
+      <td>11.09</td>
+      <td>-0.01</td>
+      <td>1128.0</td>
     </tr>
     <tr>
       <td>BetterGraphicAnimation.ルゼ</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.33</td>
-      <td>0.03</td>
-      <td>4593.0</td>
+      <td>15.25</td>
+      <td>-0.05</td>
+      <td>4435.0</td>
     </tr>
     <tr>
       <td>Bitterblossom.imvi</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.49</td>
-      <td>-0.01</td>
-      <td>414.0</td>
+      <td>2.50</td>
+      <td>-0.00</td>
+      <td>405.0</td>
     </tr>
     <tr>
       <td>Bitterblossom.imvi</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>9.59</td>
-      <td>0.09</td>
-      <td>330.0</td>
+      <td>9.52</td>
+      <td>0.02</td>
+      <td>326.0</td>
     </tr>
     <tr>
       <td>Bitterblossom.imvi</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.19</td>
-      <td>-0.31</td>
-      <td>2519.0</td>
+      <td>13.48</td>
+      <td>-0.02</td>
+      <td>2452.0</td>
     </tr>
     <tr>
       <td>Bloom.targ麻团qwq</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.55</td>
-      <td>0.05</td>
-      <td>363.0</td>
+      <td>3.67</td>
+      <td>0.17</td>
+      <td>355.0</td>
     </tr>
     <tr>
       <td>Bloom.targ麻团qwq</td>
       <td>HD</td>
       <td>11.2</td>
-      <td>11.24</td>
-      <td>0.04</td>
-      <td>474.0</td>
+      <td>10.97</td>
+      <td>-0.23</td>
+      <td>467.0</td>
     </tr>
     <tr>
       <td>Bloom.targ麻团qwq</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>14.85</td>
-      <td>-0.05</td>
-      <td>3129.0</td>
+      <td>14.93</td>
+      <td>0.03</td>
+      <td>3063.0</td>
     </tr>
     <tr>
       <td>BonusTime.MegaloPaleWhite</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.05</td>
-      <td>0.55</td>
-      <td>460.0</td>
+      <td>3.54</td>
+      <td>0.04</td>
+      <td>449.0</td>
     </tr>
     <tr>
       <td>BonusTime.MegaloPaleWhite</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>9.86</td>
-      <td>0.36</td>
-      <td>551.0</td>
+      <td>9.51</td>
+      <td>0.01</td>
+      <td>533.0</td>
     </tr>
     <tr>
       <td>BonusTime.MegaloPaleWhite</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>13.31</td>
-      <td>-0.49</td>
-      <td>4413.0</td>
+      <td>13.24</td>
+      <td>-0.56</td>
+      <td>4240.0</td>
     </tr>
     <tr>
       <td>Bougainvillea.Jade</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.32</td>
-      <td>0.32</td>
-      <td>318.0</td>
+      <td>3.99</td>
+      <td>-0.01</td>
+      <td>314.0</td>
     </tr>
     <tr>
       <td>Bougainvillea.Jade</td>
       <td>HD</td>
       <td>8.3</td>
-      <td>8.09</td>
-      <td>-0.21</td>
-      <td>405.0</td>
+      <td>8.27</td>
+      <td>-0.03</td>
+      <td>398.0</td>
     </tr>
     <tr>
       <td>Bougainvillea.Jade</td>
       <td>IN</td>
       <td>13.2</td>
-      <td>12.78</td>
-      <td>-0.42</td>
-      <td>2282.0</td>
+      <td>13.16</td>
+      <td>-0.04</td>
+      <td>2239.0</td>
     </tr>
     <tr>
       <td>BoundedQuietude.FiniteLimitvsSiLiS</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.68</td>
-      <td>-0.32</td>
-      <td>1140.0</td>
+      <td>6.95</td>
+      <td>-0.05</td>
+      <td>1110.0</td>
     </tr>
     <tr>
       <td>BoundedQuietude.FiniteLimitvsSiLiS</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.25</td>
-      <td>-0.25</td>
-      <td>805.0</td>
+      <td>7.02</td>
+      <td>-0.48</td>
+      <td>787.0</td>
     </tr>
     <tr>
       <td>BoundedQuietude.FiniteLimitvsSiLiS</td>
       <td>IN</td>
       <td>16.2</td>
-      <td>16.11</td>
-      <td>-0.09</td>
-      <td>4585.0</td>
+      <td>16.16</td>
+      <td>-0.04</td>
+      <td>4441.0</td>
     </tr>
     <tr>
       <td>BraveNotes.TurquoiseDRIVENota</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.42</td>
-      <td>-0.08</td>
-      <td>299.0</td>
+      <td>5.49</td>
+      <td>-0.01</td>
+      <td>296.0</td>
     </tr>
     <tr>
       <td>BraveNotes.TurquoiseDRIVENota</td>
       <td>HD</td>
       <td>11.4</td>
-      <td>8.30</td>
-      <td>-3.10</td>
-      <td>561.0</td>
+      <td>11.30</td>
+      <td>-0.10</td>
+      <td>557.0</td>
     </tr>
     <tr>
       <td>BraveNotes.TurquoiseDRIVENota</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.62</td>
-      <td>0.02</td>
-      <td>3155.0</td>
+      <td>14.59</td>
+      <td>-0.01</td>
+      <td>3102.0</td>
     </tr>
     <tr>
       <td>BreakOver.Kforest</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.06</td>
-      <td>0.06</td>
-      <td>660.0</td>
+      <td>4.97</td>
+      <td>-0.03</td>
+      <td>639.0</td>
     </tr>
     <tr>
       <td>BreakOver.Kforest</td>
       <td>HD</td>
       <td>11.5</td>
-      <td>11.66</td>
-      <td>0.16</td>
-      <td>1423.0</td>
+      <td>11.53</td>
+      <td>0.03</td>
+      <td>1371.0</td>
     </tr>
     <tr>
       <td>BreakOver.Kforest</td>
       <td>IN</td>
       <td>14.1</td>
-      <td>14.20</td>
-      <td>0.10</td>
-      <td>4575.0</td>
+      <td>14.12</td>
+      <td>0.02</td>
+      <td>4400.0</td>
     </tr>
     <tr>
       <td>BreakOver.Kforest</td>
       <td>AT</td>
       <td>14.9</td>
-      <td>15.07</td>
-      <td>0.17</td>
-      <td>4157.0</td>
+      <td>15.01</td>
+      <td>0.11</td>
+      <td>4010.0</td>
     </tr>
     <tr>
       <td>BreakThroughTheBarrier.lixound</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.40</td>
-      <td>-0.10</td>
-      <td>873.0</td>
+      <td>5.50</td>
+      <td>0.00</td>
+      <td>854.0</td>
     </tr>
     <tr>
       <td>BreakThroughTheBarrier.lixound</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>9.53</td>
-      <td>0.03</td>
-      <td>2600.0</td>
+      <td>9.56</td>
+      <td>0.06</td>
+      <td>2502.0</td>
     </tr>
     <tr>
       <td>BreakThroughTheBarrier.lixound</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.64</td>
-      <td>0.14</td>
-      <td>4390.0</td>
+      <td>14.58</td>
+      <td>0.08</td>
+      <td>4251.0</td>
     </tr>
     <tr>
       <td>BrokenSky.JungoMAX3feat刘佳宜Snow幻影刃shadow</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.07</td>
-      <td>0.07</td>
-      <td>354.0</td>
+      <td>2.98</td>
+      <td>-0.02</td>
+      <td>359.0</td>
     </tr>
     <tr>
       <td>BrokenSky.JungoMAX3feat刘佳宜Snow幻影刃shadow</td>
       <td>HD</td>
       <td>8.6</td>
-      <td>8.19</td>
-      <td>-0.41</td>
-      <td>473.0</td>
+      <td>8.61</td>
+      <td>0.01</td>
+      <td>469.0</td>
     </tr>
     <tr>
       <td>BrokenSky.JungoMAX3feat刘佳宜Snow幻影刃shadow</td>
       <td>IN</td>
       <td>13.2</td>
-      <td>13.78</td>
-      <td>0.58</td>
-      <td>2810.0</td>
+      <td>13.26</td>
+      <td>0.06</td>
+      <td>2742.0</td>
     </tr>
     <tr>
       <td>Burn.NceS</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.74</td>
-      <td>-0.26</td>
-      <td>553.0</td>
+      <td>6.95</td>
+      <td>-0.05</td>
+      <td>540.0</td>
     </tr>
     <tr>
       <td>Burn.NceS</td>
       <td>HD</td>
       <td>11.2</td>
-      <td>11.27</td>
-      <td>0.07</td>
-      <td>1012.0</td>
+      <td>11.19</td>
+      <td>-0.01</td>
+      <td>993.0</td>
     </tr>
     <tr>
       <td>Burn.NceS</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>14.92</td>
-      <td>-0.28</td>
-      <td>4172.0</td>
+      <td>14.98</td>
+      <td>-0.22</td>
+      <td>4084.0</td>
     </tr>
     <tr>
       <td>CROSSSOUL.HyuNfeatSyepias</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>8.77</td>
-      <td>1.27</td>
-      <td>820.0</td>
+      <td>7.52</td>
+      <td>0.02</td>
+      <td>794.0</td>
     </tr>
     <tr>
       <td>CROSSSOUL.HyuNfeatSyepias</td>
       <td>HD</td>
       <td>12.6</td>
-      <td>12.69</td>
-      <td>0.09</td>
-      <td>2414.0</td>
+      <td>12.60</td>
+      <td>0.00</td>
+      <td>2327.0</td>
     </tr>
     <tr>
       <td>CROSSSOUL.HyuNfeatSyepias</td>
       <td>IN</td>
       <td>16.4</td>
-      <td>16.18</td>
-      <td>-0.22</td>
-      <td>4499.0</td>
+      <td>16.33</td>
+      <td>-0.07</td>
+      <td>4385.0</td>
     </tr>
     <tr>
       <td>Cereris.SunsetRayNceS</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.37</td>
-      <td>-0.13</td>
-      <td>1941.0</td>
+      <td>5.48</td>
+      <td>-0.02</td>
+      <td>1864.0</td>
     </tr>
     <tr>
       <td>Cereris.SunsetRayNceS</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.78</td>
-      <td>-0.12</td>
-      <td>2884.0</td>
+      <td>10.86</td>
+      <td>-0.04</td>
+      <td>2769.0</td>
     </tr>
     <tr>
       <td>Cereris.SunsetRayNceS</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.62</td>
-      <td>-0.08</td>
-      <td>4009.0</td>
+      <td>14.51</td>
+      <td>-0.19</td>
+      <td>3870.0</td>
     </tr>
     <tr>
       <td>CervelleConnexion.SCTL</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.10</td>
-      <td>0.10</td>
-      <td>248.0</td>
+      <td>5.07</td>
+      <td>0.07</td>
+      <td>246.0</td>
     </tr>
     <tr>
       <td>CervelleConnexion.SCTL</td>
       <td>HD</td>
       <td>11.3</td>
-      <td>10.99</td>
-      <td>-0.31</td>
-      <td>353.0</td>
+      <td>11.28</td>
+      <td>-0.02</td>
+      <td>352.0</td>
     </tr>
     <tr>
       <td>CervelleConnexion.SCTL</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>13.89</td>
-      <td>-0.61</td>
-      <td>2374.0</td>
+      <td>14.45</td>
+      <td>-0.05</td>
+      <td>2362.0</td>
     </tr>
     <tr>
       <td>Chronologika.Hundotte</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>8.35</td>
-      <td>4.85</td>
-      <td>1671.0</td>
+      <td>3.58</td>
+      <td>0.08</td>
+      <td>1589.0</td>
     </tr>
     <tr>
       <td>Chronologika.Hundotte</td>
       <td>HD</td>
       <td>9.8</td>
-      <td>9.75</td>
-      <td>-0.05</td>
-      <td>3181.0</td>
+      <td>9.79</td>
+      <td>-0.01</td>
+      <td>3041.0</td>
     </tr>
     <tr>
       <td>Chronologika.Hundotte</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>13.99</td>
-      <td>0.19</td>
-      <td>4834.0</td>
+      <td>13.90</td>
+      <td>0.10</td>
+      <td>4638.0</td>
     </tr>
     <tr>
       <td>Chronomia.Lime</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.76</td>
-      <td>0.26</td>
-      <td>2118.0</td>
+      <td>4.52</td>
+      <td>0.02</td>
+      <td>2019.0</td>
     </tr>
     <tr>
       <td>Chronomia.Lime</td>
       <td>HD</td>
       <td>11.1</td>
-      <td>11.20</td>
-      <td>0.10</td>
-      <td>3701.0</td>
+      <td>11.10</td>
+      <td>0.00</td>
+      <td>3542.0</td>
     </tr>
     <tr>
       <td>Chronomia.Lime</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.46</td>
-      <td>0.06</td>
-      <td>4979.0</td>
+      <td>15.42</td>
+      <td>0.02</td>
+      <td>4792.0</td>
     </tr>
     <tr>
       <td>ChronosCollapseLaCampanella.SunsetRay</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.68</td>
-      <td>0.18</td>
-      <td>2202.0</td>
+      <td>4.54</td>
+      <td>0.04</td>
+      <td>2096.0</td>
     </tr>
     <tr>
       <td>ChronosCollapseLaCampanella.SunsetRay</td>
       <td>HD</td>
       <td>12.3</td>
-      <td>12.28</td>
-      <td>-0.02</td>
-      <td>4061.0</td>
+      <td>12.22</td>
+      <td>-0.08</td>
+      <td>3893.0</td>
     </tr>
     <tr>
       <td>ChronosCollapseLaCampanella.SunsetRay</td>
       <td>IN</td>
       <td>16.3</td>
-      <td>15.83</td>
-      <td>-0.47</td>
-      <td>4946.0</td>
+      <td>16.12</td>
+      <td>-0.18</td>
+      <td>4759.0</td>
     </tr>
     <tr>
       <td>Chronostasis.黒皇帝</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.60</td>
-      <td>-0.40</td>
-      <td>898.0</td>
+      <td>5.98</td>
+      <td>-0.02</td>
+      <td>878.0</td>
     </tr>
     <tr>
       <td>Chronostasis.黒皇帝</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>9.38</td>
-      <td>-1.32</td>
-      <td>2754.0</td>
+      <td>10.68</td>
+      <td>-0.02</td>
+      <td>2650.0</td>
     </tr>
     <tr>
       <td>Chronostasis.黒皇帝</td>
       <td>IN</td>
       <td>16.0</td>
-      <td>15.95</td>
-      <td>-0.05</td>
-      <td>4750.0</td>
+      <td>15.99</td>
+      <td>-0.01</td>
+      <td>4580.0</td>
     </tr>
     <tr>
       <td>Cipher20.TetrajectoryfeatCtymax</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.08</td>
-      <td>0.08</td>
-      <td>1800.0</td>
+      <td>5.01</td>
+      <td>0.01</td>
+      <td>1731.0</td>
     </tr>
     <tr>
       <td>Cipher20.TetrajectoryfeatCtymax</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>10.00</td>
-      <td>-0.30</td>
-      <td>2258.0</td>
+      <td>10.25</td>
+      <td>-0.05</td>
+      <td>2164.0</td>
     </tr>
     <tr>
       <td>Cipher20.TetrajectoryfeatCtymax</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.45</td>
-      <td>0.05</td>
-      <td>3849.0</td>
+      <td>14.39</td>
+      <td>-0.01</td>
+      <td>3715.0</td>
     </tr>
     <tr>
       <td>ClassMemories.AntistarfeatCtymax</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.96</td>
-      <td>-0.04</td>
-      <td>1931.0</td>
+      <td>5.98</td>
+      <td>-0.02</td>
+      <td>1848.0</td>
     </tr>
     <tr>
       <td>ClassMemories.AntistarfeatCtymax</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>10.47</td>
-      <td>-0.33</td>
-      <td>3209.0</td>
+      <td>10.76</td>
+      <td>-0.04</td>
+      <td>3076.0</td>
     </tr>
     <tr>
       <td>ClassMemories.AntistarfeatCtymax</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>13.97</td>
-      <td>0.17</td>
-      <td>4601.0</td>
+      <td>13.89</td>
+      <td>0.09</td>
+      <td>4437.0</td>
     </tr>
     <tr>
       <td>ClockParadox.WyvernP</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>2.08</td>
-      <td>0.08</td>
-      <td>1930.0</td>
+      <td>2.01</td>
+      <td>0.01</td>
+      <td>1842.0</td>
     </tr>
     <tr>
       <td>ClockParadox.WyvernP</td>
       <td>HD</td>
       <td>6.0</td>
-      <td>6.24</td>
-      <td>0.24</td>
-      <td>3332.0</td>
+      <td>6.05</td>
+      <td>0.05</td>
+      <td>3187.0</td>
     </tr>
     <tr>
       <td>ClockParadox.WyvernP</td>
       <td>IN</td>
       <td>12.5</td>
-      <td>12.72</td>
-      <td>0.22</td>
-      <td>5030.0</td>
+      <td>12.68</td>
+      <td>0.18</td>
+      <td>4828.0</td>
     </tr>
     <tr>
       <td>ColorfulDays.P4koofeatつゆり花鈴</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.96</td>
-      <td>-0.04</td>
-      <td>1827.0</td>
+      <td>5.00</td>
+      <td>0.00</td>
+      <td>1758.0</td>
     </tr>
     <tr>
       <td>ColorfulDays.P4koofeatつゆり花鈴</td>
       <td>HD</td>
       <td>7.0</td>
-      <td>7.31</td>
-      <td>0.31</td>
-      <td>3454.0</td>
+      <td>7.08</td>
+      <td>0.08</td>
+      <td>3304.0</td>
     </tr>
     <tr>
       <td>ColorfulDays.P4koofeatつゆり花鈴</td>
       <td>IN</td>
       <td>12.7</td>
-      <td>12.95</td>
-      <td>0.25</td>
-      <td>4452.0</td>
+      <td>13.14</td>
+      <td>0.44</td>
+      <td>4299.0</td>
     </tr>
     <tr>
       <td>CometFeat符白牙.CNHKSS</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>2.97</td>
-      <td>-0.03</td>
-      <td>247.0</td>
+      <td>3.17</td>
+      <td>0.17</td>
+      <td>245.0</td>
     </tr>
     <tr>
       <td>CometFeat符白牙.CNHKSS</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.55</td>
-      <td>0.05</td>
+      <td>10.49</td>
+      <td>-0.01</td>
       <td>229.0</td>
     </tr>
     <tr>
       <td>CometFeat符白牙.CNHKSS</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.68</td>
-      <td>-0.02</td>
-      <td>2489.0</td>
+      <td>13.76</td>
+      <td>0.06</td>
+      <td>2425.0</td>
     </tr>
     <tr>
       <td>ComputeItWithSomeDevilishAlcoholicSteampunkEngines.かめりあ</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>6.70</td>
-      <td>1.20</td>
-      <td>478.0</td>
+      <td>5.51</td>
+      <td>0.01</td>
+      <td>464.0</td>
     </tr>
     <tr>
       <td>ComputeItWithSomeDevilishAlcoholicSteampunkEngines.かめりあ</td>
       <td>HD</td>
       <td>10.6</td>
-      <td>10.60</td>
-      <td>-0.00</td>
-      <td>1827.0</td>
+      <td>10.59</td>
+      <td>-0.01</td>
+      <td>1751.0</td>
     </tr>
     <tr>
       <td>ComputeItWithSomeDevilishAlcoholicSteampunkEngines.かめりあ</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>15.62</td>
-      <td>-0.18</td>
-      <td>4674.0</td>
+      <td>15.78</td>
+      <td>-0.02</td>
+      <td>4527.0</td>
     </tr>
     <tr>
       <td>Concvssion.Halv</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>6.05</td>
-      <td>0.05</td>
-      <td>362.0</td>
+      <td>6.00</td>
+      <td>0.00</td>
+      <td>357.0</td>
     </tr>
     <tr>
       <td>Concvssion.Halv</td>
       <td>HD</td>
       <td>11.3</td>
-      <td>11.41</td>
-      <td>0.11</td>
-      <td>700.0</td>
+      <td>11.33</td>
+      <td>0.03</td>
+      <td>686.0</td>
     </tr>
     <tr>
       <td>Concvssion.Halv</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.78</td>
-      <td>0.18</td>
-      <td>4345.0</td>
+      <td>15.72</td>
+      <td>0.12</td>
+      <td>4262.0</td>
     </tr>
     <tr>
       <td>CraveWave.LandRoot</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.70</td>
-      <td>0.20</td>
-      <td>1454.0</td>
+      <td>2.55</td>
+      <td>0.05</td>
+      <td>1390.0</td>
     </tr>
     <tr>
       <td>CraveWave.LandRoot</td>
       <td>HD</td>
       <td>8.0</td>
-      <td>8.24</td>
-      <td>0.24</td>
-      <td>2466.0</td>
+      <td>8.02</td>
+      <td>0.02</td>
+      <td>2350.0</td>
     </tr>
     <tr>
       <td>CraveWave.LandRoot</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>14.16</td>
-      <td>0.46</td>
-      <td>4907.0</td>
+      <td>14.04</td>
+      <td>0.34</td>
+      <td>4707.0</td>
     </tr>
     <tr>
       <td>Credits.Frums</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.27</td>
-      <td>-0.23</td>
-      <td>2290.0</td>
+      <td>4.45</td>
+      <td>-0.05</td>
+      <td>2192.0</td>
     </tr>
     <tr>
       <td>Credits.Frums</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.27</td>
-      <td>-0.13</td>
-      <td>2827.0</td>
+      <td>10.39</td>
+      <td>-0.01</td>
+      <td>2717.0</td>
     </tr>
     <tr>
       <td>Credits.Frums</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>13.52</td>
-      <td>-0.08</td>
-      <td>4638.0</td>
+      <td>13.67</td>
+      <td>0.07</td>
+      <td>4461.0</td>
     </tr>
     <tr>
       <td>Credits.Frums</td>
       <td>AT</td>
       <td>15.7</td>
-      <td>15.88</td>
-      <td>0.18</td>
-      <td>3604.0</td>
+      <td>15.79</td>
+      <td>0.09</td>
+      <td>3508.0</td>
     </tr>
     <tr>
       <td>CrushBETA.shadow_bling</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.94</td>
-      <td>-0.06</td>
-      <td>421.0</td>
+      <td>3.99</td>
+      <td>-0.01</td>
+      <td>409.0</td>
     </tr>
     <tr>
       <td>CrushBETA.shadow_bling</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.33</td>
-      <td>-0.17</td>
-      <td>817.0</td>
+      <td>10.49</td>
+      <td>-0.01</td>
+      <td>784.0</td>
     </tr>
     <tr>
       <td>CrushBETA.shadow_bling</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>15.21</td>
-      <td>0.01</td>
-      <td>4572.0</td>
+      <td>15.16</td>
+      <td>-0.04</td>
+      <td>4404.0</td>
     </tr>
     <tr>
       <td>Cthugha.USAO</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.70</td>
-      <td>-0.30</td>
-      <td>1271.0</td>
+      <td>5.97</td>
+      <td>-0.03</td>
+      <td>1246.0</td>
     </tr>
     <tr>
       <td>Cthugha.USAO</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.95</td>
-      <td>0.55</td>
-      <td>2863.0</td>
+      <td>10.43</td>
+      <td>0.03</td>
+      <td>2756.0</td>
     </tr>
     <tr>
       <td>Cthugha.USAO</td>
       <td>IN</td>
       <td>16.0</td>
-      <td>15.93</td>
-      <td>-0.07</td>
-      <td>4810.0</td>
+      <td>15.99</td>
+      <td>-0.01</td>
+      <td>4661.0</td>
     </tr>
     <tr>
       <td>Cthugha.USAO</td>
       <td>AT</td>
       <td>16.1</td>
-      <td>16.13</td>
-      <td>0.03</td>
-      <td>4218.0</td>
+      <td>16.04</td>
+      <td>-0.06</td>
+      <td>4147.0</td>
     </tr>
     <tr>
       <td>Cuvism.Fl00tvsHalv</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.17</td>
-      <td>0.17</td>
-      <td>530.0</td>
+      <td>2.99</td>
+      <td>-0.01</td>
+      <td>516.0</td>
     </tr>
     <tr>
       <td>Cuvism.Fl00tvsHalv</td>
       <td>HD</td>
       <td>12.2</td>
-      <td>12.09</td>
-      <td>-0.11</td>
-      <td>1103.0</td>
+      <td>12.14</td>
+      <td>-0.06</td>
+      <td>1081.0</td>
     </tr>
     <tr>
       <td>Cuvism.Fl00tvsHalv</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>14.15</td>
-      <td>0.25</td>
-      <td>4916.0</td>
+      <td>14.10</td>
+      <td>0.20</td>
+      <td>4735.0</td>
     </tr>
     <tr>
       <td>Cuvism.Fl00tvsHalv</td>
       <td>AT</td>
       <td>16.8</td>
-      <td>16.76</td>
-      <td>-0.04</td>
-      <td>3630.0</td>
+      <td>16.77</td>
+      <td>-0.03</td>
+      <td>3584.0</td>
     </tr>
     <tr>
       <td>DESTRUCTION321.Normal1zervsBrokenNerdz</td>
       <td>EZ</td>
       <td>8.5</td>
-      <td>8.47</td>
-      <td>-0.03</td>
-      <td>2138.0</td>
+      <td>8.51</td>
+      <td>0.01</td>
+      <td>2055.0</td>
     </tr>
     <tr>
       <td>DESTRUCTION321.Normal1zervsBrokenNerdz</td>
       <td>HD</td>
       <td>13.1</td>
-      <td>12.97</td>
-      <td>-0.13</td>
-      <td>3550.0</td>
+      <td>13.12</td>
+      <td>0.02</td>
+      <td>3402.0</td>
     </tr>
     <tr>
       <td>DESTRUCTION321.Normal1zervsBrokenNerdz</td>
       <td>IN</td>
       <td>16.3</td>
-      <td>16.06</td>
-      <td>-0.24</td>
-      <td>4993.0</td>
+      <td>16.18</td>
+      <td>-0.12</td>
+      <td>4794.0</td>
     </tr>
     <tr>
       <td>DESTRUCTION321.Normal1zervsBrokenNerdz</td>
       <td>AT</td>
       <td>17.3</td>
-      <td>17.20</td>
-      <td>-0.10</td>
-      <td>4018.0</td>
+      <td>17.26</td>
+      <td>-0.04</td>
+      <td>3942.0</td>
     </tr>
     <tr>
       <td>DancewithSilence.かめりあ</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.50</td>
-      <td>-0.50</td>
-      <td>692.0</td>
+      <td>6.90</td>
+      <td>-0.10</td>
+      <td>664.0</td>
     </tr>
     <tr>
       <td>DancewithSilence.かめりあ</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.90</td>
-      <td>0.00</td>
-      <td>1729.0</td>
+      <td>10.91</td>
+      <td>0.01</td>
+      <td>1657.0</td>
     </tr>
     <tr>
       <td>DancewithSilence.かめりあ</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>15.34</td>
-      <td>0.14</td>
-      <td>4844.0</td>
+      <td>15.38</td>
+      <td>0.18</td>
+      <td>4677.0</td>
     </tr>
     <tr>
       <td>Dash.小红Akane李祥辉</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.16</td>
-      <td>-0.34</td>
-      <td>619.0</td>
+      <td>2.49</td>
+      <td>-0.01</td>
+      <td>596.0</td>
     </tr>
     <tr>
       <td>Dash.小红Akane李祥辉</td>
       <td>HD</td>
       <td>5.5</td>
-      <td>5.36</td>
-      <td>-0.14</td>
-      <td>683.0</td>
+      <td>5.46</td>
+      <td>-0.04</td>
+      <td>669.0</td>
     </tr>
     <tr>
       <td>Dash.小红Akane李祥辉</td>
       <td>IN</td>
       <td>9.7</td>
-      <td>9.64</td>
-      <td>-0.06</td>
-      <td>2492.0</td>
+      <td>9.71</td>
+      <td>0.01</td>
+      <td>2439.0</td>
     </tr>
     <tr>
       <td>DataErr0r.Cosmograph</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.90</td>
-      <td>-0.10</td>
-      <td>1326.0</td>
+      <td>5.96</td>
+      <td>-0.04</td>
+      <td>1316.0</td>
     </tr>
     <tr>
       <td>DataErr0r.Cosmograph</td>
       <td>HD</td>
       <td>11.8</td>
-      <td>11.65</td>
-      <td>-0.15</td>
-      <td>647.0</td>
+      <td>11.80</td>
+      <td>-0.00</td>
+      <td>642.0</td>
     </tr>
     <tr>
       <td>DataErr0r.Cosmograph</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.57</td>
-      <td>-0.03</td>
-      <td>3301.0</td>
+      <td>14.54</td>
+      <td>-0.06</td>
+      <td>3226.0</td>
     </tr>
     <tr>
       <td>DeadSoul.SoundSouler</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>5.88</td>
-      <td>1.38</td>
-      <td>397.0</td>
+      <td>4.54</td>
+      <td>0.04</td>
+      <td>386.0</td>
     </tr>
     <tr>
       <td>DeadSoul.SoundSouler</td>
       <td>HD</td>
       <td>12.0</td>
-      <td>11.91</td>
-      <td>-0.09</td>
-      <td>719.0</td>
+      <td>11.98</td>
+      <td>-0.02</td>
+      <td>688.0</td>
     </tr>
     <tr>
       <td>DeadSoul.SoundSouler</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.67</td>
-      <td>0.27</td>
-      <td>2924.0</td>
+      <td>14.41</td>
+      <td>0.01</td>
+      <td>2871.0</td>
     </tr>
     <tr>
       <td>Demiurge.Rabpit</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>1.42</td>
-      <td>-0.08</td>
-      <td>1829.0</td>
+      <td>1.51</td>
+      <td>0.01</td>
+      <td>1778.0</td>
     </tr>
     <tr>
       <td>Demiurge.Rabpit</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.63</td>
-      <td>0.13</td>
-      <td>1894.0</td>
+      <td>7.51</td>
+      <td>0.01</td>
+      <td>1817.0</td>
     </tr>
     <tr>
       <td>Demiurge.Rabpit</td>
@@ -1540,151 +1564,183 @@
       <td>11.8</td>
       <td>12.15</td>
       <td>0.35</td>
-      <td>4930.0</td>
+      <td>4735.0</td>
     </tr>
     <tr>
       <td>Demonkin.ForgedReigns</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>5.16</td>
-      <td>0.66</td>
-      <td>779.0</td>
+      <td>4.59</td>
+      <td>0.09</td>
+      <td>747.0</td>
     </tr>
     <tr>
       <td>Demonkin.ForgedReigns</td>
       <td>HD</td>
       <td>9.2</td>
-      <td>9.04</td>
-      <td>-0.16</td>
-      <td>1993.0</td>
+      <td>9.19</td>
+      <td>-0.01</td>
+      <td>1911.0</td>
     </tr>
     <tr>
       <td>Demonkin.ForgedReigns</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>14.05</td>
-      <td>0.25</td>
-      <td>4737.0</td>
+      <td>13.97</td>
+      <td>0.17</td>
+      <td>4558.0</td>
     </tr>
     <tr>
       <td>DerRichter.Ωμεγα</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.42</td>
-      <td>-0.08</td>
-      <td>272.0</td>
+      <td>5.48</td>
+      <td>-0.02</td>
+      <td>264.0</td>
     </tr>
     <tr>
       <td>DerRichter.Ωμεγα</td>
       <td>HD</td>
       <td>11.4</td>
-      <td>11.24</td>
-      <td>-0.16</td>
-      <td>869.0</td>
+      <td>11.38</td>
+      <td>-0.02</td>
+      <td>855.0</td>
     </tr>
     <tr>
       <td>DerRichter.Ωμεγα</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.64</td>
-      <td>0.04</td>
-      <td>4534.0</td>
+      <td>15.74</td>
+      <td>0.14</td>
+      <td>4388.0</td>
     </tr>
     <tr>
       <td>DevIAtiOnshortver.polysha</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.08</td>
-      <td>0.08</td>
-      <td>91.0</td>
+      <td>5.00</td>
+      <td>-0.00</td>
+      <td>127.0</td>
     </tr>
     <tr>
       <td>DevIAtiOnshortver.polysha</td>
       <td>HD</td>
       <td>11.1</td>
-      <td>11.30</td>
-      <td>0.20</td>
-      <td>394.0</td>
+      <td>11.12</td>
+      <td>0.02</td>
+      <td>565.0</td>
     </tr>
     <tr>
       <td>DevIAtiOnshortver.polysha</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.39</td>
-      <td>-0.21</td>
-      <td>2842.0</td>
+      <td>15.56</td>
+      <td>-0.04</td>
+      <td>3356.0</td>
     </tr>
     <tr>
       <td>Devotion.Connexio</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.49</td>
-      <td>-0.01</td>
+      <td>4.48</td>
+      <td>-0.02</td>
       <td>161.0</td>
     </tr>
     <tr>
       <td>Devotion.Connexio</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>9.39</td>
-      <td>-0.21</td>
-      <td>167.0</td>
+      <td>9.58</td>
+      <td>-0.02</td>
+      <td>169.0</td>
     </tr>
     <tr>
       <td>Devotion.Connexio</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>13.87</td>
-      <td>-0.03</td>
-      <td>2258.0</td>
+      <td>13.92</td>
+      <td>0.02</td>
+      <td>2220.0</td>
+    </tr>
+    <tr>
+      <td>DiamondDust.MasahiroGodspeedAoki</td>
+      <td>EZ</td>
+      <td>5.0</td>
+      <td>4.98</td>
+      <td>-0.02</td>
+      <td>109.0</td>
+    </tr>
+    <tr>
+      <td>DiamondDust.MasahiroGodspeedAoki</td>
+      <td>HD</td>
+      <td>10.8</td>
+      <td>10.80</td>
+      <td>0.00</td>
+      <td>173.0</td>
+    </tr>
+    <tr>
+      <td>DiamondDust.MasahiroGodspeedAoki</td>
+      <td>IN</td>
+      <td>15.3</td>
+      <td>15.16</td>
+      <td>-0.14</td>
+      <td>3640.0</td>
+    </tr>
+    <tr>
+      <td>DiamondDust.MasahiroGodspeedAoki</td>
+      <td>AT</td>
+      <td>16.7</td>
+      <td>16.73</td>
+      <td>0.03</td>
+      <td>2590.0</td>
     </tr>
     <tr>
       <td>DiamondEyes.SYNTHETIC</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.83</td>
-      <td>0.33</td>
-      <td>458.0</td>
+      <td>3.54</td>
+      <td>0.04</td>
+      <td>447.0</td>
     </tr>
     <tr>
       <td>DiamondEyes.SYNTHETIC</td>
       <td>HD</td>
       <td>6.5</td>
-      <td>6.28</td>
-      <td>-0.22</td>
-      <td>776.0</td>
+      <td>6.49</td>
+      <td>-0.01</td>
+      <td>758.0</td>
     </tr>
     <tr>
       <td>DiamondEyes.SYNTHETIC</td>
       <td>IN</td>
       <td>13.4</td>
-      <td>13.42</td>
-      <td>0.02</td>
-      <td>3377.0</td>
+      <td>13.40</td>
+      <td>-0.00</td>
+      <td>3260.0</td>
     </tr>
     <tr>
       <td>Disorder.HyuNfeatYURI</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>6.21</td>
-      <td>0.21</td>
-      <td>752.0</td>
+      <td>6.05</td>
+      <td>0.05</td>
+      <td>733.0</td>
     </tr>
     <tr>
       <td>Disorder.HyuNfeatYURI</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>11.07</td>
-      <td>0.77</td>
-      <td>1938.0</td>
+      <td>10.34</td>
+      <td>0.04</td>
+      <td>1866.0</td>
     </tr>
     <tr>
       <td>Disorder.HyuNfeatYURI</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.79</td>
-      <td>-0.01</td>
-      <td>4581.0</td>
+      <td>14.85</td>
+      <td>0.05</td>
+      <td>4460.0</td>
     </tr>
     <tr>
       <td>DistortedFate.Sakuzyo</td>
@@ -1692,39 +1748,39 @@
       <td>8.1</td>
       <td>8.09</td>
       <td>-0.01</td>
-      <td>1974.0</td>
+      <td>1897.0</td>
     </tr>
     <tr>
       <td>DistortedFate.Sakuzyo</td>
       <td>HD</td>
       <td>13.5</td>
-      <td>13.23</td>
-      <td>-0.27</td>
-      <td>3748.0</td>
+      <td>13.44</td>
+      <td>-0.06</td>
+      <td>3597.0</td>
     </tr>
     <tr>
       <td>DistortedFate.Sakuzyo</td>
       <td>IN</td>
       <td>16.3</td>
-      <td>16.13</td>
-      <td>-0.17</td>
-      <td>4973.0</td>
+      <td>16.02</td>
+      <td>-0.28</td>
+      <td>4783.0</td>
     </tr>
     <tr>
       <td>DistortedFate.Sakuzyo</td>
       <td>AT</td>
       <td>17.4</td>
-      <td>17.33</td>
-      <td>-0.07</td>
-      <td>3839.0</td>
+      <td>17.44</td>
+      <td>0.04</td>
+      <td>3767.0</td>
     </tr>
     <tr>
       <td>Dlyrotz.Likey</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.92</td>
-      <td>-0.08</td>
-      <td>2208.0</td>
+      <td>3.99</td>
+      <td>-0.01</td>
+      <td>2112.0</td>
     </tr>
     <tr>
       <td>Dlyrotz.Likey</td>
@@ -1732,439 +1788,439 @@
       <td>9.1</td>
       <td>8.81</td>
       <td>-0.29</td>
-      <td>2501.0</td>
+      <td>2406.0</td>
     </tr>
     <tr>
       <td>Dlyrotz.Likey</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.45</td>
-      <td>-0.25</td>
-      <td>4574.0</td>
+      <td>11.69</td>
+      <td>-2.01</td>
+      <td>4372.0</td>
     </tr>
     <tr>
       <td>DontNeverAround.HAMA</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.96</td>
-      <td>-0.04</td>
-      <td>703.0</td>
+      <td>5.04</td>
+      <td>0.04</td>
+      <td>689.0</td>
     </tr>
     <tr>
       <td>DontNeverAround.HAMA</td>
       <td>HD</td>
       <td>11.3</td>
-      <td>11.26</td>
-      <td>-0.04</td>
-      <td>2409.0</td>
+      <td>11.21</td>
+      <td>-0.09</td>
+      <td>2319.0</td>
     </tr>
     <tr>
       <td>DontNeverAround.HAMA</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.54</td>
-      <td>0.04</td>
-      <td>4718.0</td>
+      <td>15.53</td>
+      <td>0.03</td>
+      <td>4567.0</td>
     </tr>
     <tr>
       <td>Doppelganger.LeaF</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.73</td>
-      <td>0.73</td>
-      <td>401.0</td>
+      <td>5.06</td>
+      <td>0.06</td>
+      <td>391.0</td>
     </tr>
     <tr>
       <td>Doppelganger.LeaF</td>
       <td>HD</td>
       <td>9.0</td>
-      <td>10.64</td>
-      <td>1.64</td>
-      <td>622.0</td>
+      <td>9.06</td>
+      <td>0.06</td>
+      <td>607.0</td>
     </tr>
     <tr>
       <td>Doppelganger.LeaF</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>14.94</td>
-      <td>-0.16</td>
-      <td>3054.0</td>
+      <td>15.09</td>
+      <td>-0.01</td>
+      <td>3036.0</td>
     </tr>
     <tr>
       <td>Dreamland.z1onkyrrin</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.22</td>
-      <td>-0.78</td>
-      <td>374.0</td>
+      <td>6.97</td>
+      <td>-0.03</td>
+      <td>363.0</td>
     </tr>
     <tr>
       <td>Dreamland.z1onkyrrin</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>10.48</td>
-      <td>0.18</td>
-      <td>526.0</td>
+      <td>10.31</td>
+      <td>0.01</td>
+      <td>511.0</td>
     </tr>
     <tr>
       <td>Dreamland.z1onkyrrin</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>12.39</td>
-      <td>-1.21</td>
-      <td>2446.0</td>
+      <td>13.58</td>
+      <td>-0.02</td>
+      <td>2407.0</td>
     </tr>
     <tr>
       <td>DropIt.Asuka</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.41</td>
-      <td>0.41</td>
-      <td>381.0</td>
+      <td>4.04</td>
+      <td>0.04</td>
+      <td>369.0</td>
     </tr>
     <tr>
       <td>DropIt.Asuka</td>
       <td>HD</td>
       <td>9.2</td>
-      <td>10.51</td>
-      <td>1.31</td>
-      <td>482.0</td>
+      <td>9.25</td>
+      <td>0.05</td>
+      <td>472.0</td>
     </tr>
     <tr>
       <td>DropIt.Asuka</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>14.39</td>
-      <td>0.19</td>
-      <td>2698.0</td>
+      <td>14.23</td>
+      <td>0.03</td>
+      <td>2625.0</td>
     </tr>
     <tr>
       <td>ENERGYSYNERGYMATRIX.Tanchiky</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.63</td>
-      <td>0.13</td>
-      <td>1878.0</td>
+      <td>5.49</td>
+      <td>-0.01</td>
+      <td>1792.0</td>
     </tr>
     <tr>
       <td>ENERGYSYNERGYMATRIX.Tanchiky</td>
       <td>HD</td>
       <td>11.5</td>
-      <td>9.64</td>
-      <td>-1.86</td>
-      <td>3276.0</td>
+      <td>11.44</td>
+      <td>-0.06</td>
+      <td>3157.0</td>
     </tr>
     <tr>
       <td>ENERGYSYNERGYMATRIX.Tanchiky</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.19</td>
-      <td>-0.21</td>
-      <td>4697.0</td>
+      <td>14.42</td>
+      <td>0.02</td>
+      <td>4518.0</td>
     </tr>
     <tr>
       <td>ERABYECONNEC10N.かめりあ</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.43</td>
-      <td>-0.07</td>
-      <td>667.0</td>
+      <td>5.46</td>
+      <td>-0.04</td>
+      <td>643.0</td>
     </tr>
     <tr>
       <td>ERABYECONNEC10N.かめりあ</td>
       <td>HD</td>
       <td>11.6</td>
-      <td>11.64</td>
-      <td>0.04</td>
-      <td>2048.0</td>
+      <td>11.62</td>
+      <td>0.02</td>
+      <td>1973.0</td>
     </tr>
     <tr>
       <td>ERABYECONNEC10N.かめりあ</td>
       <td>IN</td>
       <td>16.3</td>
-      <td>16.21</td>
-      <td>-0.09</td>
-      <td>4699.0</td>
+      <td>16.17</td>
+      <td>-0.13</td>
+      <td>4539.0</td>
     </tr>
     <tr>
       <td>ERABYECONNEC10N.かめりあ</td>
       <td>AT</td>
       <td>17.3</td>
-      <td>17.18</td>
-      <td>-0.12</td>
-      <td>3957.0</td>
+      <td>17.17</td>
+      <td>-0.13</td>
+      <td>3890.0</td>
     </tr>
     <tr>
       <td>ElCondorPasaPhigrosEdit.PlasticFruits</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>5.84</td>
-      <td>-0.66</td>
-      <td>381.0</td>
+      <td>6.35</td>
+      <td>-0.15</td>
+      <td>378.0</td>
     </tr>
     <tr>
       <td>ElCondorPasaPhigrosEdit.PlasticFruits</td>
       <td>HD</td>
       <td>12.5</td>
-      <td>12.41</td>
-      <td>-0.09</td>
-      <td>1084.0</td>
+      <td>12.50</td>
+      <td>-0.00</td>
+      <td>1058.0</td>
     </tr>
     <tr>
       <td>ElCondorPasaPhigrosEdit.PlasticFruits</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.58</td>
-      <td>-0.02</td>
-      <td>4273.0</td>
+      <td>15.66</td>
+      <td>0.06</td>
+      <td>4174.0</td>
     </tr>
     <tr>
       <td>Electron.ElousFZ</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.40</td>
-      <td>0.90</td>
-      <td>332.0</td>
+      <td>3.51</td>
+      <td>0.01</td>
+      <td>327.0</td>
     </tr>
     <tr>
       <td>Electron.ElousFZ</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.79</td>
-      <td>0.39</td>
-      <td>341.0</td>
+      <td>9.51</td>
+      <td>0.11</td>
+      <td>335.0</td>
     </tr>
     <tr>
       <td>Electron.ElousFZ</td>
       <td>IN</td>
       <td>13.2</td>
-      <td>12.87</td>
-      <td>-0.33</td>
-      <td>2123.0</td>
+      <td>13.16</td>
+      <td>-0.04</td>
+      <td>2096.0</td>
     </tr>
     <tr>
       <td>Eltaw.Fl00t</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.63</td>
-      <td>-0.37</td>
-      <td>400.0</td>
+      <td>6.92</td>
+      <td>-0.08</td>
+      <td>396.0</td>
     </tr>
     <tr>
       <td>Eltaw.Fl00t</td>
       <td>HD</td>
       <td>10.6</td>
-      <td>8.02</td>
-      <td>-2.58</td>
-      <td>622.0</td>
+      <td>10.53</td>
+      <td>-0.07</td>
+      <td>612.0</td>
     </tr>
     <tr>
       <td>Eltaw.Fl00t</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.93</td>
-      <td>0.13</td>
-      <td>3565.0</td>
+      <td>14.79</td>
+      <td>-0.01</td>
+      <td>3519.0</td>
     </tr>
     <tr>
       <td>Elúltimobaile.Θ</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.56</td>
-      <td>0.06</td>
-      <td>603.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>592.0</td>
     </tr>
     <tr>
       <td>Elúltimobaile.Θ</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>9.44</td>
-      <td>-0.06</td>
-      <td>1393.0</td>
+      <td>9.48</td>
+      <td>-0.02</td>
+      <td>1336.0</td>
     </tr>
     <tr>
       <td>Elúltimobaile.Θ</td>
       <td>IN</td>
       <td>14.1</td>
-      <td>13.76</td>
-      <td>-0.34</td>
-      <td>4885.0</td>
+      <td>13.81</td>
+      <td>-0.29</td>
+      <td>4708.0</td>
     </tr>
     <tr>
       <td>EndMe.ZxNXasDelaina</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.67</td>
-      <td>0.17</td>
-      <td>267.0</td>
+      <td>5.55</td>
+      <td>0.05</td>
+      <td>256.0</td>
     </tr>
     <tr>
       <td>EndMe.ZxNXasDelaina</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.79</td>
-      <td>0.29</td>
-      <td>374.0</td>
+      <td>7.88</td>
+      <td>0.38</td>
+      <td>372.0</td>
     </tr>
     <tr>
       <td>EndMe.ZxNXasDelaina</td>
       <td>IN</td>
       <td>14.1</td>
-      <td>14.06</td>
-      <td>-0.04</td>
-      <td>2416.0</td>
+      <td>14.10</td>
+      <td>0.00</td>
+      <td>2375.0</td>
     </tr>
     <tr>
       <td>EnginexStartmelodymix.CrossingSound</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.60</td>
-      <td>0.10</td>
-      <td>730.0</td>
+      <td>2.50</td>
+      <td>-0.00</td>
+      <td>698.0</td>
     </tr>
     <tr>
       <td>EnginexStartmelodymix.CrossingSound</td>
       <td>HD</td>
       <td>8.3</td>
-      <td>8.24</td>
-      <td>-0.06</td>
-      <td>638.0</td>
+      <td>8.27</td>
+      <td>-0.03</td>
+      <td>618.0</td>
     </tr>
     <tr>
       <td>EnginexStartmelodymix.CrossingSound</td>
       <td>IN</td>
       <td>13.0</td>
-      <td>13.19</td>
-      <td>0.19</td>
-      <td>4146.0</td>
+      <td>13.00</td>
+      <td>0.00</td>
+      <td>3993.0</td>
     </tr>
     <tr>
       <td>EradicationCatastrophe.NceS</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.46</td>
-      <td>-0.04</td>
-      <td>2596.0</td>
+      <td>3.49</td>
+      <td>-0.01</td>
+      <td>2482.0</td>
     </tr>
     <tr>
       <td>EradicationCatastrophe.NceS</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.40</td>
-      <td>-0.10</td>
-      <td>2757.0</td>
+      <td>7.48</td>
+      <td>-0.02</td>
+      <td>2648.0</td>
     </tr>
     <tr>
       <td>EradicationCatastrophe.NceS</td>
       <td>IN</td>
       <td>12.7</td>
-      <td>13.51</td>
-      <td>0.81</td>
-      <td>3655.0</td>
+      <td>12.81</td>
+      <td>0.11</td>
+      <td>3510.0</td>
     </tr>
     <tr>
       <td>EternalSnow.AbyssIdols</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.93</td>
-      <td>-0.07</td>
-      <td>353.0</td>
+      <td>4.02</td>
+      <td>0.02</td>
+      <td>348.0</td>
     </tr>
     <tr>
       <td>EternalSnow.AbyssIdols</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>9.63</td>
-      <td>0.03</td>
-      <td>452.0</td>
+      <td>9.60</td>
+      <td>0.00</td>
+      <td>439.0</td>
     </tr>
     <tr>
       <td>EternalSnow.AbyssIdols</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.00</td>
-      <td>-0.50</td>
-      <td>2388.0</td>
+      <td>13.44</td>
+      <td>-0.06</td>
+      <td>2348.0</td>
     </tr>
     <tr>
       <td>FULiAUTOBUSTER.MYUKKE</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.78</td>
-      <td>0.28</td>
-      <td>430.0</td>
+      <td>3.52</td>
+      <td>0.02</td>
+      <td>426.0</td>
     </tr>
     <tr>
       <td>FULiAUTOBUSTER.MYUKKE</td>
       <td>HD</td>
       <td>9.8</td>
       <td>9.80</td>
-      <td>0.00</td>
-      <td>721.0</td>
+      <td>-0.00</td>
+      <td>699.0</td>
     </tr>
     <tr>
       <td>FULiAUTOBUSTER.MYUKKE</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.52</td>
-      <td>-0.08</td>
-      <td>3301.0</td>
+      <td>14.54</td>
+      <td>-0.06</td>
+      <td>3225.0</td>
     </tr>
     <tr>
       <td>FULiAUTOSHOOTER.MYUKKE</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>2.98</td>
-      <td>-0.02</td>
-      <td>518.0</td>
+      <td>3.02</td>
+      <td>0.02</td>
+      <td>507.0</td>
     </tr>
     <tr>
       <td>FULiAUTOSHOOTER.MYUKKE</td>
       <td>HD</td>
       <td>9.0</td>
-      <td>8.95</td>
-      <td>-0.05</td>
-      <td>572.0</td>
+      <td>9.16</td>
+      <td>0.16</td>
+      <td>555.0</td>
     </tr>
     <tr>
       <td>FULiAUTOSHOOTER.MYUKKE</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>14.81</td>
-      <td>-0.09</td>
-      <td>4287.0</td>
+      <td>14.64</td>
+      <td>-0.26</td>
+      <td>4127.0</td>
     </tr>
     <tr>
       <td>Feast远东之宴.茶鸣拾贰律</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.72</td>
-      <td>0.22</td>
-      <td>769.0</td>
+      <td>6.52</td>
+      <td>0.02</td>
+      <td>747.0</td>
     </tr>
     <tr>
       <td>Feast远东之宴.茶鸣拾贰律</td>
       <td>HD</td>
       <td>12.1</td>
-      <td>12.00</td>
-      <td>-0.10</td>
-      <td>1821.0</td>
+      <td>12.06</td>
+      <td>-0.04</td>
+      <td>1761.0</td>
     </tr>
     <tr>
       <td>Feast远东之宴.茶鸣拾贰律</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.51</td>
-      <td>0.01</td>
-      <td>4496.0</td>
+      <td>15.50</td>
+      <td>0.00</td>
+      <td>4344.0</td>
     </tr>
     <tr>
       <td>FinalStep.Lime</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.20</td>
-      <td>-0.30</td>
-      <td>1058.0</td>
+      <td>5.49</td>
+      <td>-0.01</td>
+      <td>1027.0</td>
     </tr>
     <tr>
       <td>FinalStep.Lime</td>
@@ -2172,207 +2228,231 @@
       <td>11.0</td>
       <td>10.85</td>
       <td>-0.15</td>
-      <td>2619.0</td>
+      <td>2527.0</td>
     </tr>
     <tr>
       <td>FinalStep.Lime</td>
       <td>IN</td>
       <td>14.1</td>
-      <td>14.33</td>
-      <td>0.23</td>
-      <td>4781.0</td>
+      <td>14.44</td>
+      <td>0.34</td>
+      <td>4615.0</td>
     </tr>
     <tr>
       <td>FindMe.Kforest</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.55</td>
-      <td>0.05</td>
-      <td>293.0</td>
+      <td>5.53</td>
+      <td>0.03</td>
+      <td>286.0</td>
     </tr>
     <tr>
       <td>FindMe.Kforest</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.73</td>
-      <td>0.23</td>
-      <td>424.0</td>
+      <td>10.51</td>
+      <td>0.01</td>
+      <td>423.0</td>
     </tr>
     <tr>
       <td>FindMe.Kforest</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.35</td>
-      <td>0.05</td>
-      <td>2798.0</td>
+      <td>14.31</td>
+      <td>0.01</td>
+      <td>2738.0</td>
     </tr>
     <tr>
       <td>FixationsTowardtheStars.Foodbot</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.50</td>
-      <td>-0.00</td>
-      <td>194.0</td>
+      <td>3.52</td>
+      <td>0.02</td>
+      <td>193.0</td>
     </tr>
     <tr>
       <td>FixationsTowardtheStars.Foodbot</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>10.43</td>
-      <td>-0.37</td>
-      <td>333.0</td>
+      <td>10.75</td>
+      <td>-0.05</td>
+      <td>326.0</td>
     </tr>
     <tr>
       <td>FixationsTowardtheStars.Foodbot</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.16</td>
-      <td>-0.34</td>
-      <td>2640.0</td>
+      <td>14.48</td>
+      <td>-0.02</td>
+      <td>2601.0</td>
     </tr>
     <tr>
       <td>FracturedAngel.DJRaisei</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>5.12</td>
-      <td>1.12</td>
-      <td>427.0</td>
+      <td>4.07</td>
+      <td>0.07</td>
+      <td>411.0</td>
     </tr>
     <tr>
       <td>FracturedAngel.DJRaisei</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.94</td>
-      <td>0.04</td>
-      <td>797.0</td>
+      <td>10.91</td>
+      <td>0.01</td>
+      <td>791.0</td>
     </tr>
     <tr>
       <td>FracturedAngel.DJRaisei</td>
       <td>IN</td>
       <td>16.3</td>
-      <td>16.28</td>
-      <td>-0.02</td>
-      <td>4728.0</td>
+      <td>16.16</td>
+      <td>-0.14</td>
+      <td>4577.0</td>
     </tr>
     <tr>
       <td>FreakyUndulationsNobleKnightsofTune.JehezukielKURORAK</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>7.07</td>
-      <td>0.07</td>
-      <td>551.0</td>
+      <td>6.96</td>
+      <td>-0.04</td>
+      <td>531.0</td>
     </tr>
     <tr>
       <td>FreakyUndulationsNobleKnightsofTune.JehezukielKURORAK</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.88</td>
-      <td>-0.02</td>
-      <td>1694.0</td>
+      <td>10.89</td>
+      <td>-0.01</td>
+      <td>1625.0</td>
     </tr>
     <tr>
       <td>FreakyUndulationsNobleKnightsofTune.JehezukielKURORAK</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.12</td>
-      <td>-0.18</td>
-      <td>4638.0</td>
+      <td>15.06</td>
+      <td>-0.24</td>
+      <td>4488.0</td>
+    </tr>
+    <tr>
+      <td>FrozenHeart.A39沙包P</td>
+      <td>EZ</td>
+      <td>5.0</td>
+      <td>5.01</td>
+      <td>0.01</td>
+      <td>95.0</td>
+    </tr>
+    <tr>
+      <td>FrozenHeart.A39沙包P</td>
+      <td>HD</td>
+      <td>10.6</td>
+      <td>10.56</td>
+      <td>-0.04</td>
+      <td>117.0</td>
+    </tr>
+    <tr>
+      <td>FrozenHeart.A39沙包P</td>
+      <td>IN</td>
+      <td>14.4</td>
+      <td>14.35</td>
+      <td>-0.05</td>
+      <td>1842.0</td>
     </tr>
     <tr>
       <td>FutureMind.RayNauticaRekuMochizuki</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.47</td>
-      <td>-0.03</td>
-      <td>350.0</td>
+      <td>4.48</td>
+      <td>-0.02</td>
+      <td>340.0</td>
     </tr>
     <tr>
       <td>FutureMind.RayNauticaRekuMochizuki</td>
       <td>HD</td>
       <td>11.0</td>
-      <td>10.60</td>
-      <td>-0.40</td>
-      <td>663.0</td>
+      <td>10.95</td>
+      <td>-0.05</td>
+      <td>647.0</td>
     </tr>
     <tr>
       <td>FutureMind.RayNauticaRekuMochizuki</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.08</td>
-      <td>-0.22</td>
-      <td>3751.0</td>
+      <td>14.22</td>
+      <td>-0.08</td>
+      <td>3632.0</td>
     </tr>
     <tr>
       <td>GOODBOUNCE.EBIMAYO</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>6.51</td>
-      <td>-0.99</td>
-      <td>1086.0</td>
+      <td>7.52</td>
+      <td>0.02</td>
+      <td>1059.0</td>
     </tr>
     <tr>
       <td>GOODBOUNCE.EBIMAYO</td>
       <td>HD</td>
       <td>11.9</td>
-      <td>11.71</td>
-      <td>-0.19</td>
-      <td>2601.0</td>
+      <td>11.78</td>
+      <td>-0.12</td>
+      <td>2506.0</td>
     </tr>
     <tr>
       <td>GOODBOUNCE.EBIMAYO</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.44</td>
-      <td>0.04</td>
-      <td>4731.0</td>
+      <td>14.34</td>
+      <td>-0.06</td>
+      <td>4565.0</td>
     </tr>
     <tr>
       <td>GOODFORTUNE.EBIMAYO</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.46</td>
-      <td>-0.04</td>
-      <td>1028.0</td>
+      <td>7.47</td>
+      <td>-0.03</td>
+      <td>999.0</td>
     </tr>
     <tr>
       <td>GOODFORTUNE.EBIMAYO</td>
       <td>HD</td>
       <td>8.7</td>
-      <td>8.95</td>
-      <td>0.25</td>
-      <td>3126.0</td>
+      <td>8.75</td>
+      <td>0.05</td>
+      <td>3008.0</td>
     </tr>
     <tr>
       <td>GOODFORTUNE.EBIMAYO</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.71</td>
-      <td>0.01</td>
-      <td>4556.0</td>
+      <td>15.59</td>
+      <td>-0.11</td>
+      <td>4421.0</td>
     </tr>
     <tr>
       <td>GOODRAGE.EBIMAYO</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.82</td>
-      <td>-0.18</td>
-      <td>917.0</td>
+      <td>5.12</td>
+      <td>0.12</td>
+      <td>900.0</td>
     </tr>
     <tr>
       <td>GOODRAGE.EBIMAYO</td>
       <td>HD</td>
       <td>8.5</td>
-      <td>9.02</td>
-      <td>0.52</td>
-      <td>3131.0</td>
+      <td>8.79</td>
+      <td>0.29</td>
+      <td>3013.0</td>
     </tr>
     <tr>
       <td>GOODRAGE.EBIMAYO</td>
       <td>IN</td>
       <td>16.0</td>
-      <td>15.81</td>
-      <td>-0.19</td>
-      <td>4643.0</td>
+      <td>15.84</td>
+      <td>-0.16</td>
+      <td>4504.0</td>
     </tr>
     <tr>
       <td>GOODTEK.EBIMAYO</td>
@@ -2380,151 +2460,151 @@
       <td>5.0</td>
       <td>5.03</td>
       <td>0.03</td>
-      <td>1249.0</td>
+      <td>1205.0</td>
     </tr>
     <tr>
       <td>GOODTEK.EBIMAYO</td>
       <td>HD</td>
       <td>10.0</td>
-      <td>9.84</td>
-      <td>-0.16</td>
-      <td>3019.0</td>
+      <td>9.99</td>
+      <td>-0.01</td>
+      <td>2904.0</td>
     </tr>
     <tr>
       <td>GOODTEK.EBIMAYO</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>13.11</td>
-      <td>-1.09</td>
-      <td>5007.0</td>
+      <td>13.36</td>
+      <td>-0.84</td>
+      <td>4814.0</td>
     </tr>
     <tr>
       <td>GOODWORLD.EBIMAYO</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.60</td>
-      <td>0.60</td>
-      <td>1134.0</td>
+      <td>3.06</td>
+      <td>0.06</td>
+      <td>1096.0</td>
     </tr>
     <tr>
       <td>GOODWORLD.EBIMAYO</td>
       <td>HD</td>
       <td>11.4</td>
-      <td>11.12</td>
-      <td>-0.28</td>
-      <td>2888.0</td>
+      <td>11.38</td>
+      <td>-0.02</td>
+      <td>2779.0</td>
     </tr>
     <tr>
       <td>GOODWORLD.EBIMAYO</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>15.01</td>
-      <td>0.11</td>
-      <td>4478.0</td>
+      <td>14.90</td>
+      <td>0.00</td>
+      <td>4335.0</td>
     </tr>
     <tr>
       <td>GVNGlitterVomitusandNeon.SaltySaltUnfold33</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.23</td>
-      <td>0.23</td>
-      <td>273.0</td>
+      <td>5.03</td>
+      <td>0.03</td>
+      <td>272.0</td>
     </tr>
     <tr>
       <td>GVNGlitterVomitusandNeon.SaltySaltUnfold33</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>11.09</td>
-      <td>1.59</td>
-      <td>458.0</td>
+      <td>9.54</td>
+      <td>0.04</td>
+      <td>441.0</td>
     </tr>
     <tr>
       <td>GVNGlitterVomitusandNeon.SaltySaltUnfold33</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>15.99</td>
-      <td>0.19</td>
-      <td>4153.0</td>
+      <td>15.98</td>
+      <td>0.18</td>
+      <td>4077.0</td>
     </tr>
     <tr>
       <td>GetBack.CAP3</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.29</td>
-      <td>-0.21</td>
-      <td>274.0</td>
+      <td>6.47</td>
+      <td>-0.03</td>
+      <td>268.0</td>
     </tr>
     <tr>
       <td>GetBack.CAP3</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.64</td>
-      <td>-0.06</td>
-      <td>370.0</td>
+      <td>10.69</td>
+      <td>-0.01</td>
+      <td>368.0</td>
     </tr>
     <tr>
       <td>GetBack.CAP3</td>
       <td>IN</td>
       <td>14.0</td>
-      <td>13.85</td>
-      <td>-0.15</td>
-      <td>2199.0</td>
+      <td>13.99</td>
+      <td>-0.01</td>
+      <td>2149.0</td>
     </tr>
     <tr>
       <td>GetReady.iF</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>7.63</td>
-      <td>1.63</td>
-      <td>769.0</td>
+      <td>6.20</td>
+      <td>0.20</td>
+      <td>741.0</td>
     </tr>
     <tr>
       <td>GetReady.iF</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.73</td>
-      <td>0.03</td>
-      <td>1637.0</td>
+      <td>10.72</td>
+      <td>0.02</td>
+      <td>1574.0</td>
     </tr>
     <tr>
       <td>GetReady.iF</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.88</td>
-      <td>0.18</td>
-      <td>4433.0</td>
+      <td>13.72</td>
+      <td>0.02</td>
+      <td>4290.0</td>
     </tr>
     <tr>
       <td>Glaciaxion.SunsetRay</td>
       <td>EZ</td>
       <td>1.0</td>
-      <td>1.36</td>
-      <td>0.36</td>
-      <td>3732.0</td>
+      <td>1.08</td>
+      <td>0.08</td>
+      <td>3586.0</td>
     </tr>
     <tr>
       <td>Glaciaxion.SunsetRay</td>
       <td>HD</td>
       <td>6.5</td>
-      <td>6.46</td>
-      <td>-0.04</td>
-      <td>916.0</td>
+      <td>6.48</td>
+      <td>-0.02</td>
+      <td>887.0</td>
     </tr>
     <tr>
       <td>Glaciaxion.SunsetRay</td>
       <td>IN</td>
       <td>12.6</td>
-      <td>12.74</td>
-      <td>0.14</td>
-      <td>4440.0</td>
+      <td>12.52</td>
+      <td>-0.08</td>
+      <td>4254.0</td>
     </tr>
     <tr>
       <td>Grimheart.Puru</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.37</td>
-      <td>0.37</td>
-      <td>305.0</td>
+      <td>3.01</td>
+      <td>0.01</td>
+      <td>308.0</td>
     </tr>
     <tr>
       <td>Grimheart.Puru</td>
@@ -2532,1143 +2612,1167 @@
       <td>8.9</td>
       <td>8.92</td>
       <td>0.02</td>
-      <td>304.0</td>
+      <td>303.0</td>
     </tr>
     <tr>
       <td>Grimheart.Puru</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>13.94</td>
-      <td>0.14</td>
-      <td>2946.0</td>
+      <td>13.83</td>
+      <td>0.03</td>
+      <td>2894.0</td>
     </tr>
     <tr>
       <td>HAZARD.Limpid</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.71</td>
-      <td>0.21</td>
-      <td>814.0</td>
+      <td>4.55</td>
+      <td>0.05</td>
+      <td>792.0</td>
     </tr>
     <tr>
       <td>HAZARD.Limpid</td>
       <td>HD</td>
       <td>11.0</td>
-      <td>11.06</td>
-      <td>0.06</td>
-      <td>1867.0</td>
+      <td>10.99</td>
+      <td>-0.01</td>
+      <td>1786.0</td>
     </tr>
     <tr>
       <td>HAZARD.Limpid</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.57</td>
-      <td>-0.23</td>
-      <td>4775.0</td>
+      <td>14.66</td>
+      <td>-0.14</td>
+      <td>4606.0</td>
     </tr>
     <tr>
       <td>HardcoreKwaya.EnFr</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.33</td>
-      <td>-0.17</td>
-      <td>297.0</td>
+      <td>4.50</td>
+      <td>0.00</td>
+      <td>290.0</td>
     </tr>
     <tr>
       <td>HardcoreKwaya.EnFr</td>
       <td>HD</td>
       <td>8.4</td>
-      <td>9.44</td>
-      <td>1.04</td>
-      <td>383.0</td>
+      <td>8.42</td>
+      <td>0.02</td>
+      <td>379.0</td>
     </tr>
     <tr>
       <td>HardcoreKwaya.EnFr</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.66</td>
-      <td>0.06</td>
-      <td>2702.0</td>
+      <td>14.63</td>
+      <td>0.03</td>
+      <td>2658.0</td>
+    </tr>
+    <tr>
+      <td>Helios.NOABotaNya</td>
+      <td>EZ</td>
+      <td>4.5</td>
+      <td>4.55</td>
+      <td>0.05</td>
+      <td>68.0</td>
+    </tr>
+    <tr>
+      <td>Helios.NOABotaNya</td>
+      <td>HD</td>
+      <td>9.2</td>
+      <td>9.21</td>
+      <td>0.01</td>
+      <td>71.0</td>
+    </tr>
+    <tr>
+      <td>Helios.NOABotaNya</td>
+      <td>IN</td>
+      <td>14.1</td>
+      <td>14.12</td>
+      <td>0.02</td>
+      <td>1093.0</td>
     </tr>
     <tr>
       <td>HorizonBlue.NothingButRequiemfeatAikapinChiyoko</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>10.10</td>
-      <td>3.60</td>
-      <td>2694.0</td>
+      <td>6.59</td>
+      <td>0.09</td>
+      <td>2579.0</td>
     </tr>
     <tr>
       <td>HorizonBlue.NothingButRequiemfeatAikapinChiyoko</td>
       <td>HD</td>
       <td>11.6</td>
-      <td>11.74</td>
-      <td>0.14</td>
-      <td>4188.0</td>
+      <td>11.57</td>
+      <td>-0.03</td>
+      <td>4034.0</td>
     </tr>
     <tr>
       <td>HorizonBlue.NothingButRequiemfeatAikapinChiyoko</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.59</td>
-      <td>-0.11</td>
-      <td>4716.0</td>
+      <td>15.70</td>
+      <td>-0.00</td>
+      <td>4559.0</td>
     </tr>
     <tr>
       <td>HumaN.SOTUI</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.17</td>
-      <td>0.17</td>
-      <td>449.0</td>
+      <td>3.14</td>
+      <td>0.14</td>
+      <td>437.0</td>
     </tr>
     <tr>
       <td>HumaN.SOTUI</td>
       <td>HD</td>
       <td>8.0</td>
-      <td>7.80</td>
-      <td>-0.20</td>
-      <td>481.0</td>
+      <td>7.87</td>
+      <td>-0.13</td>
+      <td>464.0</td>
     </tr>
     <tr>
       <td>HumaN.SOTUI</td>
       <td>IN</td>
       <td>12.9</td>
-      <td>13.00</td>
-      <td>0.10</td>
-      <td>3428.0</td>
+      <td>12.95</td>
+      <td>0.05</td>
+      <td>3299.0</td>
     </tr>
     <tr>
       <td>IMustSayNo.TangJuan</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>1.79</td>
-      <td>0.29</td>
-      <td>628.0</td>
+      <td>1.52</td>
+      <td>0.02</td>
+      <td>641.0</td>
     </tr>
     <tr>
       <td>IMustSayNo.TangJuan</td>
       <td>HD</td>
       <td>9.2</td>
-      <td>9.29</td>
-      <td>0.09</td>
-      <td>518.0</td>
+      <td>9.12</td>
+      <td>-0.08</td>
+      <td>500.0</td>
     </tr>
     <tr>
       <td>IMustSayNo.TangJuan</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.00</td>
-      <td>-0.50</td>
-      <td>2668.0</td>
+      <td>13.48</td>
+      <td>-0.02</td>
+      <td>2630.0</td>
     </tr>
     <tr>
       <td>INFiNiTEENERZYOverdoze.RekuMochizuki</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.53</td>
-      <td>0.03</td>
-      <td>1034.0</td>
+      <td>6.46</td>
+      <td>-0.04</td>
+      <td>991.0</td>
     </tr>
     <tr>
       <td>INFiNiTEENERZYOverdoze.RekuMochizuki</td>
       <td>HD</td>
       <td>12.3</td>
-      <td>12.19</td>
-      <td>-0.11</td>
-      <td>2645.0</td>
+      <td>12.26</td>
+      <td>-0.04</td>
+      <td>2544.0</td>
     </tr>
     <tr>
       <td>INFiNiTEENERZYOverdoze.RekuMochizuki</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.93</td>
-      <td>0.13</td>
-      <td>4867.0</td>
+      <td>14.82</td>
+      <td>0.02</td>
+      <td>4693.0</td>
     </tr>
     <tr>
       <td>INFiNiTEENERZYOverdoze.RekuMochizuki</td>
       <td>AT</td>
       <td>16.8</td>
-      <td>17.04</td>
-      <td>0.24</td>
-      <td>4167.0</td>
+      <td>16.94</td>
+      <td>0.14</td>
+      <td>4058.0</td>
     </tr>
     <tr>
       <td>Igallta.SeURa</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.43</td>
-      <td>-0.07</td>
-      <td>3032.0</td>
+      <td>7.58</td>
+      <td>0.08</td>
+      <td>2905.0</td>
     </tr>
     <tr>
       <td>Igallta.SeURa</td>
       <td>HD</td>
       <td>12.2</td>
-      <td>12.13</td>
-      <td>-0.07</td>
-      <td>4383.0</td>
+      <td>12.11</td>
+      <td>-0.09</td>
+      <td>4202.0</td>
     </tr>
     <tr>
       <td>Igallta.SeURa</td>
       <td>IN</td>
       <td>16.1</td>
-      <td>16.01</td>
-      <td>-0.09</td>
-      <td>4706.0</td>
+      <td>16.03</td>
+      <td>-0.07</td>
+      <td>4545.0</td>
     </tr>
     <tr>
       <td>Igallta.SeURa</td>
       <td>AT</td>
       <td>17.4</td>
-      <td>17.30</td>
-      <td>-0.10</td>
-      <td>3676.0</td>
+      <td>17.39</td>
+      <td>-0.01</td>
+      <td>3601.0</td>
     </tr>
     <tr>
       <td>IndelibleScar.Noah</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.86</td>
-      <td>-0.14</td>
-      <td>489.0</td>
+      <td>7.03</td>
+      <td>0.03</td>
+      <td>481.0</td>
     </tr>
     <tr>
       <td>IndelibleScar.Noah</td>
       <td>HD</td>
       <td>11.5</td>
-      <td>11.50</td>
-      <td>0.00</td>
-      <td>1156.0</td>
+      <td>11.51</td>
+      <td>0.01</td>
+      <td>1123.0</td>
     </tr>
     <tr>
       <td>IndelibleScar.Noah</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.08</td>
-      <td>-0.22</td>
-      <td>4606.0</td>
+      <td>15.31</td>
+      <td>0.01</td>
+      <td>4468.0</td>
     </tr>
     <tr>
       <td>IndelibleScar.Noah</td>
       <td>AT</td>
       <td>16.5</td>
-      <td>16.40</td>
-      <td>-0.10</td>
-      <td>3988.0</td>
+      <td>16.47</td>
+      <td>-0.03</td>
+      <td>3899.0</td>
     </tr>
     <tr>
       <td>InfinityHeaven.HyuN</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>4.04</td>
-      <td>1.04</td>
-      <td>976.0</td>
+      <td>3.02</td>
+      <td>0.02</td>
+      <td>963.0</td>
     </tr>
     <tr>
       <td>InfinityHeaven.HyuN</td>
       <td>HD</td>
       <td>8.4</td>
-      <td>8.58</td>
-      <td>0.18</td>
-      <td>1857.0</td>
+      <td>8.70</td>
+      <td>0.30</td>
+      <td>1802.0</td>
     </tr>
     <tr>
       <td>InfinityHeaven.HyuN</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>13.91</td>
-      <td>0.01</td>
-      <td>4629.0</td>
+      <td>13.90</td>
+      <td>-0.00</td>
+      <td>4488.0</td>
     </tr>
     <tr>
       <td>Initialize.iF</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.57</td>
-      <td>0.07</td>
-      <td>1166.0</td>
+      <td>2.51</td>
+      <td>0.01</td>
+      <td>1126.0</td>
     </tr>
     <tr>
       <td>Initialize.iF</td>
       <td>HD</td>
       <td>7.0</td>
-      <td>7.32</td>
-      <td>0.32</td>
-      <td>2030.0</td>
+      <td>7.04</td>
+      <td>0.04</td>
+      <td>1945.0</td>
     </tr>
     <tr>
       <td>Initialize.iF</td>
       <td>IN</td>
       <td>11.6</td>
-      <td>11.81</td>
-      <td>0.21</td>
-      <td>4595.0</td>
+      <td>12.73</td>
+      <td>1.13</td>
+      <td>4432.0</td>
     </tr>
     <tr>
       <td>InvertedWorld.ARForest</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>4.17</td>
-      <td>-1.33</td>
-      <td>541.0</td>
+      <td>5.45</td>
+      <td>-0.05</td>
+      <td>520.0</td>
     </tr>
     <tr>
       <td>InvertedWorld.ARForest</td>
       <td>HD</td>
       <td>11.2</td>
-      <td>11.30</td>
-      <td>0.10</td>
-      <td>1556.0</td>
+      <td>11.17</td>
+      <td>-0.03</td>
+      <td>1506.0</td>
     </tr>
     <tr>
       <td>InvertedWorld.ARForest</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>14.96</td>
-      <td>-0.54</td>
-      <td>4535.0</td>
+      <td>15.16</td>
+      <td>-0.34</td>
+      <td>4392.0</td>
     </tr>
     <tr>
       <td>JourneywithYou.Iris</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.69</td>
-      <td>-0.31</td>
-      <td>776.0</td>
+      <td>4.95</td>
+      <td>-0.05</td>
+      <td>755.0</td>
     </tr>
     <tr>
       <td>JourneywithYou.Iris</td>
       <td>HD</td>
       <td>10.0</td>
-      <td>5.93</td>
-      <td>-4.07</td>
-      <td>1399.0</td>
+      <td>9.96</td>
+      <td>-0.04</td>
+      <td>1356.0</td>
     </tr>
     <tr>
       <td>JourneywithYou.Iris</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.56</td>
-      <td>-0.14</td>
-      <td>4791.0</td>
+      <td>13.71</td>
+      <td>0.01</td>
+      <td>4605.0</td>
     </tr>
     <tr>
       <td>JunXionBetweenLifeAndDeathVIPMix.1N6Fs</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>8.33</td>
-      <td>5.33</td>
-      <td>2070.0</td>
+      <td>3.78</td>
+      <td>0.78</td>
+      <td>1979.0</td>
     </tr>
     <tr>
       <td>JunXionBetweenLifeAndDeathVIPMix.1N6Fs</td>
       <td>HD</td>
       <td>8.7</td>
-      <td>8.82</td>
-      <td>0.12</td>
-      <td>3533.0</td>
+      <td>8.77</td>
+      <td>0.07</td>
+      <td>3389.0</td>
     </tr>
     <tr>
       <td>JunXionBetweenLifeAndDeathVIPMix.1N6Fs</td>
       <td>IN</td>
       <td>13.4</td>
-      <td>13.65</td>
-      <td>0.25</td>
-      <td>4526.0</td>
+      <td>13.49</td>
+      <td>0.09</td>
+      <td>4348.0</td>
     </tr>
     <tr>
       <td>KIZUNAResolution.TAG</td>
       <td>EZ</td>
       <td>8.0</td>
-      <td>8.01</td>
-      <td>0.01</td>
-      <td>161.0</td>
+      <td>7.81</td>
+      <td>-0.19</td>
+      <td>215.0</td>
     </tr>
     <tr>
       <td>KIZUNAResolution.TAG</td>
       <td>HD</td>
       <td>13.4</td>
-      <td>12.94</td>
-      <td>-0.46</td>
-      <td>887.0</td>
+      <td>13.38</td>
+      <td>-0.02</td>
+      <td>1053.0</td>
     </tr>
     <tr>
       <td>KIZUNAResolution.TAG</td>
       <td>IN</td>
       <td>16.4</td>
-      <td>16.27</td>
-      <td>-0.13</td>
-      <td>3729.0</td>
+      <td>16.31</td>
+      <td>-0.09</td>
+      <td>3885.0</td>
     </tr>
     <tr>
       <td>KMoeVIP.ZxNX</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.26</td>
-      <td>0.26</td>
-      <td>542.0</td>
+      <td>2.99</td>
+      <td>-0.01</td>
+      <td>538.0</td>
     </tr>
     <tr>
       <td>KMoeVIP.ZxNX</td>
       <td>HD</td>
       <td>8.4</td>
-      <td>8.58</td>
-      <td>0.18</td>
-      <td>1165.0</td>
+      <td>8.45</td>
+      <td>0.05</td>
+      <td>1129.0</td>
     </tr>
     <tr>
       <td>KMoeVIP.ZxNX</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.98</td>
-      <td>0.08</td>
-      <td>4347.0</td>
+      <td>15.99</td>
+      <td>0.09</td>
+      <td>4218.0</td>
     </tr>
     <tr>
       <td>Kerberos.Zris</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.56</td>
-      <td>0.06</td>
-      <td>389.0</td>
+      <td>5.52</td>
+      <td>0.02</td>
+      <td>383.0</td>
     </tr>
     <tr>
       <td>Kerberos.Zris</td>
       <td>HD</td>
       <td>12.4</td>
-      <td>12.24</td>
-      <td>-0.16</td>
-      <td>1314.0</td>
+      <td>12.41</td>
+      <td>0.01</td>
+      <td>1280.0</td>
     </tr>
     <tr>
       <td>Kerberos.Zris</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>15.78</td>
-      <td>-0.02</td>
-      <td>4334.0</td>
+      <td>15.77</td>
+      <td>-0.03</td>
+      <td>4260.0</td>
     </tr>
     <tr>
       <td>Khalid.Dolphin</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.03</td>
-      <td>0.03</td>
-      <td>532.0</td>
+      <td>4.01</td>
+      <td>0.01</td>
+      <td>514.0</td>
     </tr>
     <tr>
       <td>Khalid.Dolphin</td>
       <td>HD</td>
       <td>8.2</td>
-      <td>9.97</td>
-      <td>1.77</td>
-      <td>1042.0</td>
+      <td>8.24</td>
+      <td>0.04</td>
+      <td>1002.0</td>
     </tr>
     <tr>
       <td>Khalid.Dolphin</td>
       <td>IN</td>
       <td>13.1</td>
-      <td>12.67</td>
-      <td>-0.43</td>
-      <td>5004.0</td>
+      <td>12.76</td>
+      <td>-0.34</td>
+      <td>4807.0</td>
     </tr>
     <tr>
       <td>KhronostasisKatharsis.Halv</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.43</td>
-      <td>-0.57</td>
-      <td>387.0</td>
+      <td>5.94</td>
+      <td>-0.06</td>
+      <td>384.0</td>
     </tr>
     <tr>
       <td>KhronostasisKatharsis.Halv</td>
       <td>HD</td>
       <td>11.8</td>
-      <td>11.08</td>
-      <td>-0.72</td>
-      <td>738.0</td>
+      <td>11.75</td>
+      <td>-0.05</td>
+      <td>725.0</td>
     </tr>
     <tr>
       <td>KhronostasisKatharsis.Halv</td>
       <td>IN</td>
       <td>14.0</td>
-      <td>14.12</td>
-      <td>0.12</td>
-      <td>3661.0</td>
+      <td>14.06</td>
+      <td>0.06</td>
+      <td>3562.0</td>
     </tr>
     <tr>
       <td>KirakiraNoelStory.RekuMochizuki</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.09</td>
-      <td>0.09</td>
-      <td>219.0</td>
+      <td>4.04</td>
+      <td>0.04</td>
+      <td>213.0</td>
     </tr>
     <tr>
       <td>KirakiraNoelStory.RekuMochizuki</td>
       <td>HD</td>
       <td>10.2</td>
-      <td>10.27</td>
-      <td>0.07</td>
+      <td>10.20</td>
+      <td>-0.00</td>
       <td>254.0</td>
     </tr>
     <tr>
       <td>KirakiraNoelStory.RekuMochizuki</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>14.21</td>
-      <td>0.01</td>
-      <td>3251.0</td>
+      <td>14.19</td>
+      <td>-0.01</td>
+      <td>3198.0</td>
     </tr>
     <tr>
       <td>LabyrinthinKowloonWalledWorld.かめりあ</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>7.50</td>
-      <td>1.50</td>
-      <td>538.0</td>
+      <td>6.10</td>
+      <td>0.10</td>
+      <td>514.0</td>
     </tr>
     <tr>
       <td>LabyrinthinKowloonWalledWorld.かめりあ</td>
       <td>HD</td>
       <td>11.1</td>
-      <td>11.12</td>
-      <td>0.02</td>
-      <td>1804.0</td>
+      <td>11.10</td>
+      <td>0.00</td>
+      <td>1735.0</td>
     </tr>
     <tr>
       <td>LabyrinthinKowloonWalledWorld.かめりあ</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.61</td>
-      <td>0.01</td>
-      <td>4734.0</td>
+      <td>15.46</td>
+      <td>-0.14</td>
+      <td>4580.0</td>
     </tr>
     <tr>
       <td>LeaveAllBehind.rider</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.26</td>
-      <td>0.26</td>
-      <td>2080.0</td>
+      <td>3.17</td>
+      <td>0.17</td>
+      <td>1997.0</td>
     </tr>
     <tr>
       <td>LeaveAllBehind.rider</td>
       <td>HD</td>
       <td>8.9</td>
-      <td>9.02</td>
-      <td>0.12</td>
-      <td>3965.0</td>
+      <td>8.92</td>
+      <td>0.02</td>
+      <td>3792.0</td>
     </tr>
     <tr>
       <td>LeaveAllBehind.rider</td>
       <td>IN</td>
       <td>12.7</td>
-      <td>12.78</td>
-      <td>0.08</td>
-      <td>4874.0</td>
+      <td>13.19</td>
+      <td>0.49</td>
+      <td>4680.0</td>
     </tr>
     <tr>
       <td>Letempsperdu.Daison</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.09</td>
-      <td>0.09</td>
-      <td>226.0</td>
+      <td>4.00</td>
+      <td>-0.00</td>
+      <td>227.0</td>
     </tr>
     <tr>
       <td>Letempsperdu.Daison</td>
       <td>HD</td>
       <td>9.0</td>
-      <td>8.82</td>
-      <td>-0.18</td>
-      <td>254.0</td>
+      <td>9.00</td>
+      <td>-0.00</td>
+      <td>261.0</td>
     </tr>
     <tr>
       <td>Letempsperdu.Daison</td>
       <td>IN</td>
       <td>12.5</td>
-      <td>12.72</td>
-      <td>0.22</td>
-      <td>2483.0</td>
+      <td>12.51</td>
+      <td>0.01</td>
+      <td>2438.0</td>
     </tr>
     <tr>
       <td>Luminescence.米虾Fomiki初云CLoudie</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.52</td>
-      <td>0.02</td>
-      <td>1536.0</td>
+      <td>5.51</td>
+      <td>0.01</td>
+      <td>1465.0</td>
     </tr>
     <tr>
       <td>Luminescence.米虾Fomiki初云CLoudie</td>
       <td>HD</td>
       <td>11.0</td>
-      <td>10.77</td>
-      <td>-0.23</td>
-      <td>2822.0</td>
+      <td>11.00</td>
+      <td>-0.00</td>
+      <td>2713.0</td>
     </tr>
     <tr>
       <td>Luminescence.米虾Fomiki初云CLoudie</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.64</td>
-      <td>0.14</td>
-      <td>5056.0</td>
+      <td>14.69</td>
+      <td>0.19</td>
+      <td>4856.0</td>
     </tr>
     <tr>
       <td>Luminescent.Daison</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.52</td>
-      <td>0.02</td>
-      <td>264.0</td>
+      <td>5.50</td>
+      <td>0.00</td>
+      <td>261.0</td>
     </tr>
     <tr>
       <td>Luminescent.Daison</td>
       <td>HD</td>
       <td>9.7</td>
-      <td>9.67</td>
-      <td>-0.03</td>
-      <td>349.0</td>
+      <td>9.69</td>
+      <td>-0.01</td>
+      <td>344.0</td>
     </tr>
     <tr>
       <td>Luminescent.Daison</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.24</td>
-      <td>-0.16</td>
-      <td>2543.0</td>
+      <td>14.38</td>
+      <td>-0.02</td>
+      <td>2498.0</td>
     </tr>
     <tr>
       <td>LuminousEntitiesLostHeart.NormalMfeatUsagiDenki</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.89</td>
-      <td>-0.11</td>
-      <td>110.0</td>
+      <td>5.04</td>
+      <td>0.04</td>
+      <td>133.0</td>
     </tr>
     <tr>
       <td>LuminousEntitiesLostHeart.NormalMfeatUsagiDenki</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.84</td>
-      <td>-0.06</td>
-      <td>210.0</td>
+      <td>10.82</td>
+      <td>-0.08</td>
+      <td>268.0</td>
     </tr>
     <tr>
       <td>LuminousEntitiesLostHeart.NormalMfeatUsagiDenki</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>14.90</td>
-      <td>-0.30</td>
-      <td>3883.0</td>
+      <td>15.02</td>
+      <td>-0.18</td>
+      <td>4046.0</td>
     </tr>
     <tr>
       <td>Lyrith迷宮リリス.ユメミド</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.19</td>
-      <td>0.19</td>
-      <td>1300.0</td>
+      <td>5.01</td>
+      <td>0.01</td>
+      <td>1242.0</td>
     </tr>
     <tr>
       <td>Lyrith迷宮リリス.ユメミド</td>
       <td>HD</td>
       <td>11.1</td>
-      <td>11.31</td>
-      <td>0.21</td>
-      <td>2886.0</td>
+      <td>11.10</td>
+      <td>0.00</td>
+      <td>2762.0</td>
     </tr>
     <tr>
       <td>Lyrith迷宮リリス.ユメミド</td>
       <td>IN</td>
       <td>16.1</td>
-      <td>16.00</td>
-      <td>-0.10</td>
-      <td>4831.0</td>
+      <td>16.08</td>
+      <td>-0.02</td>
+      <td>4661.0</td>
     </tr>
     <tr>
       <td>Lyrith迷宮リリス.ユメミド</td>
       <td>AT</td>
       <td>16.5</td>
-      <td>16.39</td>
-      <td>-0.12</td>
-      <td>4060.0</td>
+      <td>16.46</td>
+      <td>-0.04</td>
+      <td>3992.0</td>
     </tr>
     <tr>
       <td>MARENOL.LeaF</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>1.88</td>
-      <td>-0.12</td>
-      <td>1275.0</td>
+      <td>1.99</td>
+      <td>-0.01</td>
+      <td>1218.0</td>
     </tr>
     <tr>
       <td>MARENOL.LeaF</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>8.98</td>
-      <td>-1.32</td>
-      <td>1428.0</td>
+      <td>10.27</td>
+      <td>-0.03</td>
+      <td>1361.0</td>
     </tr>
     <tr>
       <td>MARENOL.LeaF</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>13.83</td>
-      <td>-0.07</td>
-      <td>4083.0</td>
+      <td>13.81</td>
+      <td>-0.09</td>
+      <td>3955.0</td>
     </tr>
     <tr>
       <td>MOBILYS.Dachs</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.80</td>
-      <td>0.30</td>
-      <td>1150.0</td>
+      <td>5.53</td>
+      <td>0.03</td>
+      <td>1103.0</td>
     </tr>
     <tr>
       <td>MOBILYS.Dachs</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>9.51</td>
-      <td>0.21</td>
-      <td>2362.0</td>
+      <td>9.31</td>
+      <td>0.01</td>
+      <td>2275.0</td>
     </tr>
     <tr>
       <td>MOBILYS.Dachs</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.32</td>
-      <td>0.02</td>
-      <td>4838.0</td>
+      <td>14.24</td>
+      <td>-0.06</td>
+      <td>4653.0</td>
     </tr>
     <tr>
       <td>MagentaPotion.EmoCo</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.31</td>
-      <td>-0.19</td>
-      <td>417.0</td>
+      <td>6.49</td>
+      <td>-0.01</td>
+      <td>410.0</td>
     </tr>
     <tr>
       <td>MagentaPotion.EmoCo</td>
       <td>HD</td>
       <td>11.3</td>
-      <td>11.05</td>
-      <td>-0.25</td>
-      <td>679.0</td>
+      <td>11.29</td>
+      <td>-0.01</td>
+      <td>674.0</td>
     </tr>
     <tr>
       <td>MagentaPotion.EmoCo</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.57</td>
-      <td>0.17</td>
-      <td>2986.0</td>
+      <td>14.43</td>
+      <td>0.03</td>
+      <td>2961.0</td>
     </tr>
     <tr>
       <td>ManifoldHypothesis.cybermisofeattigerlily</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.27</td>
-      <td>0.27</td>
-      <td>394.0</td>
+      <td>4.02</td>
+      <td>0.02</td>
+      <td>385.0</td>
     </tr>
     <tr>
       <td>ManifoldHypothesis.cybermisofeattigerlily</td>
       <td>HD</td>
       <td>9.1</td>
-      <td>9.50</td>
-      <td>0.40</td>
-      <td>1026.0</td>
+      <td>9.12</td>
+      <td>0.02</td>
+      <td>990.0</td>
     </tr>
     <tr>
       <td>ManifoldHypothesis.cybermisofeattigerlily</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>15.03</td>
-      <td>0.33</td>
-      <td>4372.0</td>
+      <td>15.12</td>
+      <td>0.42</td>
+      <td>4241.0</td>
     </tr>
     <tr>
       <td>MiracleForestVIPMix.Rinthlive</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>2.93</td>
-      <td>-0.07</td>
-      <td>1430.0</td>
+      <td>3.02</td>
+      <td>0.02</td>
+      <td>1369.0</td>
     </tr>
     <tr>
       <td>MiracleForestVIPMix.Rinthlive</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.94</td>
-      <td>0.44</td>
-      <td>2420.0</td>
+      <td>7.54</td>
+      <td>0.04</td>
+      <td>2330.0</td>
     </tr>
     <tr>
       <td>MiracleForestVIPMix.Rinthlive</td>
       <td>IN</td>
       <td>13.1</td>
-      <td>13.31</td>
-      <td>0.21</td>
-      <td>4843.0</td>
+      <td>13.27</td>
+      <td>0.17</td>
+      <td>4649.0</td>
     </tr>
     <tr>
       <td>NOONEYESMAN.MYUKKE</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.52</td>
-      <td>-0.48</td>
-      <td>2004.0</td>
+      <td>6.96</td>
+      <td>-0.04</td>
+      <td>1916.0</td>
     </tr>
     <tr>
       <td>NOONEYESMAN.MYUKKE</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.70</td>
-      <td>-0.20</td>
-      <td>3989.0</td>
+      <td>10.87</td>
+      <td>-0.03</td>
+      <td>3824.0</td>
     </tr>
     <tr>
       <td>NOONEYESMAN.MYUKKE</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.60</td>
-      <td>0.10</td>
-      <td>4795.0</td>
+      <td>15.65</td>
+      <td>0.15</td>
+      <td>4612.0</td>
     </tr>
     <tr>
       <td>NOx.Juggernaut</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.58</td>
-      <td>0.08</td>
-      <td>77.0</td>
+      <td>4.52</td>
+      <td>0.02</td>
+      <td>121.0</td>
     </tr>
     <tr>
       <td>NOx.Juggernaut</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>10.25</td>
-      <td>-0.05</td>
-      <td>371.0</td>
+      <td>10.31</td>
+      <td>0.01</td>
+      <td>525.0</td>
     </tr>
     <tr>
       <td>NOx.Juggernaut</td>
       <td>IN</td>
       <td>16.1</td>
-      <td>16.07</td>
-      <td>-0.03</td>
-      <td>2670.0</td>
+      <td>16.12</td>
+      <td>0.02</td>
+      <td>3149.0</td>
     </tr>
     <tr>
       <td>NYA.FLuoRiTe姜米條</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>2.36</td>
-      <td>0.36</td>
-      <td>2470.0</td>
+      <td>2.06</td>
+      <td>0.06</td>
+      <td>2356.0</td>
     </tr>
     <tr>
       <td>NYA.FLuoRiTe姜米條</td>
       <td>HD</td>
       <td>8.6</td>
-      <td>9.56</td>
-      <td>0.96</td>
-      <td>4061.0</td>
+      <td>8.66</td>
+      <td>0.06</td>
+      <td>3887.0</td>
     </tr>
     <tr>
       <td>NYA.FLuoRiTe姜米條</td>
       <td>IN</td>
       <td>13.1</td>
-      <td>13.32</td>
-      <td>0.22</td>
-      <td>4716.0</td>
+      <td>13.33</td>
+      <td>0.23</td>
+      <td>4525.0</td>
     </tr>
     <tr>
       <td>NextTime.SaMZIng</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.79</td>
-      <td>-0.21</td>
-      <td>312.0</td>
+      <td>5.95</td>
+      <td>-0.05</td>
+      <td>309.0</td>
     </tr>
     <tr>
       <td>NextTime.SaMZIng</td>
       <td>HD</td>
       <td>8.7</td>
-      <td>8.95</td>
-      <td>0.25</td>
-      <td>401.0</td>
+      <td>8.74</td>
+      <td>0.04</td>
+      <td>389.0</td>
     </tr>
     <tr>
       <td>NextTime.SaMZIng</td>
       <td>IN</td>
       <td>12.4</td>
-      <td>12.51</td>
-      <td>0.11</td>
-      <td>2281.0</td>
+      <td>12.42</td>
+      <td>0.02</td>
+      <td>2252.0</td>
     </tr>
     <tr>
       <td>Nhelv.Silentroom</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>1.69</td>
-      <td>0.19</td>
-      <td>1188.0</td>
+      <td>1.55</td>
+      <td>0.05</td>
+      <td>1151.0</td>
     </tr>
     <tr>
       <td>Nhelv.Silentroom</td>
       <td>HD</td>
       <td>12.0</td>
-      <td>11.95</td>
-      <td>-0.05</td>
-      <td>800.0</td>
+      <td>11.99</td>
+      <td>-0.01</td>
+      <td>785.0</td>
     </tr>
     <tr>
       <td>Nhelv.Silentroom</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.45</td>
-      <td>-0.15</td>
-      <td>4333.0</td>
+      <td>15.54</td>
+      <td>-0.06</td>
+      <td>4239.0</td>
     </tr>
     <tr>
       <td>NickofTime.P4koo</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>6.42</td>
-      <td>0.42</td>
-      <td>1559.0</td>
+      <td>5.99</td>
+      <td>-0.01</td>
+      <td>1492.0</td>
     </tr>
     <tr>
       <td>NickofTime.P4koo</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>9.42</td>
-      <td>0.12</td>
-      <td>3439.0</td>
+      <td>9.29</td>
+      <td>-0.01</td>
+      <td>3289.0</td>
     </tr>
     <tr>
       <td>NickofTime.P4koo</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.55</td>
-      <td>-0.15</td>
-      <td>4873.0</td>
+      <td>14.40</td>
+      <td>-0.30</td>
+      <td>4687.0</td>
     </tr>
     <tr>
       <td>NightTheater.わかどり</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.06</td>
-      <td>0.06</td>
-      <td>276.0</td>
+      <td>4.00</td>
+      <td>0.00</td>
+      <td>273.0</td>
     </tr>
     <tr>
       <td>NightTheater.わかどり</td>
       <td>HD</td>
       <td>10.6</td>
-      <td>10.33</td>
-      <td>-0.27</td>
-      <td>638.0</td>
+      <td>10.60</td>
+      <td>-0.00</td>
+      <td>624.0</td>
     </tr>
     <tr>
       <td>NightTheater.わかどり</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.64</td>
-      <td>0.04</td>
-      <td>4664.0</td>
+      <td>14.63</td>
+      <td>0.03</td>
+      <td>4510.0</td>
     </tr>
     <tr>
       <td>NonMelodicRagezMUGEdit.Normal1zer</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.21</td>
-      <td>-0.29</td>
-      <td>1752.0</td>
+      <td>5.46</td>
+      <td>-0.04</td>
+      <td>1675.0</td>
     </tr>
     <tr>
       <td>NonMelodicRagezMUGEdit.Normal1zer</td>
       <td>HD</td>
       <td>11.6</td>
-      <td>11.41</td>
-      <td>-0.19</td>
-      <td>3312.0</td>
+      <td>11.51</td>
+      <td>-0.09</td>
+      <td>3174.0</td>
     </tr>
     <tr>
       <td>NonMelodicRagezMUGEdit.Normal1zer</td>
       <td>IN</td>
       <td>16.1</td>
-      <td>16.07</td>
-      <td>-0.03</td>
-      <td>4710.0</td>
+      <td>16.08</td>
+      <td>-0.02</td>
+      <td>4542.0</td>
     </tr>
     <tr>
       <td>NowIsTheTimeDoIt.RoyMikelate</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.42</td>
-      <td>-0.08</td>
-      <td>343.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>336.0</td>
     </tr>
     <tr>
       <td>NowIsTheTimeDoIt.RoyMikelate</td>
       <td>HD</td>
       <td>11.2</td>
-      <td>11.17</td>
-      <td>-0.03</td>
-      <td>562.0</td>
+      <td>11.06</td>
+      <td>-0.14</td>
+      <td>561.0</td>
     </tr>
     <tr>
       <td>NowIsTheTimeDoIt.RoyMikelate</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.83</td>
-      <td>0.53</td>
-      <td>3333.0</td>
+      <td>14.41</td>
+      <td>0.11</td>
+      <td>3256.0</td>
     </tr>
     <tr>
       <td>OnAndOn.ETIAfeatJenga</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.04</td>
-      <td>0.04</td>
-      <td>347.0</td>
+      <td>4.91</td>
+      <td>-0.09</td>
+      <td>348.0</td>
     </tr>
     <tr>
       <td>OnAndOn.ETIAfeatJenga</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>9.66</td>
-      <td>0.06</td>
-      <td>511.0</td>
+      <td>9.60</td>
+      <td>-0.00</td>
+      <td>497.0</td>
     </tr>
     <tr>
       <td>OnAndOn.ETIAfeatJenga</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>15.73</td>
-      <td>0.53</td>
-      <td>3660.0</td>
+      <td>15.41</td>
+      <td>0.21</td>
+      <td>3610.0</td>
     </tr>
     <tr>
       <td>Originally.SNKSMizku</td>
       <td>EZ</td>
       <td>1.0</td>
-      <td>1.28</td>
-      <td>0.28</td>
-      <td>1294.0</td>
+      <td>1.03</td>
+      <td>0.03</td>
+      <td>1289.0</td>
     </tr>
     <tr>
       <td>Originally.SNKSMizku</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>9.20</td>
-      <td>-0.10</td>
-      <td>347.0</td>
+      <td>9.26</td>
+      <td>-0.04</td>
+      <td>350.0</td>
     </tr>
     <tr>
       <td>Originally.SNKSMizku</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.63</td>
-      <td>0.03</td>
-      <td>3069.0</td>
+      <td>14.57</td>
+      <td>-0.03</td>
+      <td>3016.0</td>
     </tr>
     <tr>
       <td>Orthodox.tokiwa</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.32</td>
-      <td>-0.18</td>
-      <td>178.0</td>
+      <td>4.52</td>
+      <td>0.02</td>
+      <td>175.0</td>
     </tr>
     <tr>
       <td>Orthodox.tokiwa</td>
       <td>HD</td>
       <td>8.5</td>
-      <td>6.00</td>
-      <td>-2.50</td>
-      <td>221.0</td>
+      <td>8.45</td>
+      <td>-0.05</td>
+      <td>214.0</td>
     </tr>
     <tr>
       <td>Orthodox.tokiwa</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.53</td>
-      <td>-0.17</td>
-      <td>2644.0</td>
+      <td>13.68</td>
+      <td>-0.02</td>
+      <td>2565.0</td>
     </tr>
     <tr>
       <td>PANICPARADISE.DJSHIONY</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.44</td>
-      <td>-0.06</td>
-      <td>473.0</td>
+      <td>6.50</td>
+      <td>-0.00</td>
+      <td>454.0</td>
     </tr>
     <tr>
       <td>PANICPARADISE.DJSHIONY</td>
       <td>HD</td>
       <td>11.5</td>
-      <td>11.24</td>
-      <td>-0.26</td>
-      <td>1758.0</td>
+      <td>11.44</td>
+      <td>-0.06</td>
+      <td>1691.0</td>
     </tr>
     <tr>
       <td>PANICPARADISE.DJSHIONY</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.30</td>
-      <td>-0.10</td>
-      <td>4633.0</td>
+      <td>15.17</td>
+      <td>-0.23</td>
+      <td>4483.0</td>
     </tr>
     <tr>
       <td>PRAGMATISMRESURRECTION.Laur</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.29</td>
-      <td>-0.21</td>
-      <td>918.0</td>
+      <td>7.49</td>
+      <td>-0.01</td>
+      <td>911.0</td>
     </tr>
     <tr>
       <td>PRAGMATISMRESURRECTION.Laur</td>
       <td>HD</td>
       <td>12.9</td>
-      <td>11.12</td>
-      <td>-1.78</td>
-      <td>1837.0</td>
+      <td>12.71</td>
+      <td>-0.19</td>
+      <td>1791.0</td>
     </tr>
     <tr>
       <td>PRAGMATISMRESURRECTION.Laur</td>
       <td>IN</td>
       <td>16.0</td>
-      <td>15.32</td>
-      <td>-0.68</td>
-      <td>4827.0</td>
+      <td>15.74</td>
+      <td>-0.26</td>
+      <td>4653.0</td>
     </tr>
     <tr>
       <td>PRAGMATISMRESURRECTION.Laur</td>
       <td>AT</td>
       <td>16.6</td>
-      <td>16.58</td>
-      <td>-0.02</td>
-      <td>4073.0</td>
+      <td>16.67</td>
+      <td>0.07</td>
+      <td>3982.0</td>
     </tr>
     <tr>
       <td>PRAW.Bluewind</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>4.72</td>
-      <td>-1.28</td>
-      <td>454.0</td>
+      <td>5.95</td>
+      <td>-0.05</td>
+      <td>437.0</td>
     </tr>
     <tr>
       <td>PRAW.Bluewind</td>
@@ -3676,159 +3780,159 @@
       <td>10.6</td>
       <td>10.57</td>
       <td>-0.03</td>
-      <td>571.0</td>
+      <td>556.0</td>
     </tr>
     <tr>
       <td>PRAW.Bluewind</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>15.38</td>
-      <td>0.28</td>
-      <td>4681.0</td>
+      <td>15.30</td>
+      <td>0.20</td>
+      <td>4519.0</td>
     </tr>
     <tr>
       <td>Palescreen.WyvernPfeatMadol</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.86</td>
-      <td>0.36</td>
-      <td>328.0</td>
+      <td>5.55</td>
+      <td>0.05</td>
+      <td>317.0</td>
     </tr>
     <tr>
       <td>Palescreen.WyvernPfeatMadol</td>
       <td>HD</td>
       <td>12.3</td>
-      <td>12.44</td>
-      <td>0.14</td>
-      <td>791.0</td>
+      <td>12.28</td>
+      <td>-0.02</td>
+      <td>770.0</td>
     </tr>
     <tr>
       <td>Palescreen.WyvernPfeatMadol</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.97</td>
-      <td>0.07</td>
-      <td>4051.0</td>
+      <td>15.93</td>
+      <td>0.03</td>
+      <td>3972.0</td>
     </tr>
     <tr>
       <td>ParallelRetrogressionGameVer.Tetrajectory</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.98</td>
-      <td>-0.02</td>
-      <td>351.0</td>
+      <td>7.02</td>
+      <td>0.02</td>
+      <td>339.0</td>
     </tr>
     <tr>
       <td>ParallelRetrogressionGameVer.Tetrajectory</td>
       <td>HD</td>
       <td>10.9</td>
-      <td>10.86</td>
-      <td>-0.04</td>
-      <td>330.0</td>
+      <td>10.95</td>
+      <td>0.05</td>
+      <td>332.0</td>
     </tr>
     <tr>
       <td>ParallelRetrogressionGameVer.Tetrajectory</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>14.15</td>
-      <td>-0.05</td>
-      <td>2187.0</td>
+      <td>14.19</td>
+      <td>-0.01</td>
+      <td>2144.0</td>
     </tr>
     <tr>
       <td>PixelRebelz.Normal1zer</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.39</td>
-      <td>-0.11</td>
-      <td>410.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>395.0</td>
     </tr>
     <tr>
       <td>PixelRebelz.Normal1zer</td>
       <td>HD</td>
       <td>9.7</td>
-      <td>9.87</td>
-      <td>0.17</td>
-      <td>572.0</td>
+      <td>9.69</td>
+      <td>-0.01</td>
+      <td>562.0</td>
     </tr>
     <tr>
       <td>PixelRebelz.Normal1zer</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.11</td>
-      <td>-0.19</td>
-      <td>4637.0</td>
+      <td>15.17</td>
+      <td>-0.13</td>
+      <td>4465.0</td>
     </tr>
     <tr>
       <td>PoisonANDORAffection.LeaF</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.74</td>
-      <td>0.24</td>
-      <td>550.0</td>
+      <td>3.53</td>
+      <td>0.03</td>
+      <td>533.0</td>
     </tr>
     <tr>
       <td>PoisonANDORAffection.LeaF</td>
       <td>HD</td>
       <td>9.9</td>
-      <td>9.47</td>
-      <td>-0.43</td>
-      <td>945.0</td>
+      <td>9.86</td>
+      <td>-0.04</td>
+      <td>919.0</td>
     </tr>
     <tr>
       <td>PoisonANDORAffection.LeaF</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.64</td>
-      <td>-0.06</td>
-      <td>4532.0</td>
+      <td>15.68</td>
+      <td>-0.02</td>
+      <td>4407.0</td>
     </tr>
     <tr>
       <td>Pontdessouvenirs.VeetaCrushvsitsufeatitsu</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.42</td>
-      <td>-0.08</td>
-      <td>355.0</td>
+      <td>5.56</td>
+      <td>0.06</td>
+      <td>347.0</td>
     </tr>
     <tr>
       <td>Pontdessouvenirs.VeetaCrushvsitsufeatitsu</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.48</td>
-      <td>-0.22</td>
-      <td>541.0</td>
+      <td>10.68</td>
+      <td>-0.02</td>
+      <td>529.0</td>
     </tr>
     <tr>
       <td>Pontdessouvenirs.VeetaCrushvsitsufeatitsu</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.35</td>
-      <td>0.05</td>
-      <td>4072.0</td>
+      <td>15.30</td>
+      <td>-0.00</td>
+      <td>3980.0</td>
     </tr>
     <tr>
       <td>Poseidon.1112vsStar</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>7.56</td>
-      <td>1.56</td>
-      <td>1614.0</td>
+      <td>6.02</td>
+      <td>0.02</td>
+      <td>1539.0</td>
     </tr>
     <tr>
       <td>Poseidon.1112vsStar</td>
       <td>HD</td>
       <td>8.4</td>
-      <td>8.32</td>
-      <td>-0.08</td>
-      <td>2853.0</td>
+      <td>8.43</td>
+      <td>0.03</td>
+      <td>2752.0</td>
     </tr>
     <tr>
       <td>Poseidon.1112vsStar</td>
       <td>IN</td>
       <td>12.8</td>
-      <td>12.78</td>
-      <td>-0.02</td>
-      <td>4984.0</td>
+      <td>11.87</td>
+      <td>-0.93</td>
+      <td>4788.0</td>
     </tr>
     <tr>
       <td>Poseidon.1112vsStar</td>
@@ -3836,495 +3940,527 @@
       <td>16.2</td>
       <td>16.19</td>
       <td>-0.01</td>
-      <td>3776.0</td>
+      <td>3744.0</td>
     </tr>
     <tr>
       <td>Protoflicker.Silentroom</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.98</td>
-      <td>0.48</td>
-      <td>903.0</td>
+      <td>3.54</td>
+      <td>0.04</td>
+      <td>871.0</td>
     </tr>
     <tr>
       <td>Protoflicker.Silentroom</td>
       <td>HD</td>
       <td>9.7</td>
-      <td>9.66</td>
-      <td>-0.04</td>
-      <td>3076.0</td>
+      <td>9.74</td>
+      <td>0.04</td>
+      <td>2944.0</td>
     </tr>
     <tr>
       <td>Protoflicker.Silentroom</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.46</td>
-      <td>0.06</td>
-      <td>4914.0</td>
+      <td>15.50</td>
+      <td>0.10</td>
+      <td>4732.0</td>
     </tr>
     <tr>
       <td>QuantumHyperspace.D_AAN</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>6.25</td>
-      <td>0.25</td>
-      <td>570.0</td>
+      <td>6.03</td>
+      <td>0.03</td>
+      <td>552.0</td>
     </tr>
     <tr>
       <td>QuantumHyperspace.D_AAN</td>
       <td>HD</td>
       <td>11.2</td>
-      <td>11.06</td>
-      <td>-0.14</td>
-      <td>1472.0</td>
+      <td>11.19</td>
+      <td>-0.01</td>
+      <td>1414.0</td>
     </tr>
     <tr>
       <td>QuantumHyperspace.D_AAN</td>
       <td>IN</td>
       <td>15.0</td>
-      <td>14.94</td>
-      <td>-0.06</td>
-      <td>4827.0</td>
+      <td>14.92</td>
+      <td>-0.08</td>
+      <td>4652.0</td>
     </tr>
     <tr>
       <td>RESSiSTANCE.ぐるたみん</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.58</td>
-      <td>0.08</td>
-      <td>620.0</td>
+      <td>6.50</td>
+      <td>-0.00</td>
+      <td>611.0</td>
     </tr>
     <tr>
       <td>RESSiSTANCE.ぐるたみん</td>
       <td>HD</td>
       <td>11.2</td>
-      <td>11.18</td>
-      <td>-0.02</td>
-      <td>1776.0</td>
+      <td>11.19</td>
+      <td>-0.01</td>
+      <td>1712.0</td>
     </tr>
     <tr>
       <td>RESSiSTANCE.ぐるたみん</td>
       <td>IN</td>
       <td>16.1</td>
-      <td>15.97</td>
-      <td>-0.13</td>
-      <td>4401.0</td>
+      <td>16.05</td>
+      <td>-0.05</td>
+      <td>4295.0</td>
     </tr>
     <tr>
       <td>RIPPER.Friedwav</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.41</td>
-      <td>-0.09</td>
-      <td>617.0</td>
+      <td>6.50</td>
+      <td>0.00</td>
+      <td>589.0</td>
     </tr>
     <tr>
       <td>RIPPER.Friedwav</td>
       <td>HD</td>
       <td>11.7</td>
-      <td>11.67</td>
-      <td>-0.03</td>
-      <td>596.0</td>
+      <td>11.57</td>
+      <td>-0.13</td>
+      <td>592.0</td>
     </tr>
     <tr>
       <td>RIPPER.Friedwav</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.38</td>
-      <td>0.08</td>
-      <td>3506.0</td>
+      <td>15.33</td>
+      <td>0.03</td>
+      <td>3419.0</td>
+    </tr>
+    <tr>
+      <td>Radiance.Nhato</td>
+      <td>EZ</td>
+      <td>3.5</td>
+      <td>3.49</td>
+      <td>-0.01</td>
+      <td>128.0</td>
+    </tr>
+    <tr>
+      <td>Radiance.Nhato</td>
+      <td>HD</td>
+      <td>11.5</td>
+      <td>11.51</td>
+      <td>0.01</td>
+      <td>217.0</td>
+    </tr>
+    <tr>
+      <td>Radiance.Nhato</td>
+      <td>IN</td>
+      <td>14.0</td>
+      <td>14.33</td>
+      <td>0.33</td>
+      <td>3739.0</td>
+    </tr>
+    <tr>
+      <td>Radiance.Nhato</td>
+      <td>AT</td>
+      <td>15.5</td>
+      <td>15.49</td>
+      <td>-0.01</td>
+      <td>2491.0</td>
     </tr>
     <tr>
       <td>RainyHeart.BelieverInYou阿卡姆巫师</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.21</td>
-      <td>0.21</td>
-      <td>386.0</td>
+      <td>4.02</td>
+      <td>0.02</td>
+      <td>374.0</td>
     </tr>
     <tr>
       <td>RainyHeart.BelieverInYou阿卡姆巫师</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.19</td>
-      <td>-0.21</td>
-      <td>565.0</td>
+      <td>9.36</td>
+      <td>-0.04</td>
+      <td>540.0</td>
     </tr>
     <tr>
       <td>RainyHeart.BelieverInYou阿卡姆巫师</td>
       <td>IN</td>
       <td>12.9</td>
-      <td>13.46</td>
-      <td>0.56</td>
-      <td>2701.0</td>
+      <td>12.93</td>
+      <td>0.03</td>
+      <td>2635.0</td>
     </tr>
     <tr>
       <td>RainySeason.AbyssIdols</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.47</td>
-      <td>-0.03</td>
-      <td>304.0</td>
+      <td>5.48</td>
+      <td>-0.02</td>
+      <td>297.0</td>
     </tr>
     <tr>
       <td>RainySeason.AbyssIdols</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.18</td>
-      <td>-0.52</td>
-      <td>457.0</td>
+      <td>10.69</td>
+      <td>-0.01</td>
+      <td>440.0</td>
     </tr>
     <tr>
       <td>RainySeason.AbyssIdols</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>14.30</td>
-      <td>0.10</td>
-      <td>2852.0</td>
+      <td>14.20</td>
+      <td>-0.00</td>
+      <td>2784.0</td>
     </tr>
     <tr>
       <td>Ramification.rareguyReina</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.08</td>
-      <td>0.08</td>
-      <td>225.0</td>
+      <td>5.00</td>
+      <td>0.00</td>
+      <td>228.0</td>
     </tr>
     <tr>
       <td>Ramification.rareguyReina</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.96</td>
-      <td>0.56</td>
-      <td>527.0</td>
+      <td>10.39</td>
+      <td>-0.01</td>
+      <td>510.0</td>
     </tr>
     <tr>
       <td>Ramification.rareguyReina</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>15.18</td>
-      <td>0.38</td>
-      <td>4613.0</td>
+      <td>15.02</td>
+      <td>0.22</td>
+      <td>4460.0</td>
     </tr>
     <tr>
       <td>Random.SobremSilentroom</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.52</td>
-      <td>0.02</td>
-      <td>457.0</td>
+      <td>5.55</td>
+      <td>0.05</td>
+      <td>439.0</td>
     </tr>
     <tr>
       <td>Random.SobremSilentroom</td>
       <td>HD</td>
       <td>12.2</td>
-      <td>11.93</td>
-      <td>-0.27</td>
-      <td>942.0</td>
+      <td>12.16</td>
+      <td>-0.04</td>
+      <td>915.0</td>
     </tr>
     <tr>
       <td>Random.SobremSilentroom</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.56</td>
-      <td>-0.14</td>
-      <td>3885.0</td>
+      <td>14.50</td>
+      <td>-0.20</td>
+      <td>3768.0</td>
     </tr>
     <tr>
       <td>ReEndofaDream.umavsモリモリあつし</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.26</td>
-      <td>-0.24</td>
-      <td>857.0</td>
+      <td>7.48</td>
+      <td>-0.02</td>
+      <td>848.0</td>
     </tr>
     <tr>
       <td>ReEndofaDream.umavsモリモリあつし</td>
       <td>HD</td>
       <td>13.0</td>
-      <td>12.94</td>
-      <td>-0.06</td>
-      <td>2632.0</td>
+      <td>12.98</td>
+      <td>-0.02</td>
+      <td>2529.0</td>
     </tr>
     <tr>
       <td>ReEndofaDream.umavsモリモリあつし</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.94</td>
-      <td>0.04</td>
-      <td>4798.0</td>
+      <td>15.84</td>
+      <td>-0.06</td>
+      <td>4643.0</td>
     </tr>
     <tr>
       <td>ReEndofaDream.umavsモリモリあつし</td>
       <td>AT</td>
       <td>16.9</td>
-      <td>16.83</td>
-      <td>-0.07</td>
-      <td>4208.0</td>
+      <td>16.79</td>
+      <td>-0.11</td>
+      <td>4110.0</td>
     </tr>
     <tr>
       <td>Re_NascencePsystyleVer.Rinth_live</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.70</td>
-      <td>0.20</td>
-      <td>813.0</td>
+      <td>5.55</td>
+      <td>0.05</td>
+      <td>782.0</td>
     </tr>
     <tr>
       <td>Re_NascencePsystyleVer.Rinth_live</td>
       <td>HD</td>
       <td>11.7</td>
-      <td>11.29</td>
-      <td>-0.41</td>
-      <td>2305.0</td>
+      <td>11.69</td>
+      <td>-0.01</td>
+      <td>2208.0</td>
     </tr>
     <tr>
       <td>Re_NascencePsystyleVer.Rinth_live</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.50</td>
-      <td>0.20</td>
-      <td>4750.0</td>
+      <td>14.44</td>
+      <td>0.14</td>
+      <td>4568.0</td>
     </tr>
     <tr>
       <td>Realms.HinkikAHimitsu</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.60</td>
-      <td>0.10</td>
-      <td>465.0</td>
+      <td>3.49</td>
+      <td>-0.01</td>
+      <td>452.0</td>
     </tr>
     <tr>
       <td>Realms.HinkikAHimitsu</td>
       <td>HD</td>
       <td>10.2</td>
-      <td>10.24</td>
-      <td>0.04</td>
-      <td>779.0</td>
+      <td>10.03</td>
+      <td>-0.17</td>
+      <td>753.0</td>
     </tr>
     <tr>
       <td>Realms.HinkikAHimitsu</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>13.87</td>
-      <td>0.07</td>
-      <td>3653.0</td>
+      <td>13.76</td>
+      <td>-0.04</td>
+      <td>3550.0</td>
     </tr>
     <tr>
       <td>Reimei.影虎</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.43</td>
-      <td>-0.07</td>
-      <td>2267.0</td>
+      <td>6.60</td>
+      <td>0.10</td>
+      <td>2156.0</td>
     </tr>
     <tr>
       <td>Reimei.影虎</td>
       <td>HD</td>
       <td>11.7</td>
-      <td>11.68</td>
-      <td>-0.02</td>
-      <td>3991.0</td>
+      <td>11.63</td>
+      <td>-0.07</td>
+      <td>3824.0</td>
     </tr>
     <tr>
       <td>Reimei.影虎</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>15.04</td>
-      <td>-0.06</td>
-      <td>4788.0</td>
+      <td>15.11</td>
+      <td>0.01</td>
+      <td>4607.0</td>
     </tr>
     <tr>
       <td>Resolver.Gomadare</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.29</td>
-      <td>0.29</td>
-      <td>129.0</td>
+      <td>3.27</td>
+      <td>0.27</td>
+      <td>153.0</td>
     </tr>
     <tr>
       <td>Resolver.Gomadare</td>
       <td>HD</td>
       <td>8.8</td>
-      <td>9.03</td>
-      <td>0.23</td>
-      <td>264.0</td>
+      <td>9.00</td>
+      <td>0.20</td>
+      <td>304.0</td>
     </tr>
     <tr>
       <td>Resolver.Gomadare</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.58</td>
-      <td>0.08</td>
-      <td>3955.0</td>
+      <td>14.53</td>
+      <td>0.03</td>
+      <td>4107.0</td>
     </tr>
     <tr>
       <td>Retribution.nmyKryexe</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>6.08</td>
-      <td>0.08</td>
-      <td>1585.0</td>
+      <td>6.01</td>
+      <td>0.01</td>
+      <td>1511.0</td>
     </tr>
     <tr>
       <td>Retribution.nmyKryexe</td>
       <td>HD</td>
       <td>11.6</td>
-      <td>11.73</td>
-      <td>0.13</td>
-      <td>2996.0</td>
+      <td>11.62</td>
+      <td>0.02</td>
+      <td>2873.0</td>
     </tr>
     <tr>
       <td>Retribution.nmyKryexe</td>
       <td>IN</td>
       <td>16.2</td>
-      <td>16.12</td>
-      <td>-0.08</td>
-      <td>4870.0</td>
+      <td>16.19</td>
+      <td>-0.01</td>
+      <td>4686.0</td>
     </tr>
     <tr>
       <td>Rrharil.TeamGrimoire</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>7.24</td>
-      <td>0.24</td>
-      <td>2987.0</td>
+      <td>7.42</td>
+      <td>0.42</td>
+      <td>2853.0</td>
     </tr>
     <tr>
       <td>Rrharil.TeamGrimoire</td>
       <td>HD</td>
       <td>12.7</td>
-      <td>12.81</td>
-      <td>0.11</td>
-      <td>4329.0</td>
+      <td>12.73</td>
+      <td>0.03</td>
+      <td>4141.0</td>
     </tr>
     <tr>
       <td>Rrharil.TeamGrimoire</td>
       <td>IN</td>
       <td>16.1</td>
-      <td>16.00</td>
-      <td>-0.10</td>
-      <td>4695.0</td>
+      <td>15.94</td>
+      <td>-0.16</td>
+      <td>4549.0</td>
     </tr>
     <tr>
       <td>Rrharil.TeamGrimoire</td>
       <td>AT</td>
       <td>17.6</td>
-      <td>17.41</td>
-      <td>-0.19</td>
-      <td>4075.0</td>
+      <td>17.48</td>
+      <td>-0.12</td>
+      <td>3972.0</td>
     </tr>
     <tr>
       <td>RubbishSorting.CtymaxvsNceS</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.90</td>
-      <td>1.40</td>
-      <td>476.0</td>
+      <td>3.53</td>
+      <td>0.03</td>
+      <td>458.0</td>
     </tr>
     <tr>
       <td>RubbishSorting.CtymaxvsNceS</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.62</td>
-      <td>0.22</td>
-      <td>759.0</td>
+      <td>9.42</td>
+      <td>0.02</td>
+      <td>730.0</td>
     </tr>
     <tr>
       <td>RubbishSorting.CtymaxvsNceS</td>
       <td>IN</td>
       <td>13.2</td>
-      <td>13.34</td>
-      <td>0.14</td>
-      <td>2684.0</td>
+      <td>13.23</td>
+      <td>0.03</td>
+      <td>2605.0</td>
     </tr>
     <tr>
       <td>SATELLITE.かめりあ</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.84</td>
-      <td>-0.16</td>
-      <td>795.0</td>
+      <td>4.99</td>
+      <td>-0.01</td>
+      <td>762.0</td>
     </tr>
     <tr>
       <td>SATELLITE.かめりあ</td>
       <td>HD</td>
       <td>9.9</td>
-      <td>9.81</td>
-      <td>-0.09</td>
-      <td>1672.0</td>
+      <td>9.89</td>
+      <td>-0.01</td>
+      <td>1607.0</td>
     </tr>
     <tr>
       <td>SATELLITE.かめりあ</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.29</td>
-      <td>-0.01</td>
-      <td>5047.0</td>
+      <td>14.30</td>
+      <td>-0.00</td>
+      <td>4850.0</td>
     </tr>
     <tr>
       <td>SATELLITE.かめりあ</td>
       <td>AT</td>
       <td>16.2</td>
-      <td>16.20</td>
-      <td>-0.00</td>
-      <td>3757.0</td>
+      <td>16.19</td>
+      <td>-0.01</td>
+      <td>3690.0</td>
     </tr>
     <tr>
       <td>SIGMA.Kryexe</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.03</td>
-      <td>0.03</td>
-      <td>444.0</td>
+      <td>5.02</td>
+      <td>0.02</td>
+      <td>434.0</td>
     </tr>
     <tr>
       <td>SIGMA.Kryexe</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.33</td>
-      <td>-0.17</td>
-      <td>1104.0</td>
+      <td>10.35</td>
+      <td>-0.15</td>
+      <td>1072.0</td>
     </tr>
     <tr>
       <td>SIGMA.Kryexe</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>15.80</td>
-      <td>-0.00</td>
-      <td>4540.0</td>
+      <td>15.77</td>
+      <td>-0.03</td>
+      <td>4404.0</td>
     </tr>
     <tr>
       <td>SURREALISM.Itsuki</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.04</td>
-      <td>0.04</td>
-      <td>1834.0</td>
+      <td>5.03</td>
+      <td>0.03</td>
+      <td>1759.0</td>
     </tr>
     <tr>
       <td>SURREALISM.Itsuki</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.09</td>
-      <td>-0.31</td>
-      <td>2584.0</td>
+      <td>9.41</td>
+      <td>0.01</td>
+      <td>2483.0</td>
     </tr>
     <tr>
       <td>SURREALISM.Itsuki</td>
       <td>IN</td>
       <td>13.4</td>
-      <td>14.09</td>
-      <td>0.69</td>
-      <td>3688.0</td>
+      <td>13.72</td>
+      <td>0.32</td>
+      <td>3560.0</td>
     </tr>
     <tr>
       <td>Schadenfreude.ZxNX</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.44</td>
-      <td>-0.06</td>
-      <td>183.0</td>
+      <td>4.47</td>
+      <td>-0.03</td>
+      <td>185.0</td>
     </tr>
     <tr>
       <td>Schadenfreude.ZxNX</td>
@@ -4332,1191 +4468,1223 @@
       <td>10.6</td>
       <td>10.56</td>
       <td>-0.04</td>
-      <td>306.0</td>
+      <td>303.0</td>
     </tr>
     <tr>
       <td>Schadenfreude.ZxNX</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>15.21</td>
-      <td>0.01</td>
-      <td>3918.0</td>
+      <td>15.23</td>
+      <td>0.03</td>
+      <td>3822.0</td>
     </tr>
     <tr>
       <td>SecretIllumination.Yooh</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.91</td>
-      <td>-0.09</td>
-      <td>544.0</td>
+      <td>5.02</td>
+      <td>0.02</td>
+      <td>527.0</td>
     </tr>
     <tr>
       <td>SecretIllumination.Yooh</td>
       <td>HD</td>
       <td>10.2</td>
-      <td>9.91</td>
-      <td>-0.29</td>
-      <td>1251.0</td>
+      <td>10.19</td>
+      <td>-0.01</td>
+      <td>1213.0</td>
     </tr>
     <tr>
       <td>SecretIllumination.Yooh</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.81</td>
-      <td>0.21</td>
-      <td>4704.0</td>
+      <td>14.68</td>
+      <td>0.08</td>
+      <td>4542.0</td>
     </tr>
     <tr>
       <td>Sein.朔Apo11oprogramvsお月さま交響曲ftkuroa荒巻</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>6.40</td>
-      <td>1.40</td>
-      <td>253.0</td>
+      <td>5.00</td>
+      <td>-0.00</td>
+      <td>246.0</td>
     </tr>
     <tr>
       <td>Sein.朔Apo11oprogramvsお月さま交響曲ftkuroa荒巻</td>
       <td>HD</td>
       <td>10.1</td>
-      <td>10.11</td>
-      <td>0.01</td>
-      <td>341.0</td>
+      <td>10.12</td>
+      <td>0.02</td>
+      <td>340.0</td>
     </tr>
     <tr>
       <td>Sein.朔Apo11oprogramvsお月さま交響曲ftkuroa荒巻</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>15.09</td>
-      <td>-0.01</td>
-      <td>3156.0</td>
+      <td>15.13</td>
+      <td>0.03</td>
+      <td>3101.0</td>
     </tr>
     <tr>
       <td>Shadow.SumaiLightvs姜米條</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.51</td>
-      <td>0.01</td>
-      <td>1191.0</td>
+      <td>6.47</td>
+      <td>-0.03</td>
+      <td>1154.0</td>
     </tr>
     <tr>
       <td>Shadow.SumaiLightvs姜米條</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>9.89</td>
-      <td>-0.61</td>
-      <td>2529.0</td>
+      <td>10.48</td>
+      <td>-0.02</td>
+      <td>2431.0</td>
     </tr>
     <tr>
       <td>Shadow.SumaiLightvs姜米條</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.55</td>
-      <td>0.05</td>
-      <td>4745.0</td>
+      <td>14.53</td>
+      <td>0.03</td>
+      <td>4578.0</td>
     </tr>
     <tr>
       <td>Shadow.SumaiLightvs姜米條</td>
       <td>AT</td>
       <td>16.2</td>
-      <td>16.12</td>
-      <td>-0.08</td>
-      <td>3809.0</td>
+      <td>16.17</td>
+      <td>-0.03</td>
+      <td>3712.0</td>
     </tr>
     <tr>
       <td>Shelter.MeatyRabbitNceS</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.56</td>
-      <td>0.06</td>
-      <td>173.0</td>
+      <td>3.67</td>
+      <td>0.17</td>
+      <td>174.0</td>
     </tr>
     <tr>
       <td>Shelter.MeatyRabbitNceS</td>
       <td>HD</td>
       <td>8.8</td>
-      <td>8.49</td>
-      <td>-0.31</td>
-      <td>173.0</td>
+      <td>8.80</td>
+      <td>-0.00</td>
+      <td>176.0</td>
     </tr>
     <tr>
       <td>Shelter.MeatyRabbitNceS</td>
       <td>IN</td>
       <td>13.1</td>
-      <td>13.28</td>
-      <td>0.18</td>
-      <td>2124.0</td>
+      <td>13.12</td>
+      <td>0.02</td>
+      <td>2089.0</td>
     </tr>
     <tr>
       <td>ShineAfter.ADeanJocularACE</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.66</td>
-      <td>-0.34</td>
-      <td>393.0</td>
+      <td>4.00</td>
+      <td>-0.00</td>
+      <td>395.0</td>
     </tr>
     <tr>
       <td>ShineAfter.ADeanJocularACE</td>
       <td>HD</td>
       <td>9.7</td>
-      <td>9.55</td>
-      <td>-0.15</td>
-      <td>514.0</td>
+      <td>9.67</td>
+      <td>-0.03</td>
+      <td>510.0</td>
     </tr>
     <tr>
       <td>ShineAfter.ADeanJocularACE</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.35</td>
-      <td>-0.05</td>
-      <td>3275.0</td>
+      <td>14.40</td>
+      <td>0.00</td>
+      <td>3241.0</td>
     </tr>
     <tr>
       <td>SilenceisGoldenSpeechisGolden.NIWASHI</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.12</td>
-      <td>0.12</td>
-      <td>268.0</td>
+      <td>4.98</td>
+      <td>-0.02</td>
+      <td>262.0</td>
     </tr>
     <tr>
       <td>SilenceisGoldenSpeechisGolden.NIWASHI</td>
       <td>HD</td>
       <td>9.3</td>
-      <td>11.20</td>
-      <td>1.90</td>
-      <td>466.0</td>
+      <td>9.34</td>
+      <td>0.04</td>
+      <td>483.0</td>
     </tr>
     <tr>
       <td>SilenceisGoldenSpeechisGolden.NIWASHI</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.74</td>
-      <td>0.14</td>
-      <td>4408.0</td>
+      <td>15.67</td>
+      <td>0.07</td>
+      <td>4333.0</td>
     </tr>
     <tr>
       <td>SnowDesert.WyvernP</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.93</td>
-      <td>-0.07</td>
-      <td>306.0</td>
+      <td>5.01</td>
+      <td>0.01</td>
+      <td>302.0</td>
     </tr>
     <tr>
       <td>SnowDesert.WyvernP</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>10.30</td>
-      <td>-0.00</td>
-      <td>461.0</td>
+      <td>10.28</td>
+      <td>-0.02</td>
+      <td>455.0</td>
     </tr>
     <tr>
       <td>SnowDesert.WyvernP</td>
       <td>IN</td>
       <td>13.4</td>
-      <td>13.45</td>
-      <td>0.05</td>
-      <td>2489.0</td>
+      <td>13.41</td>
+      <td>0.01</td>
+      <td>2446.0</td>
     </tr>
     <tr>
       <td>SparkleNewLife.rider</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.10</td>
-      <td>0.10</td>
-      <td>295.0</td>
+      <td>4.24</td>
+      <td>0.24</td>
+      <td>290.0</td>
     </tr>
     <tr>
       <td>SparkleNewLife.rider</td>
       <td>HD</td>
       <td>9.2</td>
-      <td>9.35</td>
-      <td>0.15</td>
-      <td>320.0</td>
+      <td>9.21</td>
+      <td>0.01</td>
+      <td>316.0</td>
     </tr>
     <tr>
       <td>SparkleNewLife.rider</td>
       <td>IN</td>
       <td>12.8</td>
-      <td>13.07</td>
-      <td>0.27</td>
-      <td>2311.0</td>
+      <td>12.82</td>
+      <td>0.02</td>
+      <td>2279.0</td>
     </tr>
     <tr>
       <td>Spasmodic.姜米條颶風元力上人</td>
       <td>EZ</td>
       <td>8.2</td>
-      <td>8.28</td>
-      <td>0.08</td>
-      <td>3322.0</td>
+      <td>8.23</td>
+      <td>0.03</td>
+      <td>3185.0</td>
     </tr>
     <tr>
       <td>Spasmodic.姜米條颶風元力上人</td>
       <td>HD</td>
       <td>13.3</td>
-      <td>13.24</td>
-      <td>-0.06</td>
-      <td>4510.0</td>
+      <td>13.25</td>
+      <td>-0.05</td>
+      <td>4324.0</td>
     </tr>
     <tr>
       <td>Spasmodic.姜米條颶風元力上人</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.68</td>
-      <td>0.18</td>
-      <td>4905.0</td>
+      <td>15.76</td>
+      <td>0.26</td>
+      <td>4724.0</td>
     </tr>
     <tr>
       <td>Spasmodic.姜米條颶風元力上人</td>
       <td>AT</td>
       <td>16.7</td>
-      <td>16.75</td>
-      <td>0.05</td>
-      <td>4223.0</td>
+      <td>16.77</td>
+      <td>0.07</td>
+      <td>4117.0</td>
     </tr>
     <tr>
       <td>SpeedUp.DarTokki</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.66</td>
-      <td>0.16</td>
-      <td>399.0</td>
+      <td>4.51</td>
+      <td>0.01</td>
+      <td>383.0</td>
     </tr>
     <tr>
       <td>SpeedUp.DarTokki</td>
       <td>HD</td>
       <td>10.3</td>
-      <td>10.17</td>
-      <td>-0.13</td>
-      <td>653.0</td>
+      <td>10.28</td>
+      <td>-0.02</td>
+      <td>635.0</td>
     </tr>
     <tr>
       <td>SpeedUp.DarTokki</td>
       <td>IN</td>
       <td>14.0</td>
-      <td>14.12</td>
-      <td>0.12</td>
-      <td>3089.0</td>
+      <td>14.02</td>
+      <td>0.02</td>
+      <td>3027.0</td>
     </tr>
     <tr>
       <td>Spotlight.Ardolf</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.70</td>
-      <td>0.20</td>
-      <td>343.0</td>
+      <td>4.54</td>
+      <td>0.04</td>
+      <td>332.0</td>
     </tr>
     <tr>
       <td>Spotlight.Ardolf</td>
       <td>HD</td>
       <td>9.9</td>
-      <td>10.09</td>
-      <td>0.19</td>
-      <td>663.0</td>
+      <td>9.94</td>
+      <td>0.04</td>
+      <td>647.0</td>
     </tr>
     <tr>
       <td>Spotlight.Ardolf</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.66</td>
-      <td>0.26</td>
-      <td>4644.0</td>
+      <td>14.49</td>
+      <td>0.09</td>
+      <td>4482.0</td>
+    </tr>
+    <tr>
+      <td>StardustRAY.kanonevsBlackY</td>
+      <td>EZ</td>
+      <td>6.0</td>
+      <td>6.01</td>
+      <td>0.01</td>
+      <td>155.0</td>
+    </tr>
+    <tr>
+      <td>StardustRAY.kanonevsBlackY</td>
+      <td>HD</td>
+      <td>12.5</td>
+      <td>12.46</td>
+      <td>-0.04</td>
+      <td>319.0</td>
+    </tr>
+    <tr>
+      <td>StardustRAY.kanonevsBlackY</td>
+      <td>IN</td>
+      <td>16.5</td>
+      <td>16.49</td>
+      <td>-0.01</td>
+      <td>3269.0</td>
+    </tr>
+    <tr>
+      <td>StardustRAY.kanonevsBlackY</td>
+      <td>AT</td>
+      <td>17.2</td>
+      <td>17.16</td>
+      <td>-0.04</td>
+      <td>1945.0</td>
     </tr>
     <tr>
       <td>Starduster.Quree</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.41</td>
-      <td>-0.09</td>
+      <td>5.50</td>
+      <td>-0.00</td>
       <td>294.0</td>
     </tr>
     <tr>
       <td>Starduster.Quree</td>
       <td>HD</td>
       <td>11.4</td>
-      <td>11.41</td>
-      <td>0.01</td>
-      <td>437.0</td>
+      <td>11.38</td>
+      <td>-0.02</td>
+      <td>438.0</td>
     </tr>
     <tr>
       <td>Starduster.Quree</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>15.33</td>
-      <td>0.13</td>
-      <td>3440.0</td>
+      <td>15.20</td>
+      <td>-0.00</td>
+      <td>3368.0</td>
     </tr>
     <tr>
       <td>Stasis.Maozon</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.01</td>
-      <td>0.01</td>
-      <td>987.0</td>
+      <td>5.03</td>
+      <td>0.03</td>
+      <td>956.0</td>
     </tr>
     <tr>
       <td>Stasis.Maozon</td>
       <td>HD</td>
       <td>10.1</td>
-      <td>11.36</td>
-      <td>1.26</td>
-      <td>2759.0</td>
+      <td>10.14</td>
+      <td>0.04</td>
+      <td>2638.0</td>
     </tr>
     <tr>
       <td>Stasis.Maozon</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.42</td>
-      <td>0.12</td>
-      <td>4918.0</td>
+      <td>15.37</td>
+      <td>0.07</td>
+      <td>4734.0</td>
     </tr>
     <tr>
       <td>Stasis.Maozon</td>
       <td>AT</td>
       <td>16.7</td>
-      <td>16.74</td>
-      <td>0.04</td>
-      <td>4435.0</td>
+      <td>16.69</td>
+      <td>-0.01</td>
+      <td>4293.0</td>
     </tr>
     <tr>
       <td>SultanRage.MonstDeath</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.85</td>
-      <td>-0.15</td>
-      <td>1884.0</td>
+      <td>4.00</td>
+      <td>0.00</td>
+      <td>1807.0</td>
     </tr>
     <tr>
       <td>SultanRage.MonstDeath</td>
       <td>HD</td>
       <td>7.0</td>
-      <td>7.10</td>
-      <td>0.10</td>
-      <td>2974.0</td>
+      <td>7.02</td>
+      <td>0.02</td>
+      <td>2847.0</td>
     </tr>
     <tr>
       <td>SultanRage.MonstDeath</td>
       <td>IN</td>
       <td>12.3</td>
-      <td>12.48</td>
-      <td>0.18</td>
-      <td>4003.0</td>
+      <td>12.47</td>
+      <td>0.17</td>
+      <td>3853.0</td>
     </tr>
     <tr>
       <td>SwingSkipDrop.ミハイル</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.76</td>
-      <td>0.26</td>
-      <td>127.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>139.0</td>
     </tr>
     <tr>
       <td>SwingSkipDrop.ミハイル</td>
       <td>HD</td>
       <td>9.1</td>
-      <td>8.71</td>
-      <td>-0.39</td>
-      <td>128.0</td>
+      <td>9.05</td>
+      <td>-0.05</td>
+      <td>145.0</td>
     </tr>
     <tr>
       <td>SwingSkipDrop.ミハイル</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.13</td>
-      <td>-0.37</td>
-      <td>2822.0</td>
+      <td>15.46</td>
+      <td>-0.04</td>
+      <td>2928.0</td>
     </tr>
     <tr>
       <td>TECHNOPOLIS2085.PRASTIKDANCEFLOOR</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.88</td>
-      <td>-0.12</td>
-      <td>1062.0</td>
+      <td>4.99</td>
+      <td>-0.01</td>
+      <td>1025.0</td>
     </tr>
     <tr>
       <td>TECHNOPOLIS2085.PRASTIKDANCEFLOOR</td>
       <td>HD</td>
       <td>10.2</td>
-      <td>10.16</td>
-      <td>-0.04</td>
-      <td>1650.0</td>
+      <td>10.17</td>
+      <td>-0.03</td>
+      <td>1589.0</td>
     </tr>
     <tr>
       <td>TECHNOPOLIS2085.PRASTIKDANCEFLOOR</td>
       <td>IN</td>
       <td>14.1</td>
-      <td>14.10</td>
-      <td>-0.00</td>
-      <td>5051.0</td>
+      <td>14.00</td>
+      <td>-0.10</td>
+      <td>4855.0</td>
     </tr>
     <tr>
       <td>TECHNOPOLIS2085.PRASTIKDANCEFLOOR</td>
       <td>AT</td>
       <td>15.9</td>
-      <td>15.52</td>
-      <td>-0.38</td>
-      <td>4528.0</td>
+      <td>15.72</td>
+      <td>-0.18</td>
+      <td>4380.0</td>
     </tr>
     <tr>
       <td>TemporalShifting.LureRabbitVC</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.06</td>
-      <td>0.06</td>
-      <td>500.0</td>
+      <td>4.05</td>
+      <td>0.05</td>
+      <td>481.0</td>
     </tr>
     <tr>
       <td>TemporalShifting.LureRabbitVC</td>
       <td>HD</td>
       <td>11.5</td>
-      <td>11.40</td>
-      <td>-0.10</td>
-      <td>1523.0</td>
+      <td>11.41</td>
+      <td>-0.09</td>
+      <td>1471.0</td>
     </tr>
     <tr>
       <td>TemporalShifting.LureRabbitVC</td>
       <td>IN</td>
       <td>15.2</td>
-      <td>15.28</td>
-      <td>0.08</td>
-      <td>4558.0</td>
+      <td>15.07</td>
+      <td>-0.13</td>
+      <td>4423.0</td>
     </tr>
     <tr>
       <td>TheChariotREVIIVAL.Attoclef</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.38</td>
-      <td>0.38</td>
-      <td>1430.0</td>
+      <td>5.37</td>
+      <td>0.37</td>
+      <td>1357.0</td>
     </tr>
     <tr>
       <td>TheChariotREVIIVAL.Attoclef</td>
       <td>HD</td>
       <td>9.0</td>
-      <td>10.12</td>
-      <td>1.12</td>
-      <td>2620.0</td>
+      <td>9.00</td>
+      <td>0.00</td>
+      <td>2500.0</td>
     </tr>
     <tr>
       <td>TheChariotREVIIVAL.Attoclef</td>
       <td>IN</td>
       <td>14.0</td>
-      <td>14.29</td>
-      <td>0.29</td>
-      <td>5039.0</td>
+      <td>14.15</td>
+      <td>0.15</td>
+      <td>4838.0</td>
     </tr>
     <tr>
       <td>TheMountainEater.PaulBazooka</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.35</td>
-      <td>-0.15</td>
-      <td>1116.0</td>
+      <td>5.45</td>
+      <td>-0.05</td>
+      <td>1081.0</td>
     </tr>
     <tr>
       <td>TheMountainEater.PaulBazooka</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>9.60</td>
-      <td>0.00</td>
-      <td>2349.0</td>
+      <td>9.66</td>
+      <td>0.06</td>
+      <td>2257.0</td>
     </tr>
     <tr>
       <td>TheMountainEater.PaulBazooka</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.59</td>
-      <td>-0.11</td>
-      <td>4623.0</td>
+      <td>14.53</td>
+      <td>-0.17</td>
+      <td>4451.0</td>
     </tr>
     <tr>
       <td>Thrashforce.KAHvsE0ri4</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>5.72</td>
-      <td>1.22</td>
-      <td>187.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>186.0</td>
     </tr>
     <tr>
       <td>Thrashforce.KAHvsE0ri4</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.73</td>
-      <td>0.03</td>
-      <td>224.0</td>
+      <td>10.72</td>
+      <td>0.02</td>
+      <td>227.0</td>
     </tr>
     <tr>
       <td>Thrashforce.KAHvsE0ri4</td>
       <td>IN</td>
       <td>15.3</td>
-      <td>15.32</td>
-      <td>0.02</td>
-      <td>3554.0</td>
+      <td>15.30</td>
+      <td>0.00</td>
+      <td>3493.0</td>
     </tr>
     <tr>
       <td>TimetoNightSkyfeatLeeYuJin.HyuNKLYDIX</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>3.41</td>
-      <td>0.41</td>
-      <td>1018.0</td>
+      <td>3.04</td>
+      <td>0.04</td>
+      <td>994.0</td>
     </tr>
     <tr>
       <td>TimetoNightSkyfeatLeeYuJin.HyuNKLYDIX</td>
       <td>HD</td>
       <td>10.1</td>
-      <td>9.71</td>
-      <td>-0.39</td>
-      <td>2137.0</td>
+      <td>9.96</td>
+      <td>-0.14</td>
+      <td>2049.0</td>
     </tr>
     <tr>
       <td>TimetoNightSkyfeatLeeYuJin.HyuNKLYDIX</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>13.43</td>
-      <td>-0.17</td>
-      <td>4931.0</td>
+      <td>13.52</td>
+      <td>-0.08</td>
+      <td>4743.0</td>
     </tr>
     <tr>
       <td>Trane.MALVA</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>2.92</td>
-      <td>1.42</td>
-      <td>1014.0</td>
+      <td>1.67</td>
+      <td>0.17</td>
+      <td>984.0</td>
     </tr>
     <tr>
       <td>Trane.MALVA</td>
       <td>HD</td>
       <td>7.0</td>
-      <td>6.82</td>
-      <td>-0.18</td>
-      <td>670.0</td>
+      <td>6.99</td>
+      <td>-0.01</td>
+      <td>655.0</td>
     </tr>
     <tr>
       <td>Trane.MALVA</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>14.26</td>
-      <td>0.06</td>
-      <td>2675.0</td>
+      <td>14.21</td>
+      <td>0.01</td>
+      <td>2598.0</td>
     </tr>
     <tr>
       <td>TriumphRegret.typeMARS</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.14</td>
-      <td>0.14</td>
-      <td>278.0</td>
+      <td>4.99</td>
+      <td>-0.01</td>
+      <td>277.0</td>
     </tr>
     <tr>
       <td>TriumphRegret.typeMARS</td>
       <td>HD</td>
       <td>10.0</td>
-      <td>10.24</td>
-      <td>0.24</td>
-      <td>401.0</td>
+      <td>9.96</td>
+      <td>-0.04</td>
+      <td>394.0</td>
     </tr>
     <tr>
       <td>TriumphRegret.typeMARS</td>
       <td>IN</td>
       <td>15.0</td>
-      <td>14.66</td>
-      <td>-0.34</td>
-      <td>3192.0</td>
+      <td>14.97</td>
+      <td>-0.03</td>
+      <td>3198.0</td>
     </tr>
     <tr>
       <td>Trojan.litmus</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.16</td>
-      <td>-0.34</td>
-      <td>527.0</td>
+      <td>5.50</td>
+      <td>-0.00</td>
+      <td>510.0</td>
     </tr>
     <tr>
       <td>Trojan.litmus</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>10.68</td>
-      <td>-0.12</td>
-      <td>1450.0</td>
+      <td>10.77</td>
+      <td>-0.03</td>
+      <td>1398.0</td>
     </tr>
     <tr>
       <td>Trojan.litmus</td>
       <td>IN</td>
       <td>15.0</td>
-      <td>14.84</td>
-      <td>-0.16</td>
-      <td>4692.0</td>
+      <td>14.63</td>
+      <td>-0.37</td>
+      <td>4543.0</td>
     </tr>
     <tr>
       <td>UnorthodoxThoughts.Joulez</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.80</td>
-      <td>0.30</td>
-      <td>261.0</td>
+      <td>5.52</td>
+      <td>0.02</td>
+      <td>257.0</td>
     </tr>
     <tr>
       <td>UnorthodoxThoughts.Joulez</td>
       <td>HD</td>
       <td>12.0</td>
-      <td>11.73</td>
-      <td>-0.27</td>
-      <td>411.0</td>
+      <td>12.00</td>
+      <td>-0.00</td>
+      <td>415.0</td>
     </tr>
     <tr>
       <td>UnorthodoxThoughts.Joulez</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>13.65</td>
-      <td>-0.25</td>
-      <td>2328.0</td>
+      <td>13.90</td>
+      <td>-0.00</td>
+      <td>2290.0</td>
     </tr>
     <tr>
       <td>Upshift.Iriss-Frantzz</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.88</td>
-      <td>-0.12</td>
-      <td>268.0</td>
+      <td>5.96</td>
+      <td>-0.04</td>
+      <td>270.0</td>
     </tr>
     <tr>
       <td>Upshift.Iriss-Frantzz</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>10.40</td>
-      <td>-0.40</td>
-      <td>449.0</td>
+      <td>10.61</td>
+      <td>-0.19</td>
+      <td>447.0</td>
     </tr>
     <tr>
       <td>Upshift.Iriss-Frantzz</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.60</td>
-      <td>0.10</td>
-      <td>3826.0</td>
+      <td>15.57</td>
+      <td>0.07</td>
+      <td>3759.0</td>
     </tr>
     <tr>
       <td>WATER.A39沙包P</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.53</td>
-      <td>0.03</td>
-      <td>1473.0</td>
+      <td>4.54</td>
+      <td>0.04</td>
+      <td>1408.0</td>
     </tr>
     <tr>
       <td>WATER.A39沙包P</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.96</td>
-      <td>0.56</td>
-      <td>2814.0</td>
+      <td>9.42</td>
+      <td>0.02</td>
+      <td>2704.0</td>
     </tr>
     <tr>
       <td>WATER.A39沙包P</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>13.48</td>
-      <td>-0.12</td>
-      <td>4988.0</td>
+      <td>13.38</td>
+      <td>-0.22</td>
+      <td>4786.0</td>
     </tr>
     <tr>
       <td>Wavetapper.Frums</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.70</td>
-      <td>-0.30</td>
-      <td>368.0</td>
+      <td>5.97</td>
+      <td>-0.03</td>
+      <td>360.0</td>
     </tr>
     <tr>
       <td>Wavetapper.Frums</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.65</td>
-      <td>0.25</td>
-      <td>587.0</td>
+      <td>9.43</td>
+      <td>0.03</td>
+      <td>566.0</td>
     </tr>
     <tr>
       <td>Wavetapper.Frums</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>14.10</td>
-      <td>0.20</td>
-      <td>2966.0</td>
+      <td>13.95</td>
+      <td>0.05</td>
+      <td>2919.0</td>
     </tr>
     <tr>
       <td>Wintercube.CtymaxfeatNceS</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.83</td>
-      <td>1.33</td>
-      <td>572.0</td>
+      <td>3.49</td>
+      <td>-0.01</td>
+      <td>562.0</td>
     </tr>
     <tr>
       <td>Wintercube.CtymaxfeatNceS</td>
       <td>HD</td>
       <td>8.2</td>
-      <td>8.32</td>
-      <td>0.12</td>
-      <td>680.0</td>
+      <td>8.22</td>
+      <td>0.02</td>
+      <td>665.0</td>
     </tr>
     <tr>
       <td>Wintercube.CtymaxfeatNceS</td>
       <td>IN</td>
       <td>13.4</td>
-      <td>13.41</td>
-      <td>0.01</td>
-      <td>4393.0</td>
+      <td>13.47</td>
+      <td>0.07</td>
+      <td>4235.0</td>
     </tr>
     <tr>
       <td>WithYou.Cashew</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.55</td>
-      <td>0.05</td>
-      <td>553.0</td>
+      <td>3.50</td>
+      <td>-0.00</td>
+      <td>536.0</td>
     </tr>
     <tr>
       <td>WithYou.Cashew</td>
       <td>HD</td>
       <td>9.1</td>
-      <td>10.00</td>
-      <td>0.90</td>
-      <td>876.0</td>
+      <td>9.12</td>
+      <td>0.02</td>
+      <td>858.0</td>
     </tr>
     <tr>
       <td>WithYou.Cashew</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.43</td>
-      <td>-0.07</td>
-      <td>3033.0</td>
+      <td>13.50</td>
+      <td>-0.00</td>
+      <td>2978.0</td>
     </tr>
     <tr>
       <td>XING.ginkiha</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.47</td>
-      <td>-0.03</td>
-      <td>1241.0</td>
+      <td>5.50</td>
+      <td>0.00</td>
+      <td>1201.0</td>
     </tr>
     <tr>
       <td>XING.ginkiha</td>
       <td>HD</td>
       <td>9.9</td>
-      <td>10.02</td>
-      <td>0.12</td>
-      <td>2625.0</td>
+      <td>9.93</td>
+      <td>0.03</td>
+      <td>2528.0</td>
     </tr>
     <tr>
       <td>XING.ginkiha</td>
       <td>IN</td>
       <td>13.9</td>
-      <td>13.88</td>
-      <td>-0.02</td>
-      <td>4820.0</td>
+      <td>13.85</td>
+      <td>-0.05</td>
+      <td>4648.0</td>
     </tr>
     <tr>
       <td>Xenolith.Tatsh</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.37</td>
-      <td>0.37</td>
-      <td>428.0</td>
+      <td>4.04</td>
+      <td>0.04</td>
+      <td>419.0</td>
     </tr>
     <tr>
       <td>Xenolith.Tatsh</td>
       <td>HD</td>
       <td>8.5</td>
-      <td>9.95</td>
-      <td>1.45</td>
-      <td>1731.0</td>
+      <td>8.53</td>
+      <td>0.03</td>
+      <td>1670.0</td>
     </tr>
     <tr>
       <td>Xenolith.Tatsh</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.28</td>
-      <td>-0.02</td>
-      <td>4701.0</td>
+      <td>14.33</td>
+      <td>0.03</td>
+      <td>4556.0</td>
     </tr>
     <tr>
       <td>YouaretheMiserable.tpazolite</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.99</td>
-      <td>-0.01</td>
-      <td>877.0</td>
+      <td>6.13</td>
+      <td>0.13</td>
+      <td>847.0</td>
     </tr>
     <tr>
       <td>YouaretheMiserable.tpazolite</td>
       <td>HD</td>
       <td>11.7</td>
-      <td>11.54</td>
-      <td>-0.16</td>
-      <td>3177.0</td>
+      <td>11.65</td>
+      <td>-0.05</td>
+      <td>3041.0</td>
     </tr>
     <tr>
       <td>YouaretheMiserable.tpazolite</td>
       <td>IN</td>
       <td>14.1</td>
-      <td>13.69</td>
-      <td>-0.41</td>
-      <td>4932.0</td>
+      <td>13.99</td>
+      <td>-0.11</td>
+      <td>4745.0</td>
     </tr>
     <tr>
       <td>YouaretheMiserable.tpazolite</td>
       <td>AT</td>
       <td>15.8</td>
-      <td>15.95</td>
-      <td>0.15</td>
-      <td>4558.0</td>
+      <td>16.01</td>
+      <td>0.21</td>
+      <td>4408.0</td>
     </tr>
     <tr>
       <td>atruthseekerCommunicationwithUtopiawillbelost.kuro</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.29</td>
-      <td>-0.21</td>
-      <td>413.0</td>
+      <td>6.50</td>
+      <td>-0.00</td>
+      <td>407.0</td>
     </tr>
     <tr>
       <td>atruthseekerCommunicationwithUtopiawillbelost.kuro</td>
       <td>HD</td>
       <td>12.4</td>
-      <td>12.13</td>
-      <td>-0.27</td>
-      <td>1304.0</td>
+      <td>12.34</td>
+      <td>-0.06</td>
+      <td>1268.0</td>
     </tr>
     <tr>
       <td>atruthseekerCommunicationwithUtopiawillbelost.kuro</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>14.72</td>
-      <td>-1.08</td>
-      <td>4577.0</td>
+      <td>15.11</td>
+      <td>-0.69</td>
+      <td>4433.0</td>
     </tr>
     <tr>
       <td>bye.DingerBox</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.03</td>
-      <td>0.03</td>
-      <td>349.0</td>
+      <td>4.00</td>
+      <td>-0.00</td>
+      <td>345.0</td>
     </tr>
     <tr>
       <td>bye.DingerBox</td>
       <td>HD</td>
       <td>9.1</td>
-      <td>9.22</td>
-      <td>0.12</td>
-      <td>464.0</td>
+      <td>9.11</td>
+      <td>0.01</td>
+      <td>457.0</td>
     </tr>
     <tr>
       <td>bye.DingerBox</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.96</td>
-      <td>0.16</td>
-      <td>3377.0</td>
+      <td>14.81</td>
+      <td>0.01</td>
+      <td>3293.0</td>
     </tr>
     <tr>
       <td>cryout.JuE</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.92</td>
-      <td>0.42</td>
-      <td>2023.0</td>
+      <td>3.55</td>
+      <td>0.05</td>
+      <td>1928.0</td>
     </tr>
     <tr>
       <td>cryout.JuE</td>
       <td>HD</td>
       <td>9.9</td>
-      <td>8.62</td>
-      <td>-1.28</td>
-      <td>3619.0</td>
+      <td>9.81</td>
+      <td>-0.09</td>
+      <td>3468.0</td>
     </tr>
     <tr>
       <td>cryout.JuE</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>13.29</td>
-      <td>-0.31</td>
-      <td>4728.0</td>
+      <td>13.38</td>
+      <td>-0.22</td>
+      <td>4541.0</td>
     </tr>
     <tr>
       <td>csqn.Aoi</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.70</td>
-      <td>-0.30</td>
-      <td>574.0</td>
+      <td>4.95</td>
+      <td>-0.05</td>
+      <td>562.0</td>
     </tr>
     <tr>
       <td>csqn.Aoi</td>
       <td>HD</td>
       <td>12.2</td>
-      <td>12.19</td>
-      <td>-0.01</td>
-      <td>1660.0</td>
+      <td>12.04</td>
+      <td>-0.16</td>
+      <td>1609.0</td>
     </tr>
     <tr>
       <td>csqn.Aoi</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.99</td>
-      <td>0.09</td>
-      <td>4379.0</td>
+      <td>15.98</td>
+      <td>0.08</td>
+      <td>4289.0</td>
     </tr>
     <tr>
       <td>dBdoll.YUESTEVENuen</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>1.57</td>
-      <td>0.07</td>
-      <td>2600.0</td>
+      <td>1.86</td>
+      <td>0.36</td>
+      <td>2500.0</td>
     </tr>
     <tr>
       <td>dBdoll.YUESTEVENuen</td>
       <td>HD</td>
       <td>3.5</td>
-      <td>3.64</td>
-      <td>0.14</td>
-      <td>2353.0</td>
+      <td>3.96</td>
+      <td>0.46</td>
+      <td>2248.0</td>
     </tr>
     <tr>
       <td>dBdoll.YUESTEVENuen</td>
       <td>IN</td>
       <td>8.3</td>
-      <td>8.37</td>
-      <td>0.07</td>
-      <td>4371.0</td>
+      <td>8.40</td>
+      <td>0.10</td>
+      <td>4220.0</td>
     </tr>
     <tr>
       <td>dBdoll.YUESTEVENuen</td>
       <td>AT</td>
       <td>13.6</td>
-      <td>13.33</td>
-      <td>-0.27</td>
-      <td>4177.0</td>
+      <td>13.59</td>
+      <td>-0.01</td>
+      <td>4031.0</td>
     </tr>
     <tr>
       <td>energytrixxx.KAH</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.18</td>
-      <td>0.18</td>
+      <td>5.01</td>
+      <td>0.01</td>
       <td>313.0</td>
     </tr>
     <tr>
       <td>energytrixxx.KAH</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.64</td>
-      <td>0.24</td>
-      <td>518.0</td>
+      <td>10.20</td>
+      <td>-0.20</td>
+      <td>513.0</td>
     </tr>
     <tr>
       <td>energytrixxx.KAH</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.73</td>
-      <td>0.33</td>
-      <td>3609.0</td>
+      <td>15.47</td>
+      <td>0.07</td>
+      <td>3565.0</td>
     </tr>
     <tr>
       <td>iLArtifact.Link0</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.98</td>
-      <td>0.48</td>
-      <td>359.0</td>
+      <td>5.51</td>
+      <td>0.01</td>
+      <td>344.0</td>
     </tr>
     <tr>
       <td>iLArtifact.Link0</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.69</td>
-      <td>0.19</td>
-      <td>1094.0</td>
+      <td>10.53</td>
+      <td>0.03</td>
+      <td>1067.0</td>
     </tr>
     <tr>
       <td>iLArtifact.Link0</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.63</td>
-      <td>-0.07</td>
-      <td>4624.0</td>
+      <td>15.77</td>
+      <td>0.07</td>
+      <td>4486.0</td>
     </tr>
     <tr>
       <td>inferior.姜米條</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>7.23</td>
-      <td>0.23</td>
-      <td>1101.0</td>
+      <td>7.00</td>
+      <td>-0.00</td>
+      <td>1060.0</td>
     </tr>
     <tr>
       <td>inferior.姜米條</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>10.80</td>
-      <td>3.30</td>
-      <td>2208.0</td>
+      <td>7.57</td>
+      <td>0.07</td>
+      <td>2113.0</td>
     </tr>
     <tr>
       <td>inferior.姜米條</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.44</td>
-      <td>-0.16</td>
-      <td>4625.0</td>
+      <td>14.35</td>
+      <td>-0.25</td>
+      <td>4467.0</td>
     </tr>
     <tr>
       <td>lifeflashesbeforeweebeyes.BilliumMoto</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.92</td>
-      <td>0.42</td>
-      <td>1062.0</td>
+      <td>6.59</td>
+      <td>0.09</td>
+      <td>1029.0</td>
     </tr>
     <tr>
       <td>lifeflashesbeforeweebeyes.BilliumMoto</td>
       <td>HD</td>
       <td>11.9</td>
-      <td>11.75</td>
-      <td>-0.15</td>
-      <td>2811.0</td>
+      <td>11.88</td>
+      <td>-0.02</td>
+      <td>2709.0</td>
     </tr>
     <tr>
       <td>lifeflashesbeforeweebeyes.BilliumMoto</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>14.91</td>
-      <td>0.01</td>
-      <td>4359.0</td>
+      <td>15.01</td>
+      <td>0.11</td>
+      <td>4221.0</td>
     </tr>
     <tr>
       <td>mechanted.rareguy</td>
       <td>EZ</td>
       <td>3.0</td>
-      <td>2.99</td>
-      <td>-0.01</td>
-      <td>1237.0</td>
+      <td>3.05</td>
+      <td>0.05</td>
+      <td>1192.0</td>
     </tr>
     <tr>
       <td>mechanted.rareguy</td>
       <td>HD</td>
       <td>11.3</td>
-      <td>11.30</td>
-      <td>0.00</td>
-      <td>2681.0</td>
+      <td>11.28</td>
+      <td>-0.02</td>
+      <td>2583.0</td>
     </tr>
     <tr>
       <td>mechanted.rareguy</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>14.65</td>
-      <td>-0.25</td>
-      <td>4462.0</td>
+      <td>14.43</td>
+      <td>-0.47</td>
+      <td>4315.0</td>
     </tr>
     <tr>
       <td>microwav.dandeless</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>4.58</td>
-      <td>-1.42</td>
-      <td>1819.0</td>
+      <td>5.98</td>
+      <td>-0.02</td>
+      <td>1741.0</td>
     </tr>
     <tr>
       <td>microwav.dandeless</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.45</td>
-      <td>-0.05</td>
-      <td>3632.0</td>
+      <td>9.93</td>
+      <td>-0.57</td>
+      <td>3479.0</td>
     </tr>
     <tr>
       <td>microwav.dandeless</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.51</td>
-      <td>-0.19</td>
-      <td>4891.0</td>
+      <td>14.45</td>
+      <td>-0.25</td>
+      <td>4700.0</td>
     </tr>
     <tr>
       <td>modulus.PTB10</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>3.88</td>
-      <td>-0.62</td>
-      <td>375.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>365.0</td>
     </tr>
     <tr>
       <td>modulus.PTB10</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.22</td>
-      <td>-0.18</td>
-      <td>509.0</td>
+      <td>10.34</td>
+      <td>-0.06</td>
+      <td>504.0</td>
     </tr>
     <tr>
       <td>modulus.PTB10</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>14.90</td>
-      <td>-0.00</td>
-      <td>3370.0</td>
+      <td>14.89</td>
+      <td>-0.01</td>
+      <td>3335.0</td>
     </tr>
     <tr>
       <td>opia.rN</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.45</td>
-      <td>-0.05</td>
-      <td>332.0</td>
+      <td>5.63</td>
+      <td>0.13</td>
+      <td>323.0</td>
     </tr>
     <tr>
       <td>opia.rN</td>
       <td>HD</td>
       <td>10.6</td>
-      <td>12.38</td>
-      <td>1.78</td>
-      <td>656.0</td>
+      <td>10.63</td>
+      <td>0.03</td>
+      <td>630.0</td>
     </tr>
     <tr>
       <td>opia.rN</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.67</td>
-      <td>0.07</td>
-      <td>3858.0</td>
+      <td>15.60</td>
+      <td>0.00</td>
+      <td>3782.0</td>
     </tr>
     <tr>
       <td>parsey.siqlo</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.32</td>
-      <td>0.32</td>
-      <td>359.0</td>
+      <td>4.04</td>
+      <td>0.04</td>
+      <td>348.0</td>
     </tr>
     <tr>
       <td>parsey.siqlo</td>
       <td>HD</td>
       <td>11.7</td>
-      <td>11.40</td>
-      <td>-0.30</td>
-      <td>535.0</td>
+      <td>11.68</td>
+      <td>-0.02</td>
+      <td>528.0</td>
     </tr>
     <tr>
       <td>parsey.siqlo</td>
       <td>IN</td>
       <td>14.6</td>
-      <td>14.58</td>
-      <td>-0.02</td>
-      <td>3215.0</td>
+      <td>14.60</td>
+      <td>0.00</td>
+      <td>3138.0</td>
     </tr>
     <tr>
       <td>valorstarcross.LundyvsWyvren</td>
@@ -5530,33 +5698,33 @@
       <td>valorstarcross.LundyvsWyvren</td>
       <td>HD</td>
       <td>12.6</td>
-      <td>11.71</td>
-      <td>-0.89</td>
-      <td>488.0</td>
+      <td>12.57</td>
+      <td>-0.03</td>
+      <td>509.0</td>
     </tr>
     <tr>
       <td>valorstarcross.LundyvsWyvren</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>15.68</td>
-      <td>-0.12</td>
-      <td>3924.0</td>
+      <td>15.73</td>
+      <td>-0.07</td>
+      <td>3873.0</td>
     </tr>
     <tr>
       <td>volcanic.DETROakaルゼ</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.76</td>
-      <td>0.26</td>
-      <td>1441.0</td>
+      <td>7.55</td>
+      <td>0.05</td>
+      <td>1382.0</td>
     </tr>
     <tr>
       <td>volcanic.DETROakaルゼ</td>
       <td>HD</td>
       <td>12.1</td>
-      <td>11.68</td>
-      <td>-0.42</td>
-      <td>2056.0</td>
+      <td>12.07</td>
+      <td>-0.03</td>
+      <td>1980.0</td>
     </tr>
     <tr>
       <td>volcanic.DETROakaルゼ</td>
@@ -5564,695 +5732,695 @@
       <td>14.7</td>
       <td>14.92</td>
       <td>0.22</td>
-      <td>4650.0</td>
+      <td>4500.0</td>
     </tr>
     <tr>
       <td>volcanic.DETROakaルゼ</td>
       <td>AT</td>
       <td>16.6</td>
-      <td>16.49</td>
-      <td>-0.11</td>
-      <td>4062.0</td>
+      <td>16.50</td>
+      <td>-0.10</td>
+      <td>3969.0</td>
     </tr>
     <tr>
       <td>いざ参ります.Uskefeat棗いつき</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>4.35</td>
-      <td>0.85</td>
-      <td>735.0</td>
+      <td>3.52</td>
+      <td>0.02</td>
+      <td>722.0</td>
     </tr>
     <tr>
       <td>いざ参ります.Uskefeat棗いつき</td>
       <td>HD</td>
       <td>9.2</td>
-      <td>9.00</td>
-      <td>-0.20</td>
-      <td>1363.0</td>
+      <td>9.15</td>
+      <td>-0.05</td>
+      <td>1326.0</td>
     </tr>
     <tr>
       <td>いざ参ります.Uskefeat棗いつき</td>
       <td>IN</td>
       <td>15.0</td>
-      <td>14.90</td>
-      <td>-0.10</td>
-      <td>4452.0</td>
+      <td>14.94</td>
+      <td>-0.06</td>
+      <td>4344.0</td>
     </tr>
     <tr>
       <td>ぱぴぷぴぷぴぱ.ころねぽちWith立秋</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>5.39</td>
-      <td>0.39</td>
-      <td>858.0</td>
+      <td>5.29</td>
+      <td>0.29</td>
+      <td>831.0</td>
     </tr>
     <tr>
       <td>ぱぴぷぴぷぴぱ.ころねぽちWith立秋</td>
       <td>HD</td>
       <td>12.3</td>
-      <td>12.15</td>
-      <td>-0.15</td>
-      <td>2173.0</td>
+      <td>12.29</td>
+      <td>-0.01</td>
+      <td>2100.0</td>
     </tr>
     <tr>
       <td>ぱぴぷぴぷぴぱ.ころねぽちWith立秋</td>
       <td>IN</td>
       <td>15.8</td>
-      <td>16.04</td>
-      <td>0.24</td>
-      <td>4681.0</td>
+      <td>16.00</td>
+      <td>0.20</td>
+      <td>4532.0</td>
     </tr>
     <tr>
       <td>もぺもぺ.LeaF</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>1.90</td>
-      <td>-0.10</td>
-      <td>1892.0</td>
+      <td>1.97</td>
+      <td>-0.03</td>
+      <td>1821.0</td>
     </tr>
     <tr>
       <td>もぺもぺ.LeaF</td>
       <td>HD</td>
       <td>6.5</td>
-      <td>4.60</td>
-      <td>-1.90</td>
-      <td>2579.0</td>
+      <td>6.25</td>
+      <td>-0.25</td>
+      <td>2478.0</td>
     </tr>
     <tr>
       <td>もぺもぺ.LeaF</td>
       <td>IN</td>
       <td>11.1</td>
-      <td>10.87</td>
-      <td>-0.23</td>
-      <td>4721.0</td>
+      <td>9.31</td>
+      <td>-1.79</td>
+      <td>4539.0</td>
     </tr>
     <tr>
       <td>もぺもぺ.LeaF</td>
       <td>AT</td>
       <td>15.4</td>
-      <td>15.57</td>
-      <td>0.17</td>
-      <td>4472.0</td>
+      <td>15.55</td>
+      <td>0.15</td>
+      <td>4307.0</td>
     </tr>
     <tr>
       <td>インフェルノシティ.Ponchifeatはぁち</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.35</td>
-      <td>-0.15</td>
-      <td>575.0</td>
+      <td>4.53</td>
+      <td>0.03</td>
+      <td>563.0</td>
     </tr>
     <tr>
       <td>インフェルノシティ.Ponchifeatはぁち</td>
       <td>HD</td>
       <td>11.5</td>
-      <td>9.97</td>
-      <td>-1.53</td>
-      <td>1475.0</td>
+      <td>11.48</td>
+      <td>-0.02</td>
+      <td>1423.0</td>
     </tr>
     <tr>
       <td>インフェルノシティ.Ponchifeatはぁち</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.33</td>
-      <td>-0.37</td>
-      <td>4686.0</td>
+      <td>15.71</td>
+      <td>0.01</td>
+      <td>4546.0</td>
     </tr>
     <tr>
       <td>インマイマインド.レシオP</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>1.86</td>
-      <td>0.36</td>
-      <td>271.0</td>
+      <td>1.53</td>
+      <td>0.03</td>
+      <td>315.0</td>
     </tr>
     <tr>
       <td>インマイマインド.レシオP</td>
       <td>HD</td>
       <td>9.2</td>
-      <td>9.01</td>
-      <td>-0.19</td>
-      <td>134.0</td>
+      <td>9.18</td>
+      <td>-0.02</td>
+      <td>144.0</td>
     </tr>
     <tr>
       <td>インマイマインド.レシオP</td>
       <td>IN</td>
       <td>12.2</td>
-      <td>12.39</td>
-      <td>0.19</td>
-      <td>1754.0</td>
+      <td>12.30</td>
+      <td>0.10</td>
+      <td>1819.0</td>
     </tr>
     <tr>
       <td>ジングルベルJingleBell.A39沙包P</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>5.14</td>
-      <td>0.64</td>
-      <td>733.0</td>
+      <td>4.58</td>
+      <td>0.08</td>
+      <td>706.0</td>
     </tr>
     <tr>
       <td>ジングルベルJingleBell.A39沙包P</td>
       <td>HD</td>
       <td>8.5</td>
-      <td>8.47</td>
-      <td>-0.03</td>
-      <td>1466.0</td>
+      <td>8.50</td>
+      <td>0.00</td>
+      <td>1411.0</td>
     </tr>
     <tr>
       <td>ジングルベルJingleBell.A39沙包P</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.61</td>
-      <td>0.11</td>
-      <td>4439.0</td>
+      <td>14.62</td>
+      <td>0.12</td>
+      <td>4264.0</td>
     </tr>
     <tr>
       <td>ストレイソウルアラウンド.みーに</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.04</td>
-      <td>-0.96</td>
-      <td>410.0</td>
+      <td>5.98</td>
+      <td>-0.02</td>
+      <td>402.0</td>
     </tr>
     <tr>
       <td>ストレイソウルアラウンド.みーに</td>
       <td>HD</td>
       <td>9.8</td>
-      <td>9.86</td>
-      <td>0.06</td>
-      <td>1343.0</td>
+      <td>9.80</td>
+      <td>-0.00</td>
+      <td>1297.0</td>
     </tr>
     <tr>
       <td>ストレイソウルアラウンド.みーに</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>14.58</td>
-      <td>0.38</td>
-      <td>4450.0</td>
+      <td>14.28</td>
+      <td>0.08</td>
+      <td>4312.0</td>
     </tr>
     <tr>
       <td>ニライカナイNiraicA_naiMix.roopfromSTR</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>3.05</td>
-      <td>0.55</td>
-      <td>183.0</td>
+      <td>2.52</td>
+      <td>0.02</td>
+      <td>198.0</td>
     </tr>
     <tr>
       <td>ニライカナイNiraicA_naiMix.roopfromSTR</td>
       <td>HD</td>
       <td>8.3</td>
-      <td>8.27</td>
-      <td>-0.03</td>
-      <td>135.0</td>
+      <td>8.29</td>
+      <td>-0.01</td>
+      <td>148.0</td>
     </tr>
     <tr>
       <td>ニライカナイNiraicA_naiMix.roopfromSTR</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.22</td>
-      <td>-0.28</td>
-      <td>1828.0</td>
+      <td>13.45</td>
+      <td>-0.05</td>
+      <td>1871.0</td>
     </tr>
     <tr>
       <td>万吨匿名信.闫东炜</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.91</td>
-      <td>0.41</td>
-      <td>465.0</td>
+      <td>4.59</td>
+      <td>0.09</td>
+      <td>452.0</td>
     </tr>
     <tr>
       <td>万吨匿名信.闫东炜</td>
       <td>HD</td>
       <td>9.5</td>
-      <td>10.01</td>
-      <td>0.51</td>
-      <td>818.0</td>
+      <td>9.52</td>
+      <td>0.02</td>
+      <td>798.0</td>
     </tr>
     <tr>
       <td>万吨匿名信.闫东炜</td>
       <td>IN</td>
       <td>13.3</td>
-      <td>13.46</td>
-      <td>0.16</td>
-      <td>3035.0</td>
+      <td>13.32</td>
+      <td>0.02</td>
+      <td>2935.0</td>
     </tr>
     <tr>
       <td>云女孩.符白牙SiYFics</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>2.17</td>
-      <td>0.17</td>
-      <td>946.0</td>
+      <td>2.00</td>
+      <td>0.00</td>
+      <td>932.0</td>
     </tr>
     <tr>
       <td>云女孩.符白牙SiYFics</td>
       <td>HD</td>
       <td>8.9</td>
-      <td>8.61</td>
-      <td>-0.29</td>
-      <td>1442.0</td>
+      <td>8.67</td>
+      <td>-0.23</td>
+      <td>1392.0</td>
     </tr>
     <tr>
       <td>云女孩.符白牙SiYFics</td>
       <td>IN</td>
       <td>12.8</td>
-      <td>12.86</td>
-      <td>0.06</td>
-      <td>3432.0</td>
+      <td>12.88</td>
+      <td>0.08</td>
+      <td>3325.0</td>
     </tr>
     <tr>
       <td>今天不是明天.PIKASONICfeat兰音Reine</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.55</td>
-      <td>0.05</td>
-      <td>605.0</td>
+      <td>2.53</td>
+      <td>0.03</td>
+      <td>595.0</td>
     </tr>
     <tr>
       <td>今天不是明天.PIKASONICfeat兰音Reine</td>
       <td>HD</td>
       <td>8.3</td>
-      <td>7.02</td>
-      <td>-1.28</td>
-      <td>725.0</td>
+      <td>8.26</td>
+      <td>-0.04</td>
+      <td>712.0</td>
     </tr>
     <tr>
       <td>今天不是明天.PIKASONICfeat兰音Reine</td>
       <td>IN</td>
       <td>13.4</td>
-      <td>13.33</td>
-      <td>-0.07</td>
-      <td>3762.0</td>
+      <td>13.41</td>
+      <td>0.01</td>
+      <td>3629.0</td>
     </tr>
     <tr>
       <td>光.姜米條</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>1.92</td>
-      <td>-0.08</td>
-      <td>2434.0</td>
+      <td>1.99</td>
+      <td>-0.01</td>
+      <td>2337.0</td>
     </tr>
     <tr>
       <td>光.姜米條</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.67</td>
-      <td>0.17</td>
-      <td>3593.0</td>
+      <td>8.08</td>
+      <td>0.58</td>
+      <td>3448.0</td>
     </tr>
     <tr>
       <td>光.姜米條</td>
       <td>IN</td>
       <td>12.4</td>
-      <td>12.25</td>
-      <td>-0.15</td>
-      <td>4729.0</td>
+      <td>12.23</td>
+      <td>-0.17</td>
+      <td>4540.0</td>
     </tr>
     <tr>
       <td>千紫万紅.r0yvsWABI</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.51</td>
-      <td>0.01</td>
-      <td>458.0</td>
+      <td>4.49</td>
+      <td>-0.01</td>
+      <td>448.0</td>
     </tr>
     <tr>
       <td>千紫万紅.r0yvsWABI</td>
       <td>HD</td>
       <td>12.1</td>
-      <td>12.21</td>
-      <td>0.11</td>
-      <td>1480.0</td>
+      <td>12.11</td>
+      <td>0.01</td>
+      <td>1445.0</td>
     </tr>
     <tr>
       <td>千紫万紅.r0yvsWABI</td>
       <td>IN</td>
       <td>15.6</td>
-      <td>15.21</td>
-      <td>-0.39</td>
-      <td>4830.0</td>
+      <td>15.09</td>
+      <td>-0.51</td>
+      <td>4656.0</td>
     </tr>
     <tr>
       <td>双重间谍DoubleAgent.WAVAV</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.65</td>
-      <td>0.15</td>
-      <td>256.0</td>
+      <td>4.50</td>
+      <td>-0.00</td>
+      <td>251.0</td>
     </tr>
     <tr>
       <td>双重间谍DoubleAgent.WAVAV</td>
       <td>HD</td>
       <td>11.8</td>
-      <td>11.77</td>
-      <td>-0.03</td>
-      <td>866.0</td>
+      <td>11.78</td>
+      <td>-0.02</td>
+      <td>854.0</td>
     </tr>
     <tr>
       <td>双重间谍DoubleAgent.WAVAV</td>
       <td>IN</td>
       <td>15.7</td>
-      <td>15.30</td>
-      <td>-0.40</td>
-      <td>4484.0</td>
+      <td>15.55</td>
+      <td>-0.15</td>
+      <td>4354.0</td>
     </tr>
     <tr>
       <td>君往何处QuoVadis.M2U</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.87</td>
-      <td>-0.13</td>
-      <td>413.0</td>
+      <td>3.99</td>
+      <td>-0.01</td>
+      <td>409.0</td>
     </tr>
     <tr>
       <td>君往何处QuoVadis.M2U</td>
       <td>HD</td>
       <td>8.6</td>
-      <td>8.48</td>
-      <td>-0.12</td>
-      <td>756.0</td>
+      <td>8.55</td>
+      <td>-0.05</td>
+      <td>743.0</td>
     </tr>
     <tr>
       <td>君往何处QuoVadis.M2U</td>
       <td>IN</td>
       <td>14.2</td>
-      <td>13.96</td>
-      <td>-0.24</td>
-      <td>4644.0</td>
+      <td>14.09</td>
+      <td>-0.11</td>
+      <td>4485.0</td>
     </tr>
     <tr>
       <td>大和撫子WildDances.adapatorvsDRIVE</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.64</td>
-      <td>0.14</td>
-      <td>402.0</td>
+      <td>5.50</td>
+      <td>0.00</td>
+      <td>400.0</td>
     </tr>
     <tr>
       <td>大和撫子WildDances.adapatorvsDRIVE</td>
       <td>HD</td>
       <td>11.8</td>
-      <td>11.54</td>
-      <td>-0.26</td>
-      <td>956.0</td>
+      <td>11.80</td>
+      <td>0.00</td>
+      <td>935.0</td>
     </tr>
     <tr>
       <td>大和撫子WildDances.adapatorvsDRIVE</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>14.90</td>
-      <td>-0.20</td>
-      <td>3566.0</td>
+      <td>15.04</td>
+      <td>-0.06</td>
+      <td>3525.0</td>
     </tr>
     <tr>
       <td>宇宙残骸少女CosmicDustyGirl.辻原一郎</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.66</td>
-      <td>-0.34</td>
-      <td>141.0</td>
+      <td>5.95</td>
+      <td>-0.05</td>
+      <td>163.0</td>
     </tr>
     <tr>
       <td>宇宙残骸少女CosmicDustyGirl.辻原一郎</td>
       <td>HD</td>
       <td>10.2</td>
-      <td>10.28</td>
-      <td>0.08</td>
-      <td>204.0</td>
+      <td>10.21</td>
+      <td>0.01</td>
+      <td>239.0</td>
     </tr>
     <tr>
       <td>宇宙残骸少女CosmicDustyGirl.辻原一郎</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.37</td>
-      <td>-0.33</td>
-      <td>1805.0</td>
+      <td>13.73</td>
+      <td>0.03</td>
+      <td>1925.0</td>
     </tr>
     <tr>
       <td>尊師TheGuru.rider</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>6.29</td>
-      <td>0.29</td>
-      <td>2462.0</td>
+      <td>6.07</td>
+      <td>0.07</td>
+      <td>2349.0</td>
     </tr>
     <tr>
       <td>尊師TheGuru.rider</td>
       <td>HD</td>
       <td>11.6</td>
-      <td>11.54</td>
-      <td>-0.06</td>
-      <td>4171.0</td>
+      <td>11.57</td>
+      <td>-0.03</td>
+      <td>3998.0</td>
     </tr>
     <tr>
       <td>尊師TheGuru.rider</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.62</td>
-      <td>0.22</td>
-      <td>5020.0</td>
+      <td>15.55</td>
+      <td>0.15</td>
+      <td>4824.0</td>
     </tr>
     <tr>
       <td>幻影鬼魅PLEASE.R300K</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.07</td>
-      <td>-0.43</td>
-      <td>278.0</td>
+      <td>5.48</td>
+      <td>-0.02</td>
+      <td>287.0</td>
     </tr>
     <tr>
       <td>幻影鬼魅PLEASE.R300K</td>
       <td>HD</td>
       <td>9.6</td>
-      <td>9.72</td>
-      <td>0.12</td>
-      <td>835.0</td>
+      <td>9.61</td>
+      <td>0.01</td>
+      <td>810.0</td>
     </tr>
     <tr>
       <td>幻影鬼魅PLEASE.R300K</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>15.03</td>
-      <td>-0.07</td>
-      <td>4507.0</td>
+      <td>14.95</td>
+      <td>-0.15</td>
+      <td>4375.0</td>
     </tr>
     <tr>
       <td>幻影鬼魅PLEASE.R300K</td>
       <td>AT</td>
       <td>17.0</td>
-      <td>16.75</td>
-      <td>-0.25</td>
-      <td>3495.0</td>
+      <td>16.98</td>
+      <td>-0.02</td>
+      <td>3437.0</td>
     </tr>
     <tr>
       <td>幽世桔梗.Capchiifeatまるもこ</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.31</td>
-      <td>-0.19</td>
-      <td>479.0</td>
+      <td>4.47</td>
+      <td>-0.03</td>
+      <td>469.0</td>
     </tr>
     <tr>
       <td>幽世桔梗.Capchiifeatまるもこ</td>
       <td>HD</td>
       <td>10.1</td>
-      <td>8.53</td>
-      <td>-1.57</td>
-      <td>1080.0</td>
+      <td>10.06</td>
+      <td>-0.04</td>
+      <td>1050.0</td>
     </tr>
     <tr>
       <td>幽世桔梗.Capchiifeatまるもこ</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.63</td>
-      <td>-0.17</td>
-      <td>4908.0</td>
+      <td>14.78</td>
+      <td>-0.02</td>
+      <td>4727.0</td>
     </tr>
     <tr>
       <td>开心病.闫东炜</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.56</td>
-      <td>-0.44</td>
-      <td>770.0</td>
+      <td>6.94</td>
+      <td>-0.06</td>
+      <td>744.0</td>
     </tr>
     <tr>
       <td>开心病.闫东炜</td>
       <td>HD</td>
       <td>11.9</td>
-      <td>11.43</td>
-      <td>-0.47</td>
-      <td>1469.0</td>
+      <td>11.84</td>
+      <td>-0.06</td>
+      <td>1427.0</td>
     </tr>
     <tr>
       <td>开心病.闫东炜</td>
       <td>IN</td>
       <td>13.8</td>
-      <td>12.81</td>
-      <td>-0.99</td>
-      <td>4202.0</td>
+      <td>13.86</td>
+      <td>0.06</td>
+      <td>4030.0</td>
     </tr>
     <tr>
       <td>心の記憶.A39沙包P</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.43</td>
-      <td>-0.07</td>
-      <td>321.0</td>
+      <td>3.55</td>
+      <td>0.05</td>
+      <td>313.0</td>
     </tr>
     <tr>
       <td>心の記憶.A39沙包P</td>
       <td>HD</td>
       <td>9.1</td>
-      <td>9.40</td>
-      <td>0.30</td>
-      <td>456.0</td>
+      <td>9.11</td>
+      <td>0.01</td>
+      <td>454.0</td>
     </tr>
     <tr>
       <td>心の記憶.A39沙包P</td>
       <td>IN</td>
       <td>13.3</td>
-      <td>13.50</td>
-      <td>0.20</td>
-      <td>4770.0</td>
+      <td>13.45</td>
+      <td>0.15</td>
+      <td>4602.0</td>
     </tr>
     <tr>
       <td>心之所向.姜米條</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.06</td>
-      <td>0.06</td>
-      <td>882.0</td>
+      <td>4.03</td>
+      <td>0.03</td>
+      <td>858.0</td>
     </tr>
     <tr>
       <td>心之所向.姜米條</td>
       <td>HD</td>
       <td>8.2</td>
-      <td>8.68</td>
-      <td>0.48</td>
-      <td>2195.0</td>
+      <td>8.25</td>
+      <td>0.05</td>
+      <td>2109.0</td>
     </tr>
     <tr>
       <td>心之所向.姜米條</td>
       <td>IN</td>
       <td>13.6</td>
-      <td>14.33</td>
-      <td>0.73</td>
-      <td>4639.0</td>
+      <td>13.85</td>
+      <td>0.25</td>
+      <td>4475.0</td>
     </tr>
     <tr>
       <td>明鏡烈火.MUEvsRekuMochizuki</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.82</td>
-      <td>-0.18</td>
-      <td>433.0</td>
+      <td>5.98</td>
+      <td>-0.02</td>
+      <td>428.0</td>
     </tr>
     <tr>
       <td>明鏡烈火.MUEvsRekuMochizuki</td>
       <td>HD</td>
       <td>11.3</td>
-      <td>11.34</td>
-      <td>0.04</td>
-      <td>1131.0</td>
+      <td>11.31</td>
+      <td>0.01</td>
+      <td>1114.0</td>
     </tr>
     <tr>
       <td>明鏡烈火.MUEvsRekuMochizuki</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.92</td>
-      <td>0.02</td>
-      <td>4686.0</td>
+      <td>15.81</td>
+      <td>-0.09</td>
+      <td>4534.0</td>
     </tr>
     <tr>
       <td>暗夜苏醒REANIMATE.Warak</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.93</td>
-      <td>-0.07</td>
-      <td>341.0</td>
+      <td>5.00</td>
+      <td>0.00</td>
+      <td>337.0</td>
     </tr>
     <tr>
       <td>暗夜苏醒REANIMATE.Warak</td>
       <td>HD</td>
       <td>12.8</td>
-      <td>12.62</td>
-      <td>-0.18</td>
-      <td>1536.0</td>
+      <td>12.79</td>
+      <td>-0.01</td>
+      <td>1500.0</td>
     </tr>
     <tr>
       <td>暗夜苏醒REANIMATE.Warak</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.18</td>
-      <td>-0.22</td>
-      <td>4745.0</td>
+      <td>15.31</td>
+      <td>-0.09</td>
+      <td>4586.0</td>
     </tr>
     <tr>
       <td>月下缭乱.月見静華vsLUNARiUM</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.42</td>
-      <td>-0.08</td>
-      <td>582.0</td>
+      <td>4.53</td>
+      <td>0.02</td>
+      <td>571.0</td>
     </tr>
     <tr>
       <td>月下缭乱.月見静華vsLUNARiUM</td>
       <td>HD</td>
       <td>9.4</td>
-      <td>9.63</td>
-      <td>0.23</td>
-      <td>1187.0</td>
+      <td>9.39</td>
+      <td>-0.01</td>
+      <td>1153.0</td>
     </tr>
     <tr>
       <td>月下缭乱.月見静華vsLUNARiUM</td>
       <td>IN</td>
       <td>14.9</td>
-      <td>14.85</td>
-      <td>-0.05</td>
-      <td>3869.0</td>
+      <td>14.93</td>
+      <td>0.03</td>
+      <td>3778.0</td>
     </tr>
     <tr>
       <td>月詠に鳴る.Feryquitousfeat藍月なくる</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.77</td>
-      <td>-0.23</td>
-      <td>350.0</td>
+      <td>5.94</td>
+      <td>-0.06</td>
+      <td>353.0</td>
     </tr>
     <tr>
       <td>月詠に鳴る.Feryquitousfeat藍月なくる</td>
       <td>HD</td>
       <td>11.4</td>
-      <td>11.26</td>
-      <td>-0.14</td>
-      <td>662.0</td>
+      <td>11.37</td>
+      <td>-0.03</td>
+      <td>657.0</td>
     </tr>
     <tr>
       <td>月詠に鳴る.Feryquitousfeat藍月なくる</td>
       <td>IN</td>
       <td>14.5</td>
-      <td>14.19</td>
-      <td>-0.31</td>
-      <td>4673.0</td>
+      <td>14.25</td>
+      <td>-0.25</td>
+      <td>4505.0</td>
     </tr>
     <tr>
       <td>月詠に鳴る.Feryquitousfeat藍月なくる</td>
       <td>AT</td>
       <td>15.7</td>
-      <td>16.16</td>
-      <td>0.46</td>
-      <td>3965.0</td>
+      <td>15.88</td>
+      <td>0.18</td>
+      <td>3873.0</td>
     </tr>
     <tr>
       <td>望影の方舟Six.SeURa</td>
       <td>EZ</td>
       <td>6.5</td>
-      <td>6.36</td>
-      <td>-0.14</td>
-      <td>3013.0</td>
+      <td>6.48</td>
+      <td>-0.02</td>
+      <td>2880.0</td>
     </tr>
     <tr>
       <td>望影の方舟Six.SeURa</td>
@@ -6260,111 +6428,111 @@
       <td>11.9</td>
       <td>11.89</td>
       <td>-0.01</td>
-      <td>4418.0</td>
+      <td>4234.0</td>
     </tr>
     <tr>
       <td>望影の方舟Six.SeURa</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.80</td>
-      <td>-0.10</td>
-      <td>4991.0</td>
+      <td>15.72</td>
+      <td>-0.18</td>
+      <td>4801.0</td>
     </tr>
     <tr>
       <td>桜樹街道.kozatosnow</td>
       <td>EZ</td>
       <td>3.5</td>
-      <td>3.71</td>
-      <td>0.21</td>
-      <td>997.0</td>
+      <td>3.45</td>
+      <td>-0.05</td>
+      <td>973.0</td>
     </tr>
     <tr>
       <td>桜樹街道.kozatosnow</td>
       <td>HD</td>
       <td>8.1</td>
-      <td>7.67</td>
-      <td>-0.43</td>
-      <td>2157.0</td>
+      <td>7.92</td>
+      <td>-0.18</td>
+      <td>2072.0</td>
     </tr>
     <tr>
       <td>桜樹街道.kozatosnow</td>
       <td>IN</td>
       <td>13.0</td>
-      <td>12.96</td>
-      <td>-0.04</td>
-      <td>4961.0</td>
+      <td>13.04</td>
+      <td>0.04</td>
+      <td>4779.0</td>
     </tr>
     <tr>
       <td>混乱Confusion.OnlyMyBlackScore</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.11</td>
-      <td>0.11</td>
-      <td>480.0</td>
+      <td>3.99</td>
+      <td>-0.01</td>
+      <td>462.0</td>
     </tr>
     <tr>
       <td>混乱Confusion.OnlyMyBlackScore</td>
       <td>HD</td>
       <td>10.0</td>
-      <td>9.86</td>
-      <td>-0.14</td>
-      <td>741.0</td>
+      <td>9.97</td>
+      <td>-0.03</td>
+      <td>734.0</td>
     </tr>
     <tr>
       <td>混乱Confusion.OnlyMyBlackScore</td>
       <td>IN</td>
       <td>14.8</td>
-      <td>14.69</td>
-      <td>-0.11</td>
-      <td>4532.0</td>
+      <td>14.77</td>
+      <td>-0.03</td>
+      <td>4371.0</td>
     </tr>
     <tr>
       <td>游园地.椒盐菠萝</td>
       <td>EZ</td>
       <td>2.5</td>
-      <td>2.56</td>
-      <td>0.06</td>
-      <td>516.0</td>
+      <td>2.50</td>
+      <td>0.00</td>
+      <td>506.0</td>
     </tr>
     <tr>
       <td>游园地.椒盐菠萝</td>
       <td>HD</td>
       <td>7.5</td>
-      <td>7.69</td>
-      <td>0.19</td>
-      <td>631.0</td>
+      <td>7.53</td>
+      <td>0.03</td>
+      <td>619.0</td>
     </tr>
     <tr>
       <td>游园地.椒盐菠萝</td>
       <td>IN</td>
       <td>13.2</td>
-      <td>11.06</td>
-      <td>-2.14</td>
-      <td>2701.0</td>
+      <td>13.16</td>
+      <td>-0.04</td>
+      <td>2645.0</td>
     </tr>
     <tr>
       <td>狂喜蘭舞.LeaF</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>7.07</td>
-      <td>0.07</td>
-      <td>1007.0</td>
+      <td>7.01</td>
+      <td>0.01</td>
+      <td>974.0</td>
     </tr>
     <tr>
       <td>狂喜蘭舞.LeaF</td>
       <td>HD</td>
       <td>11.7</td>
-      <td>11.66</td>
-      <td>-0.04</td>
-      <td>1929.0</td>
+      <td>11.72</td>
+      <td>0.02</td>
+      <td>1866.0</td>
     </tr>
     <tr>
       <td>狂喜蘭舞.LeaF</td>
       <td>IN</td>
       <td>14.3</td>
-      <td>14.25</td>
-      <td>-0.05</td>
-      <td>4952.0</td>
+      <td>14.27</td>
+      <td>-0.03</td>
+      <td>4762.0</td>
     </tr>
     <tr>
       <td>狂喜蘭舞.LeaF</td>
@@ -6372,151 +6540,151 @@
       <td>16.4</td>
       <td>16.26</td>
       <td>-0.14</td>
-      <td>4591.0</td>
+      <td>4438.0</td>
     </tr>
     <tr>
       <td>瓷岁.茶鸣拾贰律</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>2.11</td>
-      <td>0.11</td>
-      <td>841.0</td>
+      <td>2.04</td>
+      <td>0.04</td>
+      <td>815.0</td>
     </tr>
     <tr>
       <td>瓷岁.茶鸣拾贰律</td>
       <td>HD</td>
       <td>6.5</td>
-      <td>8.69</td>
-      <td>2.19</td>
-      <td>2038.0</td>
+      <td>6.90</td>
+      <td>0.40</td>
+      <td>1951.0</td>
     </tr>
     <tr>
       <td>瓷岁.茶鸣拾贰律</td>
       <td>IN</td>
       <td>7.0</td>
-      <td>7.39</td>
-      <td>0.39</td>
-      <td>4504.0</td>
+      <td>7.31</td>
+      <td>0.31</td>
+      <td>4350.0</td>
     </tr>
     <tr>
       <td>白と黒のバケモノ.テヅカ</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.27</td>
-      <td>0.27</td>
-      <td>190.0</td>
+      <td>4.01</td>
+      <td>0.01</td>
+      <td>195.0</td>
     </tr>
     <tr>
       <td>白と黒のバケモノ.テヅカ</td>
       <td>HD</td>
       <td>11.4</td>
-      <td>11.23</td>
-      <td>-0.17</td>
-      <td>313.0</td>
+      <td>11.37</td>
+      <td>-0.03</td>
+      <td>332.0</td>
     </tr>
     <tr>
       <td>白と黒のバケモノ.テヅカ</td>
       <td>IN</td>
       <td>15.9</td>
-      <td>15.71</td>
-      <td>-0.19</td>
-      <td>4182.0</td>
+      <td>15.84</td>
+      <td>-0.06</td>
+      <td>4112.0</td>
     </tr>
     <tr>
       <td>盏茗.茶鸣拾贰律</td>
       <td>EZ</td>
       <td>1.5</td>
-      <td>1.48</td>
-      <td>-0.02</td>
-      <td>1258.0</td>
+      <td>1.49</td>
+      <td>-0.01</td>
+      <td>1219.0</td>
     </tr>
     <tr>
       <td>盏茗.茶鸣拾贰律</td>
       <td>HD</td>
       <td>4.5</td>
-      <td>5.58</td>
-      <td>1.08</td>
-      <td>2037.0</td>
+      <td>4.51</td>
+      <td>0.01</td>
+      <td>1949.0</td>
     </tr>
     <tr>
       <td>盏茗.茶鸣拾贰律</td>
       <td>IN</td>
       <td>13.3</td>
-      <td>13.41</td>
-      <td>0.11</td>
-      <td>4716.0</td>
+      <td>13.56</td>
+      <td>0.26</td>
+      <td>4532.0</td>
     </tr>
     <tr>
       <td>祈-我ら神祖と共に歩む者なり-.光吉猛修VS穴山大輔VSKaiVS水野健治VS大国奏音</td>
       <td>EZ</td>
       <td>7.0</td>
-      <td>6.86</td>
-      <td>-0.14</td>
-      <td>1085.0</td>
+      <td>6.99</td>
+      <td>-0.01</td>
+      <td>1039.0</td>
     </tr>
     <tr>
       <td>祈-我ら神祖と共に歩む者なり-.光吉猛修VS穴山大輔VSKaiVS水野健治VS大国奏音</td>
       <td>HD</td>
       <td>13.2</td>
-      <td>13.18</td>
-      <td>-0.02</td>
-      <td>2497.0</td>
+      <td>13.16</td>
+      <td>-0.04</td>
+      <td>2405.0</td>
     </tr>
     <tr>
       <td>祈-我ら神祖と共に歩む者なり-.光吉猛修VS穴山大輔VSKaiVS水野健治VS大国奏音</td>
       <td>IN</td>
       <td>16.4</td>
-      <td>16.37</td>
-      <td>-0.03</td>
-      <td>4803.0</td>
+      <td>16.27</td>
+      <td>-0.13</td>
+      <td>4639.0</td>
     </tr>
     <tr>
       <td>祈-我ら神祖と共に歩む者なり-.光吉猛修VS穴山大輔VSKaiVS水野健治VS大国奏音</td>
       <td>AT</td>
       <td>17.3</td>
-      <td>17.17</td>
-      <td>-0.13</td>
-      <td>3697.0</td>
+      <td>17.28</td>
+      <td>-0.02</td>
+      <td>3648.0</td>
     </tr>
     <tr>
       <td>神話.PicaM2U</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>4.32</td>
-      <td>0.32</td>
-      <td>735.0</td>
+      <td>4.05</td>
+      <td>0.05</td>
+      <td>717.0</td>
     </tr>
     <tr>
       <td>神話.PicaM2U</td>
       <td>HD</td>
       <td>8.7</td>
-      <td>9.12</td>
-      <td>0.42</td>
-      <td>1457.0</td>
+      <td>8.74</td>
+      <td>0.04</td>
+      <td>1397.0</td>
     </tr>
     <tr>
       <td>神話.PicaM2U</td>
       <td>IN</td>
       <td>13.5</td>
-      <td>13.30</td>
-      <td>-0.20</td>
-      <td>4949.0</td>
+      <td>13.48</td>
+      <td>-0.02</td>
+      <td>4757.0</td>
     </tr>
     <tr>
       <td>聖夜讃歌.A39沙包P</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.89</td>
-      <td>0.39</td>
-      <td>436.0</td>
+      <td>4.64</td>
+      <td>0.14</td>
+      <td>425.0</td>
     </tr>
     <tr>
       <td>聖夜讃歌.A39沙包P</td>
       <td>HD</td>
       <td>10.1</td>
-      <td>10.02</td>
-      <td>-0.08</td>
-      <td>825.0</td>
+      <td>9.95</td>
+      <td>-0.15</td>
+      <td>803.0</td>
     </tr>
     <tr>
       <td>聖夜讃歌.A39沙包P</td>
@@ -6524,279 +6692,279 @@
       <td>15.2</td>
       <td>15.33</td>
       <td>0.13</td>
-      <td>4589.0</td>
+      <td>4430.0</td>
     </tr>
     <tr>
       <td>華灯爱.闫东炜</td>
       <td>EZ</td>
       <td>6.0</td>
-      <td>5.69</td>
-      <td>-0.31</td>
-      <td>456.0</td>
+      <td>5.96</td>
+      <td>-0.04</td>
+      <td>445.0</td>
     </tr>
     <tr>
       <td>華灯爱.闫东炜</td>
       <td>HD</td>
       <td>10.6</td>
-      <td>10.05</td>
-      <td>-0.55</td>
-      <td>722.0</td>
+      <td>10.54</td>
+      <td>-0.06</td>
+      <td>701.0</td>
     </tr>
     <tr>
       <td>華灯爱.闫东炜</td>
       <td>IN</td>
       <td>13.7</td>
-      <td>13.82</td>
-      <td>0.12</td>
-      <td>3347.0</td>
+      <td>13.69</td>
+      <td>-0.01</td>
+      <td>3250.0</td>
     </tr>
     <tr>
       <td>萤火虫の怨.闫东炜</td>
       <td>EZ</td>
       <td>4.0</td>
-      <td>3.86</td>
-      <td>-0.14</td>
-      <td>778.0</td>
+      <td>4.01</td>
+      <td>0.01</td>
+      <td>746.0</td>
     </tr>
     <tr>
       <td>萤火虫の怨.闫东炜</td>
       <td>HD</td>
       <td>9.8</td>
-      <td>9.77</td>
-      <td>-0.03</td>
-      <td>1521.0</td>
+      <td>9.83</td>
+      <td>0.03</td>
+      <td>1456.0</td>
     </tr>
     <tr>
       <td>萤火虫の怨.闫东炜</td>
       <td>IN</td>
       <td>13.0</td>
-      <td>12.89</td>
-      <td>-0.11</td>
-      <td>3729.0</td>
+      <td>12.98</td>
+      <td>-0.02</td>
+      <td>3612.0</td>
     </tr>
     <tr>
       <td>蝎虎天体Lacertid.CreamvsDaily天利</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.21</td>
-      <td>-0.29</td>
-      <td>217.0</td>
+      <td>4.51</td>
+      <td>0.01</td>
+      <td>230.0</td>
     </tr>
     <tr>
       <td>蝎虎天体Lacertid.CreamvsDaily天利</td>
       <td>HD</td>
       <td>10.7</td>
-      <td>10.56</td>
-      <td>-0.14</td>
-      <td>336.0</td>
+      <td>10.68</td>
+      <td>-0.02</td>
+      <td>354.0</td>
     </tr>
     <tr>
       <td>蝎虎天体Lacertid.CreamvsDaily天利</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.28</td>
-      <td>-0.22</td>
-      <td>4362.0</td>
+      <td>15.25</td>
+      <td>-0.25</td>
+      <td>4249.0</td>
     </tr>
     <tr>
       <td>贝多芬祝福BeethovenBlessing.Nauts</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.94</td>
-      <td>-0.06</td>
-      <td>141.0</td>
+      <td>5.02</td>
+      <td>0.02</td>
+      <td>147.0</td>
     </tr>
     <tr>
       <td>贝多芬祝福BeethovenBlessing.Nauts</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>6.97</td>
-      <td>-3.83</td>
-      <td>215.0</td>
+      <td>10.32</td>
+      <td>-0.48</td>
+      <td>209.0</td>
     </tr>
     <tr>
       <td>贝多芬祝福BeethovenBlessing.Nauts</td>
       <td>IN</td>
       <td>15.0</td>
-      <td>11.74</td>
-      <td>-3.26</td>
-      <td>3366.0</td>
+      <td>14.31</td>
+      <td>-0.69</td>
+      <td>3112.0</td>
     </tr>
     <tr>
       <td>重生.姜米條</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.50</td>
-      <td>-0.00</td>
-      <td>1978.0</td>
+      <td>4.48</td>
+      <td>-0.02</td>
+      <td>1895.0</td>
     </tr>
     <tr>
       <td>重生.姜米條</td>
       <td>HD</td>
       <td>8.8</td>
-      <td>9.74</td>
-      <td>0.94</td>
-      <td>3802.0</td>
+      <td>8.80</td>
+      <td>0.00</td>
+      <td>3635.0</td>
     </tr>
     <tr>
       <td>重生.姜米條</td>
       <td>IN</td>
       <td>14.4</td>
-      <td>14.36</td>
-      <td>-0.04</td>
-      <td>5070.0</td>
+      <td>14.31</td>
+      <td>-0.09</td>
+      <td>4860.0</td>
     </tr>
     <tr>
       <td>雪降りメリクリ.A39</td>
       <td>EZ</td>
       <td>4.5</td>
-      <td>4.86</td>
-      <td>0.36</td>
-      <td>785.0</td>
+      <td>4.54</td>
+      <td>0.04</td>
+      <td>769.0</td>
     </tr>
     <tr>
       <td>雪降りメリクリ.A39</td>
       <td>HD</td>
       <td>10.8</td>
-      <td>10.79</td>
-      <td>-0.01</td>
-      <td>1859.0</td>
+      <td>10.81</td>
+      <td>0.01</td>
+      <td>1791.0</td>
     </tr>
     <tr>
       <td>雪降りメリクリ.A39</td>
       <td>IN</td>
       <td>15.4</td>
-      <td>15.35</td>
-      <td>-0.05</td>
-      <td>4743.0</td>
+      <td>15.30</td>
+      <td>-0.10</td>
+      <td>4588.0</td>
     </tr>
     <tr>
       <td>零號車輛.seatrus</td>
       <td>EZ</td>
       <td>7.5</td>
-      <td>7.20</td>
-      <td>-0.30</td>
-      <td>1092.0</td>
+      <td>7.42</td>
+      <td>-0.08</td>
+      <td>1074.0</td>
     </tr>
     <tr>
       <td>零號車輛.seatrus</td>
       <td>HD</td>
       <td>12.1</td>
-      <td>12.05</td>
-      <td>-0.05</td>
-      <td>3030.0</td>
+      <td>12.06</td>
+      <td>-0.04</td>
+      <td>2901.0</td>
     </tr>
     <tr>
       <td>零號車輛.seatrus</td>
       <td>IN</td>
       <td>16.2</td>
-      <td>16.09</td>
-      <td>-0.11</td>
-      <td>4804.0</td>
+      <td>16.08</td>
+      <td>-0.12</td>
+      <td>4637.0</td>
     </tr>
     <tr>
       <td>青丘.BLACK0</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.85</td>
-      <td>0.35</td>
-      <td>360.0</td>
+      <td>5.49</td>
+      <td>-0.01</td>
+      <td>356.0</td>
     </tr>
     <tr>
       <td>青丘.BLACK0</td>
       <td>HD</td>
       <td>10.5</td>
-      <td>10.77</td>
-      <td>0.27</td>
-      <td>627.0</td>
+      <td>10.52</td>
+      <td>0.02</td>
+      <td>609.0</td>
     </tr>
     <tr>
       <td>青丘.BLACK0</td>
       <td>IN</td>
       <td>15.5</td>
-      <td>15.66</td>
-      <td>0.16</td>
-      <td>3969.0</td>
+      <td>15.62</td>
+      <td>0.12</td>
+      <td>3896.0</td>
     </tr>
     <tr>
       <td>青芽.茶鸣拾贰律</td>
       <td>EZ</td>
       <td>5.0</td>
-      <td>4.97</td>
-      <td>-0.03</td>
-      <td>922.0</td>
+      <td>4.92</td>
+      <td>-0.08</td>
+      <td>892.0</td>
     </tr>
     <tr>
       <td>青芽.茶鸣拾贰律</td>
       <td>HD</td>
       <td>10.4</td>
-      <td>10.00</td>
-      <td>-0.40</td>
-      <td>2344.0</td>
+      <td>10.35</td>
+      <td>-0.05</td>
+      <td>2249.0</td>
     </tr>
     <tr>
       <td>青芽.茶鸣拾贰律</td>
       <td>IN</td>
       <td>15.1</td>
-      <td>15.07</td>
-      <td>-0.03</td>
-      <td>4682.0</td>
+      <td>15.12</td>
+      <td>0.02</td>
+      <td>4518.0</td>
     </tr>
     <tr>
       <td>风屿.闫东炜</td>
       <td>EZ</td>
       <td>5.5</td>
-      <td>5.74</td>
-      <td>0.24</td>
-      <td>621.0</td>
+      <td>5.50</td>
+      <td>0.00</td>
+      <td>612.0</td>
     </tr>
     <tr>
       <td>风屿.闫东炜</td>
       <td>HD</td>
       <td>9.8</td>
-      <td>10.51</td>
-      <td>0.71</td>
-      <td>1170.0</td>
+      <td>9.98</td>
+      <td>0.18</td>
+      <td>1126.0</td>
     </tr>
     <tr>
       <td>风屿.闫东炜</td>
       <td>IN</td>
       <td>14.0</td>
-      <td>14.42</td>
-      <td>0.42</td>
-      <td>4553.0</td>
+      <td>14.24</td>
+      <td>0.24</td>
+      <td>4395.0</td>
     </tr>
     <tr>
       <td>风屿.闫东炜</td>
       <td>AT</td>
       <td>15.1</td>
-      <td>15.33</td>
-      <td>0.23</td>
-      <td>4364.0</td>
+      <td>15.12</td>
+      <td>0.02</td>
+      <td>4222.0</td>
     </tr>
     <tr>
       <td>黄金之城GOLDTOWN.Memme</td>
       <td>EZ</td>
       <td>2.0</td>
-      <td>2.10</td>
-      <td>0.10</td>
-      <td>472.0</td>
+      <td>2.01</td>
+      <td>0.01</td>
+      <td>465.0</td>
     </tr>
     <tr>
       <td>黄金之城GOLDTOWN.Memme</td>
       <td>HD</td>
       <td>10.2</td>
-      <td>10.84</td>
-      <td>0.64</td>
-      <td>714.0</td>
+      <td>10.15</td>
+      <td>-0.05</td>
+      <td>701.0</td>
     </tr>
     <tr>
       <td>黄金之城GOLDTOWN.Memme</td>
       <td>IN</td>
       <td>14.7</td>
-      <td>14.51</td>
-      <td>-0.19</td>
-      <td>4662.0</td>
+      <td>14.62</td>
+      <td>-0.08</td>
+      <td>4524.0</td>
     </tr>
   </tbody>
 </table>
@@ -6812,20 +6980,23 @@
     $(document).ready( function () {
         $('#reportTable').DataTable({
             "pageLength": 50, // 每页显示条目数
-            "order": [[ 4, "desc" ]], // 默认按第 5 列（差值，索引为4）降序排序
+            // *** 确认列索引：根据 COLUMNS_TO_DISPLAY 的顺序 ***
+            // 0:歌曲 ID, 1:难度等级, 2:官方定数, 3:拟合定数(调整后), 4:差值(调整后), 5:成绩样本数
+            "order": [[ 4, "desc" ]], // 默认按第 5 列（调整后差值，索引为4）降序排序
             "columnDefs": [
-                // 注意：这里的 targets 索引需要对应更新后的列名在表格中的位置
-                { "targets": [2, 3, 4], "type": "num-fmt" } // 官方定数, 拟合定数, 差值
+                // *** 确认数值列的索引 ***
+                { "targets": [2, 3, 4], "type": "num-fmt" } // 官方定数, 拟合定数(调整后), 差值(调整后)
              ],
              // 添加颜色到差异列
             "createdRow": function( row, data, dataIndex ){
+                // *** 确认调整后差值列的索引 ***
                 // 假设 "拟合定数与官方定数的差值" 在第 5 列 (索引从 0 开始)
-                // 注意：这里的 data 是数组形式的行数据
-                var diffValue = parseFloat(data[4]);
+                var diffValue = parseFloat(data[4]); // 使用索引 4
                 if (!isNaN(diffValue)) {
-                    if (diffValue > 0.3) { // 显著虚低
+                    // 可以调整这里的阈值
+                    if (diffValue > 0.3) { // 显著虚低 (调整后)
                        $('td:eq(4)', row).addClass('positive-diff');
-                    } else if (diffValue < -0.3) { // 显著虚高
+                    } else if (diffValue < -0.3) { // 显著虚高 (调整后)
                        $('td:eq(4)', row).addClass('negative-diff');
                     }
                 }
