@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phigros Best N 图片生成器</title>
+    <style>
+        /* === 全局与基础样式 === */
+        :root {
+            --primary-color: #3b82f6; /* 主色调 - 柔和的蓝色 */
+            --primary-hover-color: #2563eb;
+            --background-color: #f8f9fa;
+            --card-background-color: #ffffff;
+            --text-color: #333;
+            --muted-text-color: #6c757d;
+            --border-color: #dee2e6;
+            --error-color: #dc3545;
+            --success-color: #198754;
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* === 容器卡片样式 === */
+        .container {
+            background: var(--card-background-color);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            max-width: 420px;
+            width: 95%;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            color: var(--muted-text-color);
+            font-weight: 400;
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+
+        /* === 登录与图片生成区域 === */
+        #login-section, #image-section {
+            display: none; /* Initially hidden */
+        }
+        
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem; /* 统一元素间距 */
+        }
+
+        /* === 二维码样式 === */
+        #qr-code-container {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            position: relative;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #qr-code-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        #status-text {
+            font-size: 1rem;
+            color: var(--muted-text-color);
+            min-height: 1.5em;
+        }
+
+        /* === 表单元素样式 === */
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background-color: #f8f9fa;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+        }
+        
+        label {
+            font-weight: 500;
+        }
+
+        input[type="number"] {
+            font-size: 1rem;
+            padding: 12px;
+            width: 80px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        /* === 按钮样式 === */
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        button:hover {
+            background-color: var(--primary-hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: translateY(0);
+        }
+        
+        /* 次要按钮样式 */
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: var(--muted-text-color);
+            box-shadow: none;
+        }
+        .btn-secondary:hover {
+            background-color: #dee2e6;
+            color: var(--text-color);
+        }
+
+        /* === 结果区域 === */
+        #result-container {
+            margin-top: 1rem;
+            min-height: 50px;
+        }
+        #result-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        #error-message {
+            color: var(--error-color);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        /* === 加载动画 (更现代的点状动画) === */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+        
+        /* === 页脚 === */
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--muted-text-color);
+        }
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* === 用户协议模态框样式 === */
+        #agreement-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* 确保在最上层 */
+        }
+
+        .modal-content {
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 600px;
+            max-width: 90%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        #agreement-content {
+            flex-grow: 1;
+            overflow-y: auto; /* 当内容超长时可以滚动 */
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            white-space: pre-wrap; /* 保留协议文本中的换行和空格 */
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .modal-footer label {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--muted-text-color);
+            cursor: pointer;
+        }
+
+        .modal-footer input[type="checkbox"] {
+            vertical-align: middle;
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Section 1: Login with QR Code -->
+        <div id="login-section">
+            <h1>Phigros Best N 图片生成</h1>
+            <h2>请使用 TapTap 扫码登录</h2>
+            <div class="section-content">
+                <div id="qr-code-container">
+                    <div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
+                <p id="status-text">正在获取二维码...</p>
+                <button class="btn-secondary" onclick="window.location.reload()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/></svg>
+                    刷新页面
+                </button>
+            </div>
+        </div>
+
+        <!-- Section 2: Image Generation -->
+        <div id="image-section">
+            <h1>操作面板</h1>
+            <h2>登录成功！欢迎回来。</h2>
+            <div class="section-content">
+                <p>请输入您想生成的 Best N 成绩。</p>
+                <div id="image-generator" class="form-group">
+                    <label for="n-value">Best</label>
+                    <input type="number" id="n-value" value="27" min="1">
+                    <button id="generate-btn" onclick="generateImage()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/></svg>
+                        生成图片
+                    </button>
+                </div>
+                <div id="result-container"></div>
+                <p id="error-message"></p>
+                <button class="btn-secondary" onclick="logout()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8.5 4.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0z"/></svg>
+                    退出登录
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 | <a href="#" id="view-agreement-link">用户协议</a></p>
+    </footer>
+
+    <!-- ===== 用户协议模态框 ===== -->
+    <div id="agreement-modal" style="display: none;">
+        <div class="modal-content">
+            <h2>「塔弦」空间站 - 用户协议</h2>
+            <div id="agreement-content">
+                <!-- 这里将通过JS动态填入协议内容 -->
+                <p>正在加载协议内容...</p>
+            </div>
+            <div class="modal-footer">
+                <label>
+                    <input type="checkbox" id="agreement-checkbox"> 我已阅读并完全同意上述协议的全部条款。
+                </label>
+                <button id="agree-btn" disabled>同意并继续</button>
+            </div>
+        </div>
+    </div>
+    <!-- ========================= -->
+
+<script>
+    // ==========================================================
+    // 后端服务器地址
+    // ==========================================================
+    const BACKEND_URL = 'https://evernight.xtower.site'; 
+
+    // 用户协议文本 (使用模板字符串 `` 可以保留换行)
+    const agreementText = `### 「塔弦」空间站 - Phigros Best N 图片生成器 用户协议
+
+**最后更新日期：2025年8月5日**
+
+---
+
+#### 1. 引言
+欢迎您使用由 弦塔（以下简称“**开发者**”或“**我们**”）开发并运营的“**Phigros Best N 图片生成器**”（以下简称“**本服务**”）。
+
+**在使用本服务之前，请您务必认真阅读、充分理解本协议的全部条款内容，特别是其中以加粗方式显著标识的条款**。如果您未满18周岁，请在法定监护人陪同下阅读本协议，并在征得法定监护人的同意后使用本服务。
+
+当您通过网络页面点击“同意”、“确认”按钮、勾选同意框，或以任何方式实际访问、使用本服务时，即视为您已充分阅读、理解并同意接受本协议的全部内容。**如果您不同意本协议的任何条款，请立即停止访问或使用本服务。**
+
+#### 2. 服务描述
+2.1 本服务是一个**免费、非官方、第三方**开发的网页工具。其核心功能为：通过用户授权，获取用户 TapTap 账号关联的 Phigros 游戏云存档数据，基于此数据计算并生成用户指定数量的最佳成绩（Best N）的可视化图片，供用户下载或分享。
+
+2.2 **本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。** 本服务仅为玩家提供便利，所有数据来源均依赖于 TapTap 官方云存档接口。服务的可用性和数据准确性完全受限于官方接口的稳定性与策略调整。
+
+2.3 **服务流程简述**：
+    *   用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。
+    *   授权后，本服务将接收由 TapTap 官方生成的、**限定本服务使用的 SessionToken**。
+    *   本服务使用该 Token 向后端发起请求，**获取与 Phigros 游戏相关的、生成 Best N 图片所必需的云存档数据**。
+    *   服务端根据获取的数据进行计算，生成 Best N 成绩图片并返回给用户。
+
+#### 3. 账号、数据与隐私保护
+
+3.1 在您扫码登录的全过程中，**我们不会以任何形式获取、记录或存储您的 TapTap 账号密码**。我们接收的唯一授权凭证是 TapTap 官方生成的 **SessionToken**。此 SessionToken **仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据**，以完成图片生成。
+
+3.2 为实现本服务的核心功能，我们仅在您授权后收集和处理以下信息：
+**TapTap SessionToken**：作为授权凭证，用于请求您的游戏数据。
+**Phigros 游戏数据**：生成 Best N 图片所必需的数据，包括：玩家 ID、潜力值 (RKS) 和全部单曲成绩记录（歌曲、难度、ACC、得分、评级等）。
+
+3.3 为方便您下次使用，您的 SessionToken **会被存储在您当前设备的浏览器本地存储中**，以实现“自动登录”。
+存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，我们仅在获取云存档数据时使用 SessionToken , 服务器仅在处理本次请求时使用该Token，请求处理完毕后销毁，不以任何形式将其存储在服务器硬盘或数据库中。
+
+3.4 您可随时点击服务页面的 **“退出登录”** 按钮，**立即清除存储在浏览器中的 SessionToken。**但请注意，如果不提供SessionToken，我们则无法向您提供本服务。
+
+#### 4. 用户行为准则
+4.1 您充分理解并同意，依据本协议，开发者授予您**有限的、可撤销的、非排他的、不可转让的服务使用权，仅限符合本协议约定的个人非商业用途。**本协议未明示授权的其他一切权利**仍由开发者保留**，您在行使其他权利前须**另行获得开发者的许可**，同时开发者如未行使前述任何权利，**并不构成对该权利的放弃**。
+
+4.2 您在使用我们提供的上述服务时，应遵守法律法规的要求和本协议的约定，遵守自愿、平等、公平及诚实信用原则，不利用本服务侵犯他人合法权益及谋取不正当利益，不扰乱互联网平台正常秩序。
+
+4.3 作为本服务的使用者，您不得违反《互联网信息服务管理办法》、《网络信息内容生态治理规定》等法律法规以及相关标准关于网络信息内容安全的要求，不得输入、利用本服务输出或传播以下违法不良信息：
+（1）反对宪法所确定的基本原则的；
+（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；
+（3）损害国家荣誉和利益的；
+（4）歪曲、丑化、亵渎、否定英雄烈士事迹和精神，以侮辱、诽谤或者其他方式侵害英雄烈士的姓名、肖像、名誉、荣誉的；
+（5）宣扬恐怖主义、极端主义或者煽动实施恐怖活动、极端主义活动的；
+（6）煽动民族仇恨、民族歧视，破坏民族团结的；
+（7）破坏国家宗教政策，宣扬邪教和封建迷信的；
+（8）散布谣言，扰乱经济秩序和社会秩序的；
+（9）散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；
+（10）侮辱或者诽谤他人，侵害他人名誉、隐私和其他合法权益的；
+（11）法律、行政法规禁止的其他内容。
+
+#### 5. 知识产权
+5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于软件、技术、程序、代码、用户界面、网页、文字、图表等）享有完整的知识产权。
+5.2 本服务的输出图片可能会使用《Phigros》游戏及TapTap平台相关的商标、美术（包括但不限于歌曲封面/曲绘）等素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。** 本服务对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表开发者拥有这些素材的任何权利，不代表获得了权利人的任何官方授权，也不构成权利人对本服务的认可。**
+5.3 您理解并同意，您通过本服务生成的图片（“生成内容”）中将包含上述第 5.2 条所述的第三方知识产权内容，因此，您应对您使用和分发“生成内容”的行为承担法律责任。** 如果您的使用行为超出了“合理使用”的范畴，或侵犯了任何第三方的合法权益（包括但不限于知识产权），所有责任和后果将由您自行承担，与开发者无关。若因此给开发者造成损失的，您应予以赔偿。
+
+#### 6. 免责声明与责任限制
+6.1 本服务按“**现状**”和“**现有**”的基础提供，**不做任何形式的明示或默示的担保**，包括但不限于服务的稳定性、准确性、安全性或持续可用性。您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误、或因本地设备安全问题导致Token泄露的理论风险等）**均由您自行承担。**
+6.2 **在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见。**
+6.3 不论在何种情况下，本服务均不对由于网络连接故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际、国内法院的命令，黑客攻击，互联网病毒，网络运营商技术调整，政府临时管制或任何其他不能合理控制的原因而造成的本服务不能访问、服务中断、信息及数据的泄露、延误、停滞或错误，不能提供或延迟提供服务而承担责任。
+6.4 开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。**如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，开发者有权随时移除相关功能、限制服务或终止本协议，而无需对您承担任何责任。**
+
+#### 7. 协议的变更与终止
+7.1 开发者保留随时单方面修改本协议的权利。修改后的协议将在本服务页面公布并立即生效。**如您不接受修改后的协议，请您立即停止使用本服务**。您继续使用本服务将被视为则视为您已充分阅读、理解并接受更新后的本协议并愿意受更新后的本协议的约束。
+7.2 开发者保留随时因任何理由（包括但不限于收到相关权利方（如Pigeon Games）的通知、技术、运营成本、法律法规要求或开发者个人决定）**暂时中止或永久终止本服务的权利，而无需事先通知，也无需承担任何责任。**
+
+#### 8. 适用法律与管辖权
+8.1 本协议的订立、生效、解释、履行及争议解决，均适用**中华人民共和国大陆地区法律**。如双方就本协议内容或其执行发生任何争议，应首先友好协商解决；协商不成的，您同意将争议提交至**开发者所在地有管辖权的人民法院**通过诉讼解决。
+
+#### 9. 其他
+9.1 如果本协议的任何条款被认定为全部或部分不合法、无效或不可强制执行，该条款或其相关部分应在上述范围内被视为不构成本协议的一部分，但本协议其他条款的合法性、效力和可强制执行性均不受影响。
+
+#### 10. 联系我们
+如果您对本协议有任何疑问、意见或建议，请通过以下方式联系我们：
+
+sczr0710@163.com
+`;
+
+    let pollingInterval;
+    let sessionToken = null;
+
+    // 获取DOM元素
+    const loginSection = document.getElementById('login-section');
+    const imageSection = document.getElementById('image-section');
+    const qrContainer = document.getElementById('qr-code-container');
+    const statusText = document.getElementById('status-text');
+    const generateBtn = document.getElementById('generate-btn');
+    const resultContainer = document.getElementById('result-container');
+    const nValueInput = document.getElementById('n-value');
+    const errorMessage = document.getElementById('error-message');
+
+    // 获取协议模态框相关元素
+    const agreementModal = document.getElementById('agreement-modal');
+    const agreementContent = document.getElementById('agreement-content');
+    const agreementCheckbox = document.getElementById('agreement-checkbox');
+    const agreeBtn = document.getElementById('agree-btn');
+    const viewAgreementLink = document.getElementById('view-agreement-link');
+
+    // 页面加载时的主函数
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. 设置协议内容和事件监听
+        setupAgreementModal();
+
+        // 2. 检查用户是否已同意协议
+        if (localStorage.getItem('agreementAccepted') === 'true') {
+            // 如果已同意，直接初始化应用
+            initializeApp();
+        } else {
+            // 如果未同意，显示协议模态框
+            agreementModal.style.display = 'flex';
+        }
+    });
+
+    // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
+    function initializeApp() {
+        const savedToken = localStorage.getItem('phigrosSessionToken');
+        if (savedToken) {
+            console.log('发现已保存的Token，进入已登录状态。');
+            sessionToken = savedToken;
+            showImageSection();
+        } else {
+            console.log('未发现Token，开始扫码登录流程。');
+            showLoginSection();
+            fetchQrCode();
+        }
+    }
+
+    // 设置协议模态框
+    function setupAgreementModal() {
+        // 使用 marked.js 将 Markdown 字符串解析为 HTML，然后用 innerHTML 渲染
+        agreementContent.innerHTML = marked.parse(agreementText);
+
+        // 监听复选框状态，以启用/禁用按钮
+        agreementCheckbox.addEventListener('change', () => {
+            agreeBtn.disabled = !agreementCheckbox.checked;
+        });
+
+        // 监听“同意”按钮点击
+        agreeBtn.addEventListener('click', () => {
+            if (agreementCheckbox.checked) {
+                localStorage.setItem('agreementAccepted', 'true');
+                agreementModal.style.display = 'none';
+                initializeApp(); // 用户同意后，开始应用
+            }
+        });
+
+        // 监听页脚的“用户协议”链接点击
+        viewAgreementLink.addEventListener('click', (e) => {
+            e.preventDefault(); // 阻止a标签的默认跳转行为
+            agreementModal.style.display = 'flex';
+        });
+    }
+
+    function showLoginSection() {
+        loginSection.style.display = 'block';
+        imageSection.style.display = 'none';
+    }
+
+    function showImageSection() {
+        loginSection.style.display = 'none';
+        imageSection.style.display = 'block';
+    }
+
+    // 1. 获取二维码
+    async function fetchQrCode() {
+        try {
+            const response = await fetch(`${BACKEND_URL}/auth/qrcode`, { method: 'GET' });
+            if (!response.ok) throw new Error('获取二维码失败');
+            const data = await response.json();
+            
+            qrContainer.innerHTML = `<img src="${data.qrCodeImage}" alt="登录二维码">`;
+            statusText.textContent = '请扫描二维码登录。';
+            startPolling(data.qrId);
+        } catch (error) {
+            console.error(error);
+            statusText.textContent = `错误: ${error.message}。请检查后端服务是否开启。`;
+        }
+    }
+
+    // 2. 轮询状态
+    function startPolling(qrId) {
+        pollingInterval = setInterval(async () => {
+            try {
+                const response = await fetch(`${BACKEND_URL}/auth/qrcode/${qrId}/status`);
+                const data = await response.json();
+                
+                statusText.textContent = `状态: ${data.status}...`;
+
+                if (data.status === 'success') {
+                    clearInterval(pollingInterval);
+                    sessionToken = data.sessionToken;
+                    localStorage.setItem('phigrosSessionToken', sessionToken);
+                    statusText.textContent = '登录成功！';
+                    showImageSection();
+                } else if (data.status === 'expired' || data.status === 'error') {
+                     clearInterval(pollingInterval);
+                     statusText.textContent = `二维码已失效，请刷新页面重试。`;
+                }
+            } catch (error) {
+                console.error('轮询失败:', error);
+                clearInterval(pollingInterval);
+                statusText.textContent = '轮询连接中断，请刷新重试。';
+            }
+        }, 3000); // 每3秒轮询一次
+    }
+
+    // 3. 生成图片
+    async function generateImage() {
+        const n = nValueInput.value;
+        if (!n || n < 1) {
+            errorMessage.textContent = '请输入一个大于0的有效数字。';
+            return;
+        }
+
+        generateBtn.disabled = true;
+        generateBtn.textContent = '生成中...';
+        resultContainer.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+        errorMessage.textContent = '';
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/image/bn/${n}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token: sessionToken })
+            });
+
+            if (!response.ok) {
+                if(response.headers.get('Content-Type')?.includes('application/json')) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
+                } else {
+                    throw new Error(`服务器错误，状态码: ${response.status}`);
+                }
+            }
+            
+            const imageBlob = await response.blob();
+            const imageUrl = URL.createObjectURL(imageBlob);
+            resultContainer.innerHTML = `<img src="${imageUrl}" alt="Best ${n} 成绩图">`;
+
+        } catch (error) {
+            console.error('生成图片失败:', error);
+            errorMessage.textContent = `错误: ${error.message}`;
+            resultContainer.innerHTML = '';
+        } finally {
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/></svg> 生成图片';
+        }
+    }
+
+    // 4. 登出
+    function logout() {
+        localStorage.removeItem('phigrosSessionToken');
+        // 注意：我们不清除 agreementAccepted 标记，这样用户无需再次同意协议
+        sessionToken = null;
+        clearInterval(pollingInterval);
+        console.log('用户已登出。');
+        window.location.reload();
+    }
+</script>
+
+</body>
+</html>

@@ -2,227 +2,391 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-	<link rel='stylesheet' href='https://ik.imagekit.io/Sczr/Source%20Han%20Sans%20&%20Saira%20Hybrid-Regular%20(1)/result.css?updatedAt=1733583831964' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>「塔弦」空间站</title>
+    <!-- 引入字体 -->
+    <link rel='stylesheet' href='https://ik.imagekit.io/Sczr/Source%20Han%20Sans%20&%20Saira%20Hybrid-Regular%20(1)/result.css?updatedAt=1733583831964' />
+    <!-- 引入图标库 (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
+        /* CSS Variables - 方便全局修改颜色和样式 */
+        :root {
+            --primary-color: #6a5acd; /* SlateBlue，紫色 */
+            --primary-light: #e6e6fa; /* Lavender */
+            --background-color: #f8f9fa;
+            --card-background-color: #ffffff;
+            --text-color: #212529;
+            --muted-text-color: #6c757d;
+            --accent-color: #ffc107; /* Amber, 用于高亮 */
+            --border-color: #dee2e6;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --border-radius: 12px;
+            --font-family-main: 'Source Han Sans & Saira Hybrid', sans-serif;
+        }
+
+        /* 基础样式重置与设置 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Source Han Sans & Saira Hybrid';
-            line-height: 1.6;
+            font-family: var(--font-family-main);
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        /* 布局容器 */
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f8f9fa;
         }
-        #lyrics {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff3b0;
+
+        /* 头部样式 */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted-text-color);
+            margin-bottom: 1.5rem;
+        }
+        .header-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+		
+		        /* 头部链接区域的样式 */
+        .header-links {
+            display: flex;
+            flex-wrap: wrap; /* 允许换行 */
+            justify-content: center;
+            gap: 1rem; /* 按钮之间的间距 */
+            margin-top: 1.5rem;
+        }
+
+        /* 链接按钮的基础样式 */
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 10px 18px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
-        #refresh-btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #6c5ce7;
+        .link-button i {
+            font-size: 1.1em; /* 让图标比文字稍大一点 */
+        }
+
+        /* 主按钮样式 (我们新增的) */
+        .link-button.primary {
+            background-color: var(--primary-color);
             color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        .link-button.primary:hover {
+            background-color: var(--primary-hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        /* 次要按钮样式 (优化你现有的) */
+        .link-button.secondary {
+            background-color: #e9ecef;
+            color: var(--muted-text-color);
+        }
+        .link-button.secondary:hover {
+            background-color: #dee2e6;
+            color: var(--text-color);
+        }
+
+        .link-button code {
+            background-color: rgba(0,0,0,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+		
+        /* 卡片化内容区域 */
+        .card {
+            background-color: var(--card-background-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.07);
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* 特定的组件样式 */
+        .link-button, button#refresh-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
-        #refresh-btn:hover {
-            background-color: #5a4fcf;
+        .link-button:hover, button#refresh-btn:hover {
+            background-color: #594ab8;
+            transform: translateY(-2px);
         }
-        h1 { color: #2d3436; margin-bottom: 25px; }
-        h2 { color: #6c5ce7; border-left: 5px solid #a8a4e6; padding-left: 10px; margin-top: 30px; margin-bottom: 15px; }
-        code { background-color: #ffeaa7; padding: 2px 5px; border-radius: 3px; }
-        img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .note { background-color: #fff3b0; padding: 15px; border-radius: 8px; margin: 15px 0; }
-        section { margin-bottom: 20px; }
+        .link-button.secondary {
+            background-color: #f1f3f5;
+            color: #495057;
+        }
+        .link-button.secondary:hover {
+            background-color: #e9ecef;
+        }
+        
+        code {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        pre code {
+            display: block;
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .tip-box {
+            background-color: var(--primary-light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--primary-color);
+        }
+        .tip-box a {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        ul.feature-list, ul.whitelist {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul.feature-list li, ul.whitelist li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        ul.feature-list li::before {
+            content: '\f005'; /* Font Awesome Star Icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-color);
+        }
+        ul.whitelist li::before {
+            content: '\f058'; /* Font Awesome Check Circle Icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #28a745;
+        }
+        .whitelist-note {
+            font-size: 0.9em;
+            color: var(--muted-text-color);
+        }
+
+        /* 歌词区域 */
+        #lyrics-container {
+            text-align: center;
+        }
+        #lyrics {
+            min-height: 100px;
+            background-color: var(--card-background-color);
+            border: 2px dashed var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--muted-text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .lyric-text {
+            color: var(--text-color);
+        }
+        .lyric-source {
+            font-size: 0.85em;
+            color: var(--muted-text-color);
+            margin-top: 1rem;
+            font-style: normal;
+        }
+        .loader {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--primary-light);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-    <h1>🎮 欢迎来到「塔弦」空间站</h1>
-    <p>主人QQ：<code>1932161680</code> | <a href="output.html" target="_blank">📊 Phigros FC AP率全铺面统计</a> | <a href="aw0000.html" target="_blank">📈 谱面定数拟合报告</a></p>
-
-    <section>
-        <h2>🌈 Phi插件设置</h2>
-        <p>指令头是<code>咕</code>，不需要@</p>
+    <div class="container">
         
-        <h3>🎯 使用示例</h3>
-        <pre><code>/咕 bind qrcode
-/咕 pgr
-/phihelp（这个可以不写！）</code></pre>
+        <header class="header">
+            <h1><i class="fas fa-satellite-dish"></i> 「塔弦」空间站</h1>
+            <p class="subtitle">咕？咕咕咕！</p>
+            <div class="header-links">
+				<a href="test.html" class="link-button primary"><i class="fas fa-image"></i> BestN图生成</a>
+                <span class="link-button secondary"><i class="fab fa-qq"></i> 主人QQ: <code>1932161680</code></span>
+                <a href="output.html" target="_blank" class="link-button secondary"><i class="fas fa-chart-pie"></i> 全铺面统计</a>
+                <a href="aw0000.html" target="_blank" class="link-button secondary"><i class="fas fa-chart-line"></i> 定数拟合报告</a>
+            </div>
+        </header>
 
-        <div class="note">
-            <p>📌 小贴士：<br>
-            • 更多详情请看 <a href="https://kdocs.cn/l/catqcMM9UR5Y" target="_blank">《Phi-plugin使用指南》</a><br>
-            • 教学视频 👉 <a href="https://www.bilibili.com/video/BV1wE421A7KE" target="_blank">💻 PPT教程</a></p>
-        </div>
-    </section>
+        <main>
+            <div class="card">
+                <h2><i class="fas fa-cog"></i> Phi插件设置</h2>
+                <p>指令头统一为 <code>咕</code>，在群聊中发送时无需@机器人。</p>
+                
+                <h4>🎯 核心使用示例</h4>
+                <pre><code>/咕 bind qrcode  # 扫码绑定TapTap账号
+/咕 pgr          # 查询你的Phigros个人信息
+/phihelp         # 获取详细的帮助菜单</code></pre>
 
-    <section>
-        <h2>🎉 扩展功能</h2>
-        
-        <h3>🎵 抽歌词</h3>
-        <p>给机器人发送「抽歌词」，会触发歌词掉落（暂不可用捏 2025.2.22）<br>
-        📚 歌词库地址：<a href="https://github.com/Sczr0/bingolyrics" target="_blank">bingolyrics</a></p>
+                <div class="tip-box">
+                    <p><strong><i class="fas fa-book-open"></i> 完整指南:</strong><br>
+                    • 更多功能和详细用法，请查阅 <a href="https://kdocs.cn/l/catqcMM9UR5Y" target="_blank">《Phi-plugin使用指南》</a><br>
+                    • 视频教程请看 <a href="https://www.bilibili.com/video/BV1wE421A7KE" target="_blank"><i class="fab fa-bilibili"></i> Bilibili PPT教程</a></p>
+                </div>
+            </div>
 
-        <h3>🔮 塔罗占卜</h3>
-        <p>发送<code>塔罗牌</code>三个字，抽取塔罗牌</p>
+            <div class="card">
+                <h2><i class="fas fa-cubes"></i> 娱乐扩展功能</h2>
+                <ul class="feature-list">
+                    <li><strong>抽歌词</strong>: 发送「抽歌词」，随机掉落一句歌词</li>
+                    <li><strong>塔罗</strong>: 发送「塔罗牌」三个字，掉落塔罗牌</li>
+                    <li><strong>喜报/悲报生成</strong>: 以「喜报」或「悲报」开头发送内容，自动生成图片</li>
+                </ul>
+            </div>
 
-        <h3>🎭 喜报/悲报生成器</h3>
-        <p>用<code>喜报</code>或<code>悲报</code>开头发送内容，自动生成图片</p>
-    </section>
+            <div class="card">
+                <h2><i class="fas fa-shield-alt"></i> 白名单群组</h2>
+                <p>以下群组已加入白名单，不会受自动清群机制影响。(更新于 2025.2.22)</p>
+                <ul class="whitelist">
+                    <li>58*****07</li>
+                    <li>61*****57</li>
+                    <li>101*****58</li>
+                    <li>811****78</li>
+                    <li>72*****85</li>
+                </ul>
+                <p class="whitelist-note">为保护隐私，群号已做脱敏处理。</p>
+            </div>
 
-   <section>
-    <h2>✅ 白名单群组</h2>
-    <div class="note">
-        <p>申请通过的白名单群组如下（2025.2.22）：</p>
-        <ul style="margin: 10px 0; padding-left: 20px;">
-            <li>58*****07</li>
-            <li>61*****57</li>
-            <li>101*****58</li>
-	    <li>811****78</li>
-	    <li>72*****85</li>
-        </ul>
-        <p style="margin-top: 8px; color: #4a5568;">白名单群将不会被塔弦的自动清群机制影响。\n为防止骚扰，对应的群聊号已经屏蔽</p>
+            <div class="card" id="lyrics-container">
+                <h2><i class="fas fa-music"></i> 每日歌词</h2>
+                <div id="lyrics">加载中...</div>
+                <button id="refresh-btn"><i class="fas fa-sync-alt"></i> 换一句</button>
+            </div>
+
+        </main>
+
     </div>
-   </section>
-
-    <div id="lyrics">加载中，请稍候...</div>
-    <button id="refresh-btn">换一句歌词</button>
 
     <script>
-        // GitHub仓库配置
+        //  JavaScript 代码
         const config = {
-  proxyBase: "https://ctower.xtower.site", // 自定义代理域名
-  repoInfo: {
-    owner: "Sczr0",
-    repo: "yllyrics",
-    branch: "main"
-  }
-}
+            proxyBase: "https://ctower.xtower.site",
+            repoInfo: { owner: "Sczr0", repo: "yllyrics", branch: "main" }
+        };
 
-// 获取文件列表（带缓存）
-async function getLyricFiles() {
-  const CACHE_KEY = 'lyric_files_cache';
-  const CACHE_TTL = 3600 * 1000; // 1小时
+        async function getLyricFiles() {
+            const CACHE_KEY = 'lyric_files_cache';
+            const CACHE_TTL = 3600 * 1000;
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+                const { timestamp, data } = JSON.parse(cached);
+                if (Date.now() - timestamp < CACHE_TTL) return data;
+            }
+            try {
+                const response = await fetch(`${config.proxyBase}/contents/`);
+                const files = await response.json();
+                const validFiles = files.filter(file => file.type === "file" && file.name.endsWith('.txt')).map(file => file.path);
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: validFiles }));
+                return validFiles;
+            } catch (error) {
+                console.error("获取文件列表失败：", error);
+                return [];
+            }
+        }
 
-  // 尝试从缓存读取
-  const cached = localStorage.getItem(CACHE_KEY);
-  if (cached) {
-    const { timestamp, data } = JSON.parse(cached);
-    if (Date.now() - timestamp < CACHE_TTL) {
-      return data;
-    }
-  }
+        async function fetchRandomLyric() {
+            const lyricsDiv = document.getElementById("lyrics");
+            lyricsDiv.innerHTML = '<div class="loader"></div>';
+            try {
+                const lyricFiles = await getLyricFiles();
+                if (lyricFiles.length === 0) throw new Error("没有找到歌词文件");
+                const selectedFile = lyricFiles[Math.floor(Math.random() * lyricFiles.length)];
+                const fileResponse = await fetch(`${config.proxyBase}/file/${selectedFile}`);
+                if (!fileResponse.ok) throw new Error(`文件获取失败: ${fileResponse.status}`);
+                const fileContent = await fileResponse.text();
+                const lines = fileContent.split('\n').filter(line => line.trim().length > 0);
+                if (lines.length === 0) throw new Error("空歌词文件");
+                const randomLine = lines[Math.floor(Math.random() * lines.length)];
+                lyricsDiv.innerHTML = `
+                    <div class="lyric-text">“${randomLine}”</div>
+                    <div class="lyric-source">—— 《${selectedFile.split('/').pop().replace('.txt', '')}》</div>
+                `;
+            } catch (error) {
+                console.error("歌词加载失败：", error);
+                lyricsDiv.innerText = "🎵 歌词加载失败，请刷新试试～";
+            }
+        }
 
-  // 缓存失效，重新请求
-  try {
-    const response = await fetch(`${config.proxyBase}/contents/`);
-    const files = await response.json();
-    
-    // 过滤并存储到缓存
-    const validFiles = files.filter(file => 
-      file.type === "file" && file.name.endsWith('.txt')
-    ).map(file => file.path);
-
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
-      timestamp: Date.now(),
-      data: validFiles
-    }));
-
-    return validFiles;
-  } catch (error) {
-    console.error("获取文件列表失败：", error);
-    return [];
-  }
-}
-
-// 完整版随机歌词获取
-async function fetchRandomLyric() {
-  try {
-    showLoading();
-
-    const lyricFiles = await getLyricFiles();
-    if (lyricFiles.length === 0) {
-      throw new Error("没有找到歌词文件");
-    }
-
-    const randomIndex = Math.floor(Math.random() * lyricFiles.length);
-    const selectedFile = lyricFiles[randomIndex];
-
-    const fileResponse = await fetch(`${config.proxyBase}/file/${selectedFile}`);
-    if (!fileResponse.ok) {
-      throw new Error(`文件获取失败: ${fileResponse.status}`);
-    }
-    const fileContent = await fileResponse.text();
-
-    const lines = fileContent
-      .split('\n')
-      .filter(line => line.trim().length > 0);
-
-    if (lines.length === 0) {
-      throw new Error("空歌词文件");
-    }
-
-    const randomLine = lines[Math.floor(Math.random() * lines.length)];
-    
-    // 新的显示方式
-    document.getElementById("lyrics").innerHTML = `
-      ${randomLine}
-      <div style="margin-top: 10px; font-size: 0.8em; color: #666;">
-        来源：${selectedFile.split('/').pop()}
-      </div>
-    `;
-
-  } catch (error) {
-    console.error("歌词加载失败：", error);
-    document.getElementById("lyrics").innerText = "🎵 歌词加载失败，请刷新试试～";
-  } finally {
-    hideLoading();
-  }
-}
-
-function showLyric(text, filename) {
-  document.getElementById("lyrics").innerHTML = `
-    <div class="lyric-container">
-      <div class="lyric-content">${text}</div>
-      <div class="lyric-source">源自：${filename.split('/').pop()}</div>
-    </div>
-  `;
-}
-
-// 辅助函数
-function showLoading() {
-  document.getElementById("lyrics").innerHTML = `
-    <div class="loader"></div>
-    <p style="text-align: center;">Towering...</p>
-  `;
-}
-
-function hideLoading() {
-  // 可添加加载完成动画
-}
-
-function showError(msg) {
-  document.getElementById("lyrics").innerHTML = `
-    <div class="error-box">
-      <i class="fas fa-exclamation-triangle"></i>
-      ${msg}
-    </div>
-  `;
-}
-
-// 初始化
-window.addEventListener('load', () => {
-  fetchRandomLyric();
-  document.getElementById("refresh-btn").addEventListener('click', () => {
-    fetchRandomLyric();
-  });
-});
+        window.addEventListener('load', () => {
+            fetchRandomLyric();
+            document.getElementById("refresh-btn").addEventListener('click', fetchRandomLyric);
+        });
     </script>
 </body>
 </html>
