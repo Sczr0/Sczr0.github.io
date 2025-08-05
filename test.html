@@ -223,7 +223,7 @@
             width: 80px;
         }
 
-        input[type="number"]:focus {
+        input[type="number"]:focus, #song-keyword:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 10px rgba(59, 130, 246, 0.1) inset;
@@ -466,6 +466,65 @@
             }
         }
         /* ========================= */
+
+        /* ===== 新增：标签页样式 ===== */
+        .tabs-container {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--muted-text-color);
+            position: relative;
+            transition: color 0.3s ease;
+            outline: none; /* 移除点击时的轮廓 */
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* 贴在父容器的border-bottom上 */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tab-button:hover {
+            color: var(--text-color);
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .tab-button.active::after {
+            transform: scaleX(1);
+        }
+
+        .tab-pane {
+            display: none; /* 默认隐藏 */
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem; /* 面板内元素间距 */
+            width: 100%;
+        }
+
+        .tab-pane.active {
+            display: flex; /* 激活时显示 */
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -513,28 +572,57 @@
                         alt="User Avatar">
                     <h2 id="welcome-message">欢迎回来, <span id="user-nickname">Player</span>!</h2>
                 </div>
+                <!-- ===== 标签页导航 ===== -->
+                <div class="tabs-container">
+                    <button class="tab-button" onclick="switchTab('b19-generator')">成绩图片</button>
+                    <button class="tab-button" onclick="switchTab('song-query')">单曲查询</button>
+                </div>
+
                 <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
-                <p>请输入您想生成的 Best N </p>
-                <div id="image-generator" class="form-group" style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px;">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                        <label for="n-value">Best</label>
-                        <input type="number" id="n-value" value="27" min="1" max="100" style="flex-grow: 1; max-width: 120px;">
-                    </div>
-                    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 0.5rem;">
-                        <input type="checkbox" id="auto-save-checkbox" style="transform: scale(1.2);">
-                        <label for="auto-save-checkbox" style="cursor: pointer;">自动保存图片</label>
-                    </div>
-                    <div style="display: flex; justify-content: center; gap: 1rem;">
-                        <button id="generate-btn" onclick="generateImage()" style="flex-grow: 1;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
-                            </svg>
-                            生成图片
-                        </button>
-                        <button id="show-rks-btn" onclick="showRksList()" class="btn-secondary">查看文字版</button>
+                
+                <!-- ===== 标签页内容面板 ===== -->
+                <!-- 面板1: Best N 生成器 -->
+                <div id="b19-generator" class="tab-pane">
+                    <p>请输入您想生成的 Best N </p>
+                    <div id="image-generator" class="form-group" style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                            <label for="n-value">Best</label>
+                            <input type="number" id="n-value" value="27" min="1" max="100" style="flex-grow: 1; max-width: 120px;">
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 0.5rem;">
+                            <input type="checkbox" id="auto-save-checkbox" style="transform: scale(1.2);">
+                            <label for="auto-save-checkbox" style="cursor: pointer;">自动保存图片</label>
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 1rem;">
+                            <button id="generate-btn" onclick="generateImage()" style="flex-grow: 1;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
+                                </svg>
+                                生成图片
+                            </button>
+                            <button id="show-rks-btn" onclick="showRksList()" class="btn-secondary">查看文字版</button>
+                        </div>
                     </div>
                 </div>
-                 <button class="btn-logout" onclick="logout()" style="margin-top: auto;">
+
+                <!-- 面板2: 单曲成绩查询 -->
+                <div id="song-query" class="tab-pane">
+                     <p>请输入歌曲关键词查询单曲成绩图</p>
+                     <div id="song-query-container" class="form-group" style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px; background: transparent; padding:0; gap: 1rem;">
+                        <div class="form-group" style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
+                             <label for="song-keyword">关键词</label>
+                             <input type="text" id="song-keyword" placeholder="歌曲ID/名称/别名" style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                        </div>
+                        <button id="generate-song-btn" onclick="generateSongImage()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                            查询单曲成绩
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="btn-logout" onclick="logout()" style="margin-top: auto;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16">
                         <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
@@ -600,37 +688,40 @@
         const BACKEND_URL = 'https://evernight.xtower.site';
 
         // 用户协议文本 (使用模板字符串 `` 可以保留换行)
-        const agreementText = `### 「塔弦」空间站 - Phigros Best N 图片生成器 用户协议
+        const agreementText = `### 「塔弦」空间站 - Phigros 成绩查询与图片生成器 用户协议
 
-**最后更新日期：2025年8月5日**
+**最后更新日期：2025年8月6日**
 
 ---
 
 #### 1. 引言
-欢迎您使用由 弦塔（以下简称“**开发者**”或“**我们**”）开发并运营的“**Phigros Best N 图片生成器**”（以下简称“**本服务**”）。
+欢迎您使用由 弦塔（以下简称“**开发者**”或“**我们**”）开发并运营的“**Phigros 成绩查询与图片生成器**”（以下简称“**本服务**”）。
 
 **在使用本服务之前，请您务必认真阅读、充分理解本协议的全部条款内容，特别是其中以加粗方式显著标识的条款**。如果您未满18周岁，请在法定监护人陪同下阅读本协议，并在征得法定监护人的同意后使用本服务。
 
 当您通过网络页面点击“同意”、“确认”按钮、勾选同意框，或以任何方式实际访问、使用本服务时，即视为您已充分阅读、理解并同意接受本协议的全部内容。**如果您不同意本协议的任何条款，请立即停止访问或使用本服务。**
 
 #### 2. 服务描述
-2.1 本服务是一个**免费、第三方**开发的网页工具。其核心功能为：通过用户授权，获取用户 TapTap 账号关联的 Phigros 游戏云存档数据，基于此数据计算并生成用户指定数量的最佳成绩（Best N）的可视化图片，供用户下载或分享。
+ 2.1 本服务是一个**免费、第三方**开发的网页工具。其核心功能为：通过用户授权，获取用户 TapTap 账号关联的 Phigros 游戏云存档数据，并基于此数据为用户提供以下服务：
+*   **Best N 成绩分析与生成**：计算并生成用户指定数量的最佳成绩（Best N）的**可视化图片**或**文本列表**。
+*   **单曲成绩查询**：根据用户输入的关键词，查询特定歌曲的成绩，并生成包含详细信息的**可视化图片**。
+*   上述生成的内容，均可供用户下载或分享。
 
-2.2 **本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。** 本服务仅为玩家提供便利，所有数据来源均依赖于 TapTap 官方云存档接口。服务的可用性和数据准确性完全受限于官方接口的稳定性与策略调整。
+2.2 **本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。** 本服务仅为玩家提供便利，所有数据来源均依赖于 TapTap 官方云存档接口。**本服务所有功能的可用性和数据准确性**均完全受限于官方接口的稳定性与策略调整。
 
-2.3 **服务流程简述**：
-    *   用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。
-    *   授权后，本服务将接收由 TapTap 官方生成的、**限定本服务使用的 SessionToken**。
-    *   本服务使用该 Token 向 TapTap 官方发起请求，**获取与 Phigros 游戏相关的、生成 Best N 图片所必需的云存档数据**。
-    *   服务端根据获取的数据进行计算，生成 Best N 成绩图片并返回给用户。
+2.3 服务流程简述：
+*   用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。
+*   授权后，本服务将接收由 TapTap 官方生成的、**限定本服务使用的 SessionToken**。
+*   本服务使用该 Token 向 TapTap 官方发起请求，**获取与 Phigros 游戏相关的、实现本服务各项功能所必需的云存档数据**。
+*   服务端根据获取的数据和您的具体请求（如查询 Best N、查询单曲），进行计算，**生成相应的图片或文本内容**并返回给用户。
 
 #### 3. 账号、数据与隐私保护
 
 3.1 在您扫码登录的全过程中，**我们不会以任何形式获取、记录或存储您的 TapTap 账号密码**。我们接收的唯一授权凭证是 TapTap 官方生成的 **SessionToken**。此 SessionToken **仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据**，以完成图片生成。
 
 3.2 为实现本服务的核心功能，我们仅在您授权后收集和处理以下信息：
-**TapTap SessionToken**：作为授权凭证，用于请求您的游戏数据。
-**Phigros 游戏数据**：生成 Best N 图片所必需的数据，包括：玩家 ID、潜力值 (RKS) 和全部单曲成绩记录（歌曲、难度、ACC、得分、评级等）。
+*   **TapTap SessionToken**：作为授权凭证，用于请求您的游戏数据。
+*   **Phigros 游戏数据**：**实现本服务各项功能（包括但不限于生成 Best N 图片、查询单曲成绩、生成文本列表等）所必需的数据**，包括：玩家 ID、潜力值 (RKS) 和全部单曲成绩记录（歌曲、难度、ACC、得分、评级等）。
 
 3.3 为方便您下次使用，您的 SessionToken **会被存储在您当前设备的浏览器本地存储中**，以实现“自动登录”。
 存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，我们仅在获取云存档数据时使用 SessionToken , 在服务器当次请求时使用，请求处理完毕后销毁，不以任何形式将 SessionToken 存储在服务器硬盘或数据库中。
@@ -657,8 +748,8 @@
 
 #### 5. 知识产权
 5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于软件、技术、程序、代码、用户界面、网页、文字、图表等）享有完整的知识产权。
-5.2 本服务的输出图片可能会使用《Phigros》游戏及TapTap平台相关的商标、美术（包括但不限于歌曲封面/曲绘）等素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。** 本服务对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表开发者拥有这些素材的任何权利，不代表获得了权利人的任何官方授权，也不构成权利人对本服务的认可。**
-5.3 您理解并同意，您通过本服务生成的图片（“生成内容”）中将包含上述第 5.2 条所述的第三方知识产权内容，因此，您应对您使用和分发“生成内容”的行为自行承担责任。**如果您的使用行为超出了“合理使用”的范畴，或侵犯了任何第三方的合法权益（包括但不限于知识产权），所有责任和后果将由您自行承担，与开发者无关。若因此给开发者造成损失的，您应予以赔偿**。
+5.2 本服务的**输出内容（包括但不限于 Best N 成绩图片、单曲成绩图）** 可能会使用《Phigros》游戏及TapTap平台相关的商标、美术（包括但不限于歌曲封面/曲绘）等素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。** 本服务对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表开发者拥有这些素材的任何权利，不代表获得了权利人的任何官方授权，也不构成权利人对本服务的认可。**
+5.3 您理解并同意，您通过本服务生成的**任何内容（下称“生成内容”，例如 Best N 图片、单曲成绩图、文本成绩列表等）** 中可能包含上述第 5.2 条所述的第三方知识产权内容，因此，您应对您使用和分发“生成内容”的行为自行承担责任。**如果您的使用行为超出了“合理使用”的范畴，或侵犯了任何第三方的合法权益（包括但不限于知识产权），所有责任和后果将由您自行承担，与开发者无关。若因此给开发者造成损失的，您应予以赔偿**。
 
 #### 6. 免责声明与责任限制
 6.1 本服务按“**现状**”和“**现有**”的基础提供，**不做任何形式的明示或默示的担保**，包括但不限于服务的稳定性、准确性、安全性或持续可用性。您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误、或因本地设备安全问题导致Token泄露的理论风险等）**均由您自行承担。**
@@ -717,6 +808,22 @@ sczr0710@163.com
             // 2. 直接初始化应用
             initializeApp();
         });
+        
+        // ===== 新增函数：切换标签页 =====
+        function switchTab(tabId) {
+            // 隐藏所有面板
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            // 移除所有按钮的激活状态
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // 显示目标面板和激活目标按钮
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab-button[onclick="switchTab('${tabId}')"]`).classList.add('active');
+        }
 
         // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
         function initializeApp() {
@@ -734,6 +841,9 @@ sczr0710@163.com
                     // 如果本地没有，可以考虑重新获取一次
                     fetchAndDisplayUserData(savedToken);
                 }
+                
+                // 在初始化App的最后，设置默认显示的标签页
+                switchTab('b19-generator');
                 // ----------------
 
             } else {
@@ -987,6 +1097,73 @@ sczr0710@163.com
                 alert(`登录失败: ${error.message}`);
             } finally {
                 manualLoginBtn.disabled = false;
+            }
+        }
+
+        // ===== 生成单曲成绩图片 =====
+        async function generateSongImage() {
+            const keyword = document.getElementById('song-keyword').value.trim();
+            if (!keyword) {
+                alert('请输入歌曲关键词！');
+                return;
+            }
+
+            const generateSongBtn = document.getElementById('generate-song-btn');
+            const originalBtnHTML = generateSongBtn.innerHTML;
+            generateSongBtn.disabled = true;
+            generateSongBtn.textContent = '查询中...';
+            
+            const leftLoader = document.getElementById('left-panel-loader');
+            leftLoader.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            leftLoader.style.display = 'flex';
+            resultContainer.innerHTML = ''; // 清空右侧结果
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/image/song?q=${encodeURIComponent(keyword)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: sessionToken })
+                });
+
+                if (!response.ok) {
+                    if (response.headers.get('Content-Type')?.includes('application/json')) {
+                        const errData = await response.json();
+                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
+                    } else {
+                        throw new Error(`服务器错误，状态码: ${response.status}`);
+                    }
+                }
+
+                const imageBlob = await response.blob();
+                const imageUrl = URL.createObjectURL(imageBlob);
+                resultContainer.innerHTML = `<img src="${imageUrl}" alt="歌曲 ${keyword} 成绩图">`;
+
+                // 创建保存链接/按钮
+                const saveLink = document.createElement('a');
+                saveLink.href = imageUrl;
+                saveLink.download = `phigros_song_${keyword}.png`; // 设置下载文件名
+
+                // 始终显示一个可见的保存按钮
+                saveLink.innerHTML = `<button style="margin-top: 1rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                    </svg>
+                    保存图片
+                </button>`;
+                resultContainer.appendChild(saveLink);
+
+            } catch (error) {
+                console.error('生成单曲图片失败:', error);
+                alert(`错误: ${error.message}`);
+                resultContainer.innerHTML = '';
+            } finally {
+                generateSongBtn.disabled = false;
+                generateSongBtn.innerHTML = originalBtnHTML;
+                leftLoader.style.display = 'none';
+                leftLoader.innerHTML = '';
             }
         }
 
