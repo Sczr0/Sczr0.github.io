@@ -520,6 +520,10 @@
                         <label for="n-value">Best</label>
                         <input type="number" id="n-value" value="27" min="1" max="100" style="flex-grow: 1; max-width: 120px;">
                     </div>
+                    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 0.5rem;">
+                        <input type="checkbox" id="auto-save-checkbox" style="transform: scale(1.2);">
+                        <label for="auto-save-checkbox" style="cursor: pointer;">自动保存图片</label>
+                    </div>
                     <div style="display: flex; justify-content: center; gap: 1rem;">
                         <button id="generate-btn" onclick="generateImage()" style="flex-grow: 1;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -891,10 +895,18 @@ sczr0710@163.com
                 const imageUrl = URL.createObjectURL(imageBlob);
                 resultContainer.innerHTML = `<img src="${imageUrl}" alt="Best ${n} 成绩图">`;
 
-                // 创建并添加保存按钮
+                // 创建保存链接/按钮
                 const saveLink = document.createElement('a');
                 saveLink.href = imageUrl;
                 saveLink.download = `phigros_b${n}_result.png`; // 设置下载文件名
+
+                // 检查是否需要自动保存
+                const autoSaveCheckbox = document.getElementById('auto-save-checkbox');
+                if (autoSaveCheckbox.checked) {
+                    saveLink.click(); // 直接触发下载
+                }
+
+                // 始终显示一个可见的保存按钮
                 saveLink.innerHTML = `<button style="margin-top: 1rem;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
