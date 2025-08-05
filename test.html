@@ -65,7 +65,7 @@
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
             text-align: center;
-            max-width: 420px;
+            max-width: 860px;
             width: 95%;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -212,13 +212,15 @@
         }
 
         input[type="number"] {
-            font-size: 1rem;
-            padding: 12px;
-            width: 80px;
+            font-size: 1.1rem; /* 稍稍增大字体 */
+            padding: 12px 8px; /* 调整内边距 */
             text-align: center;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            border: none; /* 移除所有边框 */
+            border-bottom: 2px solid var(--border-color); /* 只保留底边框 */
+            border-radius: 0; /* 移除圆角 */
+            background-color: transparent; /* 透明背景 */
+            transition: border-color 0.3s;
+            width: 80px;
         }
 
         input[type="number"]:focus {
@@ -247,7 +249,7 @@
 
         button:hover {
             background-color: var(--primary-hover-color);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05); /* 增加放大效果 */
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
         }
 
@@ -260,14 +262,32 @@
 
         /* 次要按钮样式 */
         .btn-secondary {
-            background-color: #e9ecef;
-            color: var(--muted-text-color);
+            background-color: transparent; /* 透明背景 */
+            color: var(--primary-color); /* 主题色文字 */
+            border: 2px solid var(--primary-color); /* 主题色边框 */
             box-shadow: none;
         }
-
+ 
         .btn-secondary:hover {
-            background-color: #dee2e6;
+            background-color: rgba(59, 130, 246, 0.1); /* 主题色半透明背景 */
+            color: var(--primary-hover-color);
+            border-color: var(--primary-hover-color);
+        }
+
+        /* 退出登录按钮的特殊样式 */
+        .btn-logout {
+            background: transparent;
+            border: none;
+            color: var(--muted-text-color);
+            box-shadow: none;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        .btn-logout:hover {
+            background: rgba(0,0,0,0.05);
             color: var(--text-color);
+            transform: none; /* 取消按钮的通用悬浮效果 */
+            box-shadow: none;
         }
 
         /* === 结果区域 === */
@@ -407,6 +427,45 @@
             margin-right: 8px;
             transform: scale(1.2);
         }
+        /* ===== 新增：分栏布局样式 ===== */
+        #image-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .left-panel, .right-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-panel {
+            flex: 0 0 auto; /* 内容决定宽度，不伸缩 */
+            align-items: center;
+            justify-content: flex-start; /* 内部元素顶部对齐 */
+            gap: 1.5rem; /* 统一间距 */
+        }
+
+        .right-panel {
+            flex: 0 1 auto; /* 可收缩，但内容决定其基本大小 */
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem; /* 右侧面板元素间距 */
+        }
+
+        /* 响应式布局：小屏幕下单列显示 */
+        @media (max-width: 768px) {
+            #image-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left-panel {
+                margin-bottom: 2rem;
+            }
+        }
+        /* ========================= */
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -447,28 +506,31 @@
 
         <!-- Section 2: Image Generation -->
         <div id="image-section">
-            <div class="user-profile">
-                <img id="user-avatar" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-                    alt="User Avatar"> <!-- 先用一个通用的占位头像 -->
-                <h2 id="welcome-message">欢迎回来, <span id="user-nickname">Player</span>!</h2> <!-- 昵称将显示在这里 -->
-            </div>
-            <div class="section-content">
-                <p>请输入您想生成的 Best N </p>
-                <div id="image-generator" class="form-group">
-                    <label for="n-value">Best</label>
-                    <input type="number" id="n-value" value="27" min="1">
-                    <button id="generate-btn" onclick="generateImage()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
-                        </svg>
-                        生成图片
-                    </button>
+            <!-- ===== 左侧面板 - 控制区 ===== -->
+            <div class="left-panel">
+                <div class="user-profile">
+                    <img id="user-avatar" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+                        alt="User Avatar">
+                    <h2 id="welcome-message">欢迎回来, <span id="user-nickname">Player</span>!</h2>
                 </div>
-                <div id="result-container"></div>
-                <p id="error-message"></p>
-                <button class="btn-secondary" onclick="logout()">
+                <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
+                <p>请输入您想生成的 Best N </p>
+                <div id="image-generator" class="form-group" style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                        <label for="n-value">Best</label>
+                        <input type="number" id="n-value" value="27" min="1" max="100" style="flex-grow: 1; max-width: 120px;">
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 1rem;">
+                        <button id="generate-btn" onclick="generateImage()" style="flex-grow: 1;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
+                            </svg>
+                            生成图片
+                        </button>
+                        <button id="show-rks-btn" onclick="showRksList()" class="btn-secondary">查看文字版</button>
+                    </div>
+                </div>
+                 <button class="btn-logout" onclick="logout()" style="margin-top: auto;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16">
                         <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
@@ -478,6 +540,10 @@
                     </svg>
                     退出登录
                 </button>
+            </div>
+            <!-- ===== 右侧面板 - 展示区 ===== -->
+            <div class="right-panel">
+                <div id="result-container"></div>
             </div>
         </div>
     </div>
@@ -509,6 +575,20 @@
     </div>
     <!-- ========================= -->
 
+    <!-- ===== RKS列表模态框 ===== -->
+    <div id="rks-list-modal" style="display: none;">
+        <div class="modal-content">
+            <h2 id="rks-list-title">Best N 列表</h2>
+            <div id="rks-list-content" style="white-space: pre-wrap; text-align: left; font-family: 'Courier New', Courier, monospace; background-color: #f8f9fa; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; max-height: 50vh; overflow-y: auto;">
+                <p>正在加载列表内容...</p>
+            </div>
+            <div class="modal-footer">
+                <button id="close-rks-list-btn" class="btn-secondary">关闭</button>
+            </div>
+        </div>
+    </div>
+    <!-- ========================= -->
+
     <script>
         // ==========================================================
         // 后端服务器地址
@@ -530,14 +610,14 @@
 当您通过网络页面点击“同意”、“确认”按钮、勾选同意框，或以任何方式实际访问、使用本服务时，即视为您已充分阅读、理解并同意接受本协议的全部内容。**如果您不同意本协议的任何条款，请立即停止访问或使用本服务。**
 
 #### 2. 服务描述
-2.1 本服务是一个**免费、非官方、第三方**开发的网页工具。其核心功能为：通过用户授权，获取用户 TapTap 账号关联的 Phigros 游戏云存档数据，基于此数据计算并生成用户指定数量的最佳成绩（Best N）的可视化图片，供用户下载或分享。
+2.1 本服务是一个**免费、第三方**开发的网页工具。其核心功能为：通过用户授权，获取用户 TapTap 账号关联的 Phigros 游戏云存档数据，基于此数据计算并生成用户指定数量的最佳成绩（Best N）的可视化图片，供用户下载或分享。
 
 2.2 **本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。** 本服务仅为玩家提供便利，所有数据来源均依赖于 TapTap 官方云存档接口。服务的可用性和数据准确性完全受限于官方接口的稳定性与策略调整。
 
 2.3 **服务流程简述**：
     *   用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。
     *   授权后，本服务将接收由 TapTap 官方生成的、**限定本服务使用的 SessionToken**。
-    *   本服务使用该 Token 向后端发起请求，**获取与 Phigros 游戏相关的、生成 Best N 图片所必需的云存档数据**。
+    *   本服务使用该 Token 向 TapTap 官方发起请求，**获取与 Phigros 游戏相关的、生成 Best N 图片所必需的云存档数据**。
     *   服务端根据获取的数据进行计算，生成 Best N 成绩图片并返回给用户。
 
 #### 3. 账号、数据与隐私保护
@@ -549,12 +629,12 @@
 **Phigros 游戏数据**：生成 Best N 图片所必需的数据，包括：玩家 ID、潜力值 (RKS) 和全部单曲成绩记录（歌曲、难度、ACC、得分、评级等）。
 
 3.3 为方便您下次使用，您的 SessionToken **会被存储在您当前设备的浏览器本地存储中**，以实现“自动登录”。
-存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，我们仅在获取云存档数据时使用 SessionToken , 服务器仅在处理本次请求时使用该Token，请求处理完毕后销毁，不以任何形式将其存储在服务器硬盘或数据库中。
+存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，我们仅在获取云存档数据时使用 SessionToken , 在服务器当次请求时使用，请求处理完毕后销毁，不以任何形式将 SessionToken 存储在服务器硬盘或数据库中。
 
-3.4 您可随时点击服务页面的 **“退出登录”** 按钮，**立即清除存储在浏览器中的 SessionToken。**但请注意，如果不提供SessionToken，我们则无法向您提供本服务。
+3.4 您可随时点击服务页面的 **“退出登录”** 按钮，**立即清除存储在浏览器中的 SessionToken。但请注意，如果不提供SessionToken，我们则无法向您提供本服务**。
 
 #### 4. 用户行为准则
-4.1 您充分理解并同意，依据本协议，开发者授予您**有限的、可撤销的、非排他的、不可转让的服务使用权，仅限符合本协议约定的个人非商业用途。**本协议未明示授权的其他一切权利**仍由开发者保留**，您在行使其他权利前须**另行获得开发者的许可**，同时开发者如未行使前述任何权利，**并不构成对该权利的放弃**。
+4.1 依据本协议，我们授予您一项**有限的、可撤销的、非排他的、不可转让的授权**，以使用本服务。仅限符合本协议约定的个人非商业用途。您充分理解并同意，**本协议未明示授权的其他一切权利仍由开发者保留**，您在行使其他权利前须**另行获得开发者的许可**，同时开发者如未行使前述任何权利，**并不构成对该权利的放弃**。
 
 4.2 您在使用我们提供的上述服务时，应遵守法律法规的要求和本协议的约定，遵守自愿、平等、公平及诚实信用原则，不利用本服务侵犯他人合法权益及谋取不正当利益，不扰乱互联网平台正常秩序。
 
@@ -574,7 +654,7 @@
 #### 5. 知识产权
 5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于软件、技术、程序、代码、用户界面、网页、文字、图表等）享有完整的知识产权。
 5.2 本服务的输出图片可能会使用《Phigros》游戏及TapTap平台相关的商标、美术（包括但不限于歌曲封面/曲绘）等素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。** 本服务对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表开发者拥有这些素材的任何权利，不代表获得了权利人的任何官方授权，也不构成权利人对本服务的认可。**
-5.3 您理解并同意，您通过本服务生成的图片（“生成内容”）中将包含上述第 5.2 条所述的第三方知识产权内容，因此，您应对您使用和分发“生成内容”的行为承担法律责任。** 如果您的使用行为超出了“合理使用”的范畴，或侵犯了任何第三方的合法权益（包括但不限于知识产权），所有责任和后果将由您自行承担，与开发者无关。若因此给开发者造成损失的，您应予以赔偿。
+5.3 您理解并同意，您通过本服务生成的图片（“生成内容”）中将包含上述第 5.2 条所述的第三方知识产权内容，因此，您应对您使用和分发“生成内容”的行为自行承担责任。**如果您的使用行为超出了“合理使用”的范畴，或侵犯了任何第三方的合法权益（包括但不限于知识产权），所有责任和后果将由您自行承担，与开发者无关。若因此给开发者造成损失的，您应予以赔偿**。
 
 #### 6. 免责声明与责任限制
 6.1 本服务按“**现状**”和“**现有**”的基础提供，**不做任何形式的明示或默示的担保**，包括但不限于服务的稳定性、准确性、安全性或持续可用性。您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误、或因本地设备安全问题导致Token泄露的理论风险等）**均由您自行承担。**
@@ -609,9 +689,14 @@ sczr0710@163.com
         const generateBtn = document.getElementById('generate-btn');
         const resultContainer = document.getElementById('result-container');
         const nValueInput = document.getElementById('n-value');
-        const errorMessage = document.getElementById('error-message');
         const tokenInput = document.getElementById('token-input');
         const manualLoginBtn = document.getElementById('manual-login-btn');
+
+        // 获取RKS列表模态框相关元素
+        const rksListModal = document.getElementById('rks-list-modal');
+        const rksListContent = document.getElementById('rks-list-content');
+        const rksListTitle = document.getElementById('rks-list-title');
+        const closeRksListBtn = document.getElementById('close-rks-list-btn');
 
         // 获取协议模态框相关元素
         const agreementModal = document.getElementById('agreement-modal');
@@ -623,6 +708,7 @@ sczr0710@163.com
             // 1. 设置协议内容和事件监听
             setupAgreementModal();
             manualLoginBtn.addEventListener('click', handleManualLogin);
+            closeRksListBtn.addEventListener('click', () => rksListModal.style.display = 'none');
 
             // 2. 直接初始化应用
             initializeApp();
@@ -678,7 +764,7 @@ sczr0710@163.com
 
         function showImageSection() {
             loginSection.style.display = 'none';
-            imageSection.style.display = 'block';
+            imageSection.style.display = 'flex';
         }
 
         // 1. 获取二维码
@@ -771,15 +857,17 @@ sczr0710@163.com
         // 3. 生成图片
         async function generateImage() {
             const n = nValueInput.value;
-            if (!n || n < 1) {
-                errorMessage.textContent = '请输入一个大于0的有效数字。';
+            if (!n || n < 1 || n > 100) {
+                alert('请输入一个 1 到 100 之间的有效数字。');
                 return;
             }
 
             generateBtn.disabled = true;
             generateBtn.textContent = '生成中...';
-            resultContainer.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-            errorMessage.textContent = '';
+            const leftLoader = document.getElementById('left-panel-loader');
+            leftLoader.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            leftLoader.style.display = 'flex';
+            resultContainer.innerHTML = ''; // 清空右侧结果
 
             try {
                 const response = await fetch(`${BACKEND_URL}/image/bn/${n}`, {
@@ -818,11 +906,14 @@ sczr0710@163.com
 
             } catch (error) {
                 console.error('生成图片失败:', error);
-                errorMessage.textContent = `错误: ${error.message}`;
+                alert(`错误: ${error.message}`);
                 resultContainer.innerHTML = '';
             } finally {
                 generateBtn.disabled = false;
                 generateBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/></svg> 生成图片';
+                const leftLoader = document.getElementById('left-panel-loader');
+                leftLoader.style.display = 'none';
+                leftLoader.innerHTML = '';
             }
         }
 
@@ -884,6 +975,86 @@ sczr0710@163.com
                 alert(`登录失败: ${error.message}`);
             } finally {
                 manualLoginBtn.disabled = false;
+            }
+        }
+
+        // ===== 新增函数：显示文字版RKS列表 =====
+        async function showRksList() {
+            const n = nValueInput.value;
+            if (!n || n < 1) {
+                alert('请输入一个大于0的有效数字。');
+                return;
+            }
+
+            // 显示模态框并设置加载状态
+            rksListModal.style.display = 'flex';
+            rksListTitle.textContent = `Best ${n} 列表`;
+            rksListContent.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+
+
+            try {
+                // 使用与图片生成相同的Token去获取所有成绩
+                const response = await fetch(`${BACKEND_URL}/rks`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: sessionToken })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.message || `获取数据失败 (状态码: ${response.status})`);
+                }
+
+                const responseData = await response.json();
+                // 假设返回的数据结构是 { code: 200, data: { records: [...] } }
+                const records = responseData.data.records;
+
+                // 排序并截取前N个
+                const bestNRecords = records.sort((a, b) => b.rks - a.rks).slice(0, n);
+
+                // 格式化为HTML表格
+                let tableHtml = `
+                    <style>
+                        #rks-list-content table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+                        #rks-list-content th, #rks-list-content td { padding: 6px; border-bottom: 1px solid #ddd; text-align: left; }
+                        #rks-list-content th { background-color: #f2f2f2; font-weight: 600; }
+                        #rks-list-content td:nth-child(1) { text-align: center; color: #888; }
+                        #rks-list-content td:nth-child(2) { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+                        #rks-list-content td:nth-child(5) { font-weight: bold; color: var(--primary-color); }
+                    </style>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>歌曲</th>
+                                <th>难度</th>
+                                <th>ACC</th>
+                                <th>RKS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                bestNRecords.forEach((record, index) => {
+                    tableHtml += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td title="${record.song_name}">${record.song_name}</td>
+                            <td>${record.difficulty} [${record.difficulty_value}]</td>
+                            <td>${record.acc.toFixed(4)}%</td>
+                            <td>${record.rks.toFixed(4)}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += '</tbody></table>';
+                rksListContent.innerHTML = tableHtml;
+
+            } catch (error) {
+                console.error('获取RKS列表失败:', error);
+                rksListContent.innerHTML = `<p style="color: var(--error-color);">加载失败: ${error.message}</p>`;
             }
         }
     </script>
