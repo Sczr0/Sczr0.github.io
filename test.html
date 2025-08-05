@@ -489,6 +489,9 @@
             本站总访问量 <span id="busuanzi_site_pv">加载中...</span> 次 |
             本站今日访问量 <span id="busuanzi_today_site_pv">加载中...</span> 次
         </p>
+        <p style="text-align: center;">
+            本站友链：<a href="https://www.kdocs.cn/l/catqcMM9UR5Y" target="_blank">Phi-plugin使用指引</a>
+        </p>
     </footer>
 
     <!-- ===== 用户协议模态框 ===== -->
@@ -753,7 +756,7 @@ sczr0710@163.com
                     localStorage.setItem('userNickname', nickname);
                 }
 
-                // 你还可以在这里获取头像URL（如果未来有的话）并更新 #user-avatar 的 src
+                // 还可以在这里获取头像URL（如果未来有的话）并更新 #user-avatar 的 src
                 // if (userData.avatar) {
                 //    document.getElementById('user-avatar').src = userData.avatar;
                 //    localStorage.setItem('userAvatar', userData.avatar);
@@ -800,6 +803,19 @@ sczr0710@163.com
                 const imageUrl = URL.createObjectURL(imageBlob);
                 resultContainer.innerHTML = `<img src="${imageUrl}" alt="Best ${n} 成绩图">`;
 
+                // 创建并添加保存按钮
+                const saveLink = document.createElement('a');
+                saveLink.href = imageUrl;
+                saveLink.download = `phigros_b${n}_result.png`; // 设置下载文件名
+                saveLink.innerHTML = `<button style="margin-top: 1rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                    </svg>
+                    保存图片
+                </button>`;
+                resultContainer.appendChild(saveLink);
+
             } catch (error) {
                 console.error('生成图片失败:', error);
                 errorMessage.textContent = `错误: ${error.message}`;
@@ -845,6 +861,7 @@ sczr0710@163.com
 
                 if (response.ok && responseData.code === 200) {
                     // 验证成功
+                    clearInterval(pollingInterval); // 停止二维码轮询
                     sessionToken = token;
                     localStorage.setItem('phigrosSessionToken', sessionToken);
                     statusText.textContent = '登录成功！';
