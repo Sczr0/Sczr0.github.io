@@ -1,75 +1,145 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phigros Best N 图片生成器</title>
+    <link rel='stylesheet'
+        href='https://ik.imagekit.io/Sczr/Source%20Han%20Sans%20&%20Saira%20Hybrid-Regular%20(1)/result.css?updatedAt=1733583831964' />
     <style>
         /* === 全局与基础样式 === */
         :root {
-            --primary-color: #3b82f6; /* 主色调 - 柔和的蓝色 */
+            --primary-color: #3b82f6;
+            /* 主色调 - 柔和的蓝色 */
             --primary-hover-color: #2563eb;
-            --background-color: #f8f9fa;
-            --card-background-color: #ffffff;
+            --card-background-color: rgba(255, 255, 255, 0.75);
+            /* 卡片背景 - 半透明 */
             --text-color: #333;
-            --muted-text-color: #6c757d;
+            --muted-text-color: #555;
             --border-color: #dee2e6;
             --error-color: #dc3545;
             --success-color: #198754;
-            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --border-radius: 12px;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 16px;
+            /* 增加圆角以获得更柔和的外观 */
+            --font-family-main: 'Source Han Sans & Saira Hybrid', sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            --font-family-main: 'Source Han Sans & Saira Hybrid', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
-            background-color: var(--background-color);
+            background-image: url('https://api.mtyqx.cn/tapi/random.php');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-color);
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: inherit;
+            filter: blur(8px) brightness(0.9);
+            z-index: -1;
         }
 
         /* === 容器卡片样式 === */
         .container {
             background: var(--card-background-color);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
             padding: 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
             text-align: center;
             max-width: 420px;
             width: 95%;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
         }
-        
+
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--muted-text-color);
             font-weight: 400;
             margin-top: 0;
+            margin-bottom: 2.5rem;
+        }
+
+        /* === 新增：用户资料区域样式 === */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            /* 头像和文字的间距 */
             margin-bottom: 2rem;
+            /* 和下方内容的间距 */
+        }
+
+        .user-profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* 圆形头像 */
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            /* 给头像加个微妙的边框 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-profile h2 {
+            margin: 0;
+            color: #333;
+            /* 保持与标题一致的深色 */
+            font-size: 1.5rem;
+            /* 可以让欢迎语更大更醒目一些 */
+            font-weight: 500;
+        }
+
+        #user-nickname {
+            font-weight: 700;
+            /* 让昵称加粗突出 */
+            color: var(--primary-color);
+            /* 使用主题色突出显示昵称 */
         }
 
         /* === 登录与图片生成区域 === */
-        #login-section, #image-section {
-            display: none; /* Initially hidden */
+        #login-section,
+        #image-section {
+            display: none;
+            /* Initially hidden */
         }
-        
+
         .section-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem; /* 统一元素间距 */
+            gap: 1.5rem;
+            /* 统一元素间距 */
         }
 
         /* === 二维码样式 === */
@@ -84,16 +154,46 @@
             justify-content: center;
             align-items: center;
         }
+
         #qr-code-container img {
             width: 100%;
             height: 100%;
             border-radius: 8px;
         }
-        
+
         #status-text {
             font-size: 1rem;
             color: var(--muted-text-color);
             min-height: 1.5em;
+        }
+
+        /* === 新增：手动登录输入框样式 === */
+        .manual-login-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        #token-input {
+            font-size: 1rem;
+            padding: 12px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #token-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
 
         /* === 表单元素样式 === */
@@ -106,7 +206,7 @@
             padding: 0.5rem 1.5rem;
             border-radius: var(--border-radius);
         }
-        
+
         label {
             font-weight: 500;
         }
@@ -120,10 +220,11 @@
             border-radius: 8px;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
+
         input[type="number"]:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 10px rgba(59, 130, 246, 0.1) inset;
         }
 
         /* === 按钮样式 === */
@@ -143,24 +244,27 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
+
         button:hover {
             background-color: var(--primary-hover-color);
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
         }
+
         button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
             box-shadow: none;
             transform: translateY(0);
         }
-        
+
         /* 次要按钮样式 */
         .btn-secondary {
             background-color: #e9ecef;
             color: var(--muted-text-color);
             box-shadow: none;
         }
+
         .btn-secondary:hover {
             background-color: #dee2e6;
             color: var(--text-color);
@@ -171,12 +275,13 @@
             margin-top: 1rem;
             min-height: 50px;
         }
+
         #result-container img {
             max-width: 100%;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         #error-message {
             color: var(--error-color);
             font-weight: 500;
@@ -189,6 +294,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .dot {
             height: 10px;
             width: 10px;
@@ -198,24 +304,41 @@
             display: inline-block;
             animation: bounce 1.4s infinite ease-in-out both;
         }
-        .dot:nth-child(1) { animation-delay: -0.32s; }
-        .dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1.0); }
+
+        .dot:nth-child(1) {
+            animation-delay: -0.32s;
         }
-        
+
+        .dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1.0);
+            }
+        }
+
         /* === 页脚 === */
         .footer {
             margin-top: 2rem;
             font-size: 0.9rem;
             color: var(--muted-text-color);
         }
+
         .footer a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 500;
         }
+
         .footer a:hover {
             text-decoration: underline;
         }
@@ -231,14 +354,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000; /* 确保在最上层 */
+            z-index: 1000;
+            /* 确保在最上层 */
         }
 
         .modal-content {
             background: var(--card-background-color);
             padding: 2rem;
             border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 600px;
             max-width: 90%;
             max-height: 80vh;
@@ -254,12 +378,14 @@
 
         #agreement-content {
             flex-grow: 1;
-            overflow-y: auto; /* 当内容超长时可以滚动 */
+            overflow-y: auto;
+            /* 当内容超长时可以滚动 */
             border: 1px solid var(--border-color);
             padding: 1rem;
             border-radius: 8px;
             background-color: #f8f9fa;
-            white-space: pre-wrap; /* 保留协议文本中的换行和空格 */
+            white-space: pre-wrap;
+            /* 保留协议文本中的换行和空格 */
             font-size: 0.9rem;
             line-height: 1.6;
         }
@@ -268,7 +394,7 @@
             margin-top: 1.5rem;
             text-align: center;
         }
-        
+
         .modal-footer label {
             display: block;
             margin-bottom: 1rem;
@@ -284,8 +410,9 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
 
+<body>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <div class="container">
         <!-- Section 1: Login with QR Code -->
         <div id="login-section">
@@ -293,42 +420,75 @@
             <h2>请使用 TapTap 扫码登录</h2>
             <div class="section-content">
                 <div id="qr-code-container">
-                    <div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                    <div class="loader">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
                 </div>
                 <p id="status-text">正在获取二维码...</p>
                 <button class="btn-secondary" onclick="window.location.reload()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+                        <path
+                            d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+                    </svg>
                     刷新页面
                 </button>
+
+                <div class="manual-login-group">
+                    <p>或手动输入 SessionToken</p>
+                    <input type="text" id="token-input" placeholder="在此处粘贴Token">
+                    <button id="manual-login-btn">手动登录</button>
+                </div>
             </div>
         </div>
 
         <!-- Section 2: Image Generation -->
         <div id="image-section">
-            <h1>操作面板</h1>
-            <h2>登录成功！欢迎回来。</h2>
+            <div class="user-profile">
+                <img id="user-avatar" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+                    alt="User Avatar"> <!-- 先用一个通用的占位头像 -->
+                <h2 id="welcome-message">欢迎回来, <span id="user-nickname">Player</span>!</h2> <!-- 昵称将显示在这里 -->
+            </div>
             <div class="section-content">
-                <p>请输入您想生成的 Best N 成绩。</p>
+                <p>请输入您想生成的 Best N </p>
                 <div id="image-generator" class="form-group">
                     <label for="n-value">Best</label>
                     <input type="number" id="n-value" value="27" min="1">
                     <button id="generate-btn" onclick="generateImage()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
+                        </svg>
                         生成图片
                     </button>
                 </div>
                 <div id="result-container"></div>
                 <p id="error-message"></p>
                 <button class="btn-secondary" onclick="logout()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8.5 4.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+                        <path
+                            d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                        <path d="M8.5 4.5a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0z" />
+                    </svg>
                     退出登录
                 </button>
             </div>
         </div>
     </div>
-    
+
     <footer class="footer">
-        <p>由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 | <a href="#" id="view-agreement-link">用户协议</a></p>
+        <p>
+            由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
+            <a href="#" id="view-agreement-link">用户协议</a> |
+            本站总访问量 <span id="busuanzi_site_pv">加载中...</span> 次 |
+            本站今日访问量 <span id="busuanzi_today_site_pv">加载中...</span> 次
+        </p>
     </footer>
 
     <!-- ===== 用户协议模态框 ===== -->
@@ -340,23 +500,20 @@
                 <p>正在加载协议内容...</p>
             </div>
             <div class="modal-footer">
-                <label>
-                    <input type="checkbox" id="agreement-checkbox"> 我已阅读并完全同意上述协议的全部条款。
-                </label>
-                <button id="agree-btn" disabled>同意并继续</button>
+                <button id="close-agreement-btn" class="btn-secondary">我已知晓</button>
             </div>
         </div>
     </div>
     <!-- ========================= -->
 
-<script>
-    // ==========================================================
-    // 后端服务器地址
-    // ==========================================================
-    const BACKEND_URL = 'https://evernight.xtower.site'; 
+    <script>
+        // ==========================================================
+        // 后端服务器地址
+        // ==========================================================
+        const BACKEND_URL = 'https://evernight.xtower.site';
 
-    // 用户协议文本 (使用模板字符串 `` 可以保留换行)
-    const agreementText = `### 「塔弦」空间站 - Phigros Best N 图片生成器 用户协议
+        // 用户协议文本 (使用模板字符串 `` 可以保留换行)
+        const agreementText = `### 「塔弦」空间站 - Phigros Best N 图片生成器 用户协议
 
 **最后更新日期：2025年8月5日**
 
@@ -438,189 +595,282 @@
 sczr0710@163.com
 `;
 
-    let pollingInterval;
-    let sessionToken = null;
+        let pollingInterval;
+        let sessionToken = null;
 
-    // 获取DOM元素
-    const loginSection = document.getElementById('login-section');
-    const imageSection = document.getElementById('image-section');
-    const qrContainer = document.getElementById('qr-code-container');
-    const statusText = document.getElementById('status-text');
-    const generateBtn = document.getElementById('generate-btn');
-    const resultContainer = document.getElementById('result-container');
-    const nValueInput = document.getElementById('n-value');
-    const errorMessage = document.getElementById('error-message');
+        // 获取DOM元素
+        const loginSection = document.getElementById('login-section');
+        const imageSection = document.getElementById('image-section');
+        const qrContainer = document.getElementById('qr-code-container');
+        const statusText = document.getElementById('status-text');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultContainer = document.getElementById('result-container');
+        const nValueInput = document.getElementById('n-value');
+        const errorMessage = document.getElementById('error-message');
+        const tokenInput = document.getElementById('token-input');
+        const manualLoginBtn = document.getElementById('manual-login-btn');
 
-    // 获取协议模态框相关元素
-    const agreementModal = document.getElementById('agreement-modal');
-    const agreementContent = document.getElementById('agreement-content');
-    const agreementCheckbox = document.getElementById('agreement-checkbox');
-    const agreeBtn = document.getElementById('agree-btn');
-    const viewAgreementLink = document.getElementById('view-agreement-link');
+        // 获取协议模态框相关元素
+        const agreementModal = document.getElementById('agreement-modal');
+        const agreementContent = document.getElementById('agreement-content');
+        const viewAgreementLink = document.getElementById('view-agreement-link');
 
-    // 页面加载时的主函数
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. 设置协议内容和事件监听
-        setupAgreementModal();
+        // 页面加载时的主函数
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. 设置协议内容和事件监听
+            setupAgreementModal();
+            manualLoginBtn.addEventListener('click', handleManualLogin);
 
-        // 2. 检查用户是否已同意协议
-        if (localStorage.getItem('agreementAccepted') === 'true') {
-            // 如果已同意，直接初始化应用
+            // 2. 直接初始化应用
             initializeApp();
-        } else {
-            // 如果未同意，显示协议模态框
-            agreementModal.style.display = 'flex';
-        }
-    });
-
-    // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
-    function initializeApp() {
-        const savedToken = localStorage.getItem('phigrosSessionToken');
-        if (savedToken) {
-            console.log('发现已保存的Token，进入已登录状态。');
-            sessionToken = savedToken;
-            showImageSection();
-        } else {
-            console.log('未发现Token，开始扫码登录流程。');
-            showLoginSection();
-            fetchQrCode();
-        }
-    }
-
-    // 设置协议模态框
-    function setupAgreementModal() {
-        // 使用 marked.js 将 Markdown 字符串解析为 HTML，然后用 innerHTML 渲染
-        agreementContent.innerHTML = marked.parse(agreementText);
-
-        // 监听复选框状态，以启用/禁用按钮
-        agreementCheckbox.addEventListener('change', () => {
-            agreeBtn.disabled = !agreementCheckbox.checked;
         });
 
-        // 监听“同意”按钮点击
-        agreeBtn.addEventListener('click', () => {
-            if (agreementCheckbox.checked) {
-                localStorage.setItem('agreementAccepted', 'true');
-                agreementModal.style.display = 'none';
-                initializeApp(); // 用户同意后，开始应用
-            }
-        });
+        // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
+        function initializeApp() {
+            const savedToken = localStorage.getItem('phigrosSessionToken');
+            if (savedToken) {
+                console.log('发现已保存的Token，进入已登录状态。');
+                sessionToken = savedToken;
+                showImageSection(); // 先显示操作面板，确保元素存在
 
-        // 监听页脚的“用户协议”链接点击
-        viewAgreementLink.addEventListener('click', (e) => {
-            e.preventDefault(); // 阻止a标签的默认跳转行为
-            agreementModal.style.display = 'flex';
-        });
-    }
-
-    function showLoginSection() {
-        loginSection.style.display = 'block';
-        imageSection.style.display = 'none';
-    }
-
-    function showImageSection() {
-        loginSection.style.display = 'none';
-        imageSection.style.display = 'block';
-    }
-
-    // 1. 获取二维码
-    async function fetchQrCode() {
-        try {
-            const response = await fetch(`${BACKEND_URL}/auth/qrcode`, { method: 'GET' });
-            if (!response.ok) throw new Error('获取二维码失败');
-            const data = await response.json();
-            
-            qrContainer.innerHTML = `<img src="${data.qrCodeImage}" alt="登录二维码">`;
-            statusText.textContent = '请扫描二维码登录。';
-            startPolling(data.qrId);
-        } catch (error) {
-            console.error(error);
-            statusText.textContent = `错误: ${error.message}。请检查后端服务是否开启。`;
-        }
-    }
-
-    // 2. 轮询状态
-    function startPolling(qrId) {
-        pollingInterval = setInterval(async () => {
-            try {
-                const response = await fetch(`${BACKEND_URL}/auth/qrcode/${qrId}/status`);
-                const data = await response.json();
-                
-                statusText.textContent = `状态: ${data.status}...`;
-
-                if (data.status === 'success') {
-                    clearInterval(pollingInterval);
-                    sessionToken = data.sessionToken;
-                    localStorage.setItem('phigrosSessionToken', sessionToken);
-                    statusText.textContent = '登录成功！';
-                    showImageSection();
-                } else if (data.status === 'expired' || data.status === 'error') {
-                     clearInterval(pollingInterval);
-                     statusText.textContent = `二维码已失效，请刷新页面重试。`;
+                // --- 新增代码 ---
+                const savedNickname = localStorage.getItem('userNickname');
+                if (savedNickname) {
+                    document.getElementById('user-nickname').textContent = savedNickname;
+                } else {
+                    // 如果本地没有，可以考虑重新获取一次
+                    fetchAndDisplayUserData(savedToken);
                 }
-            } catch (error) {
-                console.error('轮询失败:', error);
-                clearInterval(pollingInterval);
-                statusText.textContent = '轮询连接中断，请刷新重试。';
-            }
-        }, 3000); // 每3秒轮询一次
-    }
+                // ----------------
 
-    // 3. 生成图片
-    async function generateImage() {
-        const n = nValueInput.value;
-        if (!n || n < 1) {
-            errorMessage.textContent = '请输入一个大于0的有效数字。';
-            return;
+            } else {
+                console.log('未发现Token，开始扫码登录流程。');
+                showLoginSection();
+                fetchQrCode();
+            }
         }
 
-        generateBtn.disabled = true;
-        generateBtn.textContent = '生成中...';
-        resultContainer.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-        errorMessage.textContent = '';
+        // 设置协议模态框
+        function setupAgreementModal() {
+            // 使用 marked.js 将 Markdown 字符串解析为 HTML，然后用 innerHTML 渲染
+            agreementContent.innerHTML = marked.parse(agreementText);
 
-        try {
-            const response = await fetch(`${BACKEND_URL}/image/bn/${n}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ token: sessionToken })
+            // 监听页脚的“用户协议”链接点击
+            viewAgreementLink.addEventListener('click', (e) => {
+                e.preventDefault(); // 阻止a标签的默认跳转行为
+                agreementModal.style.display = 'flex';
             });
 
-            if (!response.ok) {
-                if(response.headers.get('Content-Type')?.includes('application/json')) {
-                    const errData = await response.json();
-                    throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
-                } else {
-                    throw new Error(`服务器错误，状态码: ${response.status}`);
-                }
-            }
-            
-            const imageBlob = await response.blob();
-            const imageUrl = URL.createObjectURL(imageBlob);
-            resultContainer.innerHTML = `<img src="${imageUrl}" alt="Best ${n} 成绩图">`;
-
-        } catch (error) {
-            console.error('生成图片失败:', error);
-            errorMessage.textContent = `错误: ${error.message}`;
-            resultContainer.innerHTML = '';
-        } finally {
-            generateBtn.disabled = false;
-            generateBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/></svg> 生成图片';
+            // 获取并监听新的关闭按钮
+            const closeBtn = document.getElementById('close-agreement-btn');
+            closeBtn.addEventListener('click', () => {
+                agreementModal.style.display = 'none';
+            });
         }
-    }
 
-    // 4. 登出
-    function logout() {
-        localStorage.removeItem('phigrosSessionToken');
-        // 注意：我们不清除 agreementAccepted 标记，这样用户无需再次同意协议
-        sessionToken = null;
-        clearInterval(pollingInterval);
-        console.log('用户已登出。');
-        window.location.reload();
-    }
-</script>
+        function showLoginSection() {
+            loginSection.style.display = 'block';
+            imageSection.style.display = 'none';
+        }
+
+        function showImageSection() {
+            loginSection.style.display = 'none';
+            imageSection.style.display = 'block';
+        }
+
+        // 1. 获取二维码
+        async function fetchQrCode() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/auth/qrcode`, { method: 'GET' });
+                if (!response.ok) throw new Error('获取二维码失败');
+                const data = await response.json();
+
+                qrContainer.innerHTML = `<img src="${data.qrCodeImage}" alt="登录二维码">`;
+                statusText.textContent = '请扫描二维码登录。';
+                startPolling(data.qrId);
+            } catch (error) {
+                console.error(error);
+                statusText.textContent = `错误: ${error.message}。请检查后端服务是否开启。`;
+            }
+        }
+
+        // 2. 轮询状态
+        function startPolling(qrId) {
+            pollingInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`${BACKEND_URL}/auth/qrcode/${qrId}/status`);
+                    const data = await response.json();
+
+                    statusText.textContent = `状态: ${data.status}...`;
+
+                    if (data.status === 'success') {
+                        clearInterval(pollingInterval);
+                        sessionToken = data.sessionToken;
+                        localStorage.setItem('phigrosSessionToken', sessionToken);
+                        statusText.textContent = '登录成功！';
+
+                        // --- 新增代码 ---
+                        fetchAndDisplayUserData(sessionToken); // 传入刚刚获取的token
+                        // ----------------
+
+                        showImageSection();
+                    } else if (data.status === 'expired' || data.status === 'error') {
+                        clearInterval(pollingInterval);
+                        statusText.textContent = `二维码已失效，请刷新页面重试。`;
+                    }
+                } catch (error) {
+                    console.error('轮询失败:', error);
+                    clearInterval(pollingInterval);
+                    statusText.textContent = '轮询连接中断，请刷新重试。';
+                }
+            }, 3000); // 每3秒轮询一次
+        }
+
+        // ===== 新增函数：获取用户存档数据并更新UI =====
+        async function fetchAndDisplayUserData(token) {
+            try {
+                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, { // 注意URL路径
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: token })
+                });
+
+                if (!response.ok) {
+                    throw new Error('获取用户数据失败');
+                }
+
+                const responseData = await response.json();
+
+                // 修正：从 responseData.data 中获取 nickname
+                if (responseData.data && responseData.data.nickname) {
+                    const nickname = responseData.data.nickname;
+                    console.log('成功获取到昵称:', nickname);
+                    // 1. 更新UI
+                    document.getElementById('user-nickname').textContent = nickname;
+                    // 2. 将昵称存入localStorage，方便下次直接使用
+                    localStorage.setItem('userNickname', nickname);
+                }
+
+                // 你还可以在这里获取头像URL（如果未来有的话）并更新 #user-avatar 的 src
+                // if (userData.avatar) {
+                //    document.getElementById('user-avatar').src = userData.avatar;
+                //    localStorage.setItem('userAvatar', userData.avatar);
+                // }
+
+            } catch (error) {
+                console.error('获取用户数据时出错:', error);
+                // 即使获取失败，也只是显示默认名字，不影响核心功能，所以这里可以不显示错误信息给用户
+            }
+        }
+
+        // 3. 生成图片
+        async function generateImage() {
+            const n = nValueInput.value;
+            if (!n || n < 1) {
+                errorMessage.textContent = '请输入一个大于0的有效数字。';
+                return;
+            }
+
+            generateBtn.disabled = true;
+            generateBtn.textContent = '生成中...';
+            resultContainer.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            errorMessage.textContent = '';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/image/bn/${n}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: sessionToken })
+                });
+
+                if (!response.ok) {
+                    if (response.headers.get('Content-Type')?.includes('application/json')) {
+                        const errData = await response.json();
+                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
+                    } else {
+                        throw new Error(`服务器错误，状态码: ${response.status}`);
+                    }
+                }
+
+                const imageBlob = await response.blob();
+                const imageUrl = URL.createObjectURL(imageBlob);
+                resultContainer.innerHTML = `<img src="${imageUrl}" alt="Best ${n} 成绩图">`;
+
+            } catch (error) {
+                console.error('生成图片失败:', error);
+                errorMessage.textContent = `错误: ${error.message}`;
+                resultContainer.innerHTML = '';
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z"/></svg> 生成图片';
+            }
+        }
+
+        // 4. 登出
+        function logout() {
+            localStorage.removeItem('phigrosSessionToken');
+            localStorage.removeItem('userNickname'); // 退出时也清除昵称
+            // 注意：我们不清除 agreementAccepted 标记，这样用户无需再次同意协议
+            sessionToken = null;
+            clearInterval(pollingInterval);
+            console.log('用户已登出。');
+            window.location.reload();
+        }
+
+        // ===== 新增函数：处理手动登录 =====
+        async function handleManualLogin() {
+            const token = tokenInput.value.trim();
+            if (!token) {
+                alert('请输入有效的SessionToken！');
+                return;
+            }
+
+            statusText.textContent = '正在验证Token...';
+            manualLoginBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: token })
+                });
+
+                const responseData = await response.json();
+
+                if (response.ok && responseData.code === 200) {
+                    // 验证成功
+                    sessionToken = token;
+                    localStorage.setItem('phigrosSessionToken', sessionToken);
+                    statusText.textContent = '登录成功！';
+
+                    // 直接使用验证时返回的数据更新UI
+                    if (responseData.data && responseData.data.nickname) {
+                        const nickname = responseData.data.nickname;
+                        document.getElementById('user-nickname').textContent = nickname;
+                        localStorage.setItem('userNickname', nickname);
+                    }
+                    
+                    showImageSection();
+                } else {
+                    // 验证失败
+                    throw new Error(responseData.message || 'Token无效或已过期。');
+                }
+            } catch (error) {
+                console.error('手动登录验证失败:', error);
+                statusText.textContent = `登录失败: ${error.message}`;
+                alert(`登录失败: ${error.message}`);
+            } finally {
+                manualLoginBtn.disabled = false;
+            }
+        }
+    </script>
 
 </body>
+
 </html>
