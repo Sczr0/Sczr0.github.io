@@ -362,8 +362,9 @@
             text-decoration: underline;
         }
 
-        /* === 用户协议模态框样式 === */
-        #agreement-modal {
+        /* === 模态框通用样式 === */
+        #agreement-modal,
+        #rks-list-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -407,6 +408,48 @@
             /* 保留协议文本中的换行和空格 */
             font-size: 0.9rem;
             line-height: 1.6;
+        }
+
+        /* ===== RKS列表模态框内容样式 ===== */
+        #rks-list-content {
+            max-height: 50vh; /* 限制最大高度，使其可滚动 */
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        #rks-list-content table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #rks-list-content th,
+        #rks-list-content td {
+            padding: 6px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        #rks-list-content th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        #rks-list-content td:nth-child(1) {
+            text-align: center;
+            color: #888;
+        }
+
+        #rks-list-content td:nth-child(2) {
+            max-width: 150px;
+            word-break: break-all;
+            white-space: normal;
+        }
+
+        #rks-list-content td:nth-child(5) {
+            font-weight: bold;
+            color: var(--primary-color);
         }
 
         .modal-footer {
@@ -463,9 +506,6 @@
                 margin-bottom: 2rem;
             }
         }
-        /* ========================= */
-
-        /* ===== 新增：标签页样式 ===== */
         .tabs-container {
             display: flex;
             border-bottom: 2px solid var(--border-color);
@@ -522,6 +562,50 @@
 
         .tab-pane.active {
             display: flex; /* 激活时显示 */
+        }
+
+        /* 新曲速递内容面板的专属样式 */
+        .song-update-container {
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 12px;
+        }
+        .song-update-container h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        .track-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .track-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .track-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .chart-info {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .chart-level {
+            font-weight: 500;
+        }
+        .postscript-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed var(--border-color);
+            font-style: italic;
+            color: var(--muted-text-color);
         }
     </style>
     <!-- ===== 新增：维护通知样式 ===== -->
@@ -626,6 +710,7 @@
                 <div class="tabs-container">
                     <button class="tab-button" onclick="switchTab('b19-generator')">成绩图片</button>
                     <button class="tab-button" onclick="switchTab('song-query')">单曲查询</button>
+                    <button class="tab-button" onclick="switchTab('song-update-info')">新曲速递</button>
                 </div>
 
                 <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
@@ -670,6 +755,11 @@
                             查询单曲成绩
                         </button>
                     </div>
+                </div>
+
+                <!-- 面板3: 新曲速递 -->
+                <div id="song-update-info" class="tab-pane">
+                    <!-- 此处内容将由 JS 动态生成 -->
                 </div>
                 
                 <button class="btn-logout" onclick="logout()" style="margin-top: auto;">
@@ -721,7 +811,7 @@
     <div id="rks-list-modal" style="display: none;">
         <div class="modal-content">
             <h2 id="rks-list-title">Best N 列表</h2>
-            <div id="rks-list-content" style="white-space: pre-wrap; text-align: left; font-family: 'Courier New', Courier, monospace; background-color: #f8f9fa; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; max-height: 50vh; overflow-y: auto;">
+            <div id="rks-list-content">
                 <p>正在加载列表内容...</p>
             </div>
             <div class="modal-footer">
@@ -743,6 +833,28 @@
             message: '受Phigros更新影响，Phigros 成绩查询与图片生成器正在进行例行维护。<br>预计恢复时间：<strong>8月8日 下午7:00（UTC+8）</strong><br>给您带来不便，敬请谅解。',
             preNoticeEnabled: true, // 是否开启预告
             preNoticeMessage: '受Phigros更新影响，本服务将于<strong>8月8日 下午5:00（UTC+8）</strong>开始例行维护。<br>预计恢复时间：<strong>8月8日 下午7:00（UTC+8）</strong>，2个小时完成。<br>若遇Phigros延迟更新情况，开始时间和结束时间将顺延。'
+        };
+
+
+        // ==========================================================
+        // 新曲速递配置
+        // ==========================================================
+        const newSongsConfig = {
+            // 指定一个基准更新时间点
+            updateDate: '2025-08-08T19:00:00',
+            // 更新的曲目列表
+            tracks: [
+                {
+                    name: 'Helios',
+                    charts: [
+                        { difficulty: 'EZ', constant: 4.5 },
+                        { difficulty: 'HD', constant: 9.2 },
+                        { difficulty: 'IN', constant: 14.1 }
+                    ]
+                }
+            ],
+            // 附言（可选，如果没有内容则不显示）
+            postscript: ''
         };
 
 
@@ -934,7 +1046,8 @@ sczr0710@163.com
                 }
                 
                 // 在初始化App的最后，设置默认显示的标签页
-                switchTab('b19-generator');
+                renderSongUpdateInfo(); // 渲染信息
+                switchTab('b19-generator'); // 默认显示查询
                 // ----------------
 
             } else {
@@ -1296,14 +1409,6 @@ sczr0710@163.com
 
                 // 格式化为HTML表格
                 let tableHtml = `
-                    <style>
-                        #rks-list-content table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-                        #rks-list-content th, #rks-list-content td { padding: 6px; border-bottom: 1px solid #ddd; text-align: left; }
-                        #rks-list-content th { background-color: #f2f2f2; font-weight: 600; }
-                        #rks-list-content td:nth-child(1) { text-align: center; color: #888; }
-                        #rks-list-content td:nth-child(2) { max-width: 150px; word-break: break-all; white-space: normal; }
-                        #rks-list-content td:nth-child(5) { font-weight: bold; color: var(--primary-color); }
-                    </style>
                     <table>
                         <thead>
                             <tr>
@@ -1337,9 +1442,59 @@ sczr0710@163.com
                 rksListContent.innerHTML = `<p style="color: var(--error-color);">加载失败: ${error.message}</p>`;
             }
         }
+
+        // ===== 新增函数：渲染新曲速递信息 =====
+        function renderSongUpdateInfo() {
+            const container = document.getElementById('song-update-info');
+            if (!container) return;
+
+            const config = newSongsConfig;
+            const updateDate = new Date(config.updateDate);
+            const now = new Date();
+            const timeDiff = now.getTime() - updateDate.getTime();
+            const dayDiff = timeDiff / (1000 * 3600 * 24);
+
+            let titleHtml = '';
+            // 根据时间决定标题
+            if (dayDiff >= 0 && dayDiff <= 3) {
+                titleHtml = `<h3>新曲速递 (更新于 ${updateDate.toLocaleDateString()})</h3>`;
+            } else {
+                titleHtml = `<h3>上次更新内容 (更新于 ${updateDate.toLocaleDateString()})</h3>`;
+            }
+
+            // 总是生成曲目列表
+            let tracksHtml = config.tracks.map(track => {
+                let chartsHtml = track.charts.map(chart =>
+                    `<div class="chart-level"><b>${chart.difficulty}</b>: ${chart.constant.toFixed(2)}</div>`
+                ).join('');
+
+                return `
+                    <div class="track-item">
+                        <div class="track-name">${track.name}</div>
+                        <div class="chart-info">${chartsHtml}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // 总是生成附言（如果存在）
+            let postscriptHtml = config.postscript
+                ? `<div class="postscript-section">${config.postscript}</div>`
+                : '';
+
+            // 组合最终的 HTML
+            const htmlContent = `
+                <div class="song-update-container">
+                    ${titleHtml}
+                    ${tracksHtml}
+                    ${postscriptHtml}
+                </div>
+            `;
+
+            container.innerHTML = htmlContent;
+        }
     </script>
     
-    <!-- ===== 新增：维护检查逻辑 ===== -->
+    <!-- ===== 维护检查逻辑 ===== -->
     <script>
         function checkMaintenance() {
             if (!maintenanceConfig.enabled) {
