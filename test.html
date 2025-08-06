@@ -524,13 +524,64 @@
             display: flex; /* 激活时显示 */
         }
     </style>
+    <!-- ===== 新增：维护通知样式 ===== -->
+    <style>
+        #maintenance-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none; /* 默认隐藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: #fff;
+            text-align: center;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .maintenance-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem 4rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .maintenance-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffc107; /* 醒目的警告色 */
+        }
+
+        .maintenance-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 500px;
+        }
+    </style>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="cd2b5132-86fd-4c44-8edb-ea20fe594b81"></script>
 </head>
 
 <body>
+    <!-- ===== 新增：维护通知HTML结构 ===== -->
+    <div id="maintenance-overlay">
+        <div class="maintenance-content">
+            <h1 id="maintenance-title"></h1>
+            <p id="maintenance-message"></p>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script async src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
     <div class="container">
+        <!-- ===== 新增：维护预告横幅 ===== -->
+        <div id="maintenance-notice-banner" style="display: none; background-color: #ffc107; color: #333; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; font-weight: 500;">
+        </div>
+        <!-- ============================ -->
         <!-- Section 1: Login with QR Code -->
         <div id="login-section">
             <h1>Phigros 成绩查询与图片生成器</h1>
@@ -682,6 +733,20 @@
 
     <script>
         // ==========================================================
+        // 维护模式配置
+        // ==========================================================
+        const maintenanceConfig = {
+            enabled: true, // true: 启用维护模式检查, false: 禁用
+            startTime: '2025-08-08T17:00:00', // 维护开始时间 (YYYY-MM-DDTHH:mm:ss)
+            endTime: '2025-08-08T19:00:00',   // 维护结束时间
+            title: '例行维护通知',
+            message: '受Phigros更新影响，Phigros 成绩查询与图片生成器正在进行例行维护.<br>预计恢复时间：<strong>8月8日 下午7:00</strong><br>给您带来不便，敬请谅解。',
+            preNoticeEnabled: true, // 是否开启预告
+            preNoticeMessage: '受Phigros更新影响，本服务将于<strong>8月8日 下午5:00</strong>开始例行维护。<br>预计恢复时间：<strong>8月8日 下午7:00</strong>，2个小时完成。<br>若遇Phigros延迟更新情况，开始时间将顺延。'
+        };
+
+
+        // ==========================================================
         // 后端服务器地址
         // ==========================================================
         const BACKEND_URL = 'https://evernight.xtower.site';
@@ -820,6 +885,12 @@ sczr0710@163.com
 
         // 页面加载时的主函数
         document.addEventListener('DOMContentLoaded', () => {
+            // 0. 检查维护模式
+            if (checkMaintenance()) {
+                // 如果在维护模式，则不执行后续任何操作
+                return;
+            }
+
             // 1. 设置协议内容和事件监听
             setupAgreementModal();
             manualLoginBtn.addEventListener('click', handleManualLogin);
@@ -1265,6 +1336,49 @@ sczr0710@163.com
                 console.error('获取RKS列表失败:', error);
                 rksListContent.innerHTML = `<p style="color: var(--error-color);">加载失败: ${error.message}</p>`;
             }
+        }
+    </script>
+    
+    <!-- ===== 新增：维护检查逻辑 ===== -->
+    <script>
+        function checkMaintenance() {
+            if (!maintenanceConfig.enabled) {
+                return false;
+            }
+
+            const now = new Date();
+            const startTime = new Date(maintenanceConfig.startTime);
+            const endTime = new Date(maintenanceConfig.endTime);
+            const preNoticeTime = new Date(startTime.getTime() - 48 * 60 * 60 * 1000); // 提前48小时
+
+            // 检查是否处于正式维护时间
+            if (now >= startTime && now < endTime) {
+                const overlay = document.getElementById('maintenance-overlay');
+                const titleEl = document.getElementById('maintenance-title');
+                const messageEl = document.getElementById('maintenance-message');
+                const container = document.querySelector('.container');
+                const footer = document.querySelector('.footer');
+
+                titleEl.innerHTML = maintenanceConfig.title;
+                messageEl.innerHTML = maintenanceConfig.message;
+
+                if (overlay) overlay.style.display = 'flex';
+                if (container) container.style.display = 'none';
+                if (footer) footer.style.display = 'none';
+                
+                return true; // 中断后续所有脚本执行
+            }
+
+            // 检查是否处于预告时间内
+            if (maintenanceConfig.preNoticeEnabled && now >= preNoticeTime && now < startTime) {
+                const banner = document.getElementById('maintenance-notice-banner');
+                if (banner) {
+                    banner.innerHTML = maintenanceConfig.preNoticeMessage;
+                    banner.style.display = 'block';
+                }
+            }
+
+            return false; // 不中断，让网站正常加载
         }
     </script>
 </body>
