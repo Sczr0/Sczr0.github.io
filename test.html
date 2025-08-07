@@ -792,6 +792,20 @@
                             <input type="checkbox" id="auto-save-checkbox" style="transform: scale(1.2);">
                             <label for="auto-save-checkbox" style="cursor: pointer;">自动保存图片</label>
                         </div>
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 1rem;">
+                            <label style="font-weight: 500;">主题选择：</label>
+                            <div style="display: flex; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.3rem; cursor: pointer;">
+                                    <input type="radio" name="theme" value="dark" checked style="cursor: pointer;">
+                                    <span>黑色主题</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.3rem; cursor: pointer;">
+                                    <input type="radio" name="theme" value="white" style="cursor: pointer;">
+                                    <span>白色主题</span>
+                                </label>
+                            </div>
+                        </div>
                         <div style="display: flex; justify-content: center; gap: 1rem;">
                             <button id="generate-btn" onclick="generateImage()" style="flex-grow: 1;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -1256,6 +1270,9 @@ sczr0710@163.com
                 return;
             }
 
+            // 获取用户选择的主题
+            const selectedTheme = document.querySelector('input[name="theme"]:checked').value;
+            
             generateBtn.disabled = true;
             generateBtn.textContent = '生成中...';
             const leftLoader = document.getElementById('left-panel-loader');
@@ -1264,7 +1281,13 @@ sczr0710@163.com
             resultContainer.innerHTML = ''; // 清空右侧结果
 
             try {
-                const response = await fetch(`${BACKEND_URL}/image/bn/${n}`, {
+                // 根据选择的主题构建URL
+                let url = `${BACKEND_URL}/image/bn/${n}`;
+                if (selectedTheme === 'white') {
+                    url += '?theme=white';
+                }
+                
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
