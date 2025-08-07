@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phigros 成绩查询与图片生成器</title>
-    <link rel='stylesheet' href='https://ik.imagekit.io/Sczr/Source%20Han%20Sans%20&%20Saira%20Hybrid-Regular%20(1)/result.css?updatedAt=1733583831964' />
+    <link rel='stylesheet'
+        href='https://ik.imagekit.io/Sczr/Source%20Han%20Sans%20&%20Saira%20Hybrid-Regular%20(1)/result.css?updatedAt=1733583831964' />
     <style>
         /* === 全局与基础样式 === */
         :root {
@@ -45,21 +46,22 @@
 
         body::before {
             content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
+            position: fixed;
+            top: -100px;
+            left: -100px;
+            right: -100px;
+            bottom: -100px;
             background: inherit;
-            filter: blur(8px) brightness(0.9);
+            filter: blur(1vw) brightness(0.9);
             z-index: -1;
         }
 
         /* === 容器卡片样式 === */
         .container {
             background: var(--card-background-color);
-            -webkit-backdrop-filter: blur(15px);
-            backdrop-filter: blur(15px);
+            /* 【修改 2】使用 rem 单位 */
+            -webkit-backdrop-filter: blur(1.5vw);
+            backdrop-filter: blur(1.5vw);
             padding: 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
@@ -211,18 +213,25 @@
         }
 
         input[type="number"] {
-            font-size: 1.1rem; /* 稍稍增大字体 */
-            padding: 12px 8px; /* 调整内边距 */
+            font-size: 1.1rem;
+            /* 稍稍增大字体 */
+            padding: 12px 8px;
+            /* 调整内边距 */
             text-align: center;
-            border: none; /* 移除所有边框 */
-            border-bottom: 2px solid var(--border-color); /* 只保留底边框 */
-            border-radius: 0; /* 移除圆角 */
-            background-color: transparent; /* 透明背景 */
+            border: none;
+            /* 移除所有边框 */
+            border-bottom: 2px solid var(--border-color);
+            /* 只保留底边框 */
+            border-radius: 0;
+            /* 移除圆角 */
+            background-color: transparent;
+            /* 透明背景 */
             transition: border-color 0.3s;
             width: 80px;
         }
 
-        input[type="number"]:focus, #song-keyword:focus {
+        input[type="number"]:focus,
+        #song-keyword:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 10px rgba(59, 130, 246, 0.1) inset;
@@ -248,7 +257,8 @@
 
         button:hover {
             background-color: var(--primary-hover-color);
-            transform: translateY(-2px) scale(1.05); /* 增加放大效果 */
+            transform: translateY(-2px) scale(1.05);
+            /* 增加放大效果 */
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
         }
 
@@ -261,14 +271,18 @@
 
         /* 次要按钮样式 */
         .btn-secondary {
-            background-color: transparent; /* 透明背景 */
-            color: var(--primary-color); /* 主题色文字 */
-            border: 2px solid var(--primary-color); /* 主题色边框 */
+            background-color: transparent;
+            /* 透明背景 */
+            color: var(--primary-color);
+            /* 主题色文字 */
+            border: 2px solid var(--primary-color);
+            /* 主题色边框 */
             box-shadow: none;
         }
- 
+
         .btn-secondary:hover {
-            background-color: rgba(59, 130, 246, 0.1); /* 主题色半透明背景 */
+            background-color: rgba(59, 130, 246, 0.1);
+            /* 主题色半透明背景 */
             color: var(--primary-hover-color);
             border-color: var(--primary-hover-color);
         }
@@ -282,10 +296,12 @@
             padding: 8px 12px;
             font-size: 0.9rem;
         }
+
         .btn-logout:hover {
-            background: rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.05);
             color: var(--text-color);
-            transform: none; /* 取消按钮的通用悬浮效果 */
+            transform: none;
+            /* 取消按钮的通用悬浮效果 */
             box-shadow: none;
         }
 
@@ -347,15 +363,32 @@
 
         /* === 页脚 === */
         .footer {
+            /* 1. 移除背景渐变，让页脚完全透明 */
+            /* background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%); */
+
+            /* 2. 调整内边距，因为不再需要为渐变效果留出空间 */
+            padding: 2rem 0;
+            /* 您可以根据需要微调这个值 */
             margin-top: 2rem;
             font-size: 0.9rem;
-            color: var(--muted-text-color);
+
+            /* 3. 保持文字颜色为高亮度的白色 */
+            color: rgba(255, 255, 255, 0.95);
+            /* 可以稍微提高不透明度，让文字更亮 */
+
+            /* 4. 【核心】应用一个更强的、多层次的文字阴影来确保可读性 */
+            text-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.8),
+                /* 一个较深的、轮廓清晰的阴影，提供主要对比度 */
+                0 0 10px rgba(0, 0, 0, 0.5);
+            /* 一个更柔和、范围更广的发光效果，帮助文字从背景中“浮”出来 */
         }
 
         .footer a {
-            color: var(--primary-color);
+            color: rgb(88, 152, 255);
+            /* 链接也使用纯白色，同样会继承父元素的 text-shadow */
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .footer a:hover {
@@ -412,7 +445,8 @@
 
         /* ===== RKS列表模态框内容样式 ===== */
         #rks-list-content {
-            max-height: 50vh; /* 限制最大高度，使其可滚动 */
+            max-height: 50vh;
+            /* 限制最大高度，使其可滚动 */
             overflow-y: auto;
             text-align: left;
         }
@@ -469,6 +503,7 @@
             margin-right: 8px;
             transform: scale(1.2);
         }
+
         /* ===== 新增：分栏布局样式 ===== */
         #image-section {
             width: 100%;
@@ -477,23 +512,29 @@
             gap: 2rem;
         }
 
-        .left-panel, .right-panel {
+        .left-panel,
+        .right-panel {
             display: flex;
             flex-direction: column;
         }
 
         .left-panel {
-            flex: 0 0 auto; /* 内容决定宽度，不伸缩 */
+            flex: 0 0 auto;
+            /* 内容决定宽度，不伸缩 */
             align-items: center;
-            justify-content: flex-start; /* 内部元素顶部对齐 */
-            gap: 1.5rem; /* 统一间距 */
+            justify-content: flex-start;
+            /* 内部元素顶部对齐 */
+            gap: 1.5rem;
+            /* 统一间距 */
         }
 
         .right-panel {
-            flex: 0 1 auto; /* 可收缩，但内容决定其基本大小 */
+            flex: 0 1 auto;
+            /* 可收缩，但内容决定其基本大小 */
             align-items: center;
             justify-content: center;
-            gap: 1.5rem; /* 右侧面板元素间距 */
+            gap: 1.5rem;
+            /* 右侧面板元素间距 */
         }
 
         /* 响应式布局：小屏幕下单列显示 */
@@ -502,10 +543,12 @@
                 flex-direction: column;
                 align-items: center;
             }
+
             .left-panel {
                 margin-bottom: 2rem;
             }
         }
+
         .tabs-container {
             display: flex;
             border-bottom: 2px solid var(--border-color);
@@ -524,13 +567,15 @@
             color: var(--muted-text-color);
             position: relative;
             transition: color 0.3s ease;
-            outline: none; /* 移除点击时的轮廓 */
+            outline: none;
+            /* 移除点击时的轮廓 */
         }
 
         .tab-button::after {
             content: '';
             position: absolute;
-            bottom: -2px; /* 贴在父容器的border-bottom上 */
+            bottom: -2px;
+            /* 贴在父容器的border-bottom上 */
             left: 0;
             width: 100%;
             height: 2px;
@@ -553,15 +598,18 @@
         }
 
         .tab-pane {
-            display: none; /* 默认隐藏 */
+            display: none;
+            /* 默认隐藏 */
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem; /* 面板内元素间距 */
+            gap: 1.5rem;
+            /* 面板内元素间距 */
             width: 100%;
         }
 
         .tab-pane.active {
-            display: flex; /* 激活时显示 */
+            display: flex;
+            /* 激活时显示 */
         }
 
         /* 新曲速递内容面板的专属样式 */
@@ -572,34 +620,41 @@
             background-color: rgba(248, 249, 250, 0.8);
             border-radius: 12px;
         }
+
         .song-update-container h3 {
             text-align: center;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
         }
+
         .track-item {
             margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
         }
+
         .track-item:last-child {
             border-bottom: none;
             margin-bottom: 0;
         }
+
         .track-name {
             font-weight: 600;
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
+
         .chart-info {
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .chart-level {
             font-weight: 500;
         }
+
         .postscript-section {
             margin-top: 1.5rem;
             padding-top: 1.5rem;
@@ -617,14 +672,16 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
-            display: none; /* 默认隐藏 */
+            display: none;
+            /* 默认隐藏 */
             justify-content: center;
             align-items: center;
             z-index: 9999;
             color: #fff;
             text-align: center;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+            /* 【修改 3】使用 rem 单位 */
+            -webkit-backdrop-filter: blur(1vw);
+            backdrop-filter: blur(1vw);
         }
 
         .maintenance-content {
@@ -638,7 +695,8 @@
         .maintenance-content h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #ffc107; /* 醒目的警告色 */
+            color: #ffc107;
+            /* 醒目的警告色 */
         }
 
         .maintenance-content p {
@@ -647,7 +705,8 @@
             max-width: 500px;
         }
     </style>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="cd2b5132-86fd-4c44-8edb-ea20fe594b81"></script>
+    <script defer src="https://cloud.umami.is/script.js"
+        data-website-id="cd2b5132-86fd-4c44-8edb-ea20fe594b81"></script>
 </head>
 
 <body>
@@ -663,7 +722,8 @@
     <script async src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
     <div class="container">
         <!-- ===== 新增：维护预告横幅 ===== -->
-        <div id="maintenance-notice-banner" style="display: none; background-color: #ffc107; color: #333; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; font-weight: 500;">
+        <div id="maintenance-notice-banner"
+            style="display: none; background-color: #ffc107; color: #333; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; font-weight: 500;">
         </div>
         <!-- ============================ -->
         <!-- Section 1: Login with QR Code -->
@@ -714,24 +774,30 @@
                 </div>
 
                 <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
-                
+
                 <!-- ===== 标签页内容面板 ===== -->
                 <!-- 面板1: Best N 生成器 -->
                 <div id="b19-generator" class="tab-pane">
                     <p>请输入您想生成的 Best N </p>
-                    <div id="image-generator" class="form-group" style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px;">
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div id="image-generator" class="form-group"
+                        style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px;">
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
                             <label for="n-value">Best</label>
-                            <input type="number" id="n-value" value="27" min="1" max="100" style="flex-grow: 1; max-width: 120px;">
+                            <input type="number" id="n-value" value="27" min="1" max="100"
+                                style="flex-grow: 1; max-width: 120px;">
                         </div>
-                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 0.5rem;">
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; gap: 0.5rem;">
                             <input type="checkbox" id="auto-save-checkbox" style="transform: scale(1.2);">
                             <label for="auto-save-checkbox" style="cursor: pointer;">自动保存图片</label>
                         </div>
                         <div style="display: flex; justify-content: center; gap: 1rem;">
                             <button id="generate-btn" onclick="generateImage()" style="flex-grow: 1;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM12 4a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM.5 10a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5zm12 .5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5z" />
                                 </svg>
                                 生成图片
                             </button>
@@ -742,15 +808,20 @@
 
                 <!-- 面板2: 单曲成绩查询 -->
                 <div id="song-query" class="tab-pane">
-                     <p>请输入歌曲关键词查询单曲成绩图</p>
-                     <div id="song-query-container" class="form-group" style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px; background: transparent; padding:0; gap: 1rem;">
-                        <div class="form-group" style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
-                             <label for="song-keyword">关键词</label>
-                             <input type="text" id="song-keyword" placeholder="歌曲ID/名称/别名" style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                    <p>请输入歌曲关键词查询单曲成绩图</p>
+                    <div id="song-query-container" class="form-group"
+                        style="flex-direction: column; align-items: stretch; width: 100%; max-width: 300px; background: transparent; padding:0; gap: 1rem;">
+                        <div class="form-group"
+                            style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
+                            <label for="song-keyword">关键词</label>
+                            <input type="text" id="song-keyword" placeholder="歌曲ID/名称/别名"
+                                style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
                         </div>
                         <button id="generate-song-btn" onclick="generateSongImage()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                             </svg>
                             查询单曲成绩
                         </button>
@@ -761,7 +832,7 @@
                 <div id="song-update-info" class="tab-pane">
                     <!-- 此处内容将由 JS 动态生成 -->
                 </div>
-                
+
                 <button class="btn-logout" onclick="logout()" style="margin-top: auto;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16">
@@ -785,8 +856,8 @@
             由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
             <a href="#" id="view-agreement-link">用户协议</a> |
             <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site" target="_blank">数据访问统计</a> |
-            本站总访问量 <span id="busuanzi_site_pv">加载中...</span> 次 |
-            本站今日访问量 <span id="busuanzi_today_site_pv">加载中...</span> 次
+            本站总访问量 <span id="busuanzi_site_pv">[数据删除]</span> 次 |
+            本站今日访问量 <span id="busuanzi_today_site_pv">[数据删除]</span> 次
         </p>
         <p style="text-align: center;">
             本站友链：<a href="https://www.kdocs.cn/l/catqcMM9UR5Y" target="_blank">Phi-plugin使用指引</a>
@@ -1009,13 +1080,14 @@ sczr0710@163.com
 
             // 1. 设置协议内容和事件监听
             setupAgreementModal();
+            setupBackgroundDownloadLink(); // 异步设置背景下载链接
             manualLoginBtn.addEventListener('click', handleManualLogin);
             closeRksListBtn.addEventListener('click', () => rksListModal.style.display = 'none');
 
             // 2. 直接初始化应用
             initializeApp();
         });
-        
+
         // ===== 新增函数：切换标签页 =====
         function switchTab(tabId) {
             // 隐藏所有面板
@@ -1048,7 +1120,7 @@ sczr0710@163.com
                     // 如果本地没有，可以考虑重新获取一次
                     fetchAndDisplayUserData(savedToken);
                 }
-                
+
                 // 在初始化App的最后，设置默认显示的标签页
                 renderSongUpdateInfo(); // 渲染信息
                 switchTab('b19-generator'); // 默认显示查询
@@ -1258,6 +1330,38 @@ sczr0710@163.com
             window.location.reload();
         }
 
+        // ===== 新增函数：设置背景图下载链接 =====
+        async function setupBackgroundDownloadLink() {
+            if (!downloadLink) return;
+
+            const bodyStyle = window.getComputedStyle(document.body);
+            const bgImage = bodyStyle.backgroundImage;
+            const urlMatch = bgImage.match(/url\("?(.+?)"?\)/);
+
+            if (urlMatch && urlMatch[1]) {
+                const initialUrl = urlMatch[1];
+                try {
+                    // 使用 fetch 来解析重定向后的真实图片 URL
+                    const response = await fetch(initialUrl);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+                    const finalUrl = response.url; // 这是重定向后的最终 URL
+                    downloadLink.href = finalUrl;
+                    downloadLink.setAttribute('download', 'background.jpg');
+                    downloadLink.setAttribute('target', '_blank');
+                } catch (error) {
+                    console.error('无法获取真实的背景图片链接:', error);
+                    // 如果获取失败，作为后备方案，仍然使用原始 API 地址
+                    downloadLink.href = initialUrl;
+                    downloadLink.setAttribute('download', 'background.jpg');
+                    downloadLink.setAttribute('target', '_blank');
+                }
+            } else {
+                downloadLink.style.display = 'none'; // 如果没有背景图则隐藏链接
+            }
+        }
+
         // ===== 新增函数：处理手动登录 =====
         async function handleManualLogin() {
             const token = tokenInput.value.trim();
@@ -1293,7 +1397,7 @@ sczr0710@163.com
                         document.getElementById('user-nickname').textContent = nickname;
                         localStorage.setItem('userNickname', nickname);
                     }
-                    
+
                     showImageSection();
                 } else {
                     // 验证失败
@@ -1320,7 +1424,7 @@ sczr0710@163.com
             const originalBtnHTML = generateSongBtn.innerHTML;
             generateSongBtn.disabled = true;
             generateSongBtn.textContent = '查询中...';
-            
+
             const leftLoader = document.getElementById('left-panel-loader');
             leftLoader.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
             leftLoader.style.display = 'flex';
@@ -1497,7 +1601,7 @@ sczr0710@163.com
             container.innerHTML = htmlContent;
         }
     </script>
-    
+
     <!-- ===== 维护检查逻辑 ===== -->
     <script>
         function checkMaintenance() {
@@ -1524,7 +1628,7 @@ sczr0710@163.com
                 if (overlay) overlay.style.display = 'flex';
                 if (container) container.style.display = 'none';
                 if (footer) footer.style.display = 'none';
-                
+
                 return true; // 中断后续所有脚本执行
             }
 
