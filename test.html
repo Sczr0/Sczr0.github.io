@@ -91,7 +91,7 @@
             margin-bottom: 2.5rem;
         }
 
-        /* === 新增：用户资料区域样式 === */
+        /* === 用户资料区域样式 === */
         .user-profile {
             display: flex;
             align-items: center;
@@ -168,7 +168,7 @@
             min-height: 1.5em;
         }
 
-        /* === 新增：手动登录输入框样式 === */
+        /* === 手动登录输入框样式 === */
         .manual-login-group {
             display: flex;
             flex-direction: column;
@@ -368,7 +368,7 @@
 
             /* 2. 调整内边距，因为不再需要为渐变效果留出空间 */
             padding: 2rem 0;
-            /* 您可以根据需要微调这个值 */
+            /* 根据需要微调这个值 */
             margin-top: 2rem;
             font-size: 0.9rem;
 
@@ -504,7 +504,7 @@
             transform: scale(1.2);
         }
 
-        /* ===== 新增：分栏布局样式 ===== */
+        /* ===== 分栏布局样式 ===== */
         #image-section {
             width: 100%;
             justify-content: center;
@@ -663,7 +663,7 @@
             color: var(--muted-text-color);
         }
     </style>
-    <!-- ===== 新增：维护通知样式 ===== -->
+    <!-- ===== 维护通知样式 ===== -->
     <style>
         #maintenance-overlay {
             position: fixed;
@@ -679,7 +679,6 @@
             z-index: 9999;
             color: #fff;
             text-align: center;
-            /* 【修改 3】使用 rem 单位 */
             -webkit-backdrop-filter: blur(1vw);
             backdrop-filter: blur(1vw);
         }
@@ -870,6 +869,7 @@
             由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
             <a href="#" id="view-agreement-link">用户协议</a> |
             <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site" target="_blank">数据访问统计</a> |
+            <a href="https://afdian.com/a/xtower" target="_blank">爱发电</a> |
             本站总访问量 <span id="busuanzi_site_pv">[数据删除]</span> 次 |
             本站今日访问量 <span id="busuanzi_today_site_pv">[数据删除]</span> 次
         </p>
@@ -1007,9 +1007,9 @@
 *   **TapTap SessionToken**：作为授权凭证，用于请求您的游戏数据。
 *   **Phigros 云存档**：**用于实现本服务的各项功能（包括但不限于生成 Best N 图片、查询单曲成绩、生成文本列表等）**，包括：玩家 ID、简介、Data（游戏内货币）、潜力值 (RKS) 全部单曲成绩记录（歌曲、难度、ACC、得分等）、游戏设置等。
 
-我们不会以任何形式修改您的 Phigros 游戏数据。
+我们不会以任何形式修改您的 Phigros 云存档游戏数据。
 为提升服务性能，我们可能会在服务端内存中，使用缓存机制临时存储您的游戏数据。这些数据包括您的玩家ID、用户名、潜力值 (RKS)、所有单曲的最佳成绩、历史成绩以及推分ACC等。
-这些数据仅在内存中以加密的、受保护的形式存在，不会以明文形式写入硬盘或数据库，并会在5分钟后自动过期清除。
+这些数据不会以明文形式写入硬盘或数据库，并会在5分钟后自动过期清除。
 您理解并同意，此缓存机制是为了优化服务响应速度而设计，我们无法保证过期的缓存数据仍能被访问。
 
 3.3 为方便您下次使用，您的 SessionToken **会被存储在您当前设备的浏览器本地存储中**，以实现“自动登录”。
