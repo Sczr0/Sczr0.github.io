@@ -98,7 +98,7 @@
             justify-content: center;
             gap: 1rem;
             /* 头像和文字的间距 */
-            margin-bottom: 2rem;
+            margin-bottom: 1rem; /* Reduced margin */
             /* 和下方内容的间距 */
         }
 
@@ -662,6 +662,81 @@
             font-style: italic;
             color: var(--muted-text-color);
         }
+
+        /* Session Token 显示区域 */
+        #session-token-container {
+            background-color: #f8f9fa; /* Using a light gray from the existing theme */
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 0.5rem 0 1.5rem 0; /* Reduced top margin */
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            width: 100%;
+            max-width: 400px; /* Limit width */
+        }
+        #session-token-display {
+            display: none; /* 默认隐藏 */
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            padding: 0.5rem;
+            border-radius: 6px;
+            word-break: break-all;
+            color: var(--primary-color);
+            margin-top: 0.5rem;
+        }
+        #session-token-placeholder {
+            color: var(--muted-text-color);
+        }
+        /* 免责声明模态框 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none; /* 默认隐藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #disclaimer-modal .modal-content { /* Specificity to avoid conflict with other modals */
+            background: var(--card-background-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+        #disclaimer-modal h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        #disclaimer-modal p {
+            margin-bottom: 1rem;
+        }
+        .modal-buttons {
+            text-align: right;
+            margin-top: 1.5rem;
+        }
+        .modal-buttons button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        .modal-buttons .agree-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .modal-buttons .close-btn {
+            background-color: #e9ecef;
+            color: var(--text-color);
+        }
     </style>
     <!-- ===== 维护通知样式 ===== -->
     <style>
@@ -764,6 +839,10 @@
                     <img id="user-avatar" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
                         alt="User Avatar">
                     <h2 id="welcome-message">欢迎回来, <span id="user-nickname">Player</span>!</h2>
+                </div>
+                <div id="session-token-container">
+                    <div id="session-token-placeholder">点击此处显示 Session Token</div>
+                    <div id="session-token-display"></div>
                 </div>
                 <!-- ===== 标签页导航 ===== -->
                 <div class="tabs-container">
@@ -908,6 +987,25 @@
     </div>
     <!-- ========================= -->
 
+    <div id="disclaimer-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>免责声明</h2>
+            <p>
+                此 Session Token 是您账户的敏感凭证，请<strong>不要</strong>泄露给任何人或在不安全的网络环境中使用。泄露此信息可能导致您的账户被盗用。
+            </p>
+            <p>
+                您即将查看的 Session Token 将仅在您的浏览器中临时显示，刷新页面后将重新隐藏。本站不会在服务器端存储此信息。
+            </p>
+            <p>
+                点击“同意并查看”即表示您理解并接受以上风险。
+            </p>
+            <div class="modal-buttons">
+                <button id="close-modal-btn" class="close-btn">关闭</button>
+                <button id="agree-btn" class="agree-btn">同意并查看</button>
+            </div>
+        </div>
+    </div>
+ 
     <script>
         // ==========================================================
         // 维护模式配置
@@ -1194,6 +1292,7 @@ sczr0710@163.com
         function showImageSection() {
             loginSection.style.display = 'none';
             imageSection.style.display = 'flex';
+            setupSessionToken(); // Call the setup function here
         }
 
         // 1. 获取二维码
@@ -1643,6 +1742,49 @@ sczr0710@163.com
             `;
 
             container.innerHTML = htmlContent;
+        }
+
+        // Session Token 功能 (from index.html)
+        function setupSessionToken() {
+            const tokenContainer = document.getElementById('session-token-container');
+            if (!tokenContainer) return; // Exit if container not found
+            const tokenDisplay = document.getElementById('session-token-display');
+            const modal = document.getElementById('disclaimer-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const agreeBtn = document.getElementById('agree-btn');
+
+            // 尝试从 localStorage 获取 token
+            const sessionToken = localStorage.getItem('phigrosSessionToken');
+            if (sessionToken) {
+                tokenDisplay.textContent = sessionToken;
+            } else {
+                tokenContainer.innerHTML = '<div id="session-token-placeholder">未找到 Session Token</div>';
+                return; // 如果没有token，则不设置后续事件
+            }
+
+            tokenContainer.addEventListener('click', () => {
+                // 如果已经显示了，则不再弹出
+                if (tokenDisplay.style.display !== 'block') {
+                    modal.style.display = 'flex';
+                }
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            agreeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                tokenDisplay.style.display = 'block';
+                document.getElementById('session-token-placeholder').style.display = 'none';
+            });
+
+            // 点击模态框外部也可以关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
         }
     </script>
 
