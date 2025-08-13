@@ -98,7 +98,8 @@
             justify-content: center;
             gap: 1rem;
             /* 头像和文字的间距 */
-            margin-bottom: 1rem; /* Reduced margin */
+            margin-bottom: 1rem;
+            /* Reduced margin */
             /* 和下方内容的间距 */
         }
 
@@ -665,18 +666,23 @@
 
         /* Session Token 显示区域 */
         #session-token-container {
-            background-color: #f8f9fa; /* Using a light gray from the existing theme */
+            background-color: #f8f9fa;
+            /* Using a light gray from the existing theme */
             padding: 1rem;
             border-radius: var(--border-radius);
-            margin: 0.5rem 0 1.5rem 0; /* Reduced top margin */
+            margin: 0.5rem 0 1.5rem 0;
+            /* Reduced top margin */
             cursor: pointer;
             border: 1px solid var(--border-color);
             text-align: center;
             width: 100%;
-            max-width: 400px; /* Limit width */
+            max-width: 400px;
+            /* Limit width */
         }
+
         #session-token-display {
-            display: none; /* 默认隐藏 */
+            display: none;
+            /* 默认隐藏 */
             font-family: 'Courier New', Courier, monospace;
             background-color: #fff;
             padding: 0.5rem;
@@ -685,9 +691,11 @@
             color: var(--primary-color);
             margin-top: 0.5rem;
         }
+
         #session-token-placeholder {
             color: var(--muted-text-color);
         }
+
         /* 免责声明模态框 */
         .modal-overlay {
             position: fixed;
@@ -696,31 +704,38 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            display: none; /* 默认隐藏 */
+            display: none;
+            /* 默认隐藏 */
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
-        #disclaimer-modal .modal-content { /* Specificity to avoid conflict with other modals */
+
+        #disclaimer-modal .modal-content {
+            /* Specificity to avoid conflict with other modals */
             background: var(--card-background-color);
             padding: 2rem;
             border-radius: var(--border-radius);
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             text-align: left;
         }
+
         #disclaimer-modal h2 {
             margin-top: 0;
             color: var(--primary-color);
         }
+
         #disclaimer-modal p {
             margin-bottom: 1rem;
         }
+
         .modal-buttons {
             text-align: right;
             margin-top: 1.5rem;
         }
+
         .modal-buttons button {
             padding: 0.6rem 1.2rem;
             border-radius: 8px;
@@ -729,10 +744,12 @@
             font-weight: 500;
             margin-left: 0.5rem;
         }
+
         .modal-buttons .agree-btn {
             background-color: var(--primary-color);
             color: white;
         }
+
         .modal-buttons .close-btn {
             background-color: #e9ecef;
             color: var(--text-color);
@@ -948,8 +965,9 @@
             由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
             <a href="#" id="view-agreement-link">用户协议</a> |
             <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site" target="_blank">数据访问统计</a> |
+            <a href="https://stats.uptimerobot.com/cTTBFmsBaZ" target="_blank">服务可用性监控</a> |
             <a href="https://afdian.com/a/xtower" target="_blank">爱发电</a> |
-<a href="https://www.wjx.cn/vm/rDY4LVs.aspx#" target="_blank">反馈问题与建议</a> |
+            <a href="https://www.wjx.cn/vm/rDY4LVs.aspx#" target="_blank">反馈问题与建议</a> |
             本站总访问量 <span id="busuanzi_site_pv">[数据删除]</span> 次 |
             本站今日访问量 <span id="busuanzi_today_site_pv">[数据删除]</span> 次
         </p>
@@ -1005,7 +1023,7 @@
             </div>
         </div>
     </div>
- 
+
     <script>
         // ==========================================================
         // 维护模式配置
@@ -1392,7 +1410,7 @@ sczr0710@163.com
 
             // 获取用户选择的主题
             const selectedTheme = document.querySelector('input[name="theme"]:checked').value;
-            
+
             generateBtn.disabled = true;
             generateBtn.textContent = '生成中...';
             const leftLoader = document.getElementById('left-panel-loader');
@@ -1406,7 +1424,7 @@ sczr0710@163.com
                 if (selectedTheme === 'white') {
                     url += '?theme=white';
                 }
-                
+
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
