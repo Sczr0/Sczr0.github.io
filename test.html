@@ -362,39 +362,8 @@
             }
         }
 
-        /* === 页脚 === */
-        .footer {
-            /* 1. 移除背景渐变，让页脚完全透明 */
-            /* background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%); */
-
-            /* 2. 调整内边距，因为不再需要为渐变效果留出空间 */
-            padding: 2rem 0;
-            /* 根据需要微调这个值 */
-            margin-top: 2rem;
-            font-size: 0.9rem;
-
-            /* 3. 保持文字颜色为高亮度的白色 */
-            color: rgba(255, 255, 255, 0.95);
-            /* 可以稍微提高不透明度，让文字更亮 */
-
-            /* 4. 【核心】应用一个更强的、多层次的文字阴影来确保可读性 */
-            text-shadow:
-                0 2px 4px rgba(0, 0, 0, 0.8),
-                /* 一个较深的、轮廓清晰的阴影，提供主要对比度 */
-                0 0 10px rgba(0, 0, 0, 0.5);
-            /* 一个更柔和、范围更广的发光效果，帮助文字从背景中“浮”出来 */
-        }
-
-        .footer a {
-            color: rgb(88, 152, 255);
-            /* 链接也使用纯白色，同样会继承父元素的 text-shadow */
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        /* === 页脚样式已移除 === */
+        /* 页脚内容已移动到"关于"标签页中 */
 
         /* === 模态框通用样式 === */
         #agreement-modal,
@@ -754,6 +723,118 @@
             background-color: #e9ecef;
             color: var(--text-color);
         }
+
+        /* ===== 统计数据展示样式 ===== */
+        .stats-section {
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem 0;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stats-section h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .stat-updated {
+            font-size: 0.8rem;
+            color: var(--muted-text-color);
+            line-height: 1.4;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .stats-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* 关于页面样式 */
+        #about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .about-footer {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px dashed var(--border-color);
+        }
+
+        .about-footer h3 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-footer p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .about-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .about-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .stats-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                margin-bottom: 1rem;
+            }
+
+            .about-footer p {
+                font-size: 0.9rem;
+            }
+
+            #about-content {
+                gap: 1.5rem;
+            }
+        }
     </style>
     <!-- ===== 维护通知样式 ===== -->
     <style>
@@ -866,6 +947,7 @@
                     <button class="tab-button" onclick="switchTab('b19-generator')">成绩图片</button>
                     <button class="tab-button" onclick="switchTab('song-query')">单曲查询</button>
                     <button class="tab-button" onclick="switchTab('song-update-info')">新曲速递</button>
+                    <button class="tab-button" onclick="switchTab('about')">关于</button>
                 </div>
 
                 <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
@@ -942,6 +1024,33 @@
                     <!-- 此处内容将由 JS 动态生成 -->
                 </div>
 
+                <!-- 面板4: 关于 -->
+                <div id="about" class="tab-pane">
+                    <div id="about-content">
+                        <div id="stats-container">
+                            <!-- 统计数据将在这里动态加载 -->
+                        </div>
+                        <div class="about-footer">
+                            <h3>服务支持</h3>
+                            <p>
+                                由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
+                                <a href="#" id="view-agreement-link">用户协议</a> |
+                                <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site" target="_blank">数据访问统计</a> |
+                                <a href="https://stats.uptimerobot.com/cTTBFmsBaZ" target="_blank">服务可用性监控</a> |
+                                <a href="https://afdian.com/a/xtower" target="_blank">爱发电</a> |
+                                <a href="https://www.wjx.cn/vm/rDY4LVs.aspx#" target="_blank">反馈问题与建议</a>
+                            </p>
+                            <p style="text-align: center;">
+                                本站友链：<a href="https://www.kdocs.cn/l/catqcMM9UR5Y" target="_blank">Phi-plugin使用指引</a>
+                            </p>
+                            <p style="text-align: center; margin-top: 1rem;">
+                                本站总访问量 <span id="busuanzi_site_pv">[数据删除]</span> 次 |
+                                本站今日访问量 <span id="busuanzi_today_site_pv">[数据删除]</span> 次
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <button class="btn-logout" onclick="logout()" style="margin-top: auto;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16">
@@ -959,22 +1068,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="footer">
-        <p>
-            由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
-            <a href="#" id="view-agreement-link">用户协议</a> |
-            <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site" target="_blank">数据访问统计</a> |
-            <a href="https://stats.uptimerobot.com/cTTBFmsBaZ" target="_blank">服务可用性监控</a> |
-            <a href="https://afdian.com/a/xtower" target="_blank">爱发电</a> |
-            <a href="https://www.wjx.cn/vm/rDY4LVs.aspx#" target="_blank">反馈问题与建议</a> |
-            本站总访问量 <span id="busuanzi_site_pv">[数据删除]</span> 次 |
-            本站今日访问量 <span id="busuanzi_today_site_pv">[数据删除]</span> 次
-        </p>
-        <p style="text-align: center;">
-            本站友链：<a href="https://www.kdocs.cn/l/catqcMM9UR5Y" target="_blank">Phi-plugin使用指引</a>
-        </p>
-    </footer>
 
     <!-- ===== 用户协议模态框 ===== -->
     <div id="agreement-modal" style="display: none;">
@@ -1253,6 +1346,11 @@ sczr0710@163.com
             // 显示目标面板和激活目标按钮
             document.getElementById(tabId).classList.add('active');
             document.querySelector(`.tab-button[onclick="switchTab('${tabId}')"]`).classList.add('active');
+
+            // 如果切换到关于标签页，加载统计数据
+            if (tabId === 'about') {
+                renderStatsData();
+            }
         }
 
         // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
@@ -1760,6 +1858,59 @@ sczr0710@163.com
             `;
 
             container.innerHTML = htmlContent;
+        }
+
+        // ===== 新增函数：获取统计数据 =====
+        async function fetchStatsData() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/image/stats`, { method: 'GET' });
+                if (!response.ok) {
+                    throw new Error('获取统计数据失败');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('获取统计数据失败:', error);
+                return null;
+            }
+        }
+
+        // ===== 新增函数：渲染统计数据 =====
+        async function renderStatsData() {
+            const statsContainer = document.getElementById('stats-container');
+            if (!statsContainer) return;
+
+            const statsData = await fetchStatsData();
+            if (!statsData) {
+                statsContainer.innerHTML = '<p>无法加载统计数据</p>';
+                return;
+            }
+
+            const now = new Date();
+            const statsHtml = `
+                <div class="stats-section">
+                    <h3>服务使用统计数据</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h4>Best N 成绩</h4>
+                            <div class="stat-number">${statsData.bn.count}</div>
+                            <div class="stat-updated">更新于: ${new Date(statsData.bn.last_updated).toLocaleString()}</div>
+                        </div>
+                        <div class="stat-item">
+                            <h4>排行榜数据</h4>
+                            <div class="stat-number">${statsData.leaderboard.count}</div>
+                            <div class="stat-updated">更新于: ${new Date(statsData.leaderboard.last_updated).toLocaleString()}</div>
+                        </div>
+                        <div class="stat-item">
+                            <h4>单曲数据</h4>
+                            <div class="stat-number">${statsData.song.count}</div>
+                            <div class="stat-updated">更新于: ${new Date(statsData.song.last_updated).toLocaleString()}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            statsContainer.innerHTML = statsHtml;
         }
 
         // Session Token 功能 (from index.html)
