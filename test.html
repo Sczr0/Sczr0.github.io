@@ -774,7 +774,7 @@
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .stat-item {
                 margin-bottom: 1rem;
             }
@@ -822,7 +822,7 @@
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .stat-item {
                 margin-bottom: 1rem;
             }
@@ -937,12 +937,18 @@
                     <img id="user-avatar" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
                         alt="User Avatar">
                     <h2 id="welcome-message">欢迎回来, <span id="user-nickname">Player</span>!</h2>
-    </div>
-    <p style="margin: 0; padding: 0; line-height: 1.6; text-align: center;">
-        <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=iawReSpkBdJdAppQumiMyvPoTg28fxpeFCjdk5ephgHkGuV5dCVAYlJIclX4enX4&busi_data=eyJncm91cENvZGUiOiIzNjIzMzEwODgiLCJ0b2tlbiI6Ik0zb2RCT25uRHpBQ3p6VU9lYy9pcXpxaUZ4eGRqZXRTdHk0d29RZkh2Rk1raFRtMXdqSlAwZnFRazhNK0s0bTMiLCJ1aW4iOiIxOTMyMTYxNjgwIn0%3D&data=zF_LCYM1l6z9kjpjmRvWYeD51s6F2Y38bLipJpPW09RvhbQ1meci8qbI0Gc_3BT0oPqNX0PlpUiLNjn6_Brrwg&svctype=4&tempid=h5_group_info" style="color: var(--primary-color); text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">官方群聊</a> |
-        <a href="#" id="view-agreement-link" style="color: var(--primary-color); text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">用户协议</a>
-    </p>
-    <div id="session-token-container">
+                </div>
+                <p style="margin: 0; padding: 0; line-height: 1.6; text-align: center;">
+                    <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=iawReSpkBdJdAppQumiMyvPoTg28fxpeFCjdk5ephgHkGuV5dCVAYlJIclX4enX4&busi_data=eyJncm91cENvZGUiOiIzNjIzMzEwODgiLCJ0b2tlbiI6Ik0zb2RCT25uRHpBQ3p6VU9lYy9pcXpxaUZ4eGRqZXRTdHk0d29RZkh2Rk1raFRtMXdqSlAwZnFRazhNK0s0bTMiLCJ1aW4iOiIxOTMyMTYxNjgwIn0%3D&data=zF_LCYM1l6z9kjpjmRvWYeD51s6F2Y38bLipJpPW09RvhbQ1meci8qbI0Gc_3BT0oPqNX0PlpUiLNjn6_Brrwg&svctype=4&tempid=h5_group_info"
+                        style="color: var(--primary-color); text-decoration: none; font-weight: 500;"
+                        onmouseover="this.style.textDecoration='underline'"
+                        onmouseout="this.style.textDecoration='none'">官方群聊</a> |
+                    <a href="#" id="view-agreement-link"
+                        style="color: var(--primary-color); text-decoration: none; font-weight: 500;"
+                        onmouseover="this.style.textDecoration='underline'"
+                        onmouseout="this.style.textDecoration='none'">用户协议</a>
+                </p>
+                <div id="session-token-container">
                     <div id="session-token-placeholder">点击此处显示 Session Token</div>
                     <div id="session-token-display"></div>
                 </div>
@@ -1037,8 +1043,9 @@
                         <div class="about-footer">
                             <h3>服务支持</h3>
                             <p>
-    由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
-    <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site" target="_blank">数据访问统计</a> |
+                                由 <a href="https://github.com/Sczr0" target="_blank">弦塔</a> 提供技术支持 |
+                                <a href="https://eu.umami.is/share/mRTglbfLNoT7Vofa/aw0000.xtower.site"
+                                    target="_blank">数据访问统计</a> |
                                 <a href="https://stats.uptimerobot.com/cTTBFmsBaZ" target="_blank">服务可用性监控</a> |
                                 <a href="https://afdian.com/a/xtower" target="_blank">爱发电</a> |
                                 <a href="https://www.wjx.cn/vm/rDY4LVs.aspx#" target="_blank">反馈问题与建议</a>
@@ -1182,9 +1189,9 @@
         // 用户协议文本 (使用模板字符串 `` 可以保留换行)
         const agreementText = `### 「塔弦」空间站 - Phigros 成绩查询与图片生成器 用户协议
 
-**最后更新日期：2025年8月9日**
+**最后更新日期：2025年8月21日**
 
-**生效日期：2025年8月9日**
+**生效日期：2025年8月21日**
 
 ---
 
@@ -1259,6 +1266,7 @@
 
 #### 5. 知识产权
 5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于程序、代码、用户界面、网页、文字等）享有完整的知识产权。
+我们保留在不通知的情况下，随时更改生成内容（如图片模板、布局、包含的信息），或在生成内容中添加本服务标识（如水印或网址）的权利。
 5.2 本服务的**输出内容（包括但不限于 Best N 成绩图片、单曲成绩图）** 可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。** 本服务对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表开发者拥有这些素材的任何权利，不代表获得了权利人的任何官方授权，也不构成权利人对本服务的认可。**
 5.3 您理解并同意，您通过本服务生成的**任何内容（下称“生成内容”，例如 Best N 图片、单曲成绩图、文本成绩列表等）** 中可能包含上述第 5.2 条所述的第三方知识产权内容，因此，您应特别审慎地在个人、非商业、且符合原作品性质（如游戏社区讨论、成绩展示）的范围内分享和使用生成内容。超出此范围的使用（特别是任何形式的商业性使用、大规模传播或可能损害权利人利益的使用）可能构成侵权。**如果您的使用行为超出了“合理使用”的范畴（包括但不限于知识产权），开发者无法为您的后续使用行为承担法律责任。**
 5.4 我们尊重并保护权利人的知识产权。如果您是相关知识产权的合法权利人，并且认为本服务所使用的素材或“生成内容”侵犯了您的合法权益，请您通过本协议第10条提供的联系方式，向我们发送书面通知。您的通知应包含以下内容：
@@ -1269,10 +1277,12 @@
 
 #### 6. 免责声明与责任限制
 6.1 本服务按“**现状**”和“**现有**”的基础提供，**不做任何形式明示或默示的担保**，包括但不限于服务的稳定性、准确性、安全性或持续可用性。您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误、或因本地设备安全问题导致Token泄露的理论风险等）**均由您自行承担。**
+您有责任妥善保管您的个人设备，因您自身设备安全问题（如设备丢失、感染病毒、浏览器被攻击等）导致的 SessionToken 泄露及可能造成的任何损失，由您自行承担。
 6.2 **在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见。在任何情况下，即使本协议中的某些条款因故无效，开发者对您承担的全部赔偿责任，累计总额不应超过用户实际支付的费用。**
 6.3 不论在何种情况下，本服务均不对由于网络连接故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际、国内法院的命令，黑客攻击，互联网病毒，网络运营商技术调整，政府临时管制或任何其他不能合理控制的原因而造成的本服务不能访问、服务中断、信息及数据的泄露、延误、停滞或错误，不能提供或延迟提供服务而承担责任。
 6.4 **本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。** 您理解并同意，本服务仅为玩家提供便利，所有数据来源均依赖于 TapTap 官方云存档接口。
 本服务的可用性、数据准确性及功能完整性**完全依赖于 TapTap 官方云存档接口的开放状态、稳定性、数据格式及访问策略。**TapTap 或 Pigeon Games 有权**随时变更或关闭其接口**，开发者对此**无法控制亦不承担任何责任**。
+本服务使用的云存档来源于 TapTap 官方接口，我们**不对数据的绝对准确性、完整性或实时性做出任何保证**。所有数据**应以 Phigros 游戏内展示为准**。因数据延迟、错误或不同步可能导致的任何问题，开发者不承担责任。
 6.5 开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。**您理解并同意，如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，开发者有权随时移除相关功能、限制服务或终止本协议，而无需对您承担任何责任。**
 6.6 本服务可能会提供与其他国际互联网网站或资源进行链接（例如友链）。除非另有声明，开发者无法对第三方网站之服务进行控制，用户因使用或依赖上述网站或资源所产生的损失或损害，开发者不承担任何责任。我们建议您在访问其他网站或资源前仔细阅读其服务条款和隐私政策。
 
@@ -1349,6 +1359,12 @@ sczr0710@163.com
             // 显示目标面板和激活目标按钮
             document.getElementById(tabId).classList.add('active');
             document.querySelector(`.tab-button[onclick="switchTab('${tabId}')"]`).classList.add('active');
+
+            // 切换标签页时清空右侧结果区域
+            const resultContainer = document.getElementById('result-container');
+            if (resultContainer) {
+                resultContainer.innerHTML = '';
+            }
 
             // 如果切换到关于标签页，加载统计数据
             if (tabId === 'about') {
