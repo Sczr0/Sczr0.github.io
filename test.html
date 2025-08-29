@@ -836,6 +836,23 @@
             }
         }
     </style>
+    <!-- ===== 直播内容速递样式 ===== -->
+    <style>
+        .live-content-container {
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 12px;
+            font-family: var(--font-family-main);
+        }
+
+        #live-content-message {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+    </style>
     <!-- ===== 维护通知样式 ===== -->
     <style>
         #maintenance-overlay {
@@ -956,6 +973,7 @@
                 <div class="tabs-container">
                     <button class="tab-button" onclick="switchTab('b19-generator')">成绩图片</button>
                     <button class="tab-button" onclick="switchTab('song-query')">单曲查询</button>
+                    <button class="tab-button" id="live-content-tab" onclick="switchTab('live-content')" style="display: none;">直播内容速递</button>
                     <button class="tab-button" onclick="switchTab('song-update-info')">新曲速递</button>
                     <button class="tab-button" onclick="switchTab('about')">关于</button>
                 </div>
@@ -1026,6 +1044,13 @@
                             </svg>
                             查询单曲成绩
                         </button>
+                    </div>
+                </div>
+
+                <!-- 面板: 直播内容速递 -->
+                <div id="live-content" class="tab-pane">
+                    <div class="live-content-container">
+                        <p id="live-content-message"></p>
                     </div>
                 </div>
 
@@ -1139,6 +1164,16 @@
             message: '受服务器影响，Phigros 成绩查询与图片生成器正在进行例行维护。<br>预计恢复时间：<strong>未知</strong><br>给您带来不便，敬请谅解。',
             preNoticeEnabled: true, // 是否开启预告
             preNoticeMessage: '受服务器影响，本服务将于<strong>8月22日 23:00（UTC+8）</strong>开始例行维护。<br>预计恢复时间：<strong>未知</strong>，<br>具体时间另行通知'
+        };
+
+        // ==========================================================
+        // 直播内容速递配置
+        // ==========================================================
+        const liveContentConfig = {
+            enabled: true, // 设置为 false 可禁用此功能
+            startTime: '2025-08-29T12:00:00', // 直播速递开始显示的时间
+            endTime: '2025-08-30T22:00:00',   // 直播速递结束显示的时间
+            message: '等待直播结束...'
         };
 
 
@@ -1338,6 +1373,7 @@ sczr0710@163.com
             // 1. 设置协议内容和事件监听
             setupAgreementModal();
             setupBackgroundDownloadLink(); // 异步设置背景下载链接
+            setupLiveContentTab(); // 设置直播内容速递标签页
             manualLoginBtn.addEventListener('click', handleManualLogin);
             closeRksListBtn.addEventListener('click', () => rksListModal.style.display = 'none');
 
@@ -1973,6 +2009,29 @@ sczr0710@163.com
                     modal.style.display = 'none';
                 }
             });
+        }
+    </script>
+
+    <!-- ===== 直播内容速递检查逻辑 ===== -->
+    <script>
+        function setupLiveContentTab() {
+            if (!liveContentConfig.enabled) {
+                return;
+            }
+
+            const now = new Date();
+            const startTime = new Date(liveContentConfig.startTime);
+            const endTime = new Date(liveContentConfig.endTime);
+
+            if (now >= startTime && now < endTime) {
+                const tab = document.getElementById('live-content-tab');
+                const messageEl = document.getElementById('live-content-message');
+
+                if (tab && messageEl) {
+                    tab.style.display = 'inline-block';
+                    messageEl.innerHTML = liveContentConfig.message;
+                }
+            }
         }
     </script>
 
