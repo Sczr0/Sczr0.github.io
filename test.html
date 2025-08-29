@@ -63,6 +63,7 @@
         /* === 容器卡片样式 === */
         .container {
             background: var(--card-background-color);
+            padding: 2rem;
             /* 【修改 2】使用 rem 单位 */
             -webkit-backdrop-filter: blur(1.5vw);
             backdrop-filter: blur(1.5vw);
@@ -465,6 +466,38 @@
         #rks-list-content td:nth-child(5) {
             font-weight: bold;
             color: var(--primary-color);
+        }
+
+        /* ===== 图片显示模态框样式 ===== */
+        #image-display-modal .modal-content {
+            width: auto;
+            max-width: 90vw; /* 最大宽度为视口的90% */
+            max-height: 90vh; /* 最大高度为视口的90% */
+            padding: 1.5rem;
+        }
+
+        #image-modal-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            overflow: hidden; /* 防止图片溢出 */
+            margin-bottom: 1.5rem;
+        }
+
+        #image-modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 保持图片比例 */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        #image-modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0; /* 移除与内容的默认间距 */
         }
 
         .modal-footer {
@@ -892,6 +925,65 @@
             }
         }
     </style>
+    <!-- ===== 新增：可折叠面板样式 ===== -->
+    <style>
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            background-color: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 1rem 0.5rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Source Han Sans & Saira Hybrid', sans-serif;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .accordion-header::after {
+            content: '\25B6'; /* 展开前的三角图标 (▶) */
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(90deg); /* 展开后的三角图标 */
+        }
+
+        .accordion-content {
+            padding: 0 1rem;
+            background-color: transparent;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            text-align: left; /* 确保内容左对齐 */
+        }
+
+        .accordion-content p {
+            margin: 0.5rem 0;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+    </style>
     <!-- ===== 直播内容速递样式 ===== -->
     <style>
         .live-content-container {
@@ -948,6 +1040,28 @@
             font-size: 1.2rem;
             line-height: 1.8;
             max-width: 500px;
+        }
+    </style>
+    <!-- ===== 公告弹窗样式 ===== -->
+    <style>
+        #announcement-modal .modal-content {
+            max-width: 500px;
+        }
+
+        #announcement-content {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        #announcement-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        #announcement-content a:hover {
+            text-decoration: underline;
         }
     </style>
     <script defer src="https://cloud.umami.is/script.js"
@@ -1189,6 +1303,20 @@
     </div>
     <!-- ========================= -->
 
+    <!-- ===== 图片显示模态框 ===== -->
+    <div id="image-display-modal" style="display: none;">
+        <div class="modal-content">
+            <h2 id="image-modal-title">查询结果</h2>
+            <div id="image-modal-content">
+                <!-- 图片将在这里动态插入 -->
+            </div>
+            <div class="modal-footer" id="image-modal-footer">
+                <!-- 保存和关闭按钮将在这里动态插入 -->
+            </div>
+        </div>
+    </div>
+    <!-- ========================= -->
+ 
     <div id="disclaimer-modal" class="modal-overlay">
         <div class="modal-content">
             <h2>免责声明</h2>
@@ -1208,18 +1336,43 @@
         </div>
     </div>
 
+    <!-- ===== 公告弹窗 ===== -->
+    <div id="announcement-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>公告</h2>
+            <div id="announcement-content">
+                <!-- 公告内容将由JS动态填充 -->
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                <label>
+                    <input type="checkbox" id="dont-show-again-checkbox">
+                    不再提示
+                </label>
+                <button id="close-announcement-btn" class="btn-secondary">关闭</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ==========================================================
         // 维护模式配置
         // ==========================================================
         const maintenanceConfig = {
-            enabled: false, // true: 启用维护模式检查, false: 禁用
-            startTime: '2025-08-22T23:00:00', // 维护开始时间 (YYYY-MM-DDTHH:mm:ss)
-            endTime: '2025-08-23T23:00:00',   // 维护结束时间
+            enabled: true, // true: 启用维护模式检查, false: 禁用
+            startTime: '2025-08-31T17:00:00', // 维护开始时间 (YYYY-MM-DDTHH:mm:ss)
+            endTime: '2025-08-31T20:00:00',   // 维护结束时间
             title: '维护通知',
-            message: '受服务器影响，Phigros 成绩查询与图片生成器正在进行例行维护。<br>预计恢复时间：<strong>未知</strong><br>给您带来不便，敬请谅解。',
+            message: '受Phigros更新影响，Phigros 成绩查询与图片生成器正在进行例行维护。<br>预计恢复时间：<strong>8月31日 20:00（UTC+8）</strong><br>给您带来不便，敬请谅解。',
             preNoticeEnabled: true, // 是否开启预告
-            preNoticeMessage: '受服务器影响，本服务将于<strong>8月22日 23:00（UTC+8）</strong>开始例行维护。<br>预计恢复时间：<strong>未知</strong>，<br>具体时间另行通知'
+            preNoticeMessage: '受Phigros更新影响，本服务将于<strong>8月31日 17:00（UTC+8）</strong>开始例行维护。<br>预计恢复时间：<strong>8月31日 20:00（UTC+8）</strong>，<br>具体时间另行通知'
+        };
+
+        // ==========================================================
+        // 公告配置
+        // ==========================================================
+        const announcementConfig = {
+            version: '1', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
+            text: '欢迎来到塔弦空间站！这是一条公告！<br>如果可以，请先阅读用户协议，也欢迎加入[官方群聊]催更新功能/反馈Bug。'
         };
 
         // ==========================================================
@@ -1229,7 +1382,38 @@
             enabled: true, // 设置为 false 可禁用此功能
             startTime: '2025-08-29T21:00:00', // 直播速递开始显示的时间
             endTime: '2025-09-19T17:00:00',   // 直播速递结束显示的时间
-            message: 'Phigros<br>1.ka二联<br>2.2026年第九章，预计为C8三倍工作量<br>3.独占曲会增加，超过10w日元的歌曲，不至于远超，请各位小鸽子不要太在意价格，开心最重要<br>4.投稿歌曲活动，呸喽呸喽主办<br>5.周边更新 分档赠送周边 活动时间今晚8-12点 请支持我们鸠鸠w<br>6.愚人节2首常驻8.31下午五点 抒情版雪崩 均为新铺面 雪降IN12 复仇IN16<br>7.AT追加，PANIC PARADISE AT16/Der Richter<br>8.和日本街机音游联动<br>9月19（maimai<br>Komplexe アンビバレンス<br>solips 《QZKago Requiem》；<br>非全AT，收集品方形曲绘<br>9.周边 九鸟的石头（误）、塑料文件袋 鸠鸠好可爱~<br>10.南京云锦博物馆合作，九鸟基诺吧唧周边，亚克力色纸，立牌 （真的很好看）<br>Rizline<br>1.花语旋律联动后三首歌，预售（9月5日）<br>2.phigros自交（）不定期非对称 其中一首歌，双人合作，非日韩其一为欧美，上过其他音游<br>思维密码<br>1.有人在开发（<br>2.近期有会消息'
+            // 将 message 重构为结构化数据
+            data: [
+                {
+                    title: 'Phigros',
+                    content: [
+                        '1. ka二联',
+                        '2. 2026年第九章，预计为C8三倍工作量',
+                        '3. 独占曲会增加，超过10w日元的歌曲，不至于远超，请各位小鸽子不要太在意价格，开心最重要',
+                        '4. 投稿歌曲活动，呸喽呸喽主办',
+                        '5. 周边更新 分档赠送周边 活动时间今晚8-12点 请支持我们鸠鸠w',
+                        '6. 愚人节2首常驻8.31下午五点 抒情版雪崩 均为新铺面 雪降IN12 复仇IN16',
+                        '7. AT追加，PANIC PARADISE AT16/Der Richter',
+                        '8. 和日本街机音游联动<br>&nbsp;&nbsp;&nbsp;9月19（maimai<br>&nbsp;&nbsp;&nbsp;Komplexe アンビバレンス<br>&nbsp;&nbsp;&nbsp;solips 《QZKago Requiem》；<br>&nbsp;&nbsp;&nbsp;非全AT，收集品方形曲绘',
+                        '9. 周边 九鸟的石头（误）、塑料文件袋 鸠鸠好可爱~',
+                        '10. 南京云锦博物馆合作，九鸟基诺吧唧周边，亚克力色纸，立牌 （真的很好看）'
+                    ]
+                },
+                {
+                    title: 'Rizline',
+                    content: [
+                        '1. 花语旋律联动后三首歌，预售（9月5日）',
+                        '2. phigros自交（）不定期非对称 其中一首歌，双人合作，非日韩其一为欧美，上过其他音游'
+                    ]
+                },
+                {
+                    title: '思维密码',
+                    content: [
+                        '1. 有人在开发（',
+                        '2. 近期有会消息'
+                    ]
+                }
+            ]
         };
 
 
@@ -1430,12 +1614,60 @@ sczr0710@163.com
             setupAgreementModal();
             setupBackgroundDownloadLink(); // 异步设置背景下载链接
             setupLiveContentTab(); // 设置直播内容速递标签页
+            addAccordionListeners(); // 为动态添加的元素绑定事件
             manualLoginBtn.addEventListener('click', handleManualLogin);
             closeRksListBtn.addEventListener('click', () => rksListModal.style.display = 'none');
 
             // 2. 直接初始化应用
             initializeApp();
+            
+            // 3. 初始化公告弹窗
+            setupAnnouncementModal();
         });
+
+        // ===== 新增函数：初始化公告弹窗 =====
+        function setupAnnouncementModal() {
+            const modal = document.getElementById('announcement-modal');
+            const content = document.getElementById('announcement-content');
+            const closeBtn = document.getElementById('close-announcement-btn');
+            const checkbox = document.getElementById('dont-show-again-checkbox');
+
+            // 从配置中读取公告内容和版本
+            const { version: currentVersion, text: announcementText } = announcementConfig;
+            
+            // 引用已有链接
+            const userAgreementLink = document.getElementById('view-agreement-link').href;
+            const officialGroupLink = document.querySelector('a[href*="qm.qq.com"]').href;
+
+            // 转换链接
+            let processedText = announcementText.replace('[用户协议]', `<a href="#" id="announcement-agreement-link">用户协议</a>`);
+            processedText = processedText.replace('[官方群聊]', `<a href="${officialGroupLink}" target="_blank">官方群聊</a>`);
+            content.innerHTML = processedText;
+
+            // 为动态添加的用户协议链接绑定事件
+            const announcementAgreementLink = document.getElementById('announcement-agreement-link');
+            if(announcementAgreementLink) {
+                announcementAgreementLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('view-agreement-link').click();
+                });
+            }
+
+            // 检查是否需要显示：对比版本号
+            const lastSeenVersion = localStorage.getItem('announcementVersion');
+            if (lastSeenVersion !== currentVersion) {
+                modal.style.display = 'flex';
+            }
+
+            // 关闭按钮事件
+            closeBtn.addEventListener('click', () => {
+                if (checkbox.checked) {
+                    // 存储当前版本号
+                    localStorage.setItem('announcementVersion', currentVersion);
+                }
+                modal.style.display = 'none';
+            });
+        }
 
         // ===== 新增函数：切换标签页 =====
         function switchTab(tabId) {
@@ -1653,28 +1885,17 @@ sczr0710@163.com
 
                 const imageBlob = await response.blob();
                 const imageUrl = URL.createObjectURL(imageBlob);
-                resultContainer.innerHTML = `<img src="${imageUrl}" alt="Best ${n} 成绩图">`;
-
-                // 创建保存链接/按钮
-                const saveLink = document.createElement('a');
-                saveLink.href = imageUrl;
-                saveLink.download = `phigros_b${n}_result.png`; // 设置下载文件名
+                const fileName = `phigros_b${n}_result.png`;
+                showImageInModal(imageUrl, fileName);
 
                 // 检查是否需要自动保存
                 const autoSaveCheckbox = document.getElementById('auto-save-checkbox');
                 if (autoSaveCheckbox.checked) {
-                    saveLink.click(); // 直接触发下载
+                    const saveLink = document.createElement('a');
+                    saveLink.href = imageUrl;
+                    saveLink.download = fileName;
+                    saveLink.click();
                 }
-
-                // 始终显示一个可见的保存按钮
-                saveLink.innerHTML = `<button style="margin-top: 1rem;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                    </svg>
-                    保存图片
-                </button>`;
-                resultContainer.appendChild(saveLink);
 
             } catch (error) {
                 console.error('生成图片失败:', error);
@@ -1820,22 +2041,8 @@ sczr0710@163.com
 
                 const imageBlob = await response.blob();
                 const imageUrl = URL.createObjectURL(imageBlob);
-                resultContainer.innerHTML = `<img src="${imageUrl}" alt="歌曲 ${keyword} 成绩图">`;
-
-                // 创建保存链接/按钮
-                const saveLink = document.createElement('a');
-                saveLink.href = imageUrl;
-                saveLink.download = `phigros_song_${keyword}.png`; // 设置下载文件名
-
-                // 始终显示一个可见的保存按钮
-                saveLink.innerHTML = `<button style="margin-top: 1rem;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                    </svg>
-                    保存图片
-                </button>`;
-                resultContainer.appendChild(saveLink);
+                const fileName = `phigros_song_${keyword}.png`;
+                showImageInModal(imageUrl, fileName);
 
             } catch (error) {
                 console.error('生成单曲图片失败:', error);
@@ -1919,6 +2126,51 @@ sczr0710@163.com
                 console.error('获取RKS列表失败:', error);
                 rksListContent.innerHTML = `<p style="color: var(--error-color);">加载失败: ${error.message}</p>`;
             }
+        }
+
+        // ===== 新增函数：在模态框中显示图片 =====
+        function showImageInModal(imageUrl, fileName) {
+            const modal = document.getElementById('image-display-modal');
+            const modalContent = document.getElementById('image-modal-content');
+            const modalFooter = document.getElementById('image-modal-footer');
+
+            // 1. 清空并填充内容
+            modalContent.innerHTML = `<img src="${imageUrl}" alt="${fileName}">`;
+            modalFooter.innerHTML = ''; // 清空旧按钮
+
+            // 2. 创建保存按钮
+            const saveLink = document.createElement('a');
+            saveLink.href = imageUrl;
+            saveLink.download = fileName;
+            saveLink.innerHTML = `<button class="btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                </svg>
+                保存图片
+            </button>`;
+            modalFooter.appendChild(saveLink);
+
+            // 3. 创建关闭按钮
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '关闭';
+            closeBtn.className = 'btn-secondary';
+            closeBtn.onclick = () => {
+                modal.style.display = 'none';
+                // 释放Blob URL以节省内存
+                URL.revokeObjectURL(imageUrl);
+            };
+            modalFooter.appendChild(closeBtn);
+
+            // 4. 显示模态框
+            modal.style.display = 'flex';
+
+            // 5. 点击模态框外部也可以关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeBtn.click(); // 触发关闭按钮的点击事件
+                }
+            });
         }
 
         // ===== 新增函数：渲染新曲速递信息 =====
@@ -2081,13 +2333,54 @@ sczr0710@163.com
 
             if (now >= startTime && now < endTime) {
                 const tab = document.getElementById('live-content-tab');
-                const messageEl = document.getElementById('live-content-message');
+                const liveContentContainer = document.getElementById('live-content'); // 目标容器
 
-                if (tab && messageEl) {
+                if (tab && liveContentContainer) {
                     tab.style.display = 'inline-block';
-                    messageEl.innerHTML = liveContentConfig.message;
+
+                    // 使用新的结构化数据生成HTML
+                    const accordionHtml = liveContentConfig.data.map(item => {
+                        const contentHtml = item.content.map(line => `<p>${line}</p>`).join('');
+                        return `
+                            <div class="accordion-item">
+                                <button class="accordion-header">${item.title}</button>
+                                <div class="accordion-content">
+                                    ${contentHtml}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    // 替换掉旧的容器内容
+                    const containerParent = liveContentContainer.querySelector('.live-content-container');
+                    if(containerParent) {
+                        containerParent.innerHTML = accordionHtml;
+                        // 移除旧的内联样式，让CSS文件控制
+                        containerParent.style.padding = '0';
+                        containerParent.style.textAlign = 'left';
+                    }
                 }
             }
+        }
+
+        function addAccordionListeners() {
+            // 使用事件委托，将监听器添加到父容器上
+            const liveContentContainer = document.getElementById('live-content');
+            if (!liveContentContainer) return;
+
+            liveContentContainer.addEventListener('click', function (event) {
+                const header = event.target.closest('.accordion-header');
+                if (!header) return; // 如果点击的不是header，则不执行任何操作
+
+                header.classList.toggle('active');
+                const content = header.nextElementSibling;
+
+                if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
         }
     </script>
 
