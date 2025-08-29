@@ -33,15 +33,19 @@
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
-            background-image: url('https://api.mtyqx.cn/tapi/random.php');
+            background-image: url('https://www.loliapi.com/acg');
+            /* 背景图片链接 */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
             box-sizing: border-box;
             position: relative;
+            overflow-x: hidden;
+            /* 隐藏溢出的模糊边缘 */
+            min-width: 320px;
+            /* 增加最小宽度防止极端压缩 */
         }
 
         body::before {
@@ -62,7 +66,6 @@
             /* 【修改 2】使用 rem 单位 */
             -webkit-backdrop-filter: blur(1.5vw);
             backdrop-filter: blur(1.5vw);
-            padding: 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
             text-align: center;
@@ -70,6 +73,8 @@
             width: 95%;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow-x: hidden;
+            /* 防止内部元素溢出 */
         }
 
         .container:hover {
@@ -150,8 +155,14 @@
             border-radius: var(--border-radius);
             padding: 1rem;
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 90%;
+            /* 改为相对宽度 */
+            max-width: 280px;
+            /* 限制最大宽度 */
+            aspect-ratio: 1 / 1;
+            /* 保持宽高比为1:1 */
+            height: auto;
+            /* 高度自动 */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -516,6 +527,51 @@
 
             .left-panel {
                 margin-bottom: 2rem;
+                width: 100%;
+            }
+
+            .right-panel {
+                width: 100%;
+            }
+        }
+
+        /* 极端窄屏适配 */
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .tabs-container {
+                margin-bottom: 1rem;
+            }
+
+            .tab-button {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            /* 调整主题选择和按钮组的布局 */
+            #image-generator .form-group>div,
+            #image-generator>div {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            #image-generator div[style*="justify-content: center"] {
+                flex-direction: row;
+                /* 保持按钮水平排列，但允许换行 */
+                flex-wrap: wrap;
             }
         }
 
