@@ -379,7 +379,8 @@
 
         /* === 模态框通用样式 === */
         #agreement-modal,
-        #rks-list-modal {
+        #rks-list-modal,
+        #image-display-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -481,7 +482,7 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
-            overflow: hidden; /* 防止图片溢出 */
+            overflow: auto; /* 当图片过大时显示滚动条 */
             margin-bottom: 1.5rem;
         }
 
