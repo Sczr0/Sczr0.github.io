@@ -1,1092 +1,1188 @@
-
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="Phigros 成绩查询与图片生成器 - 用户协议" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet'
+
+<head>
+  <meta charset="utf-8">
+  <meta name="Phigros 成绩查询与图片生成器 - 用户协议" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet'
     href='https://ik.imagekit.io/Sczr/Source%20Han%20Sans%20&%20Saira%20Hybrid-Regular%20(1)/result.css?updatedAt=1733583831964' />
-	  <style type="text/css">
-
-[data-color-mode*='light'], [data-color-mode*='light'] body, .markdown-body[theme*='light'] {
-  --color-prettylights-syntax-comment: #6e7781;
-  --color-prettylights-syntax-constant: #0550ae;
-  --color-prettylights-syntax-entity: #8250df;
-  --color-prettylights-syntax-storage-modifier-import: #24292f;
-  --color-prettylights-syntax-entity-tag: #116329;
-  --color-prettylights-syntax-keyword: #cf222e;
-  --color-prettylights-syntax-string: #0a3069;
-  --color-prettylights-syntax-variable: #953800;
-  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
-  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
-  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
-  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
-  --color-prettylights-syntax-carriage-return-bg: #cf222e;
-  --color-prettylights-syntax-string-regexp: #116329;
-  --color-prettylights-syntax-markup-list: #3b2300;
-  --color-prettylights-syntax-markup-heading: #0550ae;
-  --color-prettylights-syntax-markup-italic: #24292f;
-  --color-prettylights-syntax-markup-bold: #24292f;
-  --color-prettylights-syntax-markup-deleted-text: #82071e;
-  --color-prettylights-syntax-markup-deleted-bg: #FFEBE9;
-  --color-prettylights-syntax-markup-inserted-text: #116329;
-  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
-  --color-prettylights-syntax-markup-changed-text: #953800;
-  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
-  --color-prettylights-syntax-markup-ignored-text: #eaeef2;
-  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
-  --color-prettylights-syntax-meta-diff-range: #8250df;
-  --color-prettylights-syntax-brackethighlighter-angle: #57606a;
-  --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
-  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
-  --color-fg-default: #24292f;
-  --color-fg-muted: #57606a;
-  --color-fg-subtle: #6e7781;
-  --color-canvas-default: #ffffff;
-  --color-canvas-subtle: #f6f8fa;
-  --color-border-default: #d0d7de;
-  --color-border-muted: hsla(210,18%,87%,1);
-  --color-neutral-muted: rgba(175,184,193,0.2);
-  --color-accent-fg: #0969da;
-  --color-accent-emphasis: #0969da;
-  --color-attention-subtle: #fff8c5;
-  --color-danger-fg: #cf222e;
-}
-[data-color-mode*='dark'], [data-color-mode*='dark'] body, .markdown-body[theme*='dark'] {
-  --color-prettylights-syntax-comment: #8b949e;
-  --color-prettylights-syntax-constant: #79c0ff;
-  --color-prettylights-syntax-entity: #d2a8ff;
-  --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
-  --color-prettylights-syntax-entity-tag: #7ee787;
-  --color-prettylights-syntax-keyword: #ff7b72;
-  --color-prettylights-syntax-string: #a5d6ff;
-  --color-prettylights-syntax-variable: #ffa657;
-  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
-  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
-  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
-  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
-  --color-prettylights-syntax-carriage-return-bg: #b62324;
-  --color-prettylights-syntax-string-regexp: #7ee787;
-  --color-prettylights-syntax-markup-list: #f2cc60;
-  --color-prettylights-syntax-markup-heading: #1f6feb;
-  --color-prettylights-syntax-markup-italic: #c9d1d9;
-  --color-prettylights-syntax-markup-bold: #c9d1d9;
-  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
-  --color-prettylights-syntax-markup-deleted-bg: #67060c;
-  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
-  --color-prettylights-syntax-markup-inserted-bg: #033a16;
-  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
-  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
-  --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
-  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
-  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
-  --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
-  --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
-  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
-  --color-fg-default: #c9d1d9;
-  --color-fg-muted: #8b949e;
-  --color-fg-subtle: #484f58;
-  --color-canvas-default: #0d1117;
-  --color-canvas-subtle: #161b22;
-  --color-border-default: #30363d;
-  --color-border-muted: #21262d;
-  --color-neutral-muted: rgba(110,118,129,0.4);
-  --color-accent-fg: #58a6ff;
-  --color-accent-emphasis: #1f6feb;
-  --color-attention-subtle: rgba(187,128,9,0.15);
-  --color-danger-fg: #f85149;
-}
-
-.markdown-body {
-  display: block;
-  -webkit-text-size-adjust: 100%;
-  --font-family-main: 'Source Han Sans & Saira Hybrid', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
-  color: var(--color-fg-default);
-  background-color: var(--color-canvas-default);
-}
-
-.markdown-body details,
-.markdown-body figcaption,
-.markdown-body figure {
-  display: block;
-}
-
-.markdown-body summary {
-  display: list-item;
-}
-
-.markdown-body [hidden] {
-  display: none !important;
-}
-
-.markdown-body a {
-  background-color: transparent;
-  color: var(--color-accent-fg);
-  text-decoration: none;
-}
-
-.markdown-body a:active,
-.markdown-body a:hover {
-  outline-width: 0;
-}
-
-.markdown-body abbr[title] {
-  border-bottom: none;
-  text-decoration: underline dotted;
-}
-
-.markdown-body b,
-.markdown-body strong {
-  font-weight: 600;
-}
-
-.markdown-body dfn {
-  font-style: italic;
-}
-
-.markdown-body h1 {
-  margin: .67em 0;
-  font-weight: 600;
-  padding-bottom: .3em;
-  font-size: 2em;
-  border-bottom: 1px solid var(--color-border-muted);
-}
-
-.markdown-body mark {
-  background-color: var(--color-attention-subtle);
-  color: var(--color-text-primary);
-}
-
-.markdown-body small {
-  font-size: 90%;
-}
-
-.markdown-body sub,
-.markdown-body sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-.markdown-body sub {
-  bottom: -0.25em;
-}
-
-.markdown-body sup {
-  top: -0.5em;
-}
-
-.markdown-body img {
-  border-style: none;
-  max-width: 100%;
-  box-sizing: content-box;
-  background-color: var(--color-canvas-default);
-}
-
-.markdown-body code,
-.markdown-body kbd,
-.markdown-body pre,
-.markdown-body samp {
-  font-family: monospace,monospace;
-  font-size: 1em;
-}
-
-.markdown-body figure {
-  margin: 1em 40px;
-}
-
-.markdown-body hr {
-  box-sizing: content-box;
-  overflow: hidden;
-  background: transparent;
-  border-bottom: 1px solid var(--color-border-muted);
-  height: .25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: var(--color-border-default);
-  border: 0;
-}
-
-.markdown-body input {
-  font: inherit;
-  margin: 0;
-  overflow: visible;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-.markdown-body [type=button]::-moz-focus-inner,
-.markdown-body [type=reset]::-moz-focus-inner,
-.markdown-body [type=submit]::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
-}
-
-.markdown-body [type=button]:-moz-focusring,
-.markdown-body [type=reset]:-moz-focusring,
-.markdown-body [type=submit]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
-
-.markdown-body [type=checkbox],
-.markdown-body [type=radio] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.markdown-body [type=number]::-webkit-inner-spin-button,
-.markdown-body [type=number]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-.markdown-body [type=search] {
-  outline-offset: -2px;
-}
-
-.markdown-body [type=search]::-webkit-search-cancel-button,
-.markdown-body [type=search]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-.markdown-body ::-webkit-input-placeholder {
-  color: inherit;
-  opacity: .54;
-}
-
-.markdown-body ::-webkit-file-upload-button {
-  -webkit-appearance: button;
-  font: inherit;
-}
-
-.markdown-body a:hover {
-  text-decoration: underline;
-}
-
-.markdown-body hr::before {
-  display: table;
-  content: "";
-}
-
-.markdown-body hr::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdown-body table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  overflow: auto;
-}
-
-.markdown-body td,
-.markdown-body th {
-  padding: 0;
-}
-
-.markdown-body details summary {
-  cursor: pointer;
-}
-
-.markdown-body details:not([open])>*:not(summary) {
-  display: none !important;
-}
-
-.markdown-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  line-height: 10px;
-  color: var(--color-fg-default);
-  vertical-align: middle;
-  background-color: var(--color-canvas-subtle);
-  border: solid 1px var(--color-neutral-muted);
-  border-bottom-color: var(--color-neutral-muted);
-  border-radius: 6px;
-  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.markdown-body h2 {
-  font-weight: 600;
-  padding-bottom: .3em;
-  font-size: 1.5em;
-  border-bottom: 1px solid var(--color-border-muted);
-}
-
-.markdown-body h3 {
-  font-weight: 600;
-  font-size: 1.25em;
-}
-
-.markdown-body h4 {
-  font-weight: 600;
-  font-size: 1em;
-}
-
-.markdown-body h5 {
-  font-weight: 600;
-  font-size: .875em;
-}
-
-.markdown-body h6 {
-  font-weight: 600;
-  font-size: .85em;
-  color: var(--color-fg-muted);
-}
-
-.markdown-body p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.markdown-body blockquote {
-  margin: 0;
-  padding: 0 1em;
-  color: var(--color-fg-muted);
-  border-left: .25em solid var(--color-border-default);
-}
-
-.markdown-body ul,
-.markdown-body ol {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 2em;
-}
-
-.markdown-body ol ol,
-.markdown-body ul ol {
-  list-style-type: lower-roman;
-}
-
-.markdown-body ul ul ol,
-.markdown-body ul ol ol,
-.markdown-body ol ul ol,
-.markdown-body ol ol ol {
-  list-style-type: lower-alpha;
-}
-
-.markdown-body dd {
-  margin-left: 0;
-}
-
-.markdown-body tt,
-.markdown-body code {
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-}
-
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-  word-wrap: normal;
-}
-
-.markdown-body .octicon {
-  display: inline-block;
-  overflow: visible !important;
-  vertical-align: text-bottom;
-  fill: currentColor;
-}
-
-.markdown-body ::placeholder {
-  color: var(--color-fg-subtle);
-  opacity: 1;
-}
-
-.markdown-body input::-webkit-outer-spin-button,
-.markdown-body input::-webkit-inner-spin-button {
-  margin: 0;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.markdown-body .token.comment, .markdown-body .token.prolog, .markdown-body .token.doctype, .markdown-body .token.cdata {
-  color: var(--color-prettylights-syntax-comment);
-}
-.markdown-body .token.namespace { opacity: 0.7; }
-.markdown-body .token.tag, .markdown-body .token.selector, .markdown-body .token.constant, .markdown-body .token.symbol, .markdown-body .token.deleted {
-  color: var(--color-prettylights-syntax-entity-tag);
-}
-.markdown-body .token.maybe-class-name {
-  color: var(--color-prettylights-syntax-variable);
-}
-.markdown-body .token.property-access, .markdown-body .token.operator, .markdown-body .token.boolean, .markdown-body .token.number, .markdown-body .token.selector .markdown-body .token.class, .markdown-body .token.attr-name, .markdown-body .token.string, .markdown-body .token.char, .markdown-body .token.builtin {
-  color: var(--color-prettylights-syntax-constant);
-}
-
-.markdown-body .token.deleted {
-  color: var(--color-prettylights-syntax-markup-deleted-text);
-}
-.markdown-body .token.property {
-  color: var(--color-prettylights-syntax-constant);
-}
-.markdown-body .token.punctuation {
-  color: var(--color-prettylights-syntax-markup-bold);
-}
-.markdown-body .token.function {
-  color: var(--color-prettylights-syntax-entity);
-}
-.markdown-body .code-line .token.deleted {
-  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
-}
-.markdown-body .token.inserted {
-  color: var(--color-prettylights-syntax-markup-inserted-text);
-}
-.markdown-body .code-line .token.inserted {
-  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
-}
-
-.markdown-body .token.variable {
-  color: var(--color-prettylights-syntax-constant);
-}
-.markdown-body .token.entity, .markdown-body .token.url, .language-css .markdown-body .token.string, .style .markdown-body .token.string {
-  color: var(--color-prettylights-syntax-string);
-}
-.markdown-body .token.color, .markdown-body .token.atrule, .markdown-body .token.attr-value, .markdown-body .token.function, .markdown-body .token.class-name {
-  color: var(--color-prettylights-syntax-string);
-}
-.markdown-body .token.rule, .markdown-body .token.regex, .markdown-body .token.important, .markdown-body .token.keyword {
-  color: var(--color-prettylights-syntax-keyword);
-}
-.markdown-body .token.coord {
-  color: var(--color-prettylights-syntax-meta-diff-range);
-}
-.markdown-body .token.important, .markdown-body .token.bold { font-weight: bold; }
-.markdown-body .token.italic { font-style: italic; }
-.markdown-body .token.entity { cursor: help; }
-
-.markdown-body [data-catalyst] {
-  display: block;
-}
-
-.markdown-body g-emoji {
-  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  font-size: 1em;
-  font-style: normal !important;
-  font-weight: 400;
-  line-height: 1;
-  vertical-align: -0.075em;
-}
-
-.markdown-body g-emoji img {
-  width: 1em;
-  height: 1em;
-}
-
-.markdown-body::before {
-  display: table;
-  content: "";
-}
-
-.markdown-body::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdown-body>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdown-body>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-.markdown-body a:not([href]) {
-  color: inherit;
-  text-decoration: none;
-}
-
-.markdown-body .absent {
-  color: var(--color-danger-fg);
-}
-
-.markdown-body a.anchor {
-  float: left;
-  padding-right: 4px;
-  margin-left: -20px;
-  line-height: 1;
-}
-
-.markdown-body a.anchor:focus {
-  outline: none;
-}
-
-.markdown-body p,
-.markdown-body blockquote,
-.markdown-body ul,
-.markdown-body ol,
-.markdown-body dl,
-.markdown-body table,
-.markdown-body pre,
-.markdown-body details {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.markdown-body blockquote>:first-child {
-  margin-top: 0;
-}
-
-.markdown-body blockquote>:last-child {
-  margin-bottom: 0;
-}
-
-.markdown-body sup>a::before {
-  content: "[";
-}
-
-.markdown-body sup>a::after {
-  content: "]";
-}
-
-.markdown-body .octicon-video {
-  border: 1px solid #d0d7de !important;
-  border-radius: 6px !important;
-  display: block;
-}
-
-.markdown-body .octicon-video summary {
-    border-bottom: 1px solid #d0d7de !important;
-    padding: 8px 16px !important;
-    cursor: pointer;
-}
-
-.markdown-body .octicon-video > video {
-    display: block !important;
-    max-width: 100% !important;
-    padding: 2px;
-    box-sizing: border-box;
-    border-bottom-right-radius: 6px !important;
-    border-bottom-left-radius: 6px !important;
-}
-
-.markdown-body details.octicon-video:not([open])>*:not(summary) {
-    display: none !important;
-}
-
-.markdown-body details.octicon-video:not([open]) > summary {
-    border-bottom: 0 !important;
-}
-
-.markdown-body h1 .octicon-link,
-.markdown-body h2 .octicon-link,
-.markdown-body h3 .octicon-link,
-.markdown-body h4 .octicon-link,
-.markdown-body h5 .octicon-link,
-.markdown-body h6 .octicon-link {
-  color: var(--color-fg-default);
-  vertical-align: middle;
-  visibility: hidden;
-}
-
-.markdown-body h1:hover .anchor,
-.markdown-body h2:hover .anchor,
-.markdown-body h3:hover .anchor,
-.markdown-body h4:hover .anchor,
-.markdown-body h5:hover .anchor,
-.markdown-body h6:hover .anchor {
-  text-decoration: none;
-}
-
-.markdown-body h1:hover .anchor .octicon-link,
-.markdown-body h2:hover .anchor .octicon-link,
-.markdown-body h3:hover .anchor .octicon-link,
-.markdown-body h4:hover .anchor .octicon-link,
-.markdown-body h5:hover .anchor .octicon-link,
-.markdown-body h6:hover .anchor .octicon-link {
-  visibility: visible;
-}
-
-.markdown-body h1 tt,
-.markdown-body h1 code,
-.markdown-body h2 tt,
-.markdown-body h2 code,
-.markdown-body h3 tt,
-.markdown-body h3 code,
-.markdown-body h4 tt,
-.markdown-body h4 code,
-.markdown-body h5 tt,
-.markdown-body h5 code,
-.markdown-body h6 tt,
-.markdown-body h6 code {
-  padding: 0 .2em;
-  font-size: inherit;
-}
-
-.markdown-body ul.no-list,
-.markdown-body ol.no-list {
-  padding: 0;
-  list-style-type: none;
-}
-
-.markdown-body ol[type="1"] {
-  list-style-type: decimal;
-}
-
-.markdown-body ol[type=a] {
-  list-style-type: lower-alpha;
-}
-
-.markdown-body ol[type=i] {
-  list-style-type: lower-roman;
-}
-
-.markdown-body div>ol:not([type]) {
-  list-style-type: decimal;
-}
-
-.markdown-body ul ul,
-.markdown-body ul ol,
-.markdown-body ol ol,
-.markdown-body ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body li>p {
-  margin-top: 16px;
-}
-
-.markdown-body li+li {
-  margin-top: .25em;
-}
-
-.markdown-body dl {
-  padding: 0;
-}
-
-.markdown-body dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: 600;
-}
-
-.markdown-body dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-
-.markdown-body table th {
-  font-weight: 600;
-}
-
-.markdown-body table th,
-.markdown-body table td {
-  padding: 6px 13px;
-  border: 1px solid var(--color-border-default);
-}
-
-.markdown-body table tr {
-  background-color: var(--color-canvas-default);
-  border-top: 1px solid var(--color-border-muted);
-}
-
-.markdown-body table tr:nth-child(2n) {
-  background-color: var(--color-canvas-subtle);
-}
-
-.markdown-body table img {
-  background-color: transparent;
-  vertical-align: middle;
-}
-
-.markdown-body img[align=right] {
-  padding-left: 20px;
-}
-
-.markdown-body img[align=left] {
-  padding-right: 20px;
-}
-
-.markdown-body .emoji {
-  max-width: none;
-  vertical-align: text-top;
-  background-color: transparent;
-}
-
-.markdown-body span.frame {
-  display: block;
-  overflow: hidden;
-}
-
-.markdown-body span.frame>span {
-  display: block;
-  float: left;
-  width: auto;
-  padding: 7px;
-  margin: 13px 0 0;
-  overflow: hidden;
-  border: 1px solid var(--color-border-default);
-}
-
-.markdown-body span.frame span img {
-  display: block;
-  float: left;
-}
-
-.markdown-body span.frame span span {
-  display: block;
-  padding: 5px 0 0;
-  clear: both;
-  color: var(--color-fg-default);
-}
-
-.markdown-body span.align-center {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.markdown-body span.align-center>span {
-  display: block;
-  margin: 13px auto 0;
-  overflow: hidden;
-  text-align: center;
-}
-
-.markdown-body span.align-center span img {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.markdown-body span.align-right {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-
-.markdown-body span.align-right>span {
-  display: block;
-  margin: 13px 0 0;
-  overflow: hidden;
-  text-align: right;
-}
-
-.markdown-body span.align-right span img {
-  margin: 0;
-  text-align: right;
-}
-
-.markdown-body span.float-left {
-  display: block;
-  float: left;
-  margin-right: 13px;
-  overflow: hidden;
-}
-
-.markdown-body span.float-left span {
-  margin: 13px 0 0;
-}
-
-.markdown-body span.float-right {
-  display: block;
-  float: right;
-  margin-left: 13px;
-  overflow: hidden;
-}
-
-.markdown-body span.float-right>span {
-  display: block;
-  margin: 13px auto 0;
-  overflow: hidden;
-  text-align: right;
-}
-
-.markdown-body code,
-.markdown-body tt {
-  padding: .2em .4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: var(--color-neutral-muted);
-  border-radius: 6px;
-}
-
-.markdown-body code br,
-.markdown-body tt br {
-  display: none;
-}
-
-.markdown-body del code {
-  text-decoration: inherit;
-}
-
-.markdown-body pre code {
-  font-size: 100%;
-}
-
-.markdown-body pre>code {
-  padding: 0;
-  margin: 0;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
-}
-
-.markdown-body pre {
-  position: relative;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: var(--color-canvas-subtle);
-  border-radius: 6px;
-}
-
-.markdown-body pre code,
-.markdown-body pre tt {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
-}
-
-.markdown-body pre > code {
-  padding: 16px;
-  overflow: auto;
-  display: block;
-}
-
-.markdown-body .csv-data td,
-.markdown-body .csv-data th {
-  padding: 5px;
-  overflow: hidden;
-  font-size: 12px;
-  line-height: 1;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.markdown-body .csv-data .blob-num {
-  padding: 10px 8px 9px;
-  text-align: right;
-  background: var(--color-canvas-default);
-  border: 0;
-}
-
-.markdown-body .csv-data tr {
-  border-top: 0;
-}
-
-.markdown-body .csv-data th {
-  font-weight: 600;
-  background: var(--color-canvas-subtle);
-  border-top: 0;
-}
-
-.markdown-body .footnotes {
-  font-size: 12px;
-  color: var(--color-fg-muted);
-  border-top: 1px solid var(--color-border-default);
-}
-
-.markdown-body .footnotes ol {
-  padding-left: 16px;
-}
-
-.markdown-body .footnotes li {
-  position: relative;
-}
-
-.markdown-body .footnotes li:target::before {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  bottom: -8px;
-  left: -24px;
-  pointer-events: none;
-  content: "";
-  border: 2px solid var(--color-accent-emphasis);
-  border-radius: 6px;
-}
-
-.markdown-body .footnotes li:target {
-  color: var(--color-fg-default);
-}
-
-.markdown-body .footnotes .data-footnote-backref g-emoji {
-  font-family: monospace;
-}
-
-.markdown-body .task-list-item {
-  list-style-type: none;
-}
-
-.markdown-body .task-list-item label {
-  font-weight: 400;
-}
-
-.markdown-body .task-list-item.enabled label {
-  cursor: pointer;
-}
-
-.markdown-body .task-list-item+.task-list-item {
-  margin-top: 3px;
-}
-
-.markdown-body .task-list-item .handle {
-  display: none;
-}
-
-.markdown-body .task-list-item-checkbox,
-.markdown-body input[type="checkbox"] {
-  margin: 0 .2em .25em -1.6em;
-  vertical-align: middle;
-}
-
-.markdown-body .contains-task-list:dir(rtl) .task-list-item-checkbox,
-.markdown-body .contains-task-list:dir(rtl) input[type="checkbox"] {
-  margin: 0 -1.6em .25em .2em;
-}
-
-.markdown-body ::-webkit-calendar-picker-indicator {
-  filter: invert(50%);
-}
-body {padding: 2em;}
-	</style>
-  </head>
-  <body>
+  <style type="text/css">
+    [data-color-mode*='light'],
+    [data-color-mode*='light'] body,
+    .markdown-body[theme*='light'] {
+      --color-prettylights-syntax-comment: #6e7781;
+      --color-prettylights-syntax-constant: #0550ae;
+      --color-prettylights-syntax-entity: #8250df;
+      --color-prettylights-syntax-storage-modifier-import: #24292f;
+      --color-prettylights-syntax-entity-tag: #116329;
+      --color-prettylights-syntax-keyword: #cf222e;
+      --color-prettylights-syntax-string: #0a3069;
+      --color-prettylights-syntax-variable: #953800;
+      --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+      --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+      --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+      --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+      --color-prettylights-syntax-carriage-return-bg: #cf222e;
+      --color-prettylights-syntax-string-regexp: #116329;
+      --color-prettylights-syntax-markup-list: #3b2300;
+      --color-prettylights-syntax-markup-heading: #0550ae;
+      --color-prettylights-syntax-markup-italic: #24292f;
+      --color-prettylights-syntax-markup-bold: #24292f;
+      --color-prettylights-syntax-markup-deleted-text: #82071e;
+      --color-prettylights-syntax-markup-deleted-bg: #FFEBE9;
+      --color-prettylights-syntax-markup-inserted-text: #116329;
+      --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+      --color-prettylights-syntax-markup-changed-text: #953800;
+      --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+      --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+      --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+      --color-prettylights-syntax-meta-diff-range: #8250df;
+      --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+      --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+      --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+      --color-fg-default: #24292f;
+      --color-fg-muted: #57606a;
+      --color-fg-subtle: #6e7781;
+      --color-canvas-default: #ffffff;
+      --color-canvas-subtle: #f6f8fa;
+      --color-border-default: #d0d7de;
+      --color-border-muted: hsla(210, 18%, 87%, 1);
+      --color-neutral-muted: rgba(175, 184, 193, 0.2);
+      --color-accent-fg: #0969da;
+      --color-accent-emphasis: #0969da;
+      --color-attention-subtle: #fff8c5;
+      --color-danger-fg: #cf222e;
+    }
+
+    [data-color-mode*='dark'],
+    [data-color-mode*='dark'] body,
+    .markdown-body[theme*='dark'] {
+      --color-prettylights-syntax-comment: #8b949e;
+      --color-prettylights-syntax-constant: #79c0ff;
+      --color-prettylights-syntax-entity: #d2a8ff;
+      --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+      --color-prettylights-syntax-entity-tag: #7ee787;
+      --color-prettylights-syntax-keyword: #ff7b72;
+      --color-prettylights-syntax-string: #a5d6ff;
+      --color-prettylights-syntax-variable: #ffa657;
+      --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+      --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+      --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+      --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+      --color-prettylights-syntax-carriage-return-bg: #b62324;
+      --color-prettylights-syntax-string-regexp: #7ee787;
+      --color-prettylights-syntax-markup-list: #f2cc60;
+      --color-prettylights-syntax-markup-heading: #1f6feb;
+      --color-prettylights-syntax-markup-italic: #c9d1d9;
+      --color-prettylights-syntax-markup-bold: #c9d1d9;
+      --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+      --color-prettylights-syntax-markup-deleted-bg: #67060c;
+      --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+      --color-prettylights-syntax-markup-inserted-bg: #033a16;
+      --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+      --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+      --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+      --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+      --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+      --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+      --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+      --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+      --color-fg-default: #c9d1d9;
+      --color-fg-muted: #8b949e;
+      --color-fg-subtle: #484f58;
+      --color-canvas-default: #0d1117;
+      --color-canvas-subtle: #161b22;
+      --color-border-default: #30363d;
+      --color-border-muted: #21262d;
+      --color-neutral-muted: rgba(110, 118, 129, 0.4);
+      --color-accent-fg: #58a6ff;
+      --color-accent-emphasis: #1f6feb;
+      --color-attention-subtle: rgba(187, 128, 9, 0.15);
+      --color-danger-fg: #f85149;
+    }
+
+    .markdown-body {
+      display: block;
+      -webkit-text-size-adjust: 100%;
+      --font-family-main: 'Source Han Sans & Saira Hybrid', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      color: var(--color-fg-default);
+      background-color: var(--color-canvas-default);
+    }
+
+    .markdown-body details,
+    .markdown-body figcaption,
+    .markdown-body figure {
+      display: block;
+    }
+
+    .markdown-body summary {
+      display: list-item;
+    }
+
+    .markdown-body [hidden] {
+      display: none !important;
+    }
+
+    .markdown-body a {
+      background-color: transparent;
+      color: var(--color-accent-fg);
+      text-decoration: none;
+    }
+
+    .markdown-body a:active,
+    .markdown-body a:hover {
+      outline-width: 0;
+    }
+
+    .markdown-body abbr[title] {
+      border-bottom: none;
+      text-decoration: underline dotted;
+    }
+
+    .markdown-body b,
+    .markdown-body strong {
+      font-weight: 600;
+    }
+
+    .markdown-body dfn {
+      font-style: italic;
+    }
+
+    .markdown-body h1 {
+      margin: .67em 0;
+      font-weight: 600;
+      padding-bottom: .3em;
+      font-size: 2em;
+      border-bottom: 1px solid var(--color-border-muted);
+    }
+
+    .markdown-body mark {
+      background-color: var(--color-attention-subtle);
+      color: var(--color-text-primary);
+    }
+
+    .markdown-body small {
+      font-size: 90%;
+    }
+
+    .markdown-body sub,
+    .markdown-body sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    .markdown-body sub {
+      bottom: -0.25em;
+    }
+
+    .markdown-body sup {
+      top: -0.5em;
+    }
+
+    .markdown-body img {
+      border-style: none;
+      max-width: 100%;
+      box-sizing: content-box;
+      background-color: var(--color-canvas-default);
+    }
+
+    .markdown-body code,
+    .markdown-body kbd,
+    .markdown-body pre,
+    .markdown-body samp {
+      font-family: monospace, monospace;
+      font-size: 1em;
+    }
+
+    .markdown-body figure {
+      margin: 1em 40px;
+    }
+
+    .markdown-body hr {
+      box-sizing: content-box;
+      overflow: hidden;
+      background: transparent;
+      border-bottom: 1px solid var(--color-border-muted);
+      height: .25em;
+      padding: 0;
+      margin: 24px 0;
+      background-color: var(--color-border-default);
+      border: 0;
+    }
+
+    .markdown-body input {
+      font: inherit;
+      margin: 0;
+      overflow: visible;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    .markdown-body [type=button]::-moz-focus-inner,
+    .markdown-body [type=reset]::-moz-focus-inner,
+    .markdown-body [type=submit]::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    .markdown-body [type=button]:-moz-focusring,
+    .markdown-body [type=reset]:-moz-focusring,
+    .markdown-body [type=submit]:-moz-focusring {
+      outline: 1px dotted ButtonText;
+    }
+
+    .markdown-body [type=checkbox],
+    .markdown-body [type=radio] {
+      box-sizing: border-box;
+      padding: 0;
+    }
+
+    .markdown-body [type=number]::-webkit-inner-spin-button,
+    .markdown-body [type=number]::-webkit-outer-spin-button {
+      height: auto;
+    }
+
+    .markdown-body [type=search] {
+      outline-offset: -2px;
+    }
+
+    .markdown-body [type=search]::-webkit-search-cancel-button,
+    .markdown-body [type=search]::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+
+    .markdown-body ::-webkit-input-placeholder {
+      color: inherit;
+      opacity: .54;
+    }
+
+    .markdown-body ::-webkit-file-upload-button {
+      -webkit-appearance: button;
+      font: inherit;
+    }
+
+    .markdown-body a:hover {
+      text-decoration: underline;
+    }
+
+    .markdown-body hr::before {
+      display: table;
+      content: "";
+    }
+
+    .markdown-body hr::after {
+      display: table;
+      clear: both;
+      content: "";
+    }
+
+    .markdown-body table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    .markdown-body td,
+    .markdown-body th {
+      padding: 0;
+    }
+
+    .markdown-body details summary {
+      cursor: pointer;
+    }
+
+    .markdown-body details:not([open])>*:not(summary) {
+      display: none !important;
+    }
+
+    .markdown-body kbd {
+      display: inline-block;
+      padding: 3px 5px;
+      font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      line-height: 10px;
+      color: var(--color-fg-default);
+      vertical-align: middle;
+      background-color: var(--color-canvas-subtle);
+      border: solid 1px var(--color-neutral-muted);
+      border-bottom-color: var(--color-neutral-muted);
+      border-radius: 6px;
+      box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
+    }
+
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4,
+    .markdown-body h5,
+    .markdown-body h6 {
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .markdown-body h2 {
+      font-weight: 600;
+      padding-bottom: .3em;
+      font-size: 1.5em;
+      border-bottom: 1px solid var(--color-border-muted);
+    }
+
+    .markdown-body h3 {
+      font-weight: 600;
+      font-size: 1.25em;
+    }
+
+    .markdown-body h4 {
+      font-weight: 600;
+      font-size: 1em;
+    }
+
+    .markdown-body h5 {
+      font-weight: 600;
+      font-size: .875em;
+    }
+
+    .markdown-body h6 {
+      font-weight: 600;
+      font-size: .85em;
+      color: var(--color-fg-muted);
+    }
+
+    .markdown-body p {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .markdown-body blockquote {
+      margin: 0;
+      padding: 0 1em;
+      color: var(--color-fg-muted);
+      border-left: .25em solid var(--color-border-default);
+    }
+
+    .markdown-body ul,
+    .markdown-body ol {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-left: 2em;
+    }
+
+    .markdown-body ol ol,
+    .markdown-body ul ol {
+      list-style-type: lower-roman;
+    }
+
+    .markdown-body ul ul ol,
+    .markdown-body ul ol ol,
+    .markdown-body ol ul ol,
+    .markdown-body ol ol ol {
+      list-style-type: lower-alpha;
+    }
+
+    .markdown-body dd {
+      margin-left: 0;
+    }
+
+    .markdown-body tt,
+    .markdown-body code {
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      font-size: 12px;
+    }
+
+    .markdown-body pre {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      font-size: 12px;
+      word-wrap: normal;
+    }
+
+    .markdown-body .octicon {
+      display: inline-block;
+      overflow: visible !important;
+      vertical-align: text-bottom;
+      fill: currentColor;
+    }
+
+    .markdown-body ::placeholder {
+      color: var(--color-fg-subtle);
+      opacity: 1;
+    }
+
+    .markdown-body input::-webkit-outer-spin-button,
+    .markdown-body input::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .markdown-body .token.comment,
+    .markdown-body .token.prolog,
+    .markdown-body .token.doctype,
+    .markdown-body .token.cdata {
+      color: var(--color-prettylights-syntax-comment);
+    }
+
+    .markdown-body .token.namespace {
+      opacity: 0.7;
+    }
+
+    .markdown-body .token.tag,
+    .markdown-body .token.selector,
+    .markdown-body .token.constant,
+    .markdown-body .token.symbol,
+    .markdown-body .token.deleted {
+      color: var(--color-prettylights-syntax-entity-tag);
+    }
+
+    .markdown-body .token.maybe-class-name {
+      color: var(--color-prettylights-syntax-variable);
+    }
+
+    .markdown-body .token.property-access,
+    .markdown-body .token.operator,
+    .markdown-body .token.boolean,
+    .markdown-body .token.number,
+    .markdown-body .token.selector .markdown-body .token.class,
+    .markdown-body .token.attr-name,
+    .markdown-body .token.string,
+    .markdown-body .token.char,
+    .markdown-body .token.builtin {
+      color: var(--color-prettylights-syntax-constant);
+    }
+
+    .markdown-body .token.deleted {
+      color: var(--color-prettylights-syntax-markup-deleted-text);
+    }
+
+    .markdown-body .token.property {
+      color: var(--color-prettylights-syntax-constant);
+    }
+
+    .markdown-body .token.punctuation {
+      color: var(--color-prettylights-syntax-markup-bold);
+    }
+
+    .markdown-body .token.function {
+      color: var(--color-prettylights-syntax-entity);
+    }
+
+    .markdown-body .code-line .token.deleted {
+      background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+    }
+
+    .markdown-body .token.inserted {
+      color: var(--color-prettylights-syntax-markup-inserted-text);
+    }
+
+    .markdown-body .code-line .token.inserted {
+      background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+    }
+
+    .markdown-body .token.variable {
+      color: var(--color-prettylights-syntax-constant);
+    }
+
+    .markdown-body .token.entity,
+    .markdown-body .token.url,
+    .language-css .markdown-body .token.string,
+    .style .markdown-body .token.string {
+      color: var(--color-prettylights-syntax-string);
+    }
+
+    .markdown-body .token.color,
+    .markdown-body .token.atrule,
+    .markdown-body .token.attr-value,
+    .markdown-body .token.function,
+    .markdown-body .token.class-name {
+      color: var(--color-prettylights-syntax-string);
+    }
+
+    .markdown-body .token.rule,
+    .markdown-body .token.regex,
+    .markdown-body .token.important,
+    .markdown-body .token.keyword {
+      color: var(--color-prettylights-syntax-keyword);
+    }
+
+    .markdown-body .token.coord {
+      color: var(--color-prettylights-syntax-meta-diff-range);
+    }
+
+    .markdown-body .token.important,
+    .markdown-body .token.bold {
+      font-weight: bold;
+    }
+
+    .markdown-body .token.italic {
+      font-style: italic;
+    }
+
+    .markdown-body .token.entity {
+      cursor: help;
+    }
+
+    .markdown-body [data-catalyst] {
+      display: block;
+    }
+
+    .markdown-body g-emoji {
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 1em;
+      font-style: normal !important;
+      font-weight: 400;
+      line-height: 1;
+      vertical-align: -0.075em;
+    }
+
+    .markdown-body g-emoji img {
+      width: 1em;
+      height: 1em;
+    }
+
+    .markdown-body::before {
+      display: table;
+      content: "";
+    }
+
+    .markdown-body::after {
+      display: table;
+      clear: both;
+      content: "";
+    }
+
+    .markdown-body>*:first-child {
+      margin-top: 0 !important;
+    }
+
+    .markdown-body>*:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .markdown-body a:not([href]) {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .markdown-body .absent {
+      color: var(--color-danger-fg);
+    }
+
+    .markdown-body a.anchor {
+      float: left;
+      padding-right: 4px;
+      margin-left: -20px;
+      line-height: 1;
+    }
+
+    .markdown-body a.anchor:focus {
+      outline: none;
+    }
+
+    .markdown-body p,
+    .markdown-body blockquote,
+    .markdown-body ul,
+    .markdown-body ol,
+    .markdown-body dl,
+    .markdown-body table,
+    .markdown-body pre,
+    .markdown-body details {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .markdown-body blockquote>:first-child {
+      margin-top: 0;
+    }
+
+    .markdown-body blockquote>:last-child {
+      margin-bottom: 0;
+    }
+
+    .markdown-body sup>a::before {
+      content: "[";
+    }
+
+    .markdown-body sup>a::after {
+      content: "]";
+    }
+
+    .markdown-body .octicon-video {
+      border: 1px solid #d0d7de !important;
+      border-radius: 6px !important;
+      display: block;
+    }
+
+    .markdown-body .octicon-video summary {
+      border-bottom: 1px solid #d0d7de !important;
+      padding: 8px 16px !important;
+      cursor: pointer;
+    }
+
+    .markdown-body .octicon-video>video {
+      display: block !important;
+      max-width: 100% !important;
+      padding: 2px;
+      box-sizing: border-box;
+      border-bottom-right-radius: 6px !important;
+      border-bottom-left-radius: 6px !important;
+    }
+
+    .markdown-body details.octicon-video:not([open])>*:not(summary) {
+      display: none !important;
+    }
+
+    .markdown-body details.octicon-video:not([open])>summary {
+      border-bottom: 0 !important;
+    }
+
+    .markdown-body h1 .octicon-link,
+    .markdown-body h2 .octicon-link,
+    .markdown-body h3 .octicon-link,
+    .markdown-body h4 .octicon-link,
+    .markdown-body h5 .octicon-link,
+    .markdown-body h6 .octicon-link {
+      color: var(--color-fg-default);
+      vertical-align: middle;
+      visibility: hidden;
+    }
+
+    .markdown-body h1:hover .anchor,
+    .markdown-body h2:hover .anchor,
+    .markdown-body h3:hover .anchor,
+    .markdown-body h4:hover .anchor,
+    .markdown-body h5:hover .anchor,
+    .markdown-body h6:hover .anchor {
+      text-decoration: none;
+    }
+
+    .markdown-body h1:hover .anchor .octicon-link,
+    .markdown-body h2:hover .anchor .octicon-link,
+    .markdown-body h3:hover .anchor .octicon-link,
+    .markdown-body h4:hover .anchor .octicon-link,
+    .markdown-body h5:hover .anchor .octicon-link,
+    .markdown-body h6:hover .anchor .octicon-link {
+      visibility: visible;
+    }
+
+    .markdown-body h1 tt,
+    .markdown-body h1 code,
+    .markdown-body h2 tt,
+    .markdown-body h2 code,
+    .markdown-body h3 tt,
+    .markdown-body h3 code,
+    .markdown-body h4 tt,
+    .markdown-body h4 code,
+    .markdown-body h5 tt,
+    .markdown-body h5 code,
+    .markdown-body h6 tt,
+    .markdown-body h6 code {
+      padding: 0 .2em;
+      font-size: inherit;
+    }
+
+    .markdown-body ul.no-list,
+    .markdown-body ol.no-list {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .markdown-body ol[type="1"] {
+      list-style-type: decimal;
+    }
+
+    .markdown-body ol[type=a] {
+      list-style-type: lower-alpha;
+    }
+
+    .markdown-body ol[type=i] {
+      list-style-type: lower-roman;
+    }
+
+    .markdown-body div>ol:not([type]) {
+      list-style-type: decimal;
+    }
+
+    .markdown-body ul ul,
+    .markdown-body ul ol,
+    .markdown-body ol ol,
+    .markdown-body ol ul {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .markdown-body li>p {
+      margin-top: 16px;
+    }
+
+    .markdown-body li+li {
+      margin-top: .25em;
+    }
+
+    .markdown-body dl {
+      padding: 0;
+    }
+
+    .markdown-body dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .markdown-body dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px;
+    }
+
+    .markdown-body table th {
+      font-weight: 600;
+    }
+
+    .markdown-body table th,
+    .markdown-body table td {
+      padding: 6px 13px;
+      border: 1px solid var(--color-border-default);
+    }
+
+    .markdown-body table tr {
+      background-color: var(--color-canvas-default);
+      border-top: 1px solid var(--color-border-muted);
+    }
+
+    .markdown-body table tr:nth-child(2n) {
+      background-color: var(--color-canvas-subtle);
+    }
+
+    .markdown-body table img {
+      background-color: transparent;
+      vertical-align: middle;
+    }
+
+    .markdown-body img[align=right] {
+      padding-left: 20px;
+    }
+
+    .markdown-body img[align=left] {
+      padding-right: 20px;
+    }
+
+    .markdown-body .emoji {
+      max-width: none;
+      vertical-align: text-top;
+      background-color: transparent;
+    }
+
+    .markdown-body span.frame {
+      display: block;
+      overflow: hidden;
+    }
+
+    .markdown-body span.frame>span {
+      display: block;
+      float: left;
+      width: auto;
+      padding: 7px;
+      margin: 13px 0 0;
+      overflow: hidden;
+      border: 1px solid var(--color-border-default);
+    }
+
+    .markdown-body span.frame span img {
+      display: block;
+      float: left;
+    }
+
+    .markdown-body span.frame span span {
+      display: block;
+      padding: 5px 0 0;
+      clear: both;
+      color: var(--color-fg-default);
+    }
+
+    .markdown-body span.align-center {
+      display: block;
+      overflow: hidden;
+      clear: both;
+    }
+
+    .markdown-body span.align-center>span {
+      display: block;
+      margin: 13px auto 0;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .markdown-body span.align-center span img {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .markdown-body span.align-right {
+      display: block;
+      overflow: hidden;
+      clear: both;
+    }
+
+    .markdown-body span.align-right>span {
+      display: block;
+      margin: 13px 0 0;
+      overflow: hidden;
+      text-align: right;
+    }
+
+    .markdown-body span.align-right span img {
+      margin: 0;
+      text-align: right;
+    }
+
+    .markdown-body span.float-left {
+      display: block;
+      float: left;
+      margin-right: 13px;
+      overflow: hidden;
+    }
+
+    .markdown-body span.float-left span {
+      margin: 13px 0 0;
+    }
+
+    .markdown-body span.float-right {
+      display: block;
+      float: right;
+      margin-left: 13px;
+      overflow: hidden;
+    }
+
+    .markdown-body span.float-right>span {
+      display: block;
+      margin: 13px auto 0;
+      overflow: hidden;
+      text-align: right;
+    }
+
+    .markdown-body code,
+    .markdown-body tt {
+      padding: .2em .4em;
+      margin: 0;
+      font-size: 85%;
+      background-color: var(--color-neutral-muted);
+      border-radius: 6px;
+    }
+
+    .markdown-body code br,
+    .markdown-body tt br {
+      display: none;
+    }
+
+    .markdown-body del code {
+      text-decoration: inherit;
+    }
+
+    .markdown-body pre code {
+      font-size: 100%;
+    }
+
+    .markdown-body pre>code {
+      padding: 0;
+      margin: 0;
+      word-break: normal;
+      white-space: pre;
+      background: transparent;
+      border: 0;
+    }
+
+    .markdown-body pre {
+      position: relative;
+      font-size: 85%;
+      line-height: 1.45;
+      background-color: var(--color-canvas-subtle);
+      border-radius: 6px;
+    }
+
+    .markdown-body pre code,
+    .markdown-body pre tt {
+      display: inline;
+      max-width: auto;
+      padding: 0;
+      margin: 0;
+      overflow: visible;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0;
+    }
+
+    .markdown-body pre>code {
+      padding: 16px;
+      overflow: auto;
+      display: block;
+    }
+
+    .markdown-body .csv-data td,
+    .markdown-body .csv-data th {
+      padding: 5px;
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 1;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .markdown-body .csv-data .blob-num {
+      padding: 10px 8px 9px;
+      text-align: right;
+      background: var(--color-canvas-default);
+      border: 0;
+    }
+
+    .markdown-body .csv-data tr {
+      border-top: 0;
+    }
+
+    .markdown-body .csv-data th {
+      font-weight: 600;
+      background: var(--color-canvas-subtle);
+      border-top: 0;
+    }
+
+    .markdown-body .footnotes {
+      font-size: 12px;
+      color: var(--color-fg-muted);
+      border-top: 1px solid var(--color-border-default);
+    }
+
+    .markdown-body .footnotes ol {
+      padding-left: 16px;
+    }
+
+    .markdown-body .footnotes li {
+      position: relative;
+    }
+
+    .markdown-body .footnotes li:target::before {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      bottom: -8px;
+      left: -24px;
+      pointer-events: none;
+      content: "";
+      border: 2px solid var(--color-accent-emphasis);
+      border-radius: 6px;
+    }
+
+    .markdown-body .footnotes li:target {
+      color: var(--color-fg-default);
+    }
+
+    .markdown-body .footnotes .data-footnote-backref g-emoji {
+      font-family: monospace;
+    }
+
+    .markdown-body .task-list-item {
+      list-style-type: none;
+    }
+
+    .markdown-body .task-list-item label {
+      font-weight: 400;
+    }
+
+    .markdown-body .task-list-item.enabled label {
+      cursor: pointer;
+    }
+
+    .markdown-body .task-list-item+.task-list-item {
+      margin-top: 3px;
+    }
+
+    .markdown-body .task-list-item .handle {
+      display: none;
+    }
+
+    .markdown-body .task-list-item-checkbox,
+    .markdown-body input[type="checkbox"] {
+      margin: 0 .2em .25em -1.6em;
+      vertical-align: middle;
+    }
+
+    .markdown-body .contains-task-list:dir(rtl) .task-list-item-checkbox,
+    .markdown-body .contains-task-list:dir(rtl) input[type="checkbox"] {
+      margin: 0 -1.6em .25em .2em;
+    }
+
+    .markdown-body ::-webkit-calendar-picker-indicator {
+      filter: invert(50%);
+    }
+
+    body {
+      padding: 2em;
+    }
+  </style>
+</head>
+
+<body>
   <div class="markdown-body">
     <h3>「塔弦」空间站 - Phigros 成绩查询与图片生成器 用户协议</h3>
-<p><strong>最后更新日期：2025年9月15日</strong></p>
-<p><strong>生效日期：2025年9月15日</strong></p>
-<hr>
-<h4>1. 引言</h4>
-<p>欢迎您使用由 弦塔 (“弦塔”，指由“弦塔”独立开发并运营该服务的个人开发者)（以下简称“<strong>开发者</strong>”或“<strong>我们</strong>”）开发并运营的“<strong>Phigros 成绩查询与图片生成器</strong>”（以下简称“<strong>本服务</strong>”）。</p>
-<p><strong>在使用本服务之前，请您务必认真阅读、充分理解本协议的全部条款内容，特别是其中以加粗方式显著标识的条款</strong>。如果您未满18周岁，请在法定监护人陪同下阅读本协议，并在征得法定监护人的同意后使用本服务。您在使用本服务某一特定功能时，针对该特定功能可能会另有单独的协议、相关业务规则等（以下简称“具体协议”）。本协议与具体协议的内容存在冲突的，以具体协议的规定为准。所有前述条款和规则构成本协议不可分割的组成部分（以上通称“全部协议”），与本协议正文具有同等法律效力。</p>
-<p>当您通过网络页面点击“同意”、“确认”、“我已知晓”按钮、勾选同意框，或以任何方式开始实际访问、使用本服务时，即视为您已充分阅读、理解并同意接受本协议的全部内容。<strong>如果您不同意本协议的任何条款，请立即停止访问或使用本服务。</strong></p>
-<p>本服务主要面向中华人民共和国大陆地区用户设计和提供。如果您从其他国家或地区访问本服务，您应自行确保您的行为符合当地的法律法规，并根据本协议8.1的规定，自愿地按照中华人民共和国大陆地区法律进行解释和管辖。</p>
-<h4>2. 服务描述</h4>
-<p>2.1 本服务是一个<strong>免费、第三方</strong>开发的网页工具。本服务需要您授权登录（提供<strong>SessionToken</strong>）后方可使用，其功能包括基于您个人游戏数据的成绩分析，以及通用的部分游戏信息展示。主要服务如下：</p>
-<ul>
-<li><strong>Best N 成绩分析与生成</strong>：计算并生成用户指定数量的最佳成绩（Best N）的<strong>可视化图片</strong>或<strong>文本列表</strong>。</li>
-<li><strong>单曲成绩查询</strong>：根据用户输入的关键词，查询特定歌曲的成绩，并生成包含详细信息的<strong>可视化图片</strong>。</li>
-<li><strong>新曲信息速递</strong>：展示游戏更新的歌曲及其谱面定数等更新信息。</li>
-<li>上述内容在遵从协议的情况下，均可供用户下载或分享。</li>
-<li>本服务的官方服务地址为 xtower.site/test.html 及其子域名 aw0000.xtower.site/test.html
-本服务的后端服务请求地址为：<a href="https://evernight.xtower.site">https://evernight.xtower.site</a>
-上述地址提供的服务均不可分割地属于本服务的部分，其对上述地址服务的所有可能的使用（包括但不限于直接调用后端地址）均需要符合本协议的要求。开发者保留根据运营需要变更上述服务地址而不另行通知的权利。对非官方服务地址的非法调用，开发者保留依法追究法律责任的权利。</li>
-</ul>
-<p>2.2 服务流程简述：</p>
-<ul>
-<li>用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。授权后，本服务将接收由 TapTap 官方生成的 <strong>SessionToken</strong>，用户也可以自行提供，由本服务通过获取存档信息校验 <strong>SessionToken</strong> 的有效性。</li>
-<li>SessionToken 校验成功后，本服务中与个人成绩相关的功能（如 Best N 成绩分析与生成、单曲成绩查询等），需使用该 Token 向 TapTap 官方发起请求，<strong>解密并获取与 Phigros 游戏相关的、实现本服务各项功能所必需的云存档数据</strong>。</li>
-<li>服务端根据获取的数据和您的具体请求（如查询 Best N、查询单曲），进行计算，<strong>生成相应的图片或文本内容</strong>并返回给用户。</li>
-</ul>
-<h4>3. 账号、数据与隐私保护</h4>
-<p>3.1 在您扫码登录的全过程中，<strong>我们不会以任何形式获取、记录或存储您的 TapTap 账号密码</strong>。本服务接收的唯一授权凭证是 TapTap 官方生成的 <strong>SessionToken</strong>。此 SessionToken <strong>仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据</strong>。</p>
-<p>3.2 为实现本服务中与您个人成绩相关的功能（如 Best N 成绩分析与生成、单曲成绩查询等）与初次登录校验用户提供的 <strong>SessionToken</strong> 的需要，我们仅在您提供 SessionToken （包括扫码自动获取 SessionToken 和手动提供 SessionToken ）时收集和处理以下信息：</p>
-<ul>
-<li><strong>TapTap SessionToken</strong>：作为授权凭证，用于请求您的游戏数据。</li>
-<li><strong>Phigros 云存档</strong>：<strong>用于实现本服务的各项功能（包括但不限于生成 Best N 图片、查询单曲成绩、生成文本列表等）</strong>，包括但不限于：玩家 ID、简介、Data（游戏内货币）、潜力值 (RKS) 全部单曲成绩记录（歌曲、难度、ACC、得分等）、章节与特殊歌曲的解锁情况，游戏设置等。</li>
-</ul>
-<p>我们不会以任何形式修改您的 Phigros 云存档游戏数据。</p>
-<p>为提升服务性能，我们可能会在服务端内存中，使用缓存机制临时存储您的游戏数据。这些数据包括您的玩家ID、用户名、潜力值 (RKS)、所有单曲的最佳成绩、推分ACC等。</p>
-<p>这些数据不会以明文形式写入硬盘或数据库，并会在24小时内自动过期清除。</p>
-<p>您理解并同意，此缓存机制是为了优化服务响应速度而设计，我们无法保证过期的缓存数据仍能被访问。</p>
-<p>3.3 为方便您下次使用，您的 SessionToken <strong>会被存储在您当前设备的浏览器本地存储中</strong>，以实现“自动登录”。
-存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，服务器仅在处理您的当次请求时，临时使用该 SessionToken 向 TapTap 接口发起数据请求。不会将 SessionToken 以任何形式的持久化存储（如数据库、日志文件、硬盘）中保留。
-您理解并同意，SessionToken 由 TapTap 生成并控制其有效期，本服务无法保证过期的 SessionToken 仍能成功获取数据。</p>
-<p>3.4 登录后，您可随时点击服务页面的 <strong>“退出登录”</strong> 按钮，<strong>立即清除存储在浏览器中的 SessionToken。
-但请注意，如果不提供 SessionToken ，我们则无法向您提供本服务</strong>。</p>
-<h4>4. 用户行为准则</h4>
-<p>4.1 在遵守本协议的情况下，依据本协议，我们授予您一项<strong>有限的、可撤销的、非排他的、不可转让的授权</strong>，以使用本服务。
-您充分理解并同意，<strong>本协议未明示授权的其他一切权利仍由开发者保留</strong>，您在行使其他权利前须<strong>另行获得开发者的许可</strong>，同时开发者如未行使前述任何权利，<strong>并不构成对该权利的放弃</strong>。</p>
-<p>4.2 <strong>本服务及任何可能的附属服务均仅限于在上述2.1条所述官方前端内使用，若需在范围外使用须获得开发者的书面同意。在官方前端外调用本服务，由此引起的一切后果由进行该等调用的主体（无论是否为协议用户）自行承担。
-开发者保留依法追究调用主体法律责任的权利。
-开发者所提供的服务仅供用户非商业性使用，用户在未经开发者事先书面同意的情况下，不得以商业性目的使用本服务。</strong></p>
-<p>4.3 您在使用我们提供的上述服务时，应遵守法律法规的要求和本协议的约定，遵守自愿、平等、公平及诚实信用原则，不利用本服务侵犯他人合法权益及谋取不正当利益，不扰乱互联网平台正常秩序。</p>
-<p>4.4 作为本服务的使用者，您不得违反《互联网信息服务管理办法》、《网络信息内容生态治理规定》等法律法规以及相关标准关于网络信息内容安全的要求，不得输入、利用本服务输出或传播以下违法不良信息：</p>
-<ul>
-<li>（1）反对宪法所确定的基本原则的；</li>
-<li>（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；</li>
-<li>（3）损害国家荣誉和利益的；</li>
-<li>（4）歪曲、丑化、亵渎、否定英雄烈士事迹和精神，以侮辱、诽谤或者其他方式侵害英雄烈士的姓名、肖像、名誉、荣誉的；</li>
-<li>（5）宣扬恐怖主义、极端主义或者煽动实施恐怖活动、极端主义活动的；</li>
-<li>（6）煽动民族仇恨、民族歧视，破坏民族团结的；</li>
-<li>（7）破坏国家宗教政策，宣扬邪教和封建迷信的；</li>
-<li>（8）散布谣言，扰乱经济秩序和社会秩序的；</li>
-<li>（9）散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；</li>
-<li>（10）侮辱或者诽谤他人，侵害他人名誉、隐私和其他合法权益的；</li>
-<li>（11）法律、行政法规禁止的其他内容。</li>
-</ul>
-<p>4.5 作为本服务的使用者，您不得违反《网络安全法》、《数据安全法》等法律法规以及相关标准的要求，不得对本服务以及支持本服务正常运行的系统、网络、以及其他组件等进行干扰、破坏或攻击，不得从事以下危害本服务安全的活动：</p>
-<ul>
-<li>（1）从事非法侵入网络的活动，例如：使用未经许可的数据或进入未经许可的服务器/账号；伪造TCP/IP数据包名称或部分名称；未经许可，企图探查、扫描、测试本软件系统或网络的弱点等。</li>
-<li>（2）从事干扰、破坏网络正常功能的活动，例如：故意生成、传播恶意程序或病毒；未经允许进入公众计算机网络或者他人计算机系统并删除、修改、增加存储信息；以导致计算机系统或设施承受不合理负载的方式干扰运营等。</li>
-<li>（3）以任何自动化方式（包括但不限于通过任何机器人、爬虫、其他自动设置、设置镜像）来抓取、复制本服务及其所包含的任何内容等。</li>
-<li>（4）从事其他危害本服务系统、网络、以及其他组件安全的活动。</li>
-</ul>
-<h4>5. 知识产权</h4>
-<p>5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于程序、代码、网页、文字等）享有完整的知识产权。</p>
-<p>我们保留在不通知的情况下，随时更改本服务本体及其生成的<strong>任何内容（下称“生成内容”，包括但不限于 Best N 图片、单曲成绩图、文本成绩列表等）</strong>（如图片模板、布局、包含的信息），或在生成内容中添加本服务标识（如水印或网址）的权利。</p>
-<p>5.2 本服务的生成内容可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。<strong>我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。</strong>
-"生成内容"对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的<strong>适当引用</strong>。这<strong>不代表获得了任何权利人的任何官方授权，也不构成任何权利人对本服务的任何态度（包括但不限于认可，承诺和保证）。</strong></p>
-<p>5.3 您理解并同意，"生成内容"中可能包含上述第 5.2 条所述的第三方知识产权内容，
-这些内容除非另有书面说明，否则开发者未获得原作者的复制、传播、演绎等授权，开发者也无权向您授予相关图片与包含这些权利内容的"生成内容"的具体著作权权利。</p>
-<p>因此，您应特别审慎地在个人、非商业、且符合原作品性质（如游戏社区讨论、成绩展示）的范围内分享和使用本服务的生成内容。
-超出此范围的使用（特别是任何形式的商业性使用、大规模传播或可能损害权利人利益的使用）可能构成侵权。<strong>如果您的使用行为超出了“合理使用”的范畴（包括但不限于知识产权方面）导致被追究，在法律允许的最大范围内，开发者无法为您的后续使用行为承担法律责任。</strong></p>
-<p>您对生成内容的任何使用行为，均视为<strong>您已充分理解并自愿承担由此产生的一切法律后果</strong>。</p>
-<p>5.4 我们尊重并保护权利人的知识产权。如果您是相关知识产权的合法权利人，并且认为本服务的“生成内容”侵犯了您的合法权益，请您通过本协议第10条提供的联系方式，向我们发送书面通知。您的通知应包含以下内容：</p>
-<ul>
-<li>(1) 足以证明您身份及权利归属的有效证明材料；</li>
-<li>(2) 您认为构成侵权的具体内容在本服务中的位置或链接；</li>
-<li>(3) 您的联系方式（地址、电话、电子邮件）。</li>
-</ul>
-<p><strong>在收到并核实您的有效通知后，我们将根据法律法规和您的要求，采取包括但不限于移除相关内容、断开链接、或终止相关功能等必要措施。</strong></p>
-<h4>6. 免责声明与责任限制</h4>
-<p>6.1 本服务按“<strong>现状</strong>”和“<strong>现有</strong>”的基础提供，<strong>不做任何形式明示或默示的担保和承诺</strong>，包括但不限于服务的稳定性、准确性、安全性或持续可用性。
-您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误等）<strong>均由您自行承担。</strong></p>
-<p>特别地，您有责任妥善保管您的个人设备和 SessionToken ，因您自身问题（如设备丢失、感染病毒、浏览器被攻击、在公开群聊发送 SessionToken 等）导致的 SessionToken 泄露及可能造成的任何损失，由您自行承担。</p>
-<p>6.2 <strong>在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见。在任何情况下，即使本协议中的某些条款因故无效，开发者对您承担的全部赔偿责任，累计总额不应超过用户为使用本服务所向开发者支付的费用。</strong></p>
-<p>6.3 不论在何种情况下，本服务均不对由于网络连接故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际、国内法院的命令，黑客攻击，互联网病毒，网络运营商技术调整，政府临时管制或任何其他不能合理控制的原因而造成的本服务不能访问、服务中断、信息及数据的泄露、延误、停滞或错误，不能提供或延迟提供服务而承担责任。</p>
-<p>6.4 <strong>本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。</strong> 您理解并同意，本服务仅为玩家查询个人成绩提供便利，所有个人成绩数据来源均依赖于 TapTap 官方云存档（以下简称“云存档”）。</p>
-<p>本服务的可用性、数据准确性及功能完整性<strong>完全依赖于云存档的开放状态、稳定性、数据格式及访问策略。<strong>TapTap 或 Pigeon Games 有权</strong>随时变更或关闭云存档</strong>，开发者对此<strong>无法控制亦不承担任何责任</strong>。</p>
-<p>我们<strong>不对云存档数据的绝对准确性、完整性或实时性做出任何保证</strong>。所有数据<strong>应以 Phigros 游戏内展示为准</strong>。因云存档数据延迟、错误或不同步可能导致的任何问题，开发者不承担责任。</p>
-<p>6.5 开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。<strong>您理解并同意，如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，开发者有权随时移除相关权利内容，功能、限制服务或单方面终止本协议，而无需对您承担任何责任。</strong></p>
-<p>6.6 本服务可能会提供与其他国际互联网网站或资源进行链接（例如友链）。除非另有声明，开发者无法对第三方网站之服务进行控制，用户因使用或依赖上述网站或资源所产生的损失或损害，开发者不承担任何责任。
-我们建议您在访问其他网站或资源前仔细阅读其服务条款和隐私政策。</p>
-<h4>7. 协议的变更与终止</h4>
-<p>7.1 因服务变更等可能的需要，开发者保留修改本协议的权利。修改后的协议将在本服务页面公布并在生效日的UTC+8的 00:00:00 立刻生效。若生效日期与发布日期相同，则修改后的协议发布时即生效。</p>
-<p><strong>我们会采取合理措施公布协议更改情况，如您不接受修改后的协议，请您立即停止使用本服务</strong>。您继续使用本服务将被视为则视为您已充分阅读、理解并接受更新后的本协议并愿意受更新后的本协议的约束。</p>
-<p>我们建议您定期访问本页面以查阅最新版本。</p>
-<p>7.2 开发者保留随时因任何理由（包括但不限于收到相关权利方（如Pigeon Games）的通知、技术、运营成本、法律法规要求或开发者个人决定）<strong>暂时中止或永久终止本服务的权利，而无需事先通知，也无需承担任何责任。</strong></p>
-<h4>8. 适用法律与管辖权</h4>
-<p>8.1 本协议的订立、生效、解释、履行及争议解决，均适用<strong>中华人民共和国大陆地区法律</strong>。</p>
-<p>如双方就本协议内容或其执行发生任何争议，应首先友好协商解决；协商不成的，您同意将争议提交至<strong>开发者所在地（安徽省合肥市）有管辖权的人民法院</strong>通过诉讼解决。</p>
-<h4>9. 其他</h4>
-<p>9.1 如果本协议的任何条款被认定为全部或部分不合法、无效或不可强制执行，该条款或其相关部分应在上述范围内被视为不构成本协议的一部分，但本协议其他条款的合法性、效力和可强制执行性均不受影响。</p>
-<h4>10. 联系我们</h4>
-<p>如果您对本协议有任何疑问、意见或建议，请通过以下方式联系我们：</p>
-<p><a href="mailto:sczr0710@163.com">sczr0710@163.com</a></p>
+    <p><strong>最后更新日期：2025年9月17日</strong></p>
+    <p><strong>生效日期：2025年9月17日</strong></p>
+    <hr>
+    <h4>1. 引言</h4>
+    <p>欢迎您使用由「塔弦」空间站 （以下称“我们”或“开发者”）开发并运营的“<strong>Phigros 成绩查询与图片生成器</strong>”（以下简称“<strong>本服务</strong>”）。</p>
+    <p><strong>在使用本服务前，请您务必认真阅读，并充分理解本协议全部内容，特别是以加粗等方式显著标识的条款</strong>。若您未满18周岁，请在法定监护人的陪同下阅读本协议，并在获得其明确同意后再使用本服务。</p>
+    <p>部分特定功能可能附有单独的使用规则或协议（以下简称“具体协议”）。如本协议与具体协议存在冲突，除本协议具体说明外，以具体协议为准。本协议正文、具体协议及相关业务规则，共同构成本服务的完整用户协议，具有同等法律效力。</p>
+    <p>
+      当您通过点击“同意”类按钮、勾选同意复选框，或以任何方式实际使用本服务（包括但不限于访问页面、发起查询、生成图片等），即视为您已充分阅读、理解并接受本协议全部条款。<strong>如您不同意本协议任一条款，请立即停止访问或使用本服务。</strong>
+    </p>
+    <p>如您从其他国家或地区访问本服务，您有责任确保自身行为符合当地法律法规。同时，您同意本协议的解释与争议解决适用中华人民共和国大陆地区法律（详见第8.1条），并服从相关司法管辖。</p>
+    <h4>2. 服务描述</h4>
+    <p>2.1
+      本服务是一个<strong>免费、第三方</strong>开发的网页工具。本服务需要您授权登录（提供<strong>SessionToken</strong>）后方可使用，其功能包括基于您个人游戏数据的成绩分析，以及通用的部分游戏信息展示。主要服务如下：
+    </p>
+    <ul>
+      <li><strong>Best N 成绩分析与生成</strong>：计算并生成用户指定数量的最佳成绩（Best N）的<strong>可视化图片</strong>或<strong>文本列表</strong>。</li>
+      <li><strong>单曲成绩查询</strong>：根据用户输入的关键词，查询特定歌曲的成绩，并生成包含详细信息的<strong>可视化图片</strong>。</li>
+      <li><strong>新曲信息速递</strong>：展示游戏更新的歌曲及其谱面定数等更新信息。</li>
+      <li>上述生成内容，在遵守本协议的前提下，可由用户下载或分享，但仅限于个人、非商业用途。</li>
+      <li>本服务的官方服务地址为 xtower.site/test.html 及其子域名 aw0000.xtower.site/test.html
+        本服务的后端服务请求地址为：<a href="https://evernight.xtower.site">https://evernight.xtower.site</a>
+        上述地址提供的服务共同构成本服务不可分割的组成部分。任何对上述地址的访问或调用行为（包括但不限于直接请求后端 API、爬取数据、设置镜像站点等），均须遵守本协议全部条款。</li>
+    </ul>
+    <p>开发者保留根据运营、安全或技术需要随时变更服务地址的权利，恕不另行通知。用户应定期访问官方前端页面以获取最新地址。</p>
+    <p>对非官方服务地址的非法调用，开发者保留依法追究法律责任的权利。</p>
+    <p>2.2 服务流程简述：</p>
+    <ul>
+      <li>用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。授权后，本服务将接收由 TapTap 官方生成的
+        <strong>SessionToken</strong>，用户也可以自行提供，由本服务通过获取存档信息校验 <strong>SessionToken</strong> 的有效性。</li>
+      <li>SessionToken 校验成功后，本服务中与个人成绩相关的功能（如 Best N 成绩分析与生成、单曲成绩查询等），需使用该 Token 向 TapTap 官方发起请求，<strong>解密并获取与 Phigros
+          游戏相关的、实现本服务各项功能所必需的云存档数据</strong>。</li>
+      <li>服务端根据获取的数据和您的具体请求（如查询 Best N、查询单曲），进行计算，<strong>生成相应的图片或文本内容</strong>并返回给用户。</li>
+    </ul>
+    <h4>3. 账号、数据与隐私保护</h4>
+    <p>3.1 在您扫码登录的全过程中，<strong>我们不会以任何形式获取、记录或存储您的 TapTap 账号密码</strong>。本服务接收的唯一授权凭证是 TapTap 官方生成的
+      <strong>SessionToken</strong>。此 SessionToken <strong>仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据</strong>。</p>
+    <p>3.2 为实现本服务中与您个人成绩相关的功能（如 Best N 成绩分析与生成、单曲成绩查询等）与初次登录校验用户提供的 <strong>SessionToken</strong> 的需要，我们仅在您提供
+      SessionToken （包括扫码自动获取 SessionToken 和手动提供 SessionToken ）时收集和处理以下信息：</p>
+    <ul>
+      <li><strong>TapTap SessionToken</strong>：作为授权凭证，用于请求您的游戏数据。</li>
+      <li><strong>Phigros 云存档</strong>：<strong>用于实现本服务的各项功能（包括但不限于生成 Best N 图片、查询单曲成绩、生成文本列表等）</strong>，包括但不限于：玩家
+        ID、简介、Data（游戏内货币）、潜力值 (RKS) 全部单曲成绩记录（歌曲、难度、ACC、得分等）、章节与特殊歌曲的解锁情况，游戏设置等。</li>
+    </ul>
+    <p>我们不会以任何形式修改您的 Phigros 云存档游戏数据。</p>
+    <p>为提升服务性能，我们可能会在服务端内存中，使用缓存机制临时存储您的游戏数据。这些数据包括您的玩家ID、用户名、潜力值 (RKS)、所有单曲的最佳成绩、推分ACC等。</p>
+    <p>这些数据不会以明文形式写入硬盘或数据库，并会在24小时内自动过期清除。</p>
+    <p>您理解并同意，此缓存机制是为了优化服务响应速度而设计，我们无法保证过期的缓存数据仍能被访问。</p>
+    <p>3.3 为方便您下次使用，您的 SessionToken <strong>会被存储在您当前设备的浏览器本地存储中</strong>，以实现“自动登录”。
+      存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，服务器仅在处理您的当次请求时，临时使用该 SessionToken 向 TapTap 接口发起数据请求。不会将 SessionToken
+      以任何形式的持久化存储（如数据库、日志文件、硬盘）中保留。
+      您理解并同意，SessionToken 由 TapTap 生成并控制其有效期，本服务无法保证过期的 SessionToken 仍能成功获取数据。</p>
+    <p>3.4 为提升访问速度，本服务可能使用位于境外的网络加速节点（如 Cloudflare）进行请求转发或静态资源分发。</p>
+    <p>本服务自身所有涉及用户个人数据的处理、缓存与存储，均在中华人民共和国大陆境内完成。在本服务所有的请求过程中，您的 Phigros 云存档仅会在中华人民共和国大陆境内的服务器处理，不会出境，亦不会被境外节点持久化或访问。</p>
+    <p>3.5 登录后，您可随时点击服务页面的 <strong>“退出登录”</strong> 按钮，<strong>立即清除存储在浏览器中的 SessionToken。
+        但请注意，如果不提供 SessionToken ，我们则无法向您提供本服务</strong>。</p>
+    <h4>4. 用户行为准则</h4>
+    <p>4.1 在您遵守本协议全部条款的前提下，我们授予您一项<strong>有限的、可撤销的、非排他性、不可转让、不可再授权的许可</strong>，仅用于在官方前端界面内访问和使用本服务的现有功能。</p>
+    <p>
+      您充分理解并同意，除本协议明确授予的权利外，所有其他权利（包括但不限于商业使用、API调用、数据抓取、反向工程、衍生服务开发等）均保留给开发者。<strong>未经开发者事先书面许可，您不得行使任何未被明确授权的权利</strong>。
+    </p>
+    <p>开发者未行使或延迟行使其在本协议项下的任何权利，<strong>不构成对该权利的放弃，也不影响其后续行使该权利</strong>。</p>
+    <p>4.2 **本服务及任何可能的附属服务均仅限于在上述2.1条所述官方前端内使用，若需在范围外使用须获得开发者的书面同意。</p>
+    <p>任何在官方前端外调用本服务的行为（无论实施主体是否为已同意本协议的用户，包括自动化程序、第三方服务、未授权镜像等），所引发的一切法律风险、技术后果及经济损失，均由实施方自行承担。</p>
+    <p>未经开发者事先书面同意，您不得将本服务或其生成内容用于任何直接或间接的商业目的（包括但不限于：嵌入商业产品、用于流量变现、作为付费服务的一部分等）。**</p>
+    <p>4.3 您在使用我们提供的上述服务时，应遵守法律法规的要求和本协议的约定，遵守自愿、平等、公平及诚实信用原则，不利用本服务侵犯他人合法权益及谋取不正当利益，不扰乱互联网平台正常秩序。</p>
+    <p>4.4 作为本服务的使用者，您不得违反《互联网信息服务管理办法》、《网络信息内容生态治理规定》等法律法规以及相关标准关于网络信息内容安全的要求，不得输入、利用本服务输出或传播以下违法不良信息：</p>
+    <ul>
+      <li>（1）反对宪法所确定的基本原则的；</li>
+      <li>（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；</li>
+      <li>（3）损害国家荣誉和利益的；</li>
+      <li>（4）歪曲、丑化、亵渎、否定英雄烈士事迹和精神，以侮辱、诽谤或者其他方式侵害英雄烈士的姓名、肖像、名誉、荣誉的；</li>
+      <li>（5）宣扬恐怖主义、极端主义或者煽动实施恐怖活动、极端主义活动的；</li>
+      <li>（6）煽动民族仇恨、民族歧视，破坏民族团结的；</li>
+      <li>（7）破坏国家宗教政策，宣扬邪教和封建迷信的；</li>
+      <li>（8）散布谣言，扰乱经济秩序和社会秩序的；</li>
+      <li>（9）散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；</li>
+      <li>（10）侮辱或者诽谤他人，侵害他人名誉、隐私和其他合法权益的；</li>
+      <li>（11）法律、行政法规禁止的其他内容。</li>
+    </ul>
+    <p>4.5 作为本服务的使用者，您不得违反《网络安全法》、《数据安全法》等法律法规以及相关标准的要求，不得对本服务以及支持本服务正常运行的系统、网络、以及其他组件等进行干扰、破坏或攻击，不得从事以下危害本服务安全的活动：</p>
+    <ul>
+      <li>（1）从事非法侵入网络的活动，例如：使用未经许可的数据或进入未经许可的服务器/账号；伪造TCP/IP数据包名称或部分名称；未经许可，企图探查、扫描、测试本软件系统或网络的弱点等。</li>
+      <li>（2）从事干扰、破坏网络正常功能的活动，例如：故意生成、传播恶意程序或病毒；未经允许进入公众计算机网络或者他人计算机系统并删除、修改、增加存储信息；以导致计算机系统或设施承受不合理负载的方式干扰运营等。</li>
+      <li>（3）以任何自动化方式（包括但不限于通过任何机器人、爬虫、其他自动设置、设置镜像）来抓取、复制本服务及其所包含的任何内容等。</li>
+      <li>（4）从事其他危害本服务系统、网络、以及其他组件安全的活动。</li>
+    </ul>
+    <h4>5. 知识产权</h4>
+    <p>5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于程序、代码、网页、文字等）享有完整的知识产权。</p>
+    <p>我们保留在不通知的情况下，随时更改本服务本体及其生成的<strong>任何内容（下称“生成内容”，包括但不限于 Best N
+        图片、单曲成绩图、文本成绩列表等）</strong>（如图片模板、布局、包含的信息），或在生成内容中添加本服务标识（如水印或网址）的权利。</p>
+    <p>5.2 本服务的生成内容可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。<strong>我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon
+        Games、相关曲师画师等）所有。</strong>
+      "生成内容"对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的<strong>适当引用</strong>。这<strong>不代表获得了任何权利人的任何官方授权，也不代表相关权利人对本服务的认可、承诺或任何形式的背书。</strong>
+    </p>
+    <p>5.3 您理解并同意，"生成内容"中可能包含上述第 5.2 条所述的第三方知识产权内容，
+      这些内容除非另有书面说明，否则开发者未获得原作者的复制、传播、演绎等授权，开发者也无权向您授予相关图片与包含这些权利内容的"生成内容"的具体著作权权利。</p>
+    <p>因此，您应特别审慎地在个人、非商业、且符合原作品性质（如游戏社区讨论、成绩展示）的范围内分享和使用生成内容。
+      超出此范围的使用（特别是任何形式的商业性使用、大规模传播或可能损害权利人利益的使用）可能构成侵权。<strong>如果您的使用行为超出了“适当引用”的范畴（包括，但不限于知识产权方面）导致被追究，在法律允许的最大范围内，开发者不承担任何责任。</strong>
+    </p>
+    <p><strong>您对生成内容的任何使用行为，均视为您已充分理解并自愿承担由此产生的一切法律后果</strong>。</p>
+    <p>5.4 我们尊重并保护权利人的知识产权。如果您是相关知识产权的合法权利人，并且认为本服务的“生成内容”侵犯了您的合法权益，请您通过本协议第10条提供的联系方式，向我们发送书面通知。您的通知应包含以下内容：</p>
+    <ul>
+      <li>(1) 足以证明您身份及权利归属的有效证明材料；</li>
+      <li>(2) 您认为构成侵权的具体内容在本服务中的位置或链接；</li>
+      <li>(3) 您的联系方式（地址、电话、电子邮件）。</li>
+    </ul>
+    <p><strong>在收到并核实您的有效通知后，我们将根据法律法规和您的要求，采取包括但不限于移除相关内容、断开链接、或终止相关功能等必要措施。</strong></p>
+    <h4>6. 免责声明与责任限制</h4>
+    <p>6.1 本服务按“<strong>现状</strong>”提供，<strong>不做任何形式明示或默示的担保</strong>，包括但不限于服务的稳定性、准确性、安全性或持续可用性。
+      您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误等）<strong>均由您自行承担。</strong></p>
+    <p>本服务提供的成绩分析、推分计算等功能仅为数据展示与娱乐用途，不构成任何专业建议，您不应依赖其做出重要决策。</p>
+    <p>特别地，您有责任妥善保管您的个人设备和 SessionToken ，因您自身问题（如设备丢失、感染病毒、浏览器被攻击、在公开群聊发送 SessionToken 等）导致的 SessionToken
+      泄露及可能造成的任何损失，由您自行承担。</p>
+    <p>6.2
+      <strong>在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见。在任何情况下，即使本协议中的某些条款因故无效，开发者对您承担的全部赔偿责任，累计总额不应超过用户为使用本服务所向开发者支付的费用。</strong>
+    </p>
+    <p>6.3
+      不论在何种情况下，本服务均不对由于网络连接故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际、国内法院的命令，黑客攻击，互联网病毒，网络运营商技术调整，政府临时管制或任何其他不能合理控制的原因而造成的本服务不能访问、服务中断、信息及数据的泄露、延误、停滞或错误，不能提供或延迟提供服务而承担责任。
+    </p>
+    <p>6.4 <strong>本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。</strong>
+      您理解并同意，本服务仅为玩家查询个人成绩提供便利，所有个人成绩数据来源均依赖于 TapTap 官方云存档（以下简称“云存档”）。</p>
+    <p>本服务的可用性、数据准确性及功能完整性<strong>完全依赖于云存档的开放状态、稳定性、数据格式及访问策略。<strong>TapTap 或 Pigeon Games
+          有权</strong>随时变更或关闭云存档</strong>，开发者对此<strong>无法控制亦不承担任何责任</strong>。</p>
+    <p>我们<strong>不对云存档数据的绝对准确性、完整性或实时性做出任何保证</strong>。所有数据<strong>应以 Phigros
+        游戏内展示为准</strong>。因云存档数据延迟、错误或不同步可能导致的任何问题，开发者不承担责任。</p>
+    <p>6.5
+      开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。<strong>您理解并同意，如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，开发者有权随时移除相关权利内容，功能、限制服务或单方面终止本协议，而无需对您承担任何责任。</strong>
+    </p>
+    <p>6.6 本服务可能会提供与其他国际互联网网站或资源进行链接（例如友链）。除非另有声明，开发者无法对第三方网站之服务进行控制，用户因使用或依赖上述网站或资源所产生的损失或损害，开发者不承担任何责任。
+      我们建议您在访问其他网站或资源前仔细阅读其服务条款和隐私政策。</p>
+    <h4>7. 协议的变更与终止</h4>
+    <p>7.1 因服务变更等可能的需要，开发者保留修改本协议的权利。修改后的协议将在本服务页面公布并在生效日的 UTC+8 的 00:00:00 立刻生效。若生效日期与发布日期相同，则修改后的协议发布时即生效。</p>
+    <p><strong>我们会采取合理措施公布协议更改情况，如您不接受修改后的协议，请您立即停止使用本服务</strong>。您继续使用本服务将被视为则视为您已充分阅读、理解并接受更新后的本协议并愿意受更新后的本协议的约束。</p>
+    <p>我们建议您定期访问本页面以查阅最新版本。</p>
+    <p>7.2 开发者保留随时因任何理由（包括但不限于收到相关权利方（如Pigeon
+      Games）的通知、技术、运营成本、法律法规要求或开发者个人决定）<strong>暂时中止或永久终止本服务的权利，而无需事先通知，也无需承担任何责任。</strong></p>
+    <h4>8. 适用法律与管辖权</h4>
+    <p>8.1 本协议的订立、生效、解释、履行及争议解决，均适用<strong>中华人民共和国法律</strong>。</p>
+    <p>如因本协议引起或与本协议相关的任何争议，双方应首先通过友好协商解决；协商不成的，任何一方均有权将争议提交至开发者所在地（安徽省合肥市）依法享有管辖权的人民法院，通过诉讼方式解决。该管辖约定具有排他性。</p>
+    <h4>9. 其他</h4>
+    <p>9.1 如本协议任何条款或其部分内容被有管辖权的法院或仲裁机构认定为不合法、无效或不可强制执行，该条款或部分应在该范围内视为自始无效且不构成本协议的一部分，但不影响本协议其余条款的合法性、有效性及可执行性。</p>
+    <p>在法律允许的最大范围内，双方同意以最接近原条款意图的有效条款替代该无效条款。</p>
+    <p>9.2 本协议以简体中文为正式文本。如存在其他语言翻译版本，其内容仅供理解参考；如与简体中文版本存在任何歧义或冲突，以简体中文版本为准。</p>
+    <h4>10. 联系我们</h4>
+    <p>如果您对本协议有任何疑问、意见或建议，请通过以下方式联系我们：</p>
+    <p><a href="mailto:sczr0710@163.com">sczr0710@163.com</a></p>
   </div>
-  </body>
+</body>
+
 </html>
