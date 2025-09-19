@@ -1359,7 +1359,7 @@
         // 维护模式配置
         // ==========================================================
         const maintenanceConfig = {
-            enabled: true, // true: 启用维护模式检查, false: 禁用
+            enabled: false, // true: 启用维护模式检查, false: 禁用
             startTime: '2025-09-19T17:00:00', // 维护开始时间 (YYYY-MM-DDTHH:mm:ss)
             endTime: '2025-09-19T20:00:00',   // 维护结束时间
             title: '维护通知',
@@ -1372,8 +1372,8 @@
         // 公告配置
         // ==========================================================
         const announcementConfig = {
-            version: '4', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
-            text: '欢迎来到空间站「塔弦」下辖的Phigros 成绩查询与图片生成器！这是一条公告！<br>庆祝查分器Bn图片生成次数破千！<br>我们于2025.9.17更新了我们的用户协议，主要修改了部分表述，<a href="https://github.com/Sczr0/Sczr0.github.io/commit/0d94f0992896172be36c9a485f4e482478a3d07b" target="_blank">具体差异看这里</a><br>[官方群聊]答案未更新导致进入错误问题已修复，欢迎加入[官方群聊]催更新功能/反馈问题。'
+            version: '5', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
+            text: '欢迎来到空间站「塔弦」下辖的Phigros 成绩查询与图片生成器！这是一条公告！<br>新版本曲目已更新，庆祝查分器Bn图片生成次数破千！<br>我们于2025.9.17更新了我们的用户协议，主要修改了部分表述，<a href="https://github.com/Sczr0/Sczr0.github.io/commit/0d94f0992896172be36c9a485f4e482478a3d07b" target="_blank">具体差异看这里</a><br>[官方群聊]答案未更新导致进入错误问题已修复，欢迎加入[官方群聊]催更新功能/反馈问题。'
         };
 
         // ==========================================================
@@ -1423,38 +1423,43 @@
         // ==========================================================
         const newSongsConfig = {
             // 指定一个基准更新时间点
-            updateDate: '2025-08-31T17:00:00',
+            updateDate: '2025-09-19T17:00:00',
             // 更新的曲目列表
             tracks: [
                 {
-                    name: 'RetributionCycleofRedemption.ArdolfvsDaily天利',
+                    name: 'アンビバレンス.すりぃ相沢',
                     charts: [
-                        { difficulty: 'EZ', constant: 6.0 },
-                        { difficulty: 'HD', constant: 11.3 },
-                        { difficulty: 'IN', constant: 16.2 }
+                        { difficulty: 'EZ', constant: 3.5 },
+                        { difficulty: 'HD', constant: 8.7 },
+                        { difficulty: 'IN', constant: 14.1 }
                     ]
                 },
                 {
-                    name: '雪降り雪が降っている.AiSSw夜輪ft結月ゆかり',
+                    name: 'Komplexe.雄之助featSennzai',
                     charts: [
-                        { difficulty: 'EZ', constant: 1.5 },
-                        { difficulty: 'HD', constant: 7.5 },
-                        { difficulty: 'IN', constant: 12.0 },
-                        { difficulty: 'AT', constant: 14.0 }
+                        { difficulty: 'EZ', constant: 4.0 },
+                        { difficulty: 'HD', constant: 9.6 },
+                        { difficulty: 'IN', constant: 14.3 }
                     ]
                 },
                 {
-                    name: 'DerRichter.Ωμεγα',
+                    name: 'slips.rintarosoma',
                     charts: [
-                        { difficulty: 'AT', constant: 16.9 }
+                        { difficulty: 'EZ', constant: 7.5 },
+                        { difficulty: 'HD', constant: 12.8 },
+                        { difficulty: 'IN', constant: 15.8 },
+                        { difficulty: 'AT', constant: 16.8 }
                     ]
                 },
                 {
-                    name: 'PANICPARADISE.DJSHIONY',
+                    name: 'QZKagoRequiem.tpazolite',
                     charts: [
-                        { difficulty: 'AT', constant: 16.4 }
+                        { difficulty: 'EZ', constant: 7.0 },
+                        { difficulty: 'HD', constant: 13.3 },
+                        { difficulty: 'IN', constant: 16.4 },
+                        { difficulty: 'AT', constant: 17.4 }
                     ]
-                },
+                }
             ],
             // 附言（可选，如果没有内容则不显示）
             postscript: ''
