@@ -1145,6 +1145,7 @@
                     <button class="tab-button" onclick="switchTab('b19-generator')">成绩图片</button>
                     <button class="tab-button" onclick="switchTab('song-query')">单曲查询</button>
                     <button class="tab-button" id="live-content-tab" onclick="switchTab('live-content')" style="display: none;">直播内容速递</button>
+                    <button class="tab-button" onclick="switchTab('rks-calculator')">RKS计算器</button>
                     <button class="tab-button" onclick="switchTab('song-update-info')">新曲速递</button>
                     <button class="tab-button" onclick="switchTab('about')">关于</button>
                 </div>
@@ -1225,7 +1226,47 @@
                     </div>
                 </div>
 
-                <!-- 面板3: 新曲速递 -->
+                <!-- 面板3: RKS计算器 -->
+                <div id="rks-calculator" class="tab-pane">
+                    <p>请输入谱面定数和ACC来计算RKS值</p>
+                    <div id="rks-calculator-container" class="form-group"
+                         style="flex-direction: column; align-items: stretch; width: 100%; max-width: 400px; background: transparent; padding:0; gap: 1rem;">
+                        <div class="form-group"
+                             style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
+                            <label for="chart-constant">谱面定数</label>
+                            <input type="number" id="chart-constant" placeholder="例如: 15.5"
+                                 step="0.1" min="1.0" max="18.0"
+                                 style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                        </div>
+                        <div class="form-group"
+                             style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
+                            <label for="acc-value">ACC (%)</label>
+                            <input type="number" id="acc-value" placeholder="例如: 98.5"
+                                 step="0.1" min="70.0" max="100.0"
+                                 style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 1rem;">
+                            <button id="calculate-rks-btn" onclick="calculateRKS()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                </svg>
+                                计算RKS
+                            </button>
+                            <button id="clear-rks-btn" onclick="clearRKSCalculator()" class="btn-secondary">清空</button>
+                        </div>
+                    </div>
+                    <!-- 计算结果显示区域 -->
+                    <div id="rks-result-container" style="margin-top: 1.5rem; display: none;">
+                        <div style="background-color: rgba(248, 249, 250, 0.8); border-radius: 12px; padding: 1.5rem; max-width: 400px;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 1rem; text-align: center;">计算结果</h3>
+                            <div id="rks-result-content">
+                                <!-- 结果将在这里显示 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 面板4: 新曲速递 -->
                 <div id="song-update-info" class="tab-pane">
                     <!-- 此处内容将由 JS 动态生成 -->
                 </div>
@@ -1762,6 +1803,11 @@ sczr0710@163.com
             if (tabId === 'about') {
                 renderStatsData();
             }
+
+            // 如果切换到RKS计算器，重置计算器状态
+            if (tabId === 'rks-calculator') {
+                clearRKSCalculator();
+            }
         }
 
         // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
@@ -1987,6 +2033,66 @@ sczr0710@163.com
             clearInterval(pollingInterval);
             console.log('用户已登出。');
             window.location.reload();
+        }
+
+        // ===== RKS计算函数 =====
+        function calculateRKS() {
+            const constantInput = document.getElementById('chart-constant');
+            const accInput = document.getElementById('acc-value');
+            const resultContainer = document.getElementById('rks-result-container');
+            const resultContent = document.getElementById('rks-result-content');
+
+            const constant = parseFloat(constantInput.value);
+            const acc = parseFloat(accInput.value);
+
+            // 验证输入
+            if (!constant || !acc) {
+                alert('请输入完整的定数和ACC值');
+                return;
+            }
+
+            if (constant < 1.0 || constant > 18.0) {
+                alert('谱面定数必须在1.0-18.0范围内');
+                return;
+            }
+
+            if (acc < 70.0 || acc > 100.0) {
+                alert('ACC必须在70.0-100.0范围内');
+                return;
+            }
+
+            // 将百分数转换为小数用于计算
+            const accDecimal = acc / 100;
+
+            // 使用正确的Phigros RKS计算公式
+            // 当ACC = 100%时，RKS应该等于谱面定数
+            const rks = Math.pow((acc - 55) / 45, 2) * constant;
+
+            // 显示结果
+            const calculationProcess = `
+                <div style="text-align: center;">
+                    <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">
+                        RKS = ${rks.toFixed(4)}
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--muted-text-color); margin-bottom: 0.5rem;">
+                        计算过程：
+                    </div>
+                    <div style="font-family: 'Courier New', monospace; background-color: rgba(255,255,255,0.5); padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                        (${acc} - 55) ÷ 45 = ${(acc - 55) / 45}<br>
+                        [${((acc - 55) / 45).toFixed(4)}]² × ${constant} = ${rks.toFixed(4)}
+                    </div>
+                </div>
+            `;
+
+            resultContent.innerHTML = calculationProcess;
+            resultContainer.style.display = 'block';
+        }
+
+        // ===== 清空RKS计算器函数 =====
+        function clearRKSCalculator() {
+            document.getElementById('chart-constant').value = '';
+            document.getElementById('acc-value').value = '';
+            document.getElementById('rks-result-container').style.display = 'none';
         }
 
         // ===== 新增函数：设置背景图下载链接 =====
@@ -2344,7 +2450,7 @@ sczr0710@163.com
             statsContainer.innerHTML = statsHtml;
         }
 
-        // Session Token 功能 (from index.html)
+        // Session Token 功能
         function setupSessionToken() {
             const tokenContainer = document.getElementById('session-token-container');
             if (!tokenContainer) return; // Exit if container not found
