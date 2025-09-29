@@ -1023,7 +1023,7 @@
             }
         }
     </style>
-    <!-- ===== 新增：可折叠面板样式 ===== -->
+    <!-- ===== 可折叠面板样式 ===== -->
     <style>
         .accordion-item {
             border-bottom: 1px solid var(--border-color);
@@ -1161,13 +1161,109 @@
         #announcement-content a:hover {
             text-decoration: underline;
         }
+
+        /* ===== 玩家成绩渲染表单和列表优化样式 ===== */
+        .score-form-card {
+            background-color: rgba(248, 249, 250, 0.9);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .score-form-row {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .score-form-label {
+            font-weight: 500;
+            text-align: right;
+            padding-right: 0.5rem;
+            color: var(--muted-text-color);
+        }
+
+        .score-form-input,
+        .score-form-select {
+            width: 100%;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .score-form-input:focus,
+        .score-form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .score-list-card {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(248, 249, 250, 0.9);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .score-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .score-list-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        #scores-container {
+            flex-grow: 1;
+            height: 300px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .score-list-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .score-item {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: white;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
     <script defer src="https://cloud.umami.is/script.js"
         data-website-id="cd2b5132-86fd-4c44-8edb-ea20fe594b81"></script>
 </head>
 
 <body>
-    <!-- ===== 新增：维护通知HTML结构 ===== -->
+    <!-- ===== 维护通知HTML结构 ===== -->
     <div id="maintenance-overlay">
         <div class="maintenance-content">
             <h1 id="maintenance-title"></h1>
@@ -1178,7 +1274,7 @@
     <script src="https://jsd-proxy.ygxz.in/npm/marked/marked.min.js"></script>
     <script async src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
     <div class="container">
-        <!-- ===== 新增：维护预告横幅 ===== -->
+        <!-- ===== 维护预告横幅 ===== -->
         <div id="maintenance-notice-banner"
             style="display: none; background-color: #ffc107; color: #333; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; font-weight: 500;">
         </div>
@@ -1279,13 +1375,14 @@
                     <button class="tab-button" id="live-content-tab" onclick="switchTab('live-content')" style="display: none;">直播内容速递</button>
                     <button class="tab-button" onclick="switchTab('rks-calculator')">RKS计算器</button>
                     <button class="tab-button" onclick="switchTab('song-update-info')">新曲速递</button>
+                    <button class="tab-button" onclick="switchTab('player-score-render')">玩家成绩渲染</button>
                     <button class="tab-button" onclick="switchTab('about')">关于</button>
                 </div>
 
                 <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
 
                 <!-- ===== 标签页内容面板 ===== -->
-                <!-- 面板1: Best N 生成器 -->
+                <!-- 面板: Best N 生成器 -->
                 <div id="b19-generator" class="tab-pane">
                     <p>请输入您想生成的 Best N </p>
                     <div id="image-generator" class="form-group"
@@ -1329,7 +1426,7 @@
                     </div>
                 </div>
 
-                <!-- 面板2: 单曲成绩查询 -->
+                <!-- 面板: 单曲成绩查询 -->
                 <div id="song-query" class="tab-pane">
                     <p>请输入歌曲关键词查询单曲成绩图</p>
                     <div id="song-query-container" class="form-group"
@@ -1358,7 +1455,7 @@
                     </div>
                 </div>
 
-                <!-- 面板3: RKS计算器 -->
+                <!-- 面板: RKS计算器 -->
                 <div id="rks-calculator" class="tab-pane">
                     <p>请输入谱面定数和ACC来计算RKS值</p>
                     <div id="rks-calculator-container" class="form-group"
@@ -1398,12 +1495,67 @@
                     </div>
                 </div>
 
-                <!-- 面板4: 新曲速递 -->
+                <!-- 面板: 新曲速递 -->
                 <div id="song-update-info" class="tab-pane">
                     <!-- 此处内容将由 JS 动态生成 -->
                 </div>
 
-                <!-- 面板4: 关于 -->
+                <!-- 面板: 玩家成绩渲染 -->
+                <div id="player-score-render" class="tab-pane">
+                    <div class="form-group" style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa; width: 100%; max-width: 500px;">
+                        <label for="player-name">玩家姓名</label>
+                        <input type="text" id="player-name" placeholder="请输入玩家姓名"
+                               style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                    </div>
+
+                    <div style="display: flex; width: 100%; max-width: 800px; gap: 2rem;">
+                        <!-- 左侧: 添加成绩 -->
+                        <div id="add-score-section" style="flex: 1;">
+                            <div class="score-form-card">
+                                <div class="score-form-row">
+                                    <label for="song-name" class="score-form-label">歌曲名称</label>
+                                    <input type="text" id="song-name" placeholder="请输入歌曲名称" class="score-form-input">
+                                </div>
+                                <div class="score-form-row">
+                                    <label for="song-score" class="score-form-label">分数</label>
+                                    <input type="number" id="song-score" placeholder="0-1000000" min="0" max="1000000" class="score-form-input">
+                                </div>
+                                <div class="score-form-row">
+                                    <label for="song-acc" class="score-form-label">ACC (%)</label>
+                                    <input type="number" id="song-acc" placeholder="0-100" min="0" max="100" step="0.01" class="score-form-input">
+                                </div>
+                                <div class="score-form-row">
+                                    <label for="song-difficulty" class="score-form-label">难度</label>
+                                    <select id="song-difficulty" class="score-form-select">
+                                        <option value="EZ">EZ</option>
+                                        <option value="HD">HD</option>
+                                        <option value="IN" selected>IN</option>
+                                        <option value="AT">AT</option>
+                                    </select>
+                                </div>
+                                <button id="add-score-btn" onclick="addScore()">添加成绩</button>
+                            </div>
+                        </div>
+
+                        <!-- 右侧: 成绩列表 -->
+                        <div class="score-list-card">
+                            <div class="score-list-header">
+                                <h4>成绩列表</h4>
+                                <span id="score-count" style="color: var(--muted-text-color);">0/36</span>
+                            </div>
+                            <div id="scores-container">
+                                <div id="no-scores-message" style="text-align: center; color: var(--muted-text-color); padding: 1rem;">暂无成绩</div>
+                                <!-- 成绩项将在这里动态添加 -->
+                            </div>
+                            <div class="score-list-footer">
+                                <button id="clear-scores-btn" onclick="clearScores()" class="btn-secondary">清空成绩</button>
+                                <button id="render-scores-btn" onclick="renderScores()">渲染成绩</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 面板: 关于 -->
                 <div id="about" class="tab-pane">
                     <div id="about-content">
                         <div id="stats-container">
@@ -1545,8 +1697,8 @@
         // 公告配置
         // ==========================================================
         const announcementConfig = {
-            version: '6', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
-            text: '欢迎来到空间站「塔弦」下辖的 Phigros 成绩查询与图片生成器！这是一条公告！<br>我们于2025.9.22更新了我们的<a href="https://aw0000.xtower.site/UserAgreement.html" target="_blank">用户协议</a>，主要添加了联合查分API的部分，<a href="https://github.com/Sczr0/Sczr0.github.io/commit/eefbefcbe3fe3dab04ede4e50ef1bff6018ff258" target="_blank">具体差异看这里</a><br>[官方群聊]答案未更新导致进入错误问题已修复，欢迎加入官方群聊催更新功能/反馈问题/查看更新计划。<br>近期更新：<br>1. 添加了rks快速计算功能<br>2. 添加了联合查分登录方式。'
+            version: '7', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
+            text: '欢迎来到空间站「塔弦」下辖的 Phigros 成绩查询与图片生成器！这是一条公告！<br>我们于2025.9.29更新了我们的<a href="https://aw0000.xtower.site/UserAgreement.html" target="_blank">用户协议</a>，主要添加了关于玩家成绩渲染的部分，<a href="https://github.com/Sczr0/Sczr0.github.io/commit/eefbefcbe3fe3dab04ede4e50ef1bff6018ff258" target="_blank">具体差异看这里</a><br>欢迎加入官方群聊催更新功能/反馈问题/查看更新计划。<br>近期更新：<br>1. 添加了rks快速计算功能<br>2. 添加了联合查分登录方式。<br>3.添加了玩家成绩渲染功能。<br>近期本测试站将迁移至现代前端架构，敬请期待。'
         };
 
         // ==========================================================
@@ -1644,7 +1796,7 @@
         // ==========================================================
         const BACKEND_URL = 'https://evernight.xtower.site';
 
-        // ===== 新增函数：统一的请求体构建函数 =====
+        // ===== 统一的请求体构建函数 =====
         function buildAuthRequestBody() {
             const savedToken = localStorage.getItem('phigrosSessionToken');
             const savedCredentials = localStorage.getItem('phigrosAuthCredentials');
@@ -1686,9 +1838,9 @@
         // 用户协议文本 (使用模板字符串 `` 可以保留换行)
         const agreementText = `### 「塔弦」空间站 - Phigros 成绩查询与图片生成器 用户协议
 
-**最后更新日期：2025年9月22日**
+**最后更新日期：2025年9月29日**
 
-**生效日期：2025年9月22日**
+**生效日期：2025年9月29日**
 
 ---
 
@@ -1704,10 +1856,11 @@
 如您从其他国家或地区访问本服务，您有责任确保自身行为符合当地法律法规。同时，您同意本协议的解释与争议解决适用中华人民共和国大陆地区法律（详见第8.1条），并服从相关司法管辖。
 
 #### 2. 服务描述
- 2.1 本服务是一个**免费、第三方**开发的网页工具。其功能包括基于您个人游戏数据的成绩分析，以及通用的部分游戏信息展示。主要服务如下：
+ 2.1 本服务是一个**免费、第三方**开发的网页工具。其功能包括基于您个人游戏数据的成绩分析，以及通用的部分游戏信息展示。部分服务如下：
 *   **Best N 成绩分析与生成**：计算并生成用户指定数量的最佳成绩（Best N）的**可视化图片**或**文本列表**。
 *   **单曲成绩查询**：根据用户输入的关键词，查询特定歌曲的成绩，并生成包含详细信息的**可视化图片**。
 *   **新曲信息速递**：展示游戏更新的歌曲及其谱面定数等更新信息。
+*   **玩家成绩渲染**：根据玩家上传的成绩，生成BestN图片。
 *   上述生成内容，在遵守本协议的前提下，可由用户下载或分享，但仅限于个人、非商业用途。
 *   本服务的官方服务地址为 xtower.site/test.html 及其子域名 aw0000.xtower.site/test.html
 本服务的后端服务请求地址为：https://evernight.xtower.site
@@ -1734,7 +1887,6 @@
 *   用户选择“联合查分API”登录方式，并按指引提供必要信息，完成授权登录；
 *   本服务临时、单次向联合查分API发起请求，获取您的 Phigros 成绩数据；
 *   服务端根据数据生成内容并返回；
-*   本服务不会存储联合查分API返回的任何凭证、链接或原始数据，请求完成后立即丢弃。
 
 #### 3. 账号、数据与隐私保护
 
@@ -1743,7 +1895,11 @@
 *   **TapTap SessionToken**：作为临时授权凭证，仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据；
 *   ** Phigros 云存档数据**：包括但不限于玩家 ID、用户名、潜力值 (RKS)、所有单曲最佳成绩（歌曲名、难度、ACC、得分等）、章节解锁状态、游戏设置等；
 
-我们不会以任何形式修改、删除或干预您的 Phigros 云存档数据。
+3.2 当你使用联合查分方式登录时，为实现本服务中与您个人成绩相关的功能，我们仅在您对本服务发出 成绩获取请求 时向 联合查分API 收集和处理以下信息：
+*   **TapTap 云存档下载链接**：由联合查分API 提供，指向 TapTap 官方服务器上的原始存档文件。
+*   ** Phigros 云存档数据**：包括但不限于玩家 ID、用户名、潜力值 (RKS)、所有单曲最佳成绩（歌曲名、难度、ACC、得分等）、章节解锁状态、游戏设置等；
+
+3.3 我们不会以任何形式修改、删除或干预您的 Phigros 云存档数据。
 
 为提升服务性能，我们可能会在服务端内存中，使用缓存机制临时存储您的游戏数据。这些数据包括您的玩家ID、用户名、潜力值 (RKS)、所有单曲的最佳成绩、推分ACC等。
 
@@ -1751,16 +1907,15 @@
 
 您理解并同意，此缓存机制是为了优化服务响应速度而设计，我们无法保证过期的缓存数据仍能被访问。
 
-3.2 当你使用联合查分方式登录时，为实现本服务中与您个人成绩相关的功能，我们仅在您对本服务发出 成绩获取请求 时向 联合查分API 收集和处理以下信息：
-*   **TapTap 云存档下载链接**：由联合查分API 提供，指向 TapTap 官方服务器上的原始存档文件。
-*   ** Phigros 云存档数据**：包括但不限于玩家 ID、用户名、潜力值 (RKS)、所有单曲最佳成绩（歌曲名、难度、ACC、得分等）、章节解锁状态、游戏设置等；
+3.4 为方便您下次使用，本服务的特定信息**会被存储在您当前设备的浏览器本地存储（LocalStorage）中**，以便优化您的使用体验。具体包括：
+*   **登录凭证**：您的 SessionToken 或联合查分API信息，用于实现“自动登录”。
+*   **“玩家成绩渲染”数据**：您在该功能中输入的玩家姓名和成绩列表，以便您下次访问时无需重新输入。
 
-3.3 为方便您下次使用，您的 登录凭证（SessionToken 或 联合查分API 信息） **会被存储在您当前设备的浏览器本地存储中**，以实现“自动登录”。
-存储在您浏览器中的登录凭证仅保留在您的本地设备上，服务器仅在处理您的当次请求时，临时使用该登录凭证发起数据请求。不会将登录凭证在本服务中以任何形式持久化存储（如数据库、日志文件、硬盘）中保留。我们不会以任何形式持久化存储 TapTap 或者联合查分API返回的原始数据、访问链接或临时凭证。
+上述信息仅保留在您的本地设备上，我们不会将其上传或存储在本服务之服务器。服务器仅在处理您的当次请求时，临时使用登录凭证发起数据请求，不会在本服务中以任何形式持久化存储（如数据库、日志文件、硬盘）中保留。我们不会以任何形式持久化存储 TapTap 或者联合查分API返回的原始数据、访问链接或临时凭证。
 
 您理解并同意，SessionToken 由 TapTap 生成并控制其有效期，本服务无法保证过期的 SessionToken 仍能成功获取数据。
 
-3.4 为提升访问速度，本服务可能使用位于境外的网络加速节点（如 Cloudflare）进行请求转发或静态资源分发。
+3.5 为提升访问速度，本服务可能使用位于境外的网络加速节点（如 Cloudflare）进行请求转发或静态资源分发。
 
 本服务自身所有涉及用户个人数据的处理、缓存与存储，均在中华人民共和国大陆境内完成。在本服务所有的请求过程中，您的 Phigros 云存档仅会在中华人民共和国大陆境内的服务器处理，不会出境，亦不会被境外节点持久化或访问。
 
@@ -1807,10 +1962,14 @@
 
 我们保留在不通知的情况下，随时更改本服务本体及其生成的**任何内容（下称“生成内容”，包括但不限于 Best N 图片、单曲成绩图、文本成绩列表等）**（如图片模板、布局、包含的信息），或在生成内容中添加本服务标识（如水印或网址）的权利。
 
-5.2 本服务的生成内容可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。**
+特别的，对于**玩家自行上传的成绩**，我们可能会添加额外标识，用于追溯生成内容的数据来源，包括但不限于显式水印与隐式水印（如数字水印，元数据标记等）。
+
+5.2 本服务于背景使用的随机图API，仅为美化本服务页面，我们不与其运营方存在任何官方关联、认可、授权或合作关系。
+
+5.3 本服务的生成内容可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。**
 "生成内容"对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表获得了任何权利人的任何官方授权，也不代表相关权利人对本服务的认可、承诺或任何形式的背书。**
 
-5.3 您理解并同意，"生成内容"中可能包含上述第 5.2 条所述的第三方知识产权内容，
+5.4 您理解并同意，"生成内容"中可能包含上述第 5.3 条所述的第三方知识产权内容，
 这些内容除非另有书面说明，否则开发者未获得原作者的复制、传播、演绎等授权，开发者也无权向您授予相关图片与包含这些权利内容的"生成内容"的具体著作权权利。
 
 因此，您应特别审慎地在个人、非商业、且符合原作品性质（如游戏社区讨论、成绩展示）的范围内分享和使用生成内容。
@@ -1831,7 +1990,7 @@
 
 本服务提供的成绩分析、推分计算等功能仅为数据展示与娱乐用途，不构成任何专业建议，您不应依赖其做出重要决策。
 
-特别地，您有责任妥善保管您的个人设备和 SessionToken ，因您自身问题（如设备丢失、感染病毒、浏览器被攻击、在公开群聊发送 SessionToken 等）导致的 SessionToken 泄露及可能造成的任何损失，由您自行承担。
+您有责任妥善保管您的个人设备和 SessionToken ，因您自身问题（如设备丢失、感染病毒、浏览器被攻击、在公开群聊发送 SessionToken 等）导致的 SessionToken 泄露及可能造成的任何损失，由您自行承担。
 
 6.2 **在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见、是否基于合同、侵权（包括疏忽）或其他法律理论。**
 
@@ -1846,6 +2005,7 @@
 我们**不对云存档数据的绝对准确性、完整性或实时性做出任何保证**。所有数据**应以 Phigros 游戏内展示为准**。因云存档或联合查分API数据延迟、错误或不同步可能导致的任何问题，开发者不承担责任。
 
 6.5 开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。**您理解并同意，如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，开发者有权随时移除相关权利内容，功能、限制服务或单方面终止本协议，上述行为无需事先通知，亦无需对您承担任何赔偿或补偿责任。**
+**您理解并同意，若玩家成绩渲染功能渲染的Bn图片为社群造成不良影响，我们可能会根据图片内水印追溯到图片来源。**
 
 6.6 本服务可能会提供与其他国际互联网网站或资源进行链接（例如友链）。除非另有声明，开发者无法对第三方网站之服务进行控制，用户因使用或依赖上述网站或资源所产生的损失或损害，开发者不承担任何责任。
 我们建议您在访问其他网站或资源前仔细阅读其服务条款和隐私政策。
@@ -1935,9 +2095,12 @@ sczr0710@163.com
 
             // 3. 初始化公告弹窗
             setupAnnouncementModal();
+
+            // 4. 初始化玩家成绩渲染功能
+            initializePlayerScoreRender();
         });
 
-        // ===== 新增函数：初始化公告弹窗 =====
+        // ===== 初始化公告弹窗 =====
         function setupAnnouncementModal() {
             const modal = document.getElementById('announcement-modal');
             const content = document.getElementById('announcement-content');
@@ -1981,7 +2144,7 @@ sczr0710@163.com
             });
         }
 
-        // ===== 新增函数：切换标签页 =====
+        // ===== 切换标签页 =====
         function switchTab(tabId) {
             // 隐藏所有面板
             document.querySelectorAll('.tab-pane').forEach(pane => {
@@ -2114,10 +2277,8 @@ sczr0710@163.com
                         sessionToken = data.sessionToken;
                         localStorage.setItem('phigrosSessionToken', sessionToken);
                         statusText.textContent = '登录成功！';
-
-                        // --- 新增代码 ---
+                        
                         fetchAndDisplayUserData(sessionToken); // 传入刚刚获取的token
-                        // ----------------
 
                         showImageSection();
                     } else if (data.status === 'expired' || data.status === 'error') {
@@ -2132,7 +2293,7 @@ sczr0710@163.com
             }, 3000); // 每3秒轮询一次
         }
 
-        // ===== 新增函数：获取用户存档数据并更新UI =====
+        // ===== 获取用户存档数据并更新UI =====
         async function fetchAndDisplayUserData(token) {
             try {
                 const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, { // 注意URL路径
@@ -2317,7 +2478,7 @@ sczr0710@163.com
             document.getElementById('rks-result-container').style.display = 'none';
         }
 
-        // ===== 新增函数：设置背景图下载链接 =====
+        // ===== 设置背景图下载链接（待废弃） =====
         async function setupBackgroundDownloadLink() {
             if (!downloadLink) return;
 
@@ -2349,7 +2510,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：处理手动登录 =====
+        // ===== 处理手动登录 =====
         async function handleManualLogin() {
             const token = tokenInput.value.trim();
             if (!token) {
@@ -2399,7 +2560,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：切换联合查分登录表单 =====
+        // ===== 切换联合查分登录表单 =====
         function switchFederatedLogin(type) {
             // 更新标签页按钮状态
             document.querySelectorAll('.federated-tab-button').forEach(btn => {
@@ -2414,7 +2575,7 @@ sczr0710@163.com
             document.getElementById(`${type}-login-form`).classList.add('active');
         }
 
-        // ===== 新增函数：处理API登录 =====
+        // ===== 处理API登录 =====
         async function handleApiLogin() {
             const apiUserId = document.getElementById('api-user-id').value.trim();
             const apiToken = document.getElementById('api-token').value.trim();
@@ -2487,7 +2648,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：处理平台登录 =====
+        // ===== 处理平台登录 =====
         async function handlePlatformLogin() {
             const platformName = document.getElementById('platform-name').value.trim();
             const platformUserId = document.getElementById('platform-user-id').value.trim();
@@ -2614,7 +2775,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：显示文字版RKS列表 =====
+        // ===== 显示文字版RKS列表 =====
         async function showRksList() {
             const n = nValueInput.value;
             if (!n || n < 1) {
@@ -2691,7 +2852,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：在模态框中显示图片 =====
+        // ===== 在模态框中显示图片 =====
         function showImageInModal(imageUrl, fileName) {
             const modal = document.getElementById('image-display-modal');
             const modalContent = document.getElementById('image-modal-content');
@@ -2736,7 +2897,7 @@ sczr0710@163.com
             });
         }
 
-        // ===== 新增函数：渲染新曲速递信息 =====
+        // ===== 渲染新曲速递信息 =====
         function renderSongUpdateInfo() {
             const container = document.getElementById('song-update-info');
             if (!container) return;
@@ -2786,7 +2947,7 @@ sczr0710@163.com
             container.innerHTML = htmlContent;
         }
 
-        // ===== 新增函数：获取统计数据 =====
+        // ===== 获取统计数据 =====
         async function fetchStatsData() {
             try {
                 const response = await fetch(`${BACKEND_URL}/image/stats`, { method: 'GET' });
@@ -2801,7 +2962,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：渲染统计数据 =====
+        // ===== 渲染统计数据 =====
         async function renderStatsData() {
             const statsContainer = document.getElementById('stats-container');
             if (!statsContainer) return;
@@ -2880,6 +3041,222 @@ sczr0710@163.com
                     modal.style.display = 'none';
                 }
             });
+        }
+
+        // ===== 玩家成绩渲染功能 =====
+        let scoresList = [];
+
+        // 初始化玩家成绩渲染
+        function initializePlayerScoreRender() {
+            const savedPlayerName = localStorage.getItem('playerScoreRender_playerName');
+            const savedScores = localStorage.getItem('playerScoreRender_scores');
+
+            if (savedPlayerName) {
+                document.getElementById('player-name').value = savedPlayerName;
+            }
+
+            if (savedScores) {
+                scoresList = JSON.parse(savedScores);
+                updateScoresDisplay();
+            }
+        }
+
+        // 保存数据到 localStorage
+        function saveScoresToLocalStorage() {
+            const playerName = document.getElementById('player-name').value.trim();
+            localStorage.setItem('playerScoreRender_playerName', playerName);
+            localStorage.setItem('playerScoreRender_scores', JSON.stringify(scoresList));
+        }
+
+        // 添加成绩
+        function addScore() {
+            const songName = document.getElementById('song-name').value.trim();
+            const songScore = parseInt(document.getElementById('song-score').value);
+            const songAcc = parseFloat(document.getElementById('song-acc').value);
+            const songDifficulty = document.getElementById('song-difficulty').value;
+
+            // 验证输入
+            if (!songName) {
+                alert('请输入歌曲名称');
+                return;
+            }
+            
+            if (isNaN(songScore) || songScore < 0 || songScore > 1000000) {
+                alert('请输入有效的分数 (0-1000000)');
+                return;
+            }
+            
+            if (isNaN(songAcc) || songAcc < 0 || songAcc > 100) {
+                alert('请输入有效的ACC (0-100)');
+                return;
+            }
+            
+            // 检查是否已达到36个成绩的限制
+            if (scoresList.length >= 36) {
+                alert('最多只能添加36个成绩');
+                return;
+            }
+
+            // 添加成绩到列表
+            scoresList.push({
+                song_name: songName,
+                score: songScore,
+                acc: songAcc,
+                difficulty: songDifficulty
+            });
+
+            // 更新UI
+            updateScoresDisplay();
+            saveScoresToLocalStorage();
+            
+            // 清空输入框
+            document.getElementById('song-name').value = '';
+            document.getElementById('song-score').value = '';
+            document.getElementById('song-acc').value = '';
+            document.getElementById('song-difficulty').value = 'EZ';
+            
+            // 聚焦到歌曲名称输入框
+            document.getElementById('song-name').focus();
+        }
+
+        // 删除成绩
+        function removeScore(index) {
+            scoresList.splice(index, 1);
+            updateScoresDisplay();
+            saveScoresToLocalStorage();
+        }
+
+        // 清空所有成绩
+        function clearScores() {
+            if (scoresList.length === 0) {
+                return; // 如果没有成绩，则直接返回
+            }
+            
+            if (confirm('确定要清空所有成绩吗？')) {
+                scoresList = [];
+                updateScoresDisplay();
+                saveScoresToLocalStorage();
+            }
+        }
+
+        // 更新成绩显示
+        function updateScoresDisplay() {
+            const scoresContainer = document.getElementById('scores-container');
+            const noScoresMessage = document.getElementById('no-scores-message');
+            const scoreCount = document.getElementById('score-count');
+
+            // 更新计数显示
+            scoreCount.textContent = `${scoresList.length}/36`;
+
+            // 清空现有列表，除了“暂无成绩”提示
+            const scoreElements = scoresContainer.querySelectorAll('.score-item');
+            scoreElements.forEach(element => element.remove());
+
+            if (scoresList.length === 0) {
+                noScoresMessage.style.display = 'flex';
+                noScoresMessage.style.flexDirection = 'column';
+                noScoresMessage.style.justifyContent = 'center';
+                noScoresMessage.style.alignItems = 'center';
+                noScoresMessage.style.height = '100%';
+                noScoresMessage.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16" style="color: #ccc; margin-bottom: 1rem;">
+                        <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
+                        <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
+                        <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
+                        <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                    <span>请在左侧添加你的成绩</span>
+                `;
+            } else {
+                noScoresMessage.style.display = 'none';
+                // 仅添加成绩项
+                scoresList.forEach((score, index) => {
+                    const scoreElement = document.createElement('div');
+                    scoreElement.className = 'score-item';
+                    scoreElement.innerHTML = `
+                        <div style="flex-grow: 1;">
+                            <div><strong>${score.song_name}</strong> [${score.difficulty}]</div>
+                            <div style="font-size: 0.9em; color: var(--muted-text-color);">分数: ${score.score} | ACC: ${score.acc}%</div>
+                        </div>
+                        <button onclick="removeScore(${index})" style="background-color: var(--error-color); color: white; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; cursor: pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" style="pointer-events: none;">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.82 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </button>
+                    `;
+                    scoresContainer.appendChild(scoreElement);
+                });
+            }
+        }
+
+        // 渲染成绩（发送POST请求）
+        async function renderScores() {
+            const playerName = document.getElementById('player-name').value.trim();
+            
+            if (!playerName) {
+                alert('请输入玩家姓名');
+                return;
+            }
+            
+            if (scoresList.length === 0) {
+                alert('请至少添加一个成绩');
+                return;
+            }
+
+            // 构建请求数据
+            const requestData = {
+                player_name: playerName,
+                scores: scoresList
+            };
+
+            // 显示加载状态
+            const renderBtn = document.getElementById('render-scores-btn');
+            const originalBtnHTML = renderBtn.innerHTML;
+            renderBtn.disabled = true;
+            renderBtn.textContent = '渲染中...';
+            
+            const leftLoader = document.getElementById('left-panel-loader');
+            leftLoader.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            leftLoader.style.display = 'flex';
+            resultContainer.innerHTML = ''; // 清空右侧结果
+
+            try {
+                // 发送POST请求
+                const response = await fetch(`${BACKEND_URL}/image/bn/user-generated`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    if (response.headers.get('Content-Type')?.includes('application/json')) {
+                        const errData = await response.json();
+                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
+                    } else {
+                        throw new Error(`服务器错误，状态码: ${response.status}`);
+                    }
+                }
+
+                // 处理响应（假设返回的是图片）
+                const imageBlob = await response.blob();
+                const imageUrl = URL.createObjectURL(imageBlob);
+                const fileName = `phigros_scores_${playerName}.png`;
+                showImageInModal(imageUrl, fileName);
+
+            } catch (error) {
+                console.error('渲染成绩失败:', error);
+                alert(`错误: ${error.message}`);
+                resultContainer.innerHTML = '';
+            } finally {
+                renderBtn.disabled = false;
+                renderBtn.innerHTML = originalBtnHTML;
+                const leftLoader = document.getElementById('left-panel-loader');
+                leftLoader.style.display = 'none';
+                leftLoader.innerHTML = '';
+            }
         }
     </script>
 
