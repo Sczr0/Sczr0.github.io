@@ -1798,7 +1798,7 @@
         // ==========================================================
         // 后端服务器地址
         // ==========================================================
-        const BACKEND_URL = 'https://evernight.xtower.site';
+        const BACKEND_URL = 'https://seekend.xtower.site/api/v1';
 
         // ===== 统一的请求体构建函数 =====
         function buildAuthRequestBody() {
@@ -1811,20 +1811,27 @@
 
                 switch (credentials.authMethod) {
                     case 'api':
-                        const requestBody = {
-                            "data_source": "external",
-                            "api_user_id": credentials.api_user_id
-                        };
-                        if (credentials.api_token) {
-                            requestBody.api_token = credentials.api_token;
+                        if (!credentials.apiUserId) {
+                            console.error('联合查分凭证缺少 apiUserId');
+                            return null;
                         }
-                        return requestBody;
+                        return {
+                            externalCredentials: {
+                                apiUserId: credentials.apiUserId,
+                                apiToken: credentials.apiToken || null
+                            }
+                        };
 
                     case 'platform':
+                        if (!credentials.platform || !credentials.platformId) {
+                            console.error('联合查分凭证缺少 platform 或 platformId');
+                            return null;
+                        }
                         return {
-                            "data_source": "external",
-                            "platform": credentials.platform,
-                            "platform_id": credentials.platform_id
+                            externalCredentials: {
+                                platform: credentials.platform,
+                                platformId: credentials.platformId
+                            }
                         };
 
                     default:
@@ -1832,10 +1839,23 @@
                         return null;
                 }
             } else if (savedToken) {
-                return { "data_source": "internal", token: savedToken };
+                return { sessionToken: savedToken };
             } else {
                 console.error('没有找到任何有效的登录凭证');
                 return null;
+            }
+        }
+
+        async function getErrorMessage(response, fallbackMessage) {
+            try {
+                const contentType = response.headers.get('Content-Type') || '';
+                if (!contentType.includes('application/json')) {
+                    return fallbackMessage;
+                }
+                const data = await response.json();
+                return data.detail || data.message || data.title || fallbackMessage;
+            } catch (error) {
+                return fallbackMessage;
             }
         }
 
@@ -2047,7 +2067,7 @@
 xtower@xtower.site
 `;
 
-        let pollingInterval;
+        let pollingTimer;
         let sessionToken = null;
 
         // 获取DOM元素
@@ -2254,11 +2274,14 @@ xtower@xtower.site
         // 1. 获取二维码
         async function fetchQrCode() {
             try {
-                const response = await fetch(`${BACKEND_URL}/auth/qrcode`, { method: 'GET' });
-                if (!response.ok) throw new Error('获取二维码失败');
+                const response = await fetch(`${BACKEND_URL}/auth/qrcode`, { method: 'POST' });
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, '获取二维码失败');
+                    throw new Error(errorMessage);
+                }
                 const data = await response.json();
 
-                qrContainer.innerHTML = `<img src="${data.qrCodeImage}" alt="登录二维码">`;
+                qrContainer.innerHTML = `<img src="${data.qrcodeBase64}" alt="登录二维码">`;
                 statusText.textContent = '请扫描二维码登录。';
                 startPolling(data.qrId);
             } catch (error) {
@@ -2269,54 +2292,75 @@ xtower@xtower.site
 
         // 2. 轮询状态
         function startPolling(qrId) {
-            pollingInterval = setInterval(async () => {
+            if (pollingTimer) {
+                clearTimeout(pollingTimer);
+            }
+
+            const pollOnce = async () => {
                 try {
                     const response = await fetch(`${BACKEND_URL}/auth/qrcode/${qrId}/status`);
+                    if (!response.ok) {
+                        const errorMessage = await getErrorMessage(response, '轮询失败');
+                        throw new Error(errorMessage);
+                    }
                     const data = await response.json();
 
                     statusText.textContent = `状态: ${data.status}...`;
 
-                    if (data.status === 'success') {
-                        clearInterval(pollingInterval);
+                    if (data.status === 'Confirmed') {
+                        clearTimeout(pollingTimer);
                         sessionToken = data.sessionToken;
                         localStorage.setItem('phigrosSessionToken', sessionToken);
                         statusText.textContent = '登录成功！';
-                        
+
                         fetchAndDisplayUserData(sessionToken); // 传入刚刚获取的token
 
                         showImageSection();
-                    } else if (data.status === 'expired' || data.status === 'error') {
-                        clearInterval(pollingInterval);
-                        statusText.textContent = `二维码已失效，请刷新页面重试。`;
+                        return;
                     }
+
+                    if (data.status === 'Expired' || data.status === 'Error') {
+                        clearTimeout(pollingTimer);
+                        statusText.textContent = '二维码已失效，请刷新页面重试。';
+                        return;
+                    }
+
+                    if (data.status === 'Scanned') {
+                        statusText.textContent = '已扫码，请在设备上确认授权。';
+                    }
+
+                    const retryDelay = typeof data.retryAfter === 'number' ? data.retryAfter * 1000 : 3000;
+                    pollingTimer = setTimeout(pollOnce, retryDelay);
                 } catch (error) {
                     console.error('轮询失败:', error);
-                    clearInterval(pollingInterval);
+                    clearTimeout(pollingTimer);
                     statusText.textContent = '轮询连接中断，请刷新重试。';
                 }
-            }, 3000); // 每3秒轮询一次
+            };
+
+            pollOnce();
         }
 
         // ===== 获取用户存档数据并更新UI =====
         async function fetchAndDisplayUserData(token) {
             try {
-                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, { // 注意URL路径
+                const response = await fetch(`${BACKEND_URL}/save`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ token: token })
+                    body: JSON.stringify({ sessionToken: token })
                 });
 
                 if (!response.ok) {
-                    throw new Error('获取用户数据失败');
+                    const errorMessage = await getErrorMessage(response, '获取用户数据失败');
+                    throw new Error(errorMessage);
                 }
 
                 const responseData = await response.json();
 
-                // 修正：从 responseData.data 中获取 nickname
-                if (responseData.data && responseData.data.nickname) {
-                    const nickname = responseData.data.nickname;
+                const nickname = responseData?.data?.user?.nickname || responseData?.save?.user?.nickname;
+                if (nickname) {
                     console.log('成功获取到昵称:', nickname);
                     // 1. 更新UI
                     document.getElementById('user-nickname').textContent = nickname;
@@ -2355,32 +2399,28 @@ xtower@xtower.site
             resultContainer.innerHTML = ''; // 清空右侧结果
 
             try {
-                // 根据选择的主题构建URL
-                let url = `${BACKEND_URL}/image/bn/${n}`;
-                if (selectedTheme === 'white') {
-                    url += '?theme=white';
-                }
-
                 const requestBody = buildAuthRequestBody();
                 if (!requestBody) {
                     throw new Error('无法构建授权请求体，请重新登录');
                 }
 
-                const response = await fetch(url, {
+                const payload = {
+                    ...requestBody,
+                    n: Number(n),
+                    theme: selectedTheme
+                };
+
+                const response = await fetch(`${BACKEND_URL}/image/bn`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(requestBody)
+                    body: JSON.stringify(payload)
                 });
 
                 if (!response.ok) {
-                    if (response.headers.get('Content-Type')?.includes('application/json')) {
-                        const errData = await response.json();
-                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
-                    } else {
-                        throw new Error(`服务器错误，状态码: ${response.status}`);
-                    }
+                    const errorMessage = await getErrorMessage(response, `请求失败，状态码: ${response.status}`);
+                    throw new Error(errorMessage);
                 }
 
                 const imageBlob = await response.blob();
@@ -2417,7 +2457,7 @@ xtower@xtower.site
             localStorage.removeItem('userNickname'); // 退出时也清除昵称
             // 注意：我们不清除 agreementAccepted 标记，这样用户无需再次同意协议
             sessionToken = null;
-            clearInterval(pollingInterval);
+            clearTimeout(pollingTimer);
             console.log('用户已登出。');
             window.location.reload();
         }
@@ -2526,35 +2566,34 @@ xtower@xtower.site
             manualLoginBtn.disabled = true;
 
             try {
-                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, {
+                const response = await fetch(`${BACKEND_URL}/save`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ token: token })
+                    body: JSON.stringify({ sessionToken: token })
                 });
+
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, 'Token无效或已过期。');
+                    throw new Error(errorMessage);
+                }
 
                 const responseData = await response.json();
 
-                if (response.ok && responseData.code === 200) {
-                    // 验证成功
-                    clearInterval(pollingInterval); // 停止二维码轮询
-                    sessionToken = token;
-                    localStorage.setItem('phigrosSessionToken', sessionToken);
-                    statusText.textContent = '登录成功！';
+                // 验证成功
+                clearTimeout(pollingTimer); // 停止二维码轮询
+                sessionToken = token;
+                localStorage.setItem('phigrosSessionToken', sessionToken);
+                statusText.textContent = '登录成功！';
 
-                    // 直接使用验证时返回的数据更新UI
-                    if (responseData.data && responseData.data.nickname) {
-                        const nickname = responseData.data.nickname;
-                        document.getElementById('user-nickname').textContent = nickname;
-                        localStorage.setItem('userNickname', nickname);
-                    }
-
-                    showImageSection();
-                } else {
-                    // 验证失败
-                    throw new Error(responseData.message || 'Token无效或已过期。');
+                const nickname = responseData?.data?.user?.nickname || responseData?.save?.user?.nickname;
+                if (nickname) {
+                    document.getElementById('user-nickname').textContent = nickname;
+                    localStorage.setItem('userNickname', nickname);
                 }
+
+                showImageSection();
             } catch (error) {
                 console.error('手动登录验证失败:', error);
                 statusText.textContent = `登录失败: ${error.message}`;
@@ -2599,16 +2638,13 @@ xtower@xtower.site
             try {
                 // 构建API登录请求体
                 const requestBody = {
-                    "data_source": "external",
-                    api_user_id: apiUserId
+                    externalCredentials: {
+                        apiUserId: apiUserId,
+                        apiToken: apiToken || null
+                    }
                 };
 
-                // 如果提供了API令牌则添加
-                if (apiToken) {
-                    requestBody.api_token = apiToken;
-                }
-
-                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, {
+                const response = await fetch(`${BACKEND_URL}/save`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2616,32 +2652,31 @@ xtower@xtower.site
                     body: JSON.stringify(requestBody)
                 });
 
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, 'API登录失败。');
+                    throw new Error(errorMessage);
+                }
+
                 const responseData = await response.json();
 
-                if (response.ok && responseData.code === 200) {
-                    // 验证成功，保存联合查分凭证
-                    const authCredentials = {
-                        authMethod: 'api',
-                        api_user_id: apiUserId,
-                        api_token: apiToken || null
-                    };
-                    localStorage.setItem('phigrosAuthCredentials', JSON.stringify(authCredentials));
+                // 验证成功，保存联合查分凭证
+                const authCredentials = {
+                    authMethod: 'api',
+                    apiUserId: apiUserId,
+                    apiToken: apiToken || null
+                };
+                localStorage.setItem('phigrosAuthCredentials', JSON.stringify(authCredentials));
 
-                    clearInterval(pollingInterval); // 停止二维码轮询
-                    statusText.textContent = 'API登录成功！';
+                clearTimeout(pollingTimer); // 停止二维码轮询
+                statusText.textContent = 'API登录成功！';
 
-                    // 直接使用验证时返回的数据更新UI
-                    if (responseData.data && responseData.data.nickname) {
-                        const nickname = responseData.data.nickname;
-                        document.getElementById('user-nickname').textContent = nickname;
-                        localStorage.setItem('userNickname', nickname);
-                    }
-
-                    showImageSection();
-                } else {
-                    // 验证失败
-                    throw new Error(responseData.message || 'API登录失败。');
+                const nickname = responseData?.data?.user?.nickname || responseData?.save?.user?.nickname;
+                if (nickname) {
+                    document.getElementById('user-nickname').textContent = nickname;
+                    localStorage.setItem('userNickname', nickname);
                 }
+
+                showImageSection();
             } catch (error) {
                 console.error('API登录验证失败:', error);
                 statusText.textContent = `API登录失败: ${error.message}`;
@@ -2672,12 +2707,13 @@ xtower@xtower.site
             try {
                 // 构建平台登录请求体
                 const requestBody = {
-                    "data_source": "external",
-                    "platform": platformName,
-                    "platform_id": platformUserId
+                    externalCredentials: {
+                        platform: platformName,
+                        platformId: platformUserId
+                    }
                 };
 
-                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, {
+                const response = await fetch(`${BACKEND_URL}/save`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2685,32 +2721,31 @@ xtower@xtower.site
                     body: JSON.stringify(requestBody)
                 });
 
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, '平台登录失败。');
+                    throw new Error(errorMessage);
+                }
+
                 const responseData = await response.json();
 
-                if (response.ok && responseData.code === 200) {
-                    // 验证成功，保存联合查分凭证
-                    const authCredentials = {
-                        authMethod: 'platform',
-                        platform: platformName,
-                        platform_id: platformUserId
-                    };
-                    localStorage.setItem('phigrosAuthCredentials', JSON.stringify(authCredentials));
+                // 验证成功，保存联合查分凭证
+                const authCredentials = {
+                    authMethod: 'platform',
+                    platform: platformName,
+                    platformId: platformUserId
+                };
+                localStorage.setItem('phigrosAuthCredentials', JSON.stringify(authCredentials));
 
-                    clearInterval(pollingInterval); // 停止二维码轮询
-                    statusText.textContent = '平台登录成功！';
+                clearTimeout(pollingTimer); // 停止二维码轮询
+                statusText.textContent = '平台登录成功！';
 
-                    // 直接使用验证时返回的数据更新UI
-                    if (responseData.data && responseData.data.nickname) {
-                        const nickname = responseData.data.nickname;
-                        document.getElementById('user-nickname').textContent = nickname;
-                        localStorage.setItem('userNickname', nickname);
-                    }
-
-                    showImageSection();
-                } else {
-                    // 验证失败
-                    throw new Error(responseData.message || '平台登录失败。');
+                const nickname = responseData?.data?.user?.nickname || responseData?.save?.user?.nickname;
+                if (nickname) {
+                    document.getElementById('user-nickname').textContent = nickname;
+                    localStorage.setItem('userNickname', nickname);
                 }
+
+                showImageSection();
             } catch (error) {
                 console.error('平台登录验证失败:', error);
                 statusText.textContent = `平台登录失败: ${error.message}`;
@@ -2745,21 +2780,22 @@ xtower@xtower.site
                     throw new Error('无法构建授权请求体，请重新登录');
                 }
 
-                const response = await fetch(`${BACKEND_URL}/image/song?q=${encodeURIComponent(keyword)}`, {
+                const payload = {
+                    ...requestBody,
+                    song: keyword
+                };
+
+                const response = await fetch(`${BACKEND_URL}/image/song`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(requestBody)
+                    body: JSON.stringify(payload)
                 });
 
                 if (!response.ok) {
-                    if (response.headers.get('Content-Type')?.includes('application/json')) {
-                        const errData = await response.json();
-                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
-                    } else {
-                        throw new Error(`服务器错误，状态码: ${response.status}`);
-                    }
+                    const errorMessage = await getErrorMessage(response, `请求失败，状态码: ${response.status}`);
+                    throw new Error(errorMessage);
                 }
 
                 const imageBlob = await response.blob();
@@ -2777,6 +2813,37 @@ xtower@xtower.site
                 leftLoader.style.display = 'none';
                 leftLoader.innerHTML = '';
             }
+        }
+
+        const songInfoCache = new Map();
+
+        async function fetchSongInfoById(songId) {
+            if (songInfoCache.has(songId)) {
+                return songInfoCache.get(songId);
+            }
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/songs/search?q=${encodeURIComponent(songId)}&unique=true`);
+                if (!response.ok) {
+                    songInfoCache.set(songId, null);
+                    return null;
+                }
+                const data = await response.json();
+                songInfoCache.set(songId, data);
+                return data;
+            } catch (error) {
+                console.error('获取歌曲信息失败:', error);
+                songInfoCache.set(songId, null);
+                return null;
+            }
+        }
+
+        function getChartConstant(songInfo, difficulty) {
+            if (!songInfo || !songInfo.chartConstants || !difficulty) {
+                return null;
+            }
+            const key = difficulty.toLowerCase();
+            return songInfo.chartConstants[key] ?? null;
         }
 
         // ===== 显示文字版RKS列表 =====
@@ -2800,7 +2867,7 @@ xtower@xtower.site
                     throw new Error('无法构建授权请求体，请重新登录');
                 }
 
-                const response = await fetch(`${BACKEND_URL}/rks`, {
+                const response = await fetch(`${BACKEND_URL}/save?calculate_rks=true`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2809,16 +2876,30 @@ xtower@xtower.site
                 });
 
                 if (!response.ok) {
-                    const errData = await response.json();
-                    throw new Error(errData.message || `获取数据失败 (状态码: ${response.status})`);
+                    const errorMessage = await getErrorMessage(response, `获取数据失败 (状态码: ${response.status})`);
+                    throw new Error(errorMessage);
                 }
 
                 const responseData = await response.json();
-                // 假设返回的数据结构是 { code: 200, data: { records: [...] } }
-                const records = responseData.data.records;
+                const charts = responseData?.rks?.b30Charts || [];
+                if (!charts.length) {
+                    rksListContent.innerHTML = '<p>暂无RKS数据</p>';
+                    return;
+                }
 
-                // 排序并截取前N个
-                const bestNRecords = records.sort((a, b) => b.rks - a.rks).slice(0, n);
+                const sortedCharts = charts.slice().sort((a, b) => b.rks - a.rks);
+                const maxCount = Math.min(Number(n), sortedCharts.length);
+                const bestNRecords = sortedCharts.slice(0, maxCount);
+                if (Number(n) > sortedCharts.length) {
+                    rksListTitle.textContent = `Best ${maxCount} 列表（仅提供前${sortedCharts.length}条）`;
+                }
+
+                const recordsWithInfo = await Promise.all(
+                    bestNRecords.map(async (record) => {
+                        const info = await fetchSongInfoById(record.songId);
+                        return { record, info };
+                    })
+                );
 
                 // 格式化为HTML表格
                 let tableHtml = `
@@ -2828,20 +2909,23 @@ xtower@xtower.site
                                 <th>#</th>
                                 <th>歌曲</th>
                                 <th>难度</th>
-                                <th>ACC</th>
+                                <th>定数</th>
                                 <th>RKS</th>
                             </tr>
                         </thead>
                         <tbody>
                 `;
 
-                bestNRecords.forEach((record, index) => {
+                recordsWithInfo.forEach(({ record, info }, index) => {
+                    const songName = info?.name || record.songId;
+                    const constantValue = getChartConstant(info, record.difficulty);
+                    const constantText = typeof constantValue === 'number' ? constantValue.toFixed(2) : '-';
                     tableHtml += `
                         <tr>
                             <td>${index + 1}</td>
-                            <td title="${record.song_name}">${record.song_name}</td>
-                            <td>${record.difficulty} [${record.difficulty_value}]</td>
-                            <td>${record.acc.toFixed(4)}%</td>
+                            <td title="${songName}">${songName}</td>
+                            <td>${record.difficulty}</td>
+                            <td>${constantText}</td>
                             <td>${record.rks.toFixed(4)}</td>
                         </tr>
                     `;
@@ -2954,9 +3038,10 @@ xtower@xtower.site
         // ===== 获取统计数据 =====
         async function fetchStatsData() {
             try {
-                const response = await fetch(`${BACKEND_URL}/image/stats`, { method: 'GET' });
+                const response = await fetch(`${BACKEND_URL}/stats/summary`, { method: 'GET' });
                 if (!response.ok) {
-                    throw new Error('获取统计数据失败');
+                    const errorMessage = await getErrorMessage(response, '获取统计数据失败');
+                    throw new Error(errorMessage);
                 }
                 const data = await response.json();
                 return data;
@@ -2977,25 +3062,33 @@ xtower@xtower.site
                 return;
             }
 
-            const now = new Date();
+            const featureMap = new Map(
+                (statsData.features || []).map((item) => [item.feature, item])
+            );
+            const bestn = featureMap.get('bestn');
+            const bestnUser = featureMap.get('bestn_user');
+            const singleQuery = featureMap.get('single_query');
+            const formatTime = (value) => value ? new Date(value).toLocaleString() : '暂无';
+            const formatCount = (value) => typeof value === 'number' ? value : '-';
+
             const statsHtml = `
                 <div class="stats-section">
                     <h3>服务使用统计数据</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <h4>Best N 成绩</h4>
-                            <div class="stat-number">${statsData.bn.count}</div>
-                            <div class="stat-updated">更新于: ${new Date(statsData.bn.last_updated).toLocaleString()}</div>
+                            <h4>Best N 生成</h4>
+                            <div class="stat-number">${formatCount(bestn?.count)}</div>
+                            <div class="stat-updated">更新于: ${formatTime(bestn?.lastAt)}</div>
                         </div>
                         <div class="stat-item">
-                            <h4>排行榜数据</h4>
-                            <div class="stat-number">${statsData.leaderboard.count}</div>
-                            <div class="stat-updated">更新于: ${new Date(statsData.leaderboard.last_updated).toLocaleString()}</div>
+                            <h4>自报 Best N</h4>
+                            <div class="stat-number">${formatCount(bestnUser?.count)}</div>
+                            <div class="stat-updated">更新于: ${formatTime(bestnUser?.lastAt)}</div>
                         </div>
                         <div class="stat-item">
-                            <h4>单曲数据</h4>
-                            <div class="stat-number">${statsData.song.count}</div>
-                            <div class="stat-updated">更新于: ${new Date(statsData.song.last_updated).toLocaleString()}</div>
+                            <h4>单曲查询</h4>
+                            <div class="stat-number">${formatCount(singleQuery?.count)}</div>
+                            <div class="stat-updated">更新于: ${formatTime(singleQuery?.lastAt)}</div>
                         </div>
                     </div>
                 </div>
@@ -3210,9 +3303,19 @@ xtower@xtower.site
 
             // 构建请求数据
             const requestData = {
-                player_name: playerName,
-                scores: scoresList
+                nickname: playerName,
+                scores: scoresList.map((score) => ({
+                    song: score.song_name,
+                    difficulty: score.difficulty,
+                    acc: score.acc,
+                    score: score.score
+                }))
             };
+
+            const selectedTheme = document.querySelector('input[name="theme"]:checked');
+            if (selectedTheme) {
+                requestData.theme = selectedTheme.value;
+            }
 
             // 显示加载状态
             const renderBtn = document.getElementById('render-scores-btn');
@@ -3227,7 +3330,7 @@ xtower@xtower.site
 
             try {
                 // 发送POST请求
-                const response = await fetch(`${BACKEND_URL}/image/bn/user-generated`, {
+                const response = await fetch(`${BACKEND_URL}/image/bn/user`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -3236,12 +3339,8 @@ xtower@xtower.site
                 });
 
                 if (!response.ok) {
-                    if (response.headers.get('Content-Type')?.includes('application/json')) {
-                        const errData = await response.json();
-                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
-                    } else {
-                        throw new Error(`服务器错误，状态码: ${response.status}`);
-                    }
+                    const errorMessage = await getErrorMessage(response, `请求失败，状态码: ${response.status}`);
+                    throw new Error(errorMessage);
                 }
 
                 // 处理响应（假设返回的是图片）
