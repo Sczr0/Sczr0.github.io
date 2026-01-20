@@ -210,6 +210,103 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
 
+        /* ===== 联合查分登录样式 ===== */
+        .federated-login-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .federated-login-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .federated-tab-button {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background-color: #f8f9fa;
+            color: var(--muted-text-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .federated-tab-button:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .federated-tab-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .federated-login-form {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .federated-login-form.active {
+            display: flex;
+        }
+
+        .federated-login-form .form-group {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: #f8f9fa;
+        }
+
+        .federated-login-form input {
+            width: 100%;
+            font-size: 1rem;
+            padding: 12px 8px;
+            text-align: center;
+            border: none;
+            border-bottom: 2px solid var(--border-color);
+            border-radius: 0;
+            background-color: transparent;
+            transition: border-color 0.3s;
+        }
+
+        .federated-login-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 10px rgba(59, 130, 246, 0.1) inset;
+        }
+
+        .federated-login-form button {
+            margin-top: 0.5rem;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .federated-login-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .federated-tab-button {
+                width: 100%;
+            }
+
+            .federated-login-form {
+                max-width: 100%;
+            }
+        }
+
         /* === 表单元素样式 === */
         .form-group {
             display: flex;
@@ -482,7 +579,7 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
-            overflow: hidden; /* 防止图片溢出 */
+            overflow: auto; /* 当图片过大时显示滚动条 */
             margin-bottom: 1.5rem;
         }
 
@@ -926,7 +1023,7 @@
             }
         }
     </style>
-    <!-- ===== 新增：可折叠面板样式 ===== -->
+    <!-- ===== 可折叠面板样式 ===== -->
     <style>
         .accordion-item {
             border-bottom: 1px solid var(--border-color);
@@ -1064,13 +1161,109 @@
         #announcement-content a:hover {
             text-decoration: underline;
         }
+
+        /* ===== 玩家成绩渲染表单和列表优化样式 ===== */
+        .score-form-card {
+            background-color: rgba(248, 249, 250, 0.9);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .score-form-row {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .score-form-label {
+            font-weight: 500;
+            text-align: right;
+            padding-right: 0.5rem;
+            color: var(--muted-text-color);
+        }
+
+        .score-form-input,
+        .score-form-select {
+            width: 100%;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .score-form-input:focus,
+        .score-form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .score-list-card {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(248, 249, 250, 0.9);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .score-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .score-list-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        #scores-container {
+            flex-grow: 1;
+            height: 300px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .score-list-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .score-item {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: white;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
     <script defer src="https://cloud.umami.is/script.js"
         data-website-id="cd2b5132-86fd-4c44-8edb-ea20fe594b81"></script>
 </head>
 
 <body>
-    <!-- ===== 新增：维护通知HTML结构 ===== -->
+    <!-- ===== 维护通知HTML结构 ===== -->
     <div id="maintenance-overlay">
         <div class="maintenance-content">
             <h1 id="maintenance-title"></h1>
@@ -1081,7 +1274,7 @@
     <script src="https://jsd-proxy.ygxz.in/npm/marked/marked.min.js"></script>
     <script async src="//api.busuanzi.cc/static/3.6.9/busuanzi.min.js" defer></script>
     <div class="container">
-        <!-- ===== 新增：维护预告横幅 ===== -->
+        <!-- ===== 维护预告横幅 ===== -->
         <div id="maintenance-notice-banner"
             style="display: none; background-color: #ffc107; color: #333; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; font-weight: 500;">
         </div>
@@ -1114,6 +1307,41 @@
                     <input type="text" id="token-input" placeholder="在此处粘贴Token">
                     <button id="manual-login-btn">手动登录</button>
                 </div>
+
+                <!-- ===== 联合查分登录区域 ===== -->
+                <div class="federated-login-group">
+                    <p>或使用联合查分登录</p>
+                    <div class="federated-login-tabs">
+                        <button class="federated-tab-button active" onclick="switchFederatedLogin('api')">API登录</button>
+                        <button class="federated-tab-button" onclick="switchFederatedLogin('platform')">平台登录</button>
+                    </div>
+
+                    <!-- API登录表单 -->
+                    <div id="api-login-form" class="federated-login-form active">
+                        <div class="form-group">
+                            <label for="api-user-id">API用户ID</label>
+                            <input type="text" id="api-user-id" placeholder="例如: 1934128044">
+                        </div>
+                        <div class="form-group">
+                            <label for="api-token">API令牌（可选）</label>
+                            <input type="text" id="api-token" placeholder="留空则使用默认令牌">
+                        </div>
+                        <button id="api-login-btn">API登录</button>
+                    </div>
+
+                    <!-- 平台登录表单 -->
+                    <div id="platform-login-form" class="federated-login-form">
+                        <div class="form-group">
+                            <label for="platform-name">平台名称</label>
+                            <input type="text" id="platform-name" placeholder="例如: OneBotv11">
+                        </div>
+                        <div class="form-group">
+                            <label for="platform-user-id">平台用户ID</label>
+                            <input type="text" id="platform-user-id" placeholder="例如: 1436375503">
+                        </div>
+                        <button id="platform-login-btn">平台登录</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1131,6 +1359,10 @@
                         style="color: var(--primary-color); text-decoration: none; font-weight: 500;"
                         onmouseover="this.style.textDecoration='underline'"
                         onmouseout="this.style.textDecoration='none'">官方群聊</a> |
+                    <a href="https://lilith.xtower.site"
+                        style="color: var(--primary-color); text-decoration: none; font-weight: 500;"
+                        onmouseover="this.style.textDecoration='underline'"
+                        onmouseout="this.style.textDecoration='none'">前往前瞻正式站</a> |
                     <a href="#" id="view-agreement-link"
                         style="color: var(--primary-color); text-decoration: none; font-weight: 500;"
                         onmouseover="this.style.textDecoration='underline'"
@@ -1145,14 +1377,16 @@
                     <button class="tab-button" onclick="switchTab('b19-generator')">成绩图片</button>
                     <button class="tab-button" onclick="switchTab('song-query')">单曲查询</button>
                     <button class="tab-button" id="live-content-tab" onclick="switchTab('live-content')" style="display: none;">直播内容速递</button>
+                    <button class="tab-button" onclick="switchTab('rks-calculator')">RKS计算器</button>
                     <button class="tab-button" onclick="switchTab('song-update-info')">新曲速递</button>
+                    <button class="tab-button" onclick="switchTab('player-score-render')">玩家成绩渲染</button>
                     <button class="tab-button" onclick="switchTab('about')">关于</button>
                 </div>
 
                 <div id="left-panel-loader" style="display: none; margin: 1rem 0;"></div>
 
                 <!-- ===== 标签页内容面板 ===== -->
-                <!-- 面板1: Best N 生成器 -->
+                <!-- 面板: Best N 生成器 -->
                 <div id="b19-generator" class="tab-pane">
                     <p>请输入您想生成的 Best N </p>
                     <div id="image-generator" class="form-group"
@@ -1196,7 +1430,7 @@
                     </div>
                 </div>
 
-                <!-- 面板2: 单曲成绩查询 -->
+                <!-- 面板: 单曲成绩查询 -->
                 <div id="song-query" class="tab-pane">
                     <p>请输入歌曲关键词查询单曲成绩图</p>
                     <div id="song-query-container" class="form-group"
@@ -1225,12 +1459,107 @@
                     </div>
                 </div>
 
-                <!-- 面板3: 新曲速递 -->
+                <!-- 面板: RKS计算器 -->
+                <div id="rks-calculator" class="tab-pane">
+                    <p>请输入谱面定数和ACC来计算RKS值</p>
+                    <div id="rks-calculator-container" class="form-group"
+                         style="flex-direction: column; align-items: stretch; width: 100%; max-width: 400px; background: transparent; padding:0; gap: 1rem;">
+                        <div class="form-group"
+                             style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
+                            <label for="chart-constant">谱面定数</label>
+                            <input type="number" id="chart-constant" placeholder="例如: 15.5"
+                                 step="0.1" min="1.0" max="18.0"
+                                 style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                        </div>
+                        <div class="form-group"
+                             style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa;">
+                            <label for="acc-value">ACC (%)</label>
+                            <input type="number" id="acc-value" placeholder="例如: 98.5"
+                                 step="0.1" min="70.0" max="100.0"
+                                 style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 1rem;">
+                            <button id="calculate-rks-btn" onclick="calculateRKS()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                </svg>
+                                计算RKS
+                            </button>
+                            <button id="clear-rks-btn" onclick="clearRKSCalculator()" class="btn-secondary">清空</button>
+                        </div>
+                    </div>
+                    <!-- 计算结果显示区域 -->
+                    <div id="rks-result-container" style="margin-top: 1.5rem; display: none;">
+                        <div style="background-color: rgba(248, 249, 250, 0.8); border-radius: 12px; padding: 1.5rem; max-width: 400px;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 1rem; text-align: center;">计算结果</h3>
+                            <div id="rks-result-content">
+                                <!-- 结果将在这里显示 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 面板: 新曲速递 -->
                 <div id="song-update-info" class="tab-pane">
                     <!-- 此处内容将由 JS 动态生成 -->
                 </div>
 
-                <!-- 面板4: 关于 -->
+                <!-- 面板: 玩家成绩渲染 -->
+                <div id="player-score-render" class="tab-pane">
+                    <div class="form-group" style="padding: 0.5rem 1.5rem; border-radius: var(--border-radius); background-color: #f8f9fa; width: 100%; max-width: 500px;">
+                        <label for="player-name">玩家姓名</label>
+                        <input type="text" id="player-name" placeholder="请输入玩家姓名"
+                               style="flex-grow: 1; font-size: 1.1rem; padding: 12px 8px; text-align: center; border: none; border-bottom: 2px solid var(--border-color); border-radius: 0; background-color: transparent; transition: border-color 0.3s;">
+                    </div>
+
+                    <div style="display: flex; width: 100%; max-width: 800px; gap: 2rem;">
+                        <!-- 左侧: 添加成绩 -->
+                        <div id="add-score-section" style="flex: 1;">
+                            <div class="score-form-card">
+                                <div class="score-form-row">
+                                    <label for="song-name" class="score-form-label">歌曲名称</label>
+                                    <input type="text" id="song-name" placeholder="请输入歌曲名称" class="score-form-input">
+                                </div>
+                                <div class="score-form-row">
+                                    <label for="song-score" class="score-form-label">分数</label>
+                                    <input type="number" id="song-score" placeholder="0-1000000" min="0" max="1000000" class="score-form-input">
+                                </div>
+                                <div class="score-form-row">
+                                    <label for="song-acc" class="score-form-label">ACC (%)</label>
+                                    <input type="number" id="song-acc" placeholder="0-100" min="0" max="100" step="0.01" class="score-form-input">
+                                </div>
+                                <div class="score-form-row">
+                                    <label for="song-difficulty" class="score-form-label">难度</label>
+                                    <select id="song-difficulty" class="score-form-select">
+                                        <option value="EZ">EZ</option>
+                                        <option value="HD">HD</option>
+                                        <option value="IN" selected>IN</option>
+                                        <option value="AT">AT</option>
+                                    </select>
+                                </div>
+                                <button id="add-score-btn" onclick="addScore()">添加成绩</button>
+                            </div>
+                        </div>
+
+                        <!-- 右侧: 成绩列表 -->
+                        <div class="score-list-card">
+                            <div class="score-list-header">
+                                <h4>成绩列表</h4>
+                                <span id="score-count" style="color: var(--muted-text-color);">0/36</span>
+                            </div>
+                            <div id="scores-container">
+                                <div id="no-scores-message" style="text-align: center; color: var(--muted-text-color); padding: 1rem;">暂无成绩</div>
+                                <!-- 成绩项将在这里动态添加 -->
+                            </div>
+                            <div class="score-list-footer">
+                                <button id="clear-scores-btn" onclick="clearScores()" class="btn-secondary">清空成绩</button>
+                                <button id="render-scores-btn" onclick="renderScores()">渲染成绩</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 面板: 关于 -->
                 <div id="about" class="tab-pane">
                     <div id="about-content">
                         <div id="stats-container">
@@ -1252,9 +1581,6 @@
                             <p style="text-align: center; margin-top: 1rem;">
                                 本站总访问量 <span id="busuanzi_site_pv">[数据删除]</span> 次 |
                                 本站今日访问量 <span id="busuanzi_today_site_pv">[数据删除]</span> 次
-                            </p>
-                            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted-text-color);">
-                                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">皖ICP备2025107155号</a> |
                             </p>
                         </div>
                     </div>
@@ -1362,21 +1688,21 @@
         // 维护模式配置
         // ==========================================================
         const maintenanceConfig = {
-            enabled: true, // true: 启用维护模式检查, false: 禁用
-            startTime: '2025-09-19T17:00:00', // 维护开始时间 (YYYY-MM-DDTHH:mm:ss)
-            endTime: '2025-09-19T20:00:00',   // 维护结束时间
+            enabled: false, // true: 启用维护模式检查, false: 禁用
+            startTime: '2025-10-10T17:00:00', // 维护开始时间 (YYYY-MM-DDTHH:mm:ss)
+            endTime: '2025-10-10T20:00:00',   // 维护结束时间
             title: '维护通知',
-            message: '受Phigros更新影响，Phigros 成绩查询与图片生成器正在进行例行维护。<br>预计恢复时间：<strong>2025年9月19日 20:00（UTC+8）</strong><br>你可以加入<a href="${officialGroupLink}" target="_blank">官方群聊</a>了解详情。<br>给您带来不便，敬请谅解。',
+            message: '受Phigros更新影响，Phigros 成绩查询与图片生成器正在进行例行维护。<br>预计恢复时间：<strong>2025年10月10日 20:00（UTC+8）</strong><br>你可以加入<a href="${officialGroupLink}" target="_blank">官方群聊</a>了解详情。<br>给您带来不便，敬请谅解。',
             preNoticeEnabled: true, // 是否开启预告
-            preNoticeMessage: '受Phigros更新影响，本服务将于<strong>2025年9月19日 17:00（UTC+8）</strong>开始例行维护。<br>预计恢复时间：<strong>2025年9月19日 20:00（UTC+8）</strong>，<br>若遇Phigros延迟更新情况，维护恢复时间将顺延。'
+            preNoticeMessage: '受Phigros更新影响，本服务将于<strong>2025年10月10日 17:00（UTC+8）</strong>开始例行维护。<br>预计恢复时间：<strong>2025年10月10日 20:00（UTC+8）</strong>，<br>若遇Phigros延迟更新情况，维护恢复时间将顺延。'
         };
 
         // ==========================================================
         // 公告配置
         // ==========================================================
         const announcementConfig = {
-            version: '1', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
-            text: '欢迎来到塔弦空间站！这是一条公告！<br>如果可以，请先阅读用户协议，也欢迎加入[官方群聊]催更新功能/反馈Bug。'
+            version: '9', // 当需要强制所有用户（包括已勾选“不再提示”的）看到新公告时，修改此版本号（整数）
+            text: '欢迎来到空间站「塔弦」下辖的 Phigros 成绩查询与图片生成器！这是一条公告！<br>我们于2025.10.28更新了我们的<a href="https://aw0000.xtower.site/UserAgreement.html" target="_blank">用户协议</a>，<a href="https://github.com/Sczr0/Sczr0.github.io/commit/d5a53d8c9e2671fa4895c241b4dcd2822fd6ce54" target="_blank">具体差异看这里</a><br>欢迎加入官方群聊催更新功能/反馈问题/查看更新计划。<br>3.添加了玩家成绩渲染功能。<br><a href="https://lilith.xtower.site" target="_blank">前瞻正式站</a>已上线 ~ 现代化页面 + 移动端特化，欢迎前去体验 ~ '
         };
 
         // ==========================================================
@@ -1426,41 +1752,46 @@
         // ==========================================================
         const newSongsConfig = {
             // 指定一个基准更新时间点
-            updateDate: '2025-08-31T17:00:00',
+            updateDate: '2025-09-19T17:00:00',
             // 更新的曲目列表
             tracks: [
                 {
-                    name: 'RetributionCycleofRedemption.ArdolfvsDaily天利',
+                    name: 'アンビバレンス.すりぃ相沢',
                     charts: [
-                        { difficulty: 'EZ', constant: 6.0 },
-                        { difficulty: 'HD', constant: 11.3 },
-                        { difficulty: 'IN', constant: 16.2 }
+                        { difficulty: 'EZ', constant: 3.5 },
+                        { difficulty: 'HD', constant: 8.7 },
+                        { difficulty: 'IN', constant: 14.1 }
                     ]
                 },
                 {
-                    name: '雪降り雪が降っている.AiSSw夜輪ft結月ゆかり',
+                    name: 'Komplexe.雄之助featSennzai',
                     charts: [
-                        { difficulty: 'EZ', constant: 1.5 },
-                        { difficulty: 'HD', constant: 7.5 },
-                        { difficulty: 'IN', constant: 12.0 },
-                        { difficulty: 'AT', constant: 14.0 }
+                        { difficulty: 'EZ', constant: 4.0 },
+                        { difficulty: 'HD', constant: 9.6 },
+                        { difficulty: 'IN', constant: 14.3 }
                     ]
                 },
                 {
-                    name: 'DerRichter.Ωμεγα',
+                    name: 'slips.rintarosoma',
                     charts: [
-                        { difficulty: 'AT', constant: 16.9 }
+                        { difficulty: 'EZ', constant: 7.5 },
+                        { difficulty: 'HD', constant: 12.8 },
+                        { difficulty: 'IN', constant: 15.8 },
+                        { difficulty: 'AT', constant: 16.8 }
                     ]
                 },
                 {
-                    name: 'PANICPARADISE.DJSHIONY',
+                    name: 'QZKagoRequiem.tpazolite',
                     charts: [
-                        { difficulty: 'AT', constant: 16.4 }
+                        { difficulty: 'EZ', constant: 7.0 },
+                        { difficulty: 'HD', constant: 13.3 },
+                        { difficulty: 'IN', constant: 16.4 },
+                        { difficulty: 'AT', constant: 17.4 }
                     ]
-                },
+                }
             ],
             // 附言（可选，如果没有内容则不显示）
-            postscript: ''
+            postscript: '此次更新同时微调了DerRichter.Ωμεγα AT谱面'
         };
 
 
@@ -1469,120 +1800,251 @@
         // ==========================================================
         const BACKEND_URL = 'https://evernight.xtower.site';
 
+        // ===== 统一的请求体构建函数 =====
+        function buildAuthRequestBody() {
+            const savedToken = localStorage.getItem('phigrosSessionToken');
+            const savedCredentials = localStorage.getItem('phigrosAuthCredentials');
+
+            // 优先使用联合查分凭证，如果没有则使用传统Token
+            if (savedCredentials) {
+                const credentials = JSON.parse(savedCredentials);
+
+                switch (credentials.authMethod) {
+                    case 'api':
+                        const requestBody = {
+                            "data_source": "external",
+                            "api_user_id": credentials.api_user_id
+                        };
+                        if (credentials.api_token) {
+                            requestBody.api_token = credentials.api_token;
+                        }
+                        return requestBody;
+
+                    case 'platform':
+                        return {
+                            "data_source": "external",
+                            "platform": credentials.platform,
+                            "platform_id": credentials.platform_id
+                        };
+
+                    default:
+                        console.error('未知的联合查分凭证类型:', credentials.authMethod);
+                        return null;
+                }
+            } else if (savedToken) {
+                return { "data_source": "internal", token: savedToken };
+            } else {
+                console.error('没有找到任何有效的登录凭证');
+                return null;
+            }
+        }
+
         // 用户协议文本 (使用模板字符串 `` 可以保留换行)
         const agreementText = `### 「塔弦」空间站 - Phigros 成绩查询与图片生成器 用户协议
 
-**最后更新日期：2025年8月21日**
-
-**生效日期：2025年8月21日**
-
----
+**最后更新日期：2025年10月28日**  | **生效日期：2025年11月01日**
 
 #### 1. 引言
-欢迎您使用由 弦塔 (“弦塔”，指由“弦塔”独立开发并运营该服务的个人开发者)（以下简称“**开发者**”或“**我们**”）开发并运营的“**Phigros 成绩查询与图片生成器**”（以下简称“**本服务**”）。
+欢迎您使用由「塔弦」空间站 （以下称“我们”或“开发者”）开发并运营的“**Phigros 成绩查询与图片生成器**”（以下简称“**本服务**”）。
 
-**在使用本服务之前，请您务必认真阅读、充分理解本协议的全部条款内容，特别是其中以加粗方式显著标识的条款**。如果您未满18周岁，请在法定监护人陪同下阅读本协议，并在征得法定监护人的同意后使用本服务。您在使用本服务某一特定功能时，针对该特定功能可能会另有单独的协议、相关业务规则等（以下简称“具体协议”）。本协议与具体协议的内容存在冲突的，以具体协议的规定为准。所有前述条款和规则构成本协议不可分割的组成部分（以上通称“全部协议”），与本协议正文具有同等法律效力。
+**在使用本服务前，请您务必认真阅读，并充分理解本协议全部内容，特别是以加粗等方式显著标识的条款**。若您未满 14 周岁，请在法定监护人**单独同意**并在其监督下使用本服务。  
 
-当您通过网络页面点击“同意”、“确认”按钮、勾选同意框，或以任何方式实际访问、使用本服务时，即视为您已充分阅读、理解并同意接受本协议的全部内容。**如果您不同意本协议的任何条款，请立即停止访问或使用本服务。**
+部分特定功能可能附有单独的使用规则或协议（以下简称“具体协议”，包括但不限于隐私政策、数据处理说明、功能使用须知等）。如本协议与具体协议存在冲突，除本协议具体说明外，以具体协议为准。本协议正文、具体协议及相关业务规则，共同构成本服务的完整用户协议，具有同等法律效力。
 
-本服务主要面向中华人民共和国大陆地区用户设计和提供。如果您从其他国家或地区访问本服务，您应自行确保您的行为符合当地的法律法规，并根据本协议8.1的规定，按照中华人民共和国大陆地区法律进行解释和管辖。
+当您通过点击“同意”类按钮、勾选同意复选框，或以任何方式实际使用本服务（包括但不限于访问页面、发起查询、生成图片等），即视为您已充分阅读、理解并接受本协议全部条款。**如您不同意本协议任一条款，请立即停止访问或使用本服务。**
+
+本服务的服务器及数据处理均位于中华人民共和国境内。如您从其他国家或地区访问本服务，您有责任确保自身行为符合当地法律法规。同时，您同意本协议的解释与争议解决适用中华人民共和国大陆地区法律（详见第8.1条），并服从相关司法管辖。
 
 #### 2. 服务描述
- 2.1 本服务是一个**免费、第三方**开发的网页工具。本服务需要您授权登录（提供**SessionToken**）后方可使用，其功能包括基于您个人游戏数据的成绩分析，以及通用的游戏信息展示。主要服务如下：
+ 2.1 本服务是一个**免费、第三方**开发的网页工具。其功能包括基于您个人游戏数据的成绩分析，以及通用的部分游戏信息展示。部分服务如下：
 *   **Best N 成绩分析与生成**：计算并生成用户指定数量的最佳成绩（Best N）的**可视化图片**或**文本列表**。
 *   **单曲成绩查询**：根据用户输入的关键词，查询特定歌曲的成绩，并生成包含详细信息的**可视化图片**。
 *   **新曲信息速递**：展示游戏更新的歌曲及其谱面定数等更新信息。
-*   上述生成的内容，在遵从协议的情况下，均可供用户下载或分享。
-*   本服务的官方前端地址为 xtower.site/test.html 及其子域名 aw0000.xtower.site/test.html
-本服务的后端服务请求地址为：https://evernight.xtower.site
-上述地址提供的服务均不可分割地属于本服务的部分，其对上述地址服务的使用均需要符合本协议的要求。开发者保留根据运营需要变更上述服务地址而不另行通知的权利。对非官方地址的非法调用，开发者保留依法追究法律责任的权利。
+*   **玩家成绩渲染**：根据玩家上传的成绩，生成BestN图片。
+*   上述生成内容，在遵守本协议的前提下，可由用户下载或分享，但仅限于个人、非商业用途。
 
-2.2 服务流程简述：
-*   用户通过 TapTap App 扫描本服务提供的二维码进行授权登录。授权后，本服务将接收由 TapTap 官方生成的 **SessionToken**，用户也可以自行提供。
-*   SessionToken 校验成功后，本服务中与个人成绩相关的功能（如 Best N 成绩分析与生成、单曲成绩查询等），需使用该 Token 向 TapTap 官方发起请求，**解密并获取与 Phigros 游戏相关的、实现本服务各项功能所必需的云存档数据**。
-*   服务端根据获取的数据和您的具体请求（如查询 Best N、查询单曲），进行计算，**生成相应的图片或文本内容**并返回给用户。
+对本服务的任何技术组成部分（包括但不限于前端页面、后端 API、数据库等）的访问或调用，均须遵守本协议全部条款。
+
+开发者保留根据运营、安全或技术需要随时变更服务地址的权利，恕不另行通知。用户应定期访问官方前端页面以获取最新地址。
+
+对非官方服务地址的非法调用，开发者保留依法追究法律责任的权利。
+
+2.2 为支持“联合查分API”登录方式，本服务将在服务内部，向以下第三方地址发起数据请求：http://phib19.top:8080
+
+2.3 服务流程简述
+本服务支持两种登录与数据获取方式，用户可任选其一：
+
+方式一：TapTap 授权登录（推荐）
+*   用户通过 TapTap App 扫描本服务提供的二维码，完成授权登录；
+*   本服务接收由 TapTap 官方生成的 SessionToken（用户也可手动输入）；
+*   本服务使用该 Token 向 TapTap 官方接口发起请求，解密并获取您的 Phigros云存档数据；
+*   服务端根据数据生成内容并返回。
+
+方式二：联合查分API登录
+
+*   用户选择“联合查分API”登录方式，并按指引提供必要信息，完成授权登录；
+*   本服务临时、单次向联合查分API发起请求，获取您的 Phigros 成绩数据；
+*   服务端根据数据生成内容并返回；
 
 #### 3. 账号、数据与隐私保护
 
-3.1 在您扫码登录的全过程中，**我们不会以任何形式获取、记录或存储您的 TapTap 账号密码**。本服务接收的唯一授权凭证是 TapTap 官方生成的 **SessionToken**。此 SessionToken **仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据**。
+3.1 当您使用 TapTap 授权登录时，为实现本服务中与您个人成绩相关的功能，我们仅收集和处理以下信息：
 
-3.2 为实现本服务中与您个人成绩相关的功能（如 Best N 成绩分析与生成、单曲成绩查询等），我们仅在您提供 SessionToken （包括扫码自动获取和手动获取）并使用本服务时收集和处理以下信息：
-*   **TapTap SessionToken**：作为授权凭证，用于请求您的游戏数据。
-*   **Phigros 云存档**：**用于实现本服务的各项功能（包括但不限于生成 Best N 图片、查询单曲成绩、生成文本列表等）**，包括：玩家 ID、简介、Data（游戏内货币）、潜力值 (RKS) 全部单曲成绩记录（歌曲、难度、ACC、得分等）、游戏设置等。
+*   **TapTap SessionToken**：作为临时授权凭证，仅用于向 TapTap 官方接口请求您的 Phigros 游戏数据；
+*   **Phigros 云存档数据**：包括但不限于玩家 ID、用户名、潜力值 (RKS)、所有单曲最佳成绩（歌曲名、难度、ACC、得分等）、章节解锁状态、游戏设置等；
 
-我们不会以任何形式修改您的 Phigros 云存档游戏数据。
-为提升服务性能，我们可能会在服务端内存中，使用缓存机制临时存储您的游戏数据。这些数据包括您的玩家ID、用户名、潜力值 (RKS)、所有单曲的最佳成绩、历史成绩以及推分ACC等。
-这些数据不会以明文形式写入硬盘或数据库，并会在5分钟后自动过期清除。
+3.2 当你使用联合查分方式登录时，为实现本服务中与您个人成绩相关的功能，我们仅在您对本服务发出 成绩获取请求 时向 联合查分API 收集和处理以下信息：
+*   **TapTap 云存档下载链接**：由联合查分API 提供，指向 TapTap 官方服务器上的原始存档文件。
+*   **Phigros 云存档数据**：包括但不限于玩家 ID、用户名、潜力值 (RKS)、所有单曲最佳成绩（歌曲名、难度、ACC、得分等）、章节解锁状态、游戏设置等；
+
+3.3 我们不会以任何形式修改、删除或干预您的 Phigros 云存档数据。
+
+为提升服务性能，我们可能会在服务端内存中，使用缓存机制临时存储您的游戏数据。这些数据包括您的玩家ID、用户名、潜力值 (RKS)、所有单曲的最佳成绩、推分ACC等。
+
+这些数据不会以明文形式写入硬盘或数据库，并会在24小时内自动过期清除。
+
 您理解并同意，此缓存机制是为了优化服务响应速度而设计，我们无法保证过期的缓存数据仍能被访问。
 
-3.3 为方便您下次使用，您的 SessionToken **会被存储在您当前设备的浏览器本地存储中**，以实现“自动登录”。
-存储在您浏览器中的 SessionToken 仅保留在您的本地设备上，服务器仅在处理您的当次请求时，在内存中临时使用该 SessionToken 向 TapTap 接口发起数据请求。请求完成后，相关的内存数据将随请求结束而释放，不会将 SessionToken 以任何形式的持久化存储（如数据库、日志文件、硬盘）中保留。
-您理解并同意，SessionToken 由 TapTap 生成并控制其有效期，本服务无法保证过期的 Token 仍能成功获取数据。
+3.4 为方便您下次使用，本服务的特定信息**会被存储在您当前设备的浏览器本地存储（LocalStorage）中**，以便优化您的使用体验。具体包括：
+*   **登录凭证**：您的 SessionToken 或联合查分API信息，用于实现“自动登录”。
+*   **“玩家成绩渲染”数据**：您在该功能中输入的玩家姓名和成绩列表，以便您下次访问时无需重新输入。
 
-3.4 登录后，您可随时点击服务页面的 **“退出登录”** 按钮，**立即清除存储在浏览器中的 SessionToken。但请注意，如果不提供SessionToken，我们则无法向您提供本服务**。
+上述信息仅保留在您的本地设备上，我们不会将其上传或存储在本服务之服务器。服务器仅在处理您的当次请求时，临时使用登录凭证发起数据请求，不会在本服务中以任何形式持久化存储（如数据库、日志文件、硬盘）中保留任何的 TapTap 或者联合查分API返回的原始数据、访问链接或临时凭证。
+
+您理解并同意，SessionToken 由 TapTap 生成并控制其有效期，本服务无法保证过期的 SessionToken 仍能成功获取数据。
+
+3.5 为提升访问速度，本服务可能使用位于境外的网络加速节点（如 Cloudflare）进行请求转发或静态资源分发。
+
+本服务自身所有涉及用户个人数据的处理、缓存与存储，均在中华人民共和国大陆境内完成。在本服务所有的请求过程中，您的 Phigros 云存档仅会在中华人民共和国大陆境内的服务器处理，不会出境，亦不会被境外节点持久化或访问。
+
+3.6 本服务排行榜功能所使用的用户标识号通过单向哈希算法（SHA-256 + 盐值）生成，仅用于区分不同用户，不包含可识别的个人信息，不可逆推出原始标识。
+
+除非另有说明，否则即使您退出登录，我们也不会自动删除您的排行榜信息，如需删除，请通过本协议的联系方式联系我们。
+
+3.7 登录后，您可随时点击服务页面的 **“退出登录”** 按钮，**立即清除存储在浏览器中的登录凭证。
+但请注意，如果不提供登录凭证，我们则无法向您提供本服务**。
 
 #### 4. 用户行为准则
-4.1 在遵守本协议的情况下，依据本协议，我们授予您一项**有限的、可撤销的、非排他的、不可转让的授权**，以使用本服务。您充分理解并同意，**本协议未明示授权的其他一切权利仍由开发者保留**，您在行使其他权利前须**另行获得开发者的许可**，同时开发者如未行使前述任何权利，**并不构成对该权利的放弃**。
+4.1 在您遵守本协议全部条款的前提下，我们授予您一项**有限的、可撤销的、非排他性的、不可转让的、不可再授权的许可**，仅用于在官方前端界面内访问和使用本服务的现有功能。
 
-4.2 **本服务及任何可能的附属服务均仅限于在上述2.1条所述官方前端内使用，若需在范围外使用须获得开发者同意。在官方前端外调用本服务，由此引起的一切后果由进行该等调用的主体（无论是否为协议用户）自行承担，开发者保留依法追究调用主体法律责任的权利。开发者所提供的服务仅供用户非商业性使用，用户在未经开发者事先书面同意的情况下，不得以商业性目的使用本服务。**
+您充分理解并同意，除本协议明确授予的权利外，所有其他权利（包括但不限于商业使用、API调用、数据抓取、反向工程、衍生服务开发等）均保留给开发者。**未经开发者事先书面许可，您不得行使任何未被明确授权的权利**。
+
+开发者未行使或延迟行使其在本协议项下的任何权利，**不构成对该权利的放弃，亦不影响其在任何时间继续或重新行使该权利或其他权利**。
+
+4.2 **未经开发者事先书面同意，您不得将本服务或其生成内容用于任何直接或间接的商业目的（包括但不限于：嵌入商业产品、用于流量变现、作为付费服务的一部分等）。**
 
 4.3 您在使用我们提供的上述服务时，应遵守法律法规的要求和本协议的约定，遵守自愿、平等、公平及诚实信用原则，不利用本服务侵犯他人合法权益及谋取不正当利益，不扰乱互联网平台正常秩序。
 
 4.4 作为本服务的使用者，您不得违反《互联网信息服务管理办法》、《网络信息内容生态治理规定》等法律法规以及相关标准关于网络信息内容安全的要求，不得输入、利用本服务输出或传播以下违法不良信息：
-（1）反对宪法所确定的基本原则的；
-（2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；
-（3）损害国家荣誉和利益的；
-（4）歪曲、丑化、亵渎、否定英雄烈士事迹和精神，以侮辱、诽谤或者其他方式侵害英雄烈士的姓名、肖像、名誉、荣誉的；
-（5）宣扬恐怖主义、极端主义或者煽动实施恐怖活动、极端主义活动的；
-（6）煽动民族仇恨、民族歧视，破坏民族团结的；
-（7）破坏国家宗教政策，宣扬邪教和封建迷信的；
-（8）散布谣言，扰乱经济秩序和社会秩序的；
-（9）散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；
-（10）侮辱或者诽谤他人，侵害他人名誉、隐私和其他合法权益的；
-（11）法律、行政法规禁止的其他内容。
+
+*   （1）反对宪法所确定的基本原则的；
+*   （2）危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；
+*   （3）损害国家荣誉和利益的；
+*   （4）歪曲、丑化、亵渎、否定英雄烈士事迹和精神，以侮辱、诽谤或者其他方式侵害英雄烈士的姓名、肖像、名誉、荣誉的；
+*   （5）宣扬恐怖主义、极端主义或者煽动实施恐怖活动、极端主义活动的；
+*   （6）煽动民族仇恨、民族歧视，破坏民族团结的；
+*   （7）破坏国家宗教政策，宣扬邪教和封建迷信的；
+*   （8）散布谣言，扰乱经济秩序和社会秩序的；
+*   （9）散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；
+*   （10）侮辱或者诽谤他人，侵害他人名誉、隐私和其他合法权益的；
+*   （11）法律、行政法规禁止的其他内容。
 
 4.5 作为本服务的使用者，您不得违反《网络安全法》、《数据安全法》等法律法规以及相关标准的要求，不得对本服务以及支持本服务正常运行的系统、网络、以及其他组件等进行干扰、破坏或攻击，不得从事以下危害本服务安全的活动：
-（1）从事非法侵入网络的活动，例如：使用未经许可的数据或进入未经许可的服务器/账号；伪造TCP/IP数据包名称或部分名称；未经许可，企图探查、扫描、测试本软件系统或网络的弱点等。
-（2）从事干扰、破坏网络正常功能的活动，例如：故意生成、传播恶意程序或病毒；未经允许进入公众计算机网络或者他人计算机系统并删除、修改、增加存储信息；以导致计算机系统或设施承受不合理负载的方式干扰运营等。
-（3）以任何方式（包括但不限于通过任何机器人、爬虫、其他自动设置、设置镜像）来抓取、复制本服务及其所包含的任何内容等。
-（4）从事其他危害本服务系统、网络、以及其他组件安全的活动。
+*   （1）从事非法侵入网络的活动，例如：使用未经许可的数据或进入未经许可的服务器/账号；伪造TCP/IP数据包名称或部分名称；未经许可，企图探查、扫描、测试本软件系统或网络的弱点等。
+*   （2）从事干扰、破坏网络正常功能的活动，例如：故意生成、传播恶意程序或病毒；未经允许进入公众计算机网络或者他人计算机系统并删除、修改、增加存储信息；以导致计算机系统或设施承受不合理负载的方式干扰运营等。
+*   （3）以任何自动化方式（包括但不限于通过任何机器人、爬虫、其他自动设置、设置镜像）来抓取、复制本服务及其所包含的任何内容等。
+*   （4）从事其他危害本服务系统、网络、以及其他组件安全的活动。
 
 #### 5. 知识产权
-5.1 开发者为本服务的开发、运营主体，对本服务自身（包括但不限于程序、代码、用户界面、网页、文字等）享有完整的知识产权。
-我们保留在不通知的情况下，随时更改生成内容（如图片模板、布局、包含的信息），或在生成内容中添加本服务标识（如水印或网址）的权利。
-5.2 本服务的**输出内容（包括但不限于 Best N 成绩图片、单曲成绩图）** 可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。** 本服务对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表开发者拥有这些素材的任何权利，不代表获得了权利人的任何官方授权，也不构成权利人对本服务的认可。**
-5.3 您理解并同意，您通过本服务生成的**任何内容（下称“生成内容”，例如 Best N 图片、单曲成绩图、文本成绩列表等）** 中可能包含上述第 5.2 条所述的第三方知识产权内容，因此，您应特别审慎地在个人、非商业、且符合原作品性质（如游戏社区讨论、成绩展示）的范围内分享和使用生成内容。超出此范围的使用（特别是任何形式的商业性使用、大规模传播或可能损害权利人利益的使用）可能构成侵权。**如果您的使用行为超出了“合理使用”的范畴（包括但不限于知识产权），开发者无法为您的后续使用行为承担法律责任。**
-5.4 我们尊重并保护权利人的知识产权。如果您是相关知识产权的合法权利人，并且认为本服务所使用的素材或“生成内容”侵犯了您的合法权益，请您通过本协议第10条提供的联系方式，向我们发送书面通知。您的通知应包含以下内容：
-(1) 足以证明您身份及权利归属的有效证明材料；
-(2) 您认为构成侵权的具体内容在本服务中的位置或链接；
-(3) 您的联系方式（地址、电话、电子邮件）。
+5.1 开发者为本服务的开发、运营主体。
+
+除您上传的合法内容与5.2，5.3所述的第三方权利内容外，本服务的全部权利均归开发者所有。您保留您在使用本服务过程中上传的内容（如玩家成绩等）的合法权利，但您同意授予开发者在服务运行、展示及优化中为实现相关功能所必需的非独占的、全球范围的、免许可费的使用权。您可通过本协议第 10 条联系方式撤回上述授权，但撤回不影响撤回前已基于授权完成的使用。
+
+我们保留在不通知的情况下，随时更改本服务本体及其生成的**任何内容（下称“生成内容”，包括但不限于 Best N 图片、单曲成绩图、文本成绩列表等）**（如图片模板、布局、包含的信息），或在生成内容中添加本服务标识（如水印或网址）的权利。
+
+特别的，对于**玩家自行上传的成绩**，我们可能会添加额外标识，用于追溯生成内容的数据来源，包括但不限于显式水印与隐式水印（如数字水印等）。
+
+除非另有说明，否则请您在合理范围内保留这些标识，不得故意去除、伪造或将其用于误导性用途。
+
+5.2 本服务于测试站背景使用的随机图API，仅为美化本服务页面，我们不与其运营方存在任何官方关联、认可、授权或合作关系。
+
+5.3 本服务的生成内容可能会使用《Phigros》游戏相关的歌曲封面/曲绘等美术素材。**我们在此明确声明，上述所有素材的知识产权均归其各自的合法权利人（例如Pigeon Games、相关曲师画师等）所有。**
+"生成内容"对这些素材的引用，旨在为用户提供便利，以实现对相关作品的介绍、评论或说明等目的下的**适当引用**。这**不代表获得了任何权利人的任何官方授权，也不代表相关权利人对本服务的认可、承诺或任何形式的背书。**
+
+5.4 您理解并同意，"生成内容"中可能包含上述第 5.3 条所述的第三方知识产权内容，
+这些内容除非另有书面说明，否则开发者未获得原作者的复制、传播、演绎等授权，开发者也无权向您授予相关图片与包含这些权利内容的"生成内容"的具体著作权权利。
+
+因此，您应特别审慎地在个人、非商业、且符合原作品性质（如游戏社区讨论、成绩展示）的范围内分享和使用生成内容。
+超出此范围的使用（特别是任何形式的商业性使用、大规模传播或可能损害权利人利益的使用）可能构成侵权。**如果您的使用行为超出了“适当引用”的范畴（包括，但不限于知识产权方面）导致被追究，在法律允许的最大范围内，开发者不承担任何责任。**
+
+**您对生成内容的任何使用行为，均视为您已充分理解并自愿承担由此产生的一切法律后果**。
+
+5.4 我们尊重并保护权利人的知识产权。如果您是相关知识产权的合法权利人，并且认为本服务的“生成内容”侵犯了您的合法权益，请您通过本协议第10条提供的联系方式，向我们发送书面通知。您的通知应包含以下内容：
+*   (1) 足以证明您身份及权利归属的有效证明材料；
+*   (2) 您认为构成侵权的具体内容在本服务中的位置或链接；
+*   (3) 您的联系方式（地址、电话、电子邮件）。
+
 **在收到并核实您的有效通知后，我们将根据法律法规和您的要求，采取包括但不限于移除相关内容、断开链接、或终止相关功能等必要措施。**
 
 #### 6. 免责声明与责任限制
-6.1 本服务按“**现状**”和“**现有**”的基础提供，**不做任何形式明示或默示的担保**，包括但不限于服务的稳定性、准确性、安全性或持续可用性。您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误、或因本地设备安全问题导致Token泄露的理论风险等）**均由您自行承担。**
-您有责任妥善保管您的个人设备，因您自身设备安全问题（如设备丢失、感染病毒、浏览器被攻击等）导致的 SessionToken 泄露及可能造成的任何损失，由您自行承担。
-6.2 **在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见。在任何情况下，即使本协议中的某些条款因故无效，开发者对您承担的全部赔偿责任，累计总额不应超过用户实际支付的费用。**
+6.1 本服务按“**现状**”提供，**不做任何形式明示或默示的担保**，包括但不限于服务的稳定性、准确性、安全性或持续可用性。
+您理解并同意，使用本服务所可能产生的全部风险（包括但不限于服务中断、数据错误等）**均由您自行承担。**
+
+本服务提供的成绩分析、推分计算等功能仅为数据展示与娱乐用途，不构成任何专业建议，您不应依赖其做出重要决策。
+
+您有责任妥善保管您的个人设备和 SessionToken ，因您自身问题（如设备丢失、感染病毒、浏览器被攻击、在公开群聊发送 SessionToken 等）导致的 SessionToken 泄露及可能造成的任何损失，由您自行承担。
+
+6.2 **在法律允许的最大范围内，开发者不对因使用或无法使用本服务而导致的任何直接、间接、附带或惩罚性的损害承担赔偿责任，无论该等损害是否可预见、是否基于合同、侵权（包括疏忽）或其他法律理论。但不适用于因开发者故意或重大过失造成的损害，或法律另有规定不得免除的情形。**
+
+**在任何情况下，即使本协议中的某些条款因故无效，开发者对您承担的全部赔偿责任，累计总额不应超过用户为使用本服务所向开发者支付的费用。**
+
 6.3 不论在何种情况下，本服务均不对由于网络连接故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际、国内法院的命令，黑客攻击，互联网病毒，网络运营商技术调整，政府临时管制或任何其他不能合理控制的原因而造成的本服务不能访问、服务中断、信息及数据的泄露、延误、停滞或错误，不能提供或延迟提供服务而承担责任。
-6.4 **本服务与《Phigros》游戏开发商 Pigeon Games (鸽游) 及 TapTap 平台运营商不存在任何官方关联、认可或合作关系。** 您理解并同意，本服务仅为玩家提供便利，所有数据来源均依赖于 TapTap 官方云存档接口。
-本服务的可用性、数据准确性及功能完整性**完全依赖于 TapTap 官方云存档接口的开放状态、稳定性、数据格式及访问策略。**TapTap 或 Pigeon Games 有权**随时变更或关闭其接口**，开发者对此**无法控制亦不承担任何责任**。
-本服务使用的云存档来源于 TapTap 官方接口，我们**不对数据的绝对准确性、完整性或实时性做出任何保证**。所有数据**应以 Phigros 游戏内展示为准**。因数据延迟、错误或不同步可能导致的任何问题，开发者不承担责任。
-6.5 开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。**您理解并同意，如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，开发者有权随时移除相关功能、限制服务或终止本协议，而无需对您承担任何责任。**
-6.6 本服务可能会提供与其他国际互联网网站或资源进行链接（例如友链）。除非另有声明，开发者无法对第三方网站之服务进行控制，用户因使用或依赖上述网站或资源所产生的损失或损害，开发者不承担任何责任。我们建议您在访问其他网站或资源前仔细阅读其服务条款和隐私政策。
+
+6.4 **本服务与《Phigros》游戏开发商 Pigeon Games（鸽游）、TapTap 平台运营商及“联合查分API”运营方不存在任何官方关联、认可、授权或合作关系。** 您理解并同意，本服务仅为玩家查询个人成绩提供便利，所有个人成绩数据来源均依赖于 由本服务通过 SessionToken 获取的 TapTap 官方云存档 或 联合查分API 提供的 TapTap 官方云存档下载链接（以下简称“云存档”）。
+
+本服务的可用性、数据准确性及功能完整性**依赖于云存档或联合查分API的开放状态、稳定性、数据格式及访问策略。**TapTap 或 Pigeon Games 有权**随时变更或关闭云存档**，开发者对此**无法控制亦不承担任何责任**。
+
+我们**不对云存档数据的绝对准确性、完整性或实时性做出任何保证**。所有数据**应以 Phigros 游戏内展示为准**。因云存档或联合查分API数据延迟、错误或不同步可能导致的任何问题，开发者不承担责任。
+
+6.5 开发者仅提供服务，无法也无义务审查用户对“生成内容”的后续使用行为。**您理解并同意，如果任何第三方权利人对“生成内容”中的素材提出权利主张或异议，我们有权在收到有效权利通知后，采取包括但不限于移除相关内容、限制功能或单方面终止本协议的措施。上述措施将基于合理判断执行，且不承担超出法律规定范围的赔偿责任。**
+
+6.6 本服务可能会提供与其他国际互联网网站或资源进行链接（例如友链）。除非另有声明，开发者无法对第三方网站之服务进行控制，用户因使用或依赖上述网站或资源所产生的损失或损害，开发者不承担任何责任。
+
+我们建议您在访问其他网站或资源前仔细阅读其服务条款和隐私政策。
+
+6.7 “联合查分API”为完全独立的第三方服务，其运营、数据安全、接口稳定性、隐私政策及法律责任均由其自身承担。
+
+您理解并同意，本服务仅在您主动选择并提供必要信息后，临时调用该接口获取数据；开发者**不对该 API 的可用性、响应速度、数据准确性、安全性或合规性做任何担保**；
+如因该 API 发生数据泄露、服务中断、接口变更、法律风险或运营终止，导致您无法正常使用本服务或遭受损失，开发者**不承担任何直接或连带责任**；
+您使用该登录方式，即视为您**已充分知悉并自愿承担相关风险**。
 
 #### 7. 协议的变更与终止
-7.1 因服务变更等可能的需要，开发者保留修改本协议的权利。修改后的协议将在本服务页面公布并在生效日的UTC+8的 00:00:00 立刻生效。若生效日期与发布日期相同，则修改后的协议发布时即生效。**如您不接受修改后的协议，请您立即停止使用本服务**。您继续使用本服务将被视为则视为您已充分阅读、理解并接受更新后的本协议并愿意受更新后的本协议的约束。我们建议您定期访问本页面以查阅最新版本。
-7.2 开发者保留随时因任何理由（包括但不限于收到相关权利方（如Pigeon Games）的通知、技术、运营成本、法律法规要求或开发者个人决定）**暂时中止或永久终止本服务的权利，而无需事先通知，也无需承担任何责任。**
+7.1 因服务变更等可能的需要，开发者保留修改本协议的权利。修改后的协议将在本服务页面公布并在生效日的 UTC+8 的 00:00:00 立刻生效。若生效日期与发布日期相同，则修改后的协议发布时即生效。
+
+**我们会采取合理措施公布协议更改情况，如您不接受修改后的协议，请您立即停止使用本服务**。您继续使用本服务将被视为则视为您已充分阅读、理解并接受更新后的本协议并愿意受更新后的本协议的约束。
+
+我们建议您定期访问本页面以查阅最新版本。
+
+7.2 开发者保留随时因任何理由（包括但不限于收到相关权利方（如Pigeon Games）的通知、技术、运营成本、法律法规要求或开发者个人决定）**随时中止或终止本服务的权利。除法律另有规定外，开发者不承担因此产生的赔偿责任。**
+
+7.3 我们可通过页面公告、弹窗、电子邮件或其他合理方式向您发出通知。上述方式一经发送或发布，即视为有效送达。
 
 #### 8. 适用法律与管辖权
-8.1 本协议的订立、生效、解释、履行及争议解决，均适用**中华人民共和国大陆地区法律**。如双方就本协议内容或其执行发生任何争议，应首先友好协商解决；协商不成的，您同意将争议提交至**开发者所在地（安徽省合肥市）有管辖权的人民法院**通过诉讼解决。
+8.1 本协议的订立、生效、解释、履行及争议解决，均适用**中华人民共和国法律**。
+
+如因本协议引起或与本协议相关的任何争议，双方应首先通过友好协商解决；协商不成的，任何一方均有权将争议提交至开发者所在地（安徽省合肥市）依法享有管辖权的人民法院，通过诉讼方式解决。该管辖约定具有排他性。
 
 #### 9. 其他
-9.1 如果本协议的任何条款被认定为全部或部分不合法、无效或不可强制执行，该条款或其相关部分应在上述范围内被视为不构成本协议的一部分，但本协议其他条款的合法性、效力和可强制执行性均不受影响。
+9.1 如本协议任何条款或其部分内容被有管辖权的法院或仲裁机构认定为不合法、无效或不可强制执行，该条款或部分应在该范围内视为自始无效且不构成本协议的一部分，但不影响本协议其余条款的合法性、有效性及可执行性。
+
+在法律允许的最大范围内，双方同意以最接近原条款意图的有效条款替代该无效条款。 
+
+9.2 本协议以简体中文为正式文本。如存在其他语言翻译版本，其内容仅供理解参考；如与简体中文版本存在任何歧义或冲突，以简体中文版本为准。
 
 #### 10. 联系我们
 如果您对本协议有任何疑问、意见或建议，请通过以下方式联系我们：
 
-sczr0710@163.com
+xtower@xtower.site
 `;
 
         let pollingInterval;
@@ -1626,14 +2088,23 @@ sczr0710@163.com
             manualLoginBtn.addEventListener('click', handleManualLogin);
             closeRksListBtn.addEventListener('click', () => rksListModal.style.display = 'none');
 
+            // 添加联合查分相关事件监听
+            const apiLoginBtn = document.getElementById('api-login-btn');
+            const platformLoginBtn = document.getElementById('platform-login-btn');
+            if (apiLoginBtn) apiLoginBtn.addEventListener('click', handleApiLogin);
+            if (platformLoginBtn) platformLoginBtn.addEventListener('click', handlePlatformLogin);
+
             // 2. 直接初始化应用
             initializeApp();
-            
+
             // 3. 初始化公告弹窗
             setupAnnouncementModal();
+
+            // 4. 初始化玩家成绩渲染功能
+            initializePlayerScoreRender();
         });
 
-        // ===== 新增函数：初始化公告弹窗 =====
+        // ===== 初始化公告弹窗 =====
         function setupAnnouncementModal() {
             const modal = document.getElementById('announcement-modal');
             const content = document.getElementById('announcement-content');
@@ -1677,7 +2148,7 @@ sczr0710@163.com
             });
         }
 
-        // ===== 新增函数：切换标签页 =====
+        // ===== 切换标签页 =====
         function switchTab(tabId) {
             // 隐藏所有面板
             document.querySelectorAll('.tab-pane').forEach(pane => {
@@ -1702,14 +2173,29 @@ sczr0710@163.com
             if (tabId === 'about') {
                 renderStatsData();
             }
+
+            // 如果切换到RKS计算器，重置计算器状态
+            if (tabId === 'rks-calculator') {
+                clearRKSCalculator();
+            }
         }
 
         // 初始化App的核心逻辑（原DOMContentLoaded中的内容）
         function initializeApp() {
             const savedToken = localStorage.getItem('phigrosSessionToken');
-            if (savedToken) {
-                console.log('发现已保存的Token，进入已登录状态。');
-                sessionToken = savedToken;
+            const savedCredentials = localStorage.getItem('phigrosAuthCredentials');
+
+            if (savedToken || savedCredentials) {
+                if (savedToken) {
+                    console.log('发现已保存的Token，进入已登录状态。');
+                    sessionToken = savedToken;
+                } else if (savedCredentials) {
+                    console.log('发现已保存的联合查分凭证，进入已登录状态。');
+                    const credentials = JSON.parse(savedCredentials);
+                    // 清除旧的sessionToken变量，因为我们现在使用新的凭证系统
+                    sessionToken = null;
+                }
+
                 showImageSection(); // 先显示操作面板，确保元素存在
 
                 // --- 新增代码 ---
@@ -1718,7 +2204,10 @@ sczr0710@163.com
                     document.getElementById('user-nickname').textContent = savedNickname;
                 } else {
                     // 如果本地没有，可以考虑重新获取一次
-                    fetchAndDisplayUserData(savedToken);
+                    if (savedToken) {
+                        fetchAndDisplayUserData(savedToken);
+                    }
+                    // 对于联合查分，用户数据应该在登录时已经获取了
                 }
 
                 // 在初始化App的最后，设置默认显示的标签页
@@ -1727,7 +2216,7 @@ sczr0710@163.com
                 // ----------------
 
             } else {
-                console.log('未发现Token，开始扫码登录流程。');
+                console.log('未发现任何登录凭证，开始扫码登录流程。');
                 showLoginSection();
                 fetchQrCode();
             }
@@ -1792,10 +2281,8 @@ sczr0710@163.com
                         sessionToken = data.sessionToken;
                         localStorage.setItem('phigrosSessionToken', sessionToken);
                         statusText.textContent = '登录成功！';
-
-                        // --- 新增代码 ---
+                        
                         fetchAndDisplayUserData(sessionToken); // 传入刚刚获取的token
-                        // ----------------
 
                         showImageSection();
                     } else if (data.status === 'expired' || data.status === 'error') {
@@ -1810,7 +2297,7 @@ sczr0710@163.com
             }, 3000); // 每3秒轮询一次
         }
 
-        // ===== 新增函数：获取用户存档数据并更新UI =====
+        // ===== 获取用户存档数据并更新UI =====
         async function fetchAndDisplayUserData(token) {
             try {
                 const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, { // 注意URL路径
@@ -1852,8 +2339,8 @@ sczr0710@163.com
         // 3. 生成图片
         async function generateImage() {
             const n = nValueInput.value;
-            if (!n || n < 1 || n > 100) {
-                alert('请输入一个 1 到 100 之间的有效数字。');
+            if (!n || n < 1 || n > 50) {
+                alert('请输入一个 1 到 50 之间的有效数字。');
                 return;
             }
 
@@ -1874,12 +2361,17 @@ sczr0710@163.com
                     url += '?theme=white';
                 }
 
+                const requestBody = buildAuthRequestBody();
+                if (!requestBody) {
+                    throw new Error('无法构建授权请求体，请重新登录');
+                }
+
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ token: sessionToken })
+                    body: JSON.stringify(requestBody)
                 });
 
                 if (!response.ok) {
@@ -1921,6 +2413,7 @@ sczr0710@163.com
         // 4. 登出
         function logout() {
             localStorage.removeItem('phigrosSessionToken');
+            localStorage.removeItem('phigrosAuthCredentials'); // 清除联合查分凭证
             localStorage.removeItem('userNickname'); // 退出时也清除昵称
             // 注意：我们不清除 agreementAccepted 标记，这样用户无需再次同意协议
             sessionToken = null;
@@ -1929,7 +2422,67 @@ sczr0710@163.com
             window.location.reload();
         }
 
-        // ===== 新增函数：设置背景图下载链接 =====
+        // ===== RKS计算函数 =====
+        function calculateRKS() {
+            const constantInput = document.getElementById('chart-constant');
+            const accInput = document.getElementById('acc-value');
+            const resultContainer = document.getElementById('rks-result-container');
+            const resultContent = document.getElementById('rks-result-content');
+
+            const constant = parseFloat(constantInput.value);
+            const acc = parseFloat(accInput.value);
+
+            // 验证输入
+            if (!constant || !acc) {
+                alert('请输入完整的定数和ACC值');
+                return;
+            }
+
+            if (constant < 1.0 || constant > 18.0) {
+                alert('谱面定数必须在1.0-18.0范围内');
+                return;
+            }
+
+            if (acc < 70.0 || acc > 100.0) {
+                alert('ACC必须在70.0-100.0范围内');
+                return;
+            }
+
+            // 将百分数转换为小数用于计算
+            const accDecimal = acc / 100;
+
+            // 使用正确的Phigros RKS计算公式
+            // 当ACC = 100%时，RKS应该等于谱面定数
+            const rks = Math.pow((acc - 55) / 45, 2) * constant;
+
+            // 显示结果
+            const calculationProcess = `
+                <div style="text-align: center;">
+                    <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">
+                        RKS = ${rks.toFixed(4)}
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--muted-text-color); margin-bottom: 0.5rem;">
+                        计算过程：
+                    </div>
+                    <div style="font-family: 'Courier New', monospace; background-color: rgba(255,255,255,0.5); padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0;">
+                        (${acc} - 55) ÷ 45 = ${(acc - 55) / 45}<br>
+                        [${((acc - 55) / 45).toFixed(4)}]² × ${constant} = ${rks.toFixed(4)}
+                    </div>
+                </div>
+            `;
+
+            resultContent.innerHTML = calculationProcess;
+            resultContainer.style.display = 'block';
+        }
+
+        // ===== 清空RKS计算器函数 =====
+        function clearRKSCalculator() {
+            document.getElementById('chart-constant').value = '';
+            document.getElementById('acc-value').value = '';
+            document.getElementById('rks-result-container').style.display = 'none';
+        }
+
+        // ===== 设置背景图下载链接（待废弃） =====
         async function setupBackgroundDownloadLink() {
             if (!downloadLink) return;
 
@@ -1961,7 +2514,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：处理手动登录 =====
+        // ===== 处理手动登录 =====
         async function handleManualLogin() {
             const token = tokenInput.value.trim();
             if (!token) {
@@ -2011,6 +2564,163 @@ sczr0710@163.com
             }
         }
 
+        // ===== 切换联合查分登录表单 =====
+        function switchFederatedLogin(type) {
+            // 更新标签页按钮状态
+            document.querySelectorAll('.federated-tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.federated-tab-button[onclick="switchFederatedLogin('${type}')"]`).classList.add('active');
+
+            // 切换表单显示
+            document.querySelectorAll('.federated-login-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(`${type}-login-form`).classList.add('active');
+        }
+
+        // ===== 处理API登录 =====
+        async function handleApiLogin() {
+            const apiUserId = document.getElementById('api-user-id').value.trim();
+            const apiToken = document.getElementById('api-token').value.trim();
+
+            if (!apiUserId) {
+                alert('请输入API用户ID！');
+                return;
+            }
+
+            const apiLoginBtn = document.getElementById('api-login-btn');
+            const originalBtnHTML = apiLoginBtn.innerHTML;
+            apiLoginBtn.disabled = true;
+            apiLoginBtn.textContent = '登录中...';
+
+            statusText.textContent = '正在验证API凭证...';
+
+            try {
+                // 构建API登录请求体
+                const requestBody = {
+                    "data_source": "external",
+                    api_user_id: apiUserId
+                };
+
+                // 如果提供了API令牌则添加
+                if (apiToken) {
+                    requestBody.api_token = apiToken;
+                }
+
+                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const responseData = await response.json();
+
+                if (response.ok && responseData.code === 200) {
+                    // 验证成功，保存联合查分凭证
+                    const authCredentials = {
+                        authMethod: 'api',
+                        api_user_id: apiUserId,
+                        api_token: apiToken || null
+                    };
+                    localStorage.setItem('phigrosAuthCredentials', JSON.stringify(authCredentials));
+
+                    clearInterval(pollingInterval); // 停止二维码轮询
+                    statusText.textContent = 'API登录成功！';
+
+                    // 直接使用验证时返回的数据更新UI
+                    if (responseData.data && responseData.data.nickname) {
+                        const nickname = responseData.data.nickname;
+                        document.getElementById('user-nickname').textContent = nickname;
+                        localStorage.setItem('userNickname', nickname);
+                    }
+
+                    showImageSection();
+                } else {
+                    // 验证失败
+                    throw new Error(responseData.message || 'API登录失败。');
+                }
+            } catch (error) {
+                console.error('API登录验证失败:', error);
+                statusText.textContent = `API登录失败: ${error.message}`;
+                alert(`API登录失败: ${error.message}`);
+            } finally {
+                apiLoginBtn.disabled = false;
+                apiLoginBtn.innerHTML = originalBtnHTML;
+            }
+        }
+
+        // ===== 处理平台登录 =====
+        async function handlePlatformLogin() {
+            const platformName = document.getElementById('platform-name').value.trim();
+            const platformUserId = document.getElementById('platform-user-id').value.trim();
+
+            if (!platformName || !platformUserId) {
+                alert('请输入平台名称和平台用户ID！');
+                return;
+            }
+
+            const platformLoginBtn = document.getElementById('platform-login-btn');
+            const originalBtnHTML = platformLoginBtn.innerHTML;
+            platformLoginBtn.disabled = true;
+            platformLoginBtn.textContent = '登录中...';
+
+            statusText.textContent = '正在验证平台凭证...';
+
+            try {
+                // 构建平台登录请求体
+                const requestBody = {
+                    "data_source": "external",
+                    "platform": platformName,
+                    "platform_id": platformUserId
+                };
+
+                const response = await fetch(`${BACKEND_URL}/get/cloud/saves`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const responseData = await response.json();
+
+                if (response.ok && responseData.code === 200) {
+                    // 验证成功，保存联合查分凭证
+                    const authCredentials = {
+                        authMethod: 'platform',
+                        platform: platformName,
+                        platform_id: platformUserId
+                    };
+                    localStorage.setItem('phigrosAuthCredentials', JSON.stringify(authCredentials));
+
+                    clearInterval(pollingInterval); // 停止二维码轮询
+                    statusText.textContent = '平台登录成功！';
+
+                    // 直接使用验证时返回的数据更新UI
+                    if (responseData.data && responseData.data.nickname) {
+                        const nickname = responseData.data.nickname;
+                        document.getElementById('user-nickname').textContent = nickname;
+                        localStorage.setItem('userNickname', nickname);
+                    }
+
+                    showImageSection();
+                } else {
+                    // 验证失败
+                    throw new Error(responseData.message || '平台登录失败。');
+                }
+            } catch (error) {
+                console.error('平台登录验证失败:', error);
+                statusText.textContent = `平台登录失败: ${error.message}`;
+                alert(`平台登录失败: ${error.message}`);
+            } finally {
+                platformLoginBtn.disabled = false;
+                platformLoginBtn.innerHTML = originalBtnHTML;
+            }
+        }
+
         // ===== 生成单曲成绩图片 =====
         async function generateSongImage() {
             const keyword = document.getElementById('song-keyword').value.trim();
@@ -2030,12 +2740,17 @@ sczr0710@163.com
             resultContainer.innerHTML = ''; // 清空右侧结果
 
             try {
+                const requestBody = buildAuthRequestBody();
+                if (!requestBody) {
+                    throw new Error('无法构建授权请求体，请重新登录');
+                }
+
                 const response = await fetch(`${BACKEND_URL}/image/song?q=${encodeURIComponent(keyword)}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ token: sessionToken })
+                    body: JSON.stringify(requestBody)
                 });
 
                 if (!response.ok) {
@@ -2064,7 +2779,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：显示文字版RKS列表 =====
+        // ===== 显示文字版RKS列表 =====
         async function showRksList() {
             const n = nValueInput.value;
             if (!n || n < 1) {
@@ -2079,13 +2794,18 @@ sczr0710@163.com
 
 
             try {
-                // 使用与图片生成相同的Token去获取所有成绩
+                // 使用统一的请求体构建函数
+                const requestBody = buildAuthRequestBody();
+                if (!requestBody) {
+                    throw new Error('无法构建授权请求体，请重新登录');
+                }
+
                 const response = await fetch(`${BACKEND_URL}/rks`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ token: sessionToken })
+                    body: JSON.stringify(requestBody)
                 });
 
                 if (!response.ok) {
@@ -2136,7 +2856,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：在模态框中显示图片 =====
+        // ===== 在模态框中显示图片 =====
         function showImageInModal(imageUrl, fileName) {
             const modal = document.getElementById('image-display-modal');
             const modalContent = document.getElementById('image-modal-content');
@@ -2181,7 +2901,7 @@ sczr0710@163.com
             });
         }
 
-        // ===== 新增函数：渲染新曲速递信息 =====
+        // ===== 渲染新曲速递信息 =====
         function renderSongUpdateInfo() {
             const container = document.getElementById('song-update-info');
             if (!container) return;
@@ -2231,7 +2951,7 @@ sczr0710@163.com
             container.innerHTML = htmlContent;
         }
 
-        // ===== 新增函数：获取统计数据 =====
+        // ===== 获取统计数据 =====
         async function fetchStatsData() {
             try {
                 const response = await fetch(`${BACKEND_URL}/image/stats`, { method: 'GET' });
@@ -2246,7 +2966,7 @@ sczr0710@163.com
             }
         }
 
-        // ===== 新增函数：渲染统计数据 =====
+        // ===== 渲染统计数据 =====
         async function renderStatsData() {
             const statsContainer = document.getElementById('stats-container');
             if (!statsContainer) return;
@@ -2284,7 +3004,7 @@ sczr0710@163.com
             statsContainer.innerHTML = statsHtml;
         }
 
-        // Session Token 功能 (from index.html)
+        // Session Token 功能
         function setupSessionToken() {
             const tokenContainer = document.getElementById('session-token-container');
             if (!tokenContainer) return; // Exit if container not found
@@ -2325,6 +3045,222 @@ sczr0710@163.com
                     modal.style.display = 'none';
                 }
             });
+        }
+
+        // ===== 玩家成绩渲染功能 =====
+        let scoresList = [];
+
+        // 初始化玩家成绩渲染
+        function initializePlayerScoreRender() {
+            const savedPlayerName = localStorage.getItem('playerScoreRender_playerName');
+            const savedScores = localStorage.getItem('playerScoreRender_scores');
+
+            if (savedPlayerName) {
+                document.getElementById('player-name').value = savedPlayerName;
+            }
+
+            if (savedScores) {
+                scoresList = JSON.parse(savedScores);
+                updateScoresDisplay();
+            }
+        }
+
+        // 保存数据到 localStorage
+        function saveScoresToLocalStorage() {
+            const playerName = document.getElementById('player-name').value.trim();
+            localStorage.setItem('playerScoreRender_playerName', playerName);
+            localStorage.setItem('playerScoreRender_scores', JSON.stringify(scoresList));
+        }
+
+        // 添加成绩
+        function addScore() {
+            const songName = document.getElementById('song-name').value.trim();
+            const songScore = parseInt(document.getElementById('song-score').value);
+            const songAcc = parseFloat(document.getElementById('song-acc').value);
+            const songDifficulty = document.getElementById('song-difficulty').value;
+
+            // 验证输入
+            if (!songName) {
+                alert('请输入歌曲名称');
+                return;
+            }
+            
+            if (isNaN(songScore) || songScore < 0 || songScore > 1000000) {
+                alert('请输入有效的分数 (0-1000000)');
+                return;
+            }
+            
+            if (isNaN(songAcc) || songAcc < 0 || songAcc > 100) {
+                alert('请输入有效的ACC (0-100)');
+                return;
+            }
+            
+            // 检查是否已达到36个成绩的限制
+            if (scoresList.length >= 36) {
+                alert('最多只能添加36个成绩');
+                return;
+            }
+
+            // 添加成绩到列表
+            scoresList.push({
+                song_name: songName,
+                score: songScore,
+                acc: songAcc,
+                difficulty: songDifficulty
+            });
+
+            // 更新UI
+            updateScoresDisplay();
+            saveScoresToLocalStorage();
+            
+            // 清空输入框
+            document.getElementById('song-name').value = '';
+            document.getElementById('song-score').value = '';
+            document.getElementById('song-acc').value = '';
+            document.getElementById('song-difficulty').value = 'EZ';
+            
+            // 聚焦到歌曲名称输入框
+            document.getElementById('song-name').focus();
+        }
+
+        // 删除成绩
+        function removeScore(index) {
+            scoresList.splice(index, 1);
+            updateScoresDisplay();
+            saveScoresToLocalStorage();
+        }
+
+        // 清空所有成绩
+        function clearScores() {
+            if (scoresList.length === 0) {
+                return; // 如果没有成绩，则直接返回
+            }
+            
+            if (confirm('确定要清空所有成绩吗？')) {
+                scoresList = [];
+                updateScoresDisplay();
+                saveScoresToLocalStorage();
+            }
+        }
+
+        // 更新成绩显示
+        function updateScoresDisplay() {
+            const scoresContainer = document.getElementById('scores-container');
+            const noScoresMessage = document.getElementById('no-scores-message');
+            const scoreCount = document.getElementById('score-count');
+
+            // 更新计数显示
+            scoreCount.textContent = `${scoresList.length}/36`;
+
+            // 清空现有列表，除了“暂无成绩”提示
+            const scoreElements = scoresContainer.querySelectorAll('.score-item');
+            scoreElements.forEach(element => element.remove());
+
+            if (scoresList.length === 0) {
+                noScoresMessage.style.display = 'flex';
+                noScoresMessage.style.flexDirection = 'column';
+                noScoresMessage.style.justifyContent = 'center';
+                noScoresMessage.style.alignItems = 'center';
+                noScoresMessage.style.height = '100%';
+                noScoresMessage.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16" style="color: #ccc; margin-bottom: 1rem;">
+                        <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
+                        <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
+                        <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
+                        <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                    <span>请在左侧添加你的成绩</span>
+                `;
+            } else {
+                noScoresMessage.style.display = 'none';
+                // 仅添加成绩项
+                scoresList.forEach((score, index) => {
+                    const scoreElement = document.createElement('div');
+                    scoreElement.className = 'score-item';
+                    scoreElement.innerHTML = `
+                        <div style="flex-grow: 1;">
+                            <div><strong>${score.song_name}</strong> [${score.difficulty}]</div>
+                            <div style="font-size: 0.9em; color: var(--muted-text-color);">分数: ${score.score} | ACC: ${score.acc}%</div>
+                        </div>
+                        <button onclick="removeScore(${index})" style="background-color: var(--error-color); color: white; border: none; border-radius: 4px; padding: 0.25rem 0.5rem; cursor: pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" style="pointer-events: none;">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.82 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </button>
+                    `;
+                    scoresContainer.appendChild(scoreElement);
+                });
+            }
+        }
+
+        // 渲染成绩（发送POST请求）
+        async function renderScores() {
+            const playerName = document.getElementById('player-name').value.trim();
+            
+            if (!playerName) {
+                alert('请输入玩家姓名');
+                return;
+            }
+            
+            if (scoresList.length === 0) {
+                alert('请至少添加一个成绩');
+                return;
+            }
+
+            // 构建请求数据
+            const requestData = {
+                player_name: playerName,
+                scores: scoresList
+            };
+
+            // 显示加载状态
+            const renderBtn = document.getElementById('render-scores-btn');
+            const originalBtnHTML = renderBtn.innerHTML;
+            renderBtn.disabled = true;
+            renderBtn.textContent = '渲染中...';
+            
+            const leftLoader = document.getElementById('left-panel-loader');
+            leftLoader.innerHTML = '<div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            leftLoader.style.display = 'flex';
+            resultContainer.innerHTML = ''; // 清空右侧结果
+
+            try {
+                // 发送POST请求
+                const response = await fetch(`${BACKEND_URL}/image/bn/user-generated`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    if (response.headers.get('Content-Type')?.includes('application/json')) {
+                        const errData = await response.json();
+                        throw new Error(errData.message || `请求失败，状态码: ${response.status}`);
+                    } else {
+                        throw new Error(`服务器错误，状态码: ${response.status}`);
+                    }
+                }
+
+                // 处理响应（假设返回的是图片）
+                const imageBlob = await response.blob();
+                const imageUrl = URL.createObjectURL(imageBlob);
+                const fileName = `phigros_scores_${playerName}.png`;
+                showImageInModal(imageUrl, fileName);
+
+            } catch (error) {
+                console.error('渲染成绩失败:', error);
+                alert(`错误: ${error.message}`);
+                resultContainer.innerHTML = '';
+            } finally {
+                renderBtn.disabled = false;
+                renderBtn.innerHTML = originalBtnHTML;
+                const leftLoader = document.getElementById('left-panel-loader');
+                leftLoader.style.display = 'none';
+                leftLoader.innerHTML = '';
+            }
         }
     </script>
 
