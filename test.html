@@ -1859,6 +1859,85 @@
             }
         }
 
+        function getImageExtension(contentType) {
+            if (!contentType) {
+                return 'png';
+            }
+            if (contentType.includes('image/svg+xml')) {
+                return 'svg';
+            }
+            if (contentType.includes('image/jpeg')) {
+                return 'jpg';
+            }
+            if (contentType.includes('image/webp')) {
+                return 'webp';
+            }
+            if (contentType.includes('image/png')) {
+                return 'png';
+            }
+            return 'png';
+        }
+
+        async function readImageResponse(response, baseFileName) {
+            const contentType = response.headers.get('Content-Type') || '';
+            const extension = getImageExtension(contentType);
+            const fileName = `${baseFileName}.${extension}`;
+
+            if (contentType.includes('image/svg+xml')) {
+                const svgText = await response.text();
+                const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
+                const imageUrl = URL.createObjectURL(svgBlob);
+                return { imageUrl, fileName, svgText, imageBlob: null };
+            }
+
+            const imageBlob = await response.blob();
+            const imageUrl = URL.createObjectURL(imageBlob);
+            return { imageUrl, fileName, svgText: null, imageBlob };
+        }
+
+        function triggerDownload(url, fileName) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            link.click();
+        }
+
+        async function renderSvgToPngBlob(svgText) {
+            const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
+            const svgUrl = URL.createObjectURL(svgBlob);
+            const image = new Image();
+            image.decoding = 'async';
+            image.src = svgUrl;
+
+            await new Promise((resolve, reject) => {
+                image.onload = resolve;
+                image.onerror = reject;
+            });
+
+            const width = image.naturalWidth;
+            const height = image.naturalHeight;
+            URL.revokeObjectURL(svgUrl);
+
+            if (!width || !height) {
+                throw new Error('SVG缺少尺寸，无法本地渲染');
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                throw new Error('无法创建画布上下文');
+            }
+            ctx.drawImage(image, 0, 0);
+
+            const pngBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+            if (!pngBlob) {
+                throw new Error('本地渲染失败');
+            }
+            return pngBlob;
+        }
+
         // 用户协议文本 (使用模板字符串 `` 可以保留换行)
         const agreementText = `### 「塔弦」空间站 - Phigros 成绩查询与图片生成器 用户协议
 
@@ -2423,18 +2502,13 @@ xtower@xtower.site
                     throw new Error(errorMessage);
                 }
 
-                const imageBlob = await response.blob();
-                const imageUrl = URL.createObjectURL(imageBlob);
-                const fileName = `phigros_b${n}_result.png`;
-                showImageInModal(imageUrl, fileName);
+                const imageResult = await readImageResponse(response, `phigros_b${n}_result`);
+                showImageInModal(imageResult.imageUrl, imageResult.fileName, { svgText: imageResult.svgText });
 
                 // 检查是否需要自动保存
                 const autoSaveCheckbox = document.getElementById('auto-save-checkbox');
                 if (autoSaveCheckbox.checked) {
-                    const saveLink = document.createElement('a');
-                    saveLink.href = imageUrl;
-                    saveLink.download = fileName;
-                    saveLink.click();
+                    triggerDownload(imageResult.imageUrl, imageResult.fileName);
                 }
 
             } catch (error) {
@@ -2798,10 +2872,8 @@ xtower@xtower.site
                     throw new Error(errorMessage);
                 }
 
-                const imageBlob = await response.blob();
-                const imageUrl = URL.createObjectURL(imageBlob);
-                const fileName = `phigros_song_${keyword}.png`;
-                showImageInModal(imageUrl, fileName);
+                const imageResult = await readImageResponse(response, `phigros_song_${keyword}`);
+                showImageInModal(imageResult.imageUrl, imageResult.fileName, { svgText: imageResult.svgText });
 
             } catch (error) {
                 console.error('生成单曲图片失败:', error);
@@ -2941,10 +3013,11 @@ xtower@xtower.site
         }
 
         // ===== 在模态框中显示图片 =====
-        function showImageInModal(imageUrl, fileName) {
+        function showImageInModal(imageUrl, fileName, options = {}) {
             const modal = document.getElementById('image-display-modal');
             const modalContent = document.getElementById('image-modal-content');
             const modalFooter = document.getElementById('image-modal-footer');
+            const svgText = options.svgText || null;
 
             // 1. 清空并填充内容
             modalContent.innerHTML = `<img src="${imageUrl}" alt="${fileName}">`;
@@ -2963,7 +3036,32 @@ xtower@xtower.site
             </button>`;
             modalFooter.appendChild(saveLink);
 
-            // 3. 创建关闭按钮
+            // 3. SVG 本地渲染按钮
+            if (svgText) {
+                const renderBtn = document.createElement('button');
+                renderBtn.textContent = '本地渲染为PNG';
+                renderBtn.className = 'btn-secondary';
+                renderBtn.onclick = async () => {
+                    renderBtn.disabled = true;
+                    const originalText = renderBtn.textContent;
+                    renderBtn.textContent = '渲染中...';
+                    try {
+                        const pngBlob = await renderSvgToPngBlob(svgText);
+                        const pngUrl = URL.createObjectURL(pngBlob);
+                        const pngFileName = fileName.replace(/\.svg$/i, '.png');
+                        triggerDownload(pngUrl, pngFileName);
+                        setTimeout(() => URL.revokeObjectURL(pngUrl), 1000);
+                    } catch (error) {
+                        alert(`本地渲染失败: ${error.message}`);
+                    } finally {
+                        renderBtn.disabled = false;
+                        renderBtn.textContent = originalText;
+                    }
+                };
+                modalFooter.appendChild(renderBtn);
+            }
+
+            // 4. 创建关闭按钮
             const closeBtn = document.createElement('button');
             closeBtn.textContent = '关闭';
             closeBtn.className = 'btn-secondary';
@@ -2974,10 +3072,10 @@ xtower@xtower.site
             };
             modalFooter.appendChild(closeBtn);
 
-            // 4. 显示模态框
+            // 5. 显示模态框
             modal.style.display = 'flex';
 
-            // 5. 点击模态框外部也可以关闭
+            // 6. 点击模态框外部也可以关闭
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     closeBtn.click(); // 触发关闭按钮的点击事件
@@ -3344,10 +3442,8 @@ xtower@xtower.site
                 }
 
                 // 处理响应（假设返回的是图片）
-                const imageBlob = await response.blob();
-                const imageUrl = URL.createObjectURL(imageBlob);
-                const fileName = `phigros_scores_${playerName}.png`;
-                showImageInModal(imageUrl, fileName);
+                const imageResult = await readImageResponse(response, `phigros_scores_${playerName}`);
+                showImageInModal(imageResult.imageUrl, imageResult.fileName, { svgText: imageResult.svgText });
 
             } catch (error) {
                 console.error('渲染成绩失败:', error);
